@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift="http://liftweb.net/">
+
+<head>
+    <lift:CSS.blueprint />
+    <lift:CSS.fancyType />
+    <script id="jquery" src="/classpath/jquery.js" type="text/javascript" />
+
+    <title>
+        Scaldi -
+        <lift:bind name="title" />
+    </title>
+</head>
+
+<body id="top">
+    <h1><lift:bind name="title" /></h1>
+
+    <p>
+        <h2>Navigation</h2>
+        <lift:Menu.builder />
+    </p>
+
+    <lift:msgs />
+    <lift:bind name="content" />
+</body>
+</html>
