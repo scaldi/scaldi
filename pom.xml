@@ -11,8 +11,18 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Scaldi - Scala Dependency Injection Famework</name>
+    <name>Scaldi - Scala Dependency Injection Framework</name>
+                                                 
+    <scm>
+        <connection>scm:git:git://github.com/OlegIlyenko/scaldi.git</connection>
+        <developerConnection>scm:git:git@github.com:OlegIlyenko/scaldi.git</developerConnection>
+        <url>http://github.com/OlegIlyenko/scaldi/tree/master</url>
+    </scm>
 
+    <issueManagement>
+        <system>Github</system>
+        <url>http://github.com/OlegIlyenko/scaldi/issues</url>
+    </issueManagement>
 
     <modules>
         <module>scaldi-core</module>
@@ -31,28 +41,6 @@
 
         <maven.scaladoc.vscaladocVersion>1.2-SNAPSHOT</maven.scaladoc.vscaladocVersion>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>scala-tools.releases</id>
-            <name>Scala-Tools Dependencies Repository for Releases</name>
-            <url>http://scala-tools.org/repo-releases</url>
-        </repository>
-        <repository>
-            <id>scala-tools.snapshots</id>
-            <name>Scala-Tools Dependencies Repository for Snapshots</name>
-            <url>http://scala-tools.org/repo-snapshots</url>
-            <snapshots />
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>scala-tools.releases</id>
-            <name>Scala-Tools Plugins Repository for Releases</name>
-            <url>http://scala-tools.org/repo-releases</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
@@ -151,15 +139,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.scala-tools</groupId>
                 <artifactId>maven-scala-plugin</artifactId>
                 <executions>
@@ -173,4 +152,40 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>angelsmasterpiece-maven-repo</id>
+            <url>${angelsmasterpiece.repo}</url>
+            <uniqueVersion>true</uniqueVersion>
+        </repository>
+
+        <site>
+            <id>angelsmasterpiece-site-repo</id>
+            <url>${angelsmasterpiece.site-repo}</url>
+        </site>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>scala-tools.releases</id>
+            <name>Scala-Tools Dependencies Repository for Releases</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </repository>
+        <repository>
+            <id>scala-tools.snapshots</id>
+            <name>Scala-Tools Dependencies Repository for Snapshots</name>
+            <url>http://scala-tools.org/repo-snapshots</url>
+            <snapshots />
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>scala-tools.releases</id>
+            <name>Scala-Tools Plugins Repository for Releases</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </pluginRepository>
+    </pluginRepositories>
+
 </project>
