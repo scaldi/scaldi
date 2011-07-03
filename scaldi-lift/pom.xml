@@ -14,7 +14,12 @@
     <artifactId>scaldi-lift</artifactId>
     <packaging>jar</packaging>
 
-    <name>Scaldi Lift</name>
+    <name>Scaldi Lift Integration</name>
+
+    <properties>
+        <lift.version>2.4-M2</lift.version>
+        <lift.artifactId>lift-webkit_2.9.0</lift.artifactId>
+    </properties>
 
     <dependencies>
 
@@ -25,7 +30,8 @@
 
         <dependency>
             <groupId>net.liftweb</groupId>
-            <artifactId>lift-webkit</artifactId>
+            <artifactId>${lift.artifactId}</artifactId>
+            <version>${lift.version}</version>
         </dependency>
 
     </dependencies>

@@ -23,6 +23,14 @@
             <artifactId>scaldi-core</artifactId>
         </dependency>
 
+        <!-- Essentials -->
+
+        <dependency>
+            <groupId>org.angelsmasterpiece</groupId>
+            <artifactId>scala-essentials</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 </project>

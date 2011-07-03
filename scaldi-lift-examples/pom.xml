@@ -28,13 +28,6 @@
             <artifactId>scaldi-core-examples</artifactId>
         </dependency>
 
-        <!-- Lift -->
-
-        <dependency>
-            <groupId>net.liftweb</groupId>
-            <artifactId>lift-webkit</artifactId>
-        </dependency>
-
         <!-- Other stuff -->
 
         <dependency>

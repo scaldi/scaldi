@@ -26,20 +26,19 @@
 
     <modules>
         <module>scaldi-core</module>
-        <module>scaldi-core-examples</module>
-        <module>scaldi-lift</module>
-        <module>scaldi-lift-examples</module>
+        <!--<module>scaldi-core-examples</module>-->
+        <!--<module>scaldi-lift</module>-->
+        <!--<module>scaldi-lift-examples</module>-->
     </modules>
 
     <properties>
-        <scala.version>2.8.0.Beta1</scala.version>
-        <scalatest.version>1.0.1-for-scala-2.8.0.Beta1-RC7-with-test-interfaces-0.3-SNAPSHOT</scalatest.version>
-        <lift.version>2.0-scala280-SNAPSHOT</lift.version>
+        <scala.version>2.9.0</scala.version>
+
+        <scalatest.version>1.6.1</scalatest.version>
+        <scalatest.artifactId>scalatest_2.9.0</scalatest.artifactId>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <maven.scaladoc.vscaladocVersion>1.2-SNAPSHOT</maven.scaladoc.vscaladocVersion>
     </properties>
 
     <dependencyManagement>
@@ -66,14 +65,6 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>scaldi-lift-examples</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <!-- Lift -->
-
-            <dependency>
-                <groupId>net.liftweb</groupId>
-                <artifactId>lift-webkit</artifactId>
-                <version>${lift.version}</version>
             </dependency>
 
             <!-- Other stuff -->
@@ -107,7 +98,7 @@
 
         <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest</artifactId>
+            <artifactId>${scalatest.artifactId}</artifactId>
             <version>${scalatest.version}</version>
             <scope>test</scope>
         </dependency>
@@ -124,14 +115,6 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-compiler</artifactId>
             <version>${scala.version}</version>
-        </dependency>
-
-        <!-- Essentials -->
-
-        <dependency>
-            <groupId>org.angelsmasterpiece</groupId>
-            <artifactId>scala-essentials</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

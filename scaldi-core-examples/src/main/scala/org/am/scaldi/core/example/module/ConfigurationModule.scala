@@ -1,9 +1,9 @@
 package org.am.scaldi.core.example.module
 
 import org.am.scaldi.core.Module
-import org.angelsmasterpiece.scala.essentials.option._
-import org.angelsmasterpiece.scala.essentials.config._
-import org.angelsmasterpiece.scala.essentials.helper.Conversions._
+import org.am.scala.essentials.option._
+import org.am.scala.essentials.config._
+import org.am.scala.essentials.helper.Conversions._
 
 /**
  *

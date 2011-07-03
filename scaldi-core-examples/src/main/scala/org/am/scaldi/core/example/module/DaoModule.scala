@@ -3,7 +3,7 @@ package org.am.scaldi.core.example.module
 import org.am.scaldi.core.example.model.User
 import org.am.scaldi.core.example.dao.{DatabaseArticleDao, UserDaoImpl}
 import org.am.scaldi.core.Module
-import org.angelsmasterpiece.scala.essentials.config.Configuration
+import org.am.scala.essentials.config.Configuration
 
 
 /**

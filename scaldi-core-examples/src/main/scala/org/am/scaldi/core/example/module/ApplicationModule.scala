@@ -1,8 +1,8 @@
 package org.am.scaldi.core.example.module
 
 import org.am.scaldi.core.Module
-import org.angelsmasterpiece.scala.essentials.option.{Argument, FlagArgument, CommandLine}
-import org.angelsmasterpiece.scala.essentials.config.{SystemConfigurationSource, CommandLineConfigurationSource, AggregatingConfigurationSource}
+import org.am.scala.essentials.option.{Argument, FlagArgument, CommandLine}
+import org.am.scala.essentials.config.{SystemConfigurationSource, CommandLineConfigurationSource, AggregatingConfigurationSource}
 
 /**
  * 
