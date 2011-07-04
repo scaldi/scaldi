@@ -8,7 +8,7 @@ trait Binding {
 }
 
 case class NonLazyBinding(private val createFn: Option[() => Any], identifiers: List[Identifier] = Nil) extends Binding {
-  val target = createFn map (_())
+  lazy val target = createFn map (_())
   def get = target
 }
 

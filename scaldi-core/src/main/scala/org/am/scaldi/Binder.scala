@@ -7,6 +7,8 @@ import java.lang.reflect.InvocationTargetException
 trait WordBinder {
   private var bindingsInProgress: List[BindHelper] = Nil
   private var bindings: List[BoundHelper] = Nil
+  private var _lazyWordBindings: Option[List[Binding]] = None
+  private var _wordBindings: Option[List[Binding]] = None
 
   def binding = {
     val helper = new BindHelper({ (bind, bound) =>
@@ -19,16 +21,23 @@ trait WordBinder {
 
   def bind[T : Manifest] = binding identifiedBy manifest[T].erasure
 
-  lazy val wordBindings: List[Binding] = {
-    if (bindingsInProgress nonEmpty) {
-      throw new BindingException(
-          bindingsInProgress
-              .map(b => "\tBinding with identifiers: " + (b.identifiers mkString ", "))
-              .mkString("Following bindings are not bound to anything (please use 'to', 'toProvider' or 'toNonLazy']):\n","\n", "")
-      )
-    }
+  def wordBindings: List[Binding] = {
+    _wordBindings orElse _lazyWordBindings getOrElse {
+      if (bindingsInProgress nonEmpty) {
+        throw new BindingException(
+            bindingsInProgress
+                .map(b => "\tBinding with identifiers: " + (b.identifiers mkString ", "))
+                .mkString("Following bindings are not bound to anything (please use 'to', 'toProvider' or 'toNonLazy']):\n","\n", "")
+        )
+      }
 
-    bindings map (_ getBinding) reverse
+      val allBindings = bindings.map(_ getBinding).reverse
+      _lazyWordBindings = Some(allBindings.filterNot(_.isInstanceOf[NonLazyBinding]))
+      allBindings.collect{case NonLazyBinding(fn, _) => fn}.foreach(fn => fn.foreach(_()));
+      _wordBindings = Some(allBindings)
+
+      allBindings
+    }
   }
 }
 
