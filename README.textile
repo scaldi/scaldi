@@ -19,7 +19,7 @@ In order to use *Scaldi* withing Maven2 project you should add one new repositor
         <repository>
             <id>angelsmasterpiece-repo</id>
             <name>Angel's Masterpiece Maven 2 Repository</name>
-            <url>http://github.com/OlegIlyenko/angelsmasterpiece-maven-repo/raw/master</url>
+            <url>https://raw.github.com/OlegIlyenko/angelsmasterpiece-maven-repo/master</url>
         </repository>
     </repositories>
 </code></pre>
