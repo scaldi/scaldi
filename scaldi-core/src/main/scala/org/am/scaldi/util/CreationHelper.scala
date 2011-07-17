@@ -1,7 +1,7 @@
 package org.am.scaldi.util
 
 trait CreationHelper {
-  implicit def anyToCreationHelper[T](obj: T) = new CreationWrapper(obj)
+  implicit def anyToCreationWrapper[T](obj: T) = new CreationWrapper(obj)
 
   class CreationWrapper[T](obj: T) {
     def ~(fn: T => Unit) = pass(fn)

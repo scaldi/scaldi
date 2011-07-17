@@ -12,22 +12,25 @@ import java.io.{InputStream, FileInputStream, File}
  *
  * @author Oleg Ilyenko
  */
-trait Module extends ReflectionBinder with WordBinder with Injector with Injectable with MutableInjectorUser with CreationHelper {
-  def getBinding(identifiers: List[Identifier]) =
-    wordBindings find (_ hasIdentifiers identifiers) orElse discoverBinding(identifiers)
+trait Module extends ReflectionBinder with WordBinder with InitializeableInjector[Module] with Injectable with MutableInjectorUser with CreationHelper {
+  def getBindingInternal(identifiers: List[Identifier]) =
+       wordBindings find (_ hasIdentifiers identifiers) orElse discoverBinding(identifiers)
+
+  protected def init() = initiNonLazyWordBindings()
 }
 
 trait StaticModule extends ReflectionBinder with Injector with Injectable with CreationHelper {
   def getBinding(identifiers: List[Identifier]) = discoverBinding(identifiers)
 }
 
-class DynamicModule extends WordBinder with Injector with OpenInjectable with MutableInjectorUser with CreationHelper {
-  def getBinding(identifiers: List[Identifier]) = wordBindings find (_ hasIdentifiers identifiers)
+class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule] with OpenInjectable with MutableInjectorUser with CreationHelper {
+  def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ hasIdentifiers identifiers)
+  protected def init() = initiNonLazyWordBindings()
 }
 
 object DynamicModule {
   def apply(initBindingsFn: DynamicModule => Unit): Injector = new DynamicModule ~ initBindingsFn
-  def apply(args: Array[String]): Injector = apply(_.bind [Array[String]] identifiedBy 'args toNonLazy args)
+  def apply(args: Array[String]): Injector = apply(m => m.bind [Array[String]] identifiedBy 'args toNonLazy args)
 }
 
 object NilInjector extends Injector {

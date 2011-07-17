@@ -18,6 +18,6 @@ case class LazyBinding(private val createFn: Option[() => Any], identifiers: Lis
 }
 
 case class ProviderBinding(private val createFn: () => Any, identifiers: List[Identifier] = Nil) extends Binding {
-  def target = createFn ()
+  def target = createFn()
   def get = Some(target)
 }

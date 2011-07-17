@@ -140,7 +140,7 @@
         <repository>
             <id>angelsmasterpiece-maven-repo</id>
             <url>${angelsmasterpiece.repo}</url>
-            <uniqueVersion>true</uniqueVersion>
+            <uniqueVersion>false</uniqueVersion>
         </repository>
 
         <site>
