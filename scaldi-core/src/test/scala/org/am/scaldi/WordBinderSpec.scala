@@ -23,7 +23,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       }
 
       binder.wordBindings should have size (4)
-      binder.wordBindings foreach (_.hasIdentifiers(List(classOf[String], "host", "httpServer")))
+      binder.wordBindings foreach (_.hasIdentifiers(List(classOf[String], "host", "httpServer")) should be (true))
     }
 
     "infer binding type only when it's not specified" in {
@@ -88,4 +88,8 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       instanceCount should be (10)
     }
   }
+
+  trait Server
+
+  case class HttpServer(host: String, port: Int) extends Server
 }
