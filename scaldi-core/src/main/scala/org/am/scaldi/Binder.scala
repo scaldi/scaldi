@@ -1,12 +1,23 @@
 package org.am.scaldi
 
-import org.am.scaldi.util.ReflectionHelper._
 import org.am.scaldi.util.Util._
-import java.lang.reflect.InvocationTargetException
+import java.lang.reflect.{Method, InvocationTargetException}
 
 trait WordBinder {
   private var bindingsInProgress: List[BindHelper] = Nil
   private var bindings: List[BoundHelper] = Nil
+
+  lazy val wordBindings: List[Binding] = {
+    if (bindingsInProgress nonEmpty) {
+      throw new BindingException(
+          bindingsInProgress
+              .map(b => "\tBinding with identifiers: " + (b.identifiers mkString ", "))
+              .mkString("Following bindings are not bound to anything (please use 'to', 'toProvider' or 'toNonLazy']):\n","\n", "")
+      )
+    }
+
+    bindings.map(_ getBinding).reverse
+  }
 
   def binding = {
     val helper = new BindHelper({ (bind, bound) =>
@@ -21,18 +32,6 @@ trait WordBinder {
 
   protected def initiNonLazyWordBindings(): () => Unit = wordBindings |>
       (b => () => b.collect{case binding @ NonLazyBinding(_, _) => binding}.foreach(_.get))
-
-  lazy val wordBindings: List[Binding] = {
-    if (bindingsInProgress nonEmpty) {
-      throw new BindingException(
-          bindingsInProgress
-              .map(b => "\tBinding with identifiers: " + (b.identifiers mkString ", "))
-              .mkString("Following bindings are not bound to anything (please use 'to', 'toProvider' or 'toNonLazy']):\n","\n", "")
-      )
-    }
-
-    bindings.map(_ getBinding).reverse
-  }
 }
 
 trait CanBeIdentified[R] { this: R =>
@@ -86,30 +85,16 @@ class BoundHelper(
 }
 
 trait ReflectionBinder {
-  private var reflectiveBindingCache: List[Binding] = Nil
-
-  protected def discoverBinding(ids: List[Identifier]): Option[Binding] =
-    reflectiveBindingCache find (_ hasIdentifiers ids) orElse {
-      (ids match {
-        case ClassIdentifier(c) :: StringIdentifier(name)  :: Nil => discoverBinding(c, ids, Some(name))
-        case StringIdentifier(name) :: ClassIdentifier(c) :: Nil => discoverBinding(c, ids, Some(name))
-        case ClassIdentifier(c) :: Nil => discoverBinding(c, ids)
-        case _ => None
-      }) match {
-        case res @ Some(binding) =>
-          reflectiveBindingCache = reflectiveBindingCache :+ binding
-          res
-        case None => None
+  lazy val reflectiveBindings: List[Binding] = wrapReflection {
+    this.getClass.getMethods.toList.filter(_.getParameterTypes.length == 0).map { m =>
+      if (classOf[ReflectiveBidingDeclaration].isAssignableFrom(m.getReturnType)) {
+        val decl = m.invoke(this).asInstanceOf[ReflectiveBidingDeclaration]
+        ReflectiveBinding(() => decl.get, decl.identifiers(m.getName, m.getReturnType))
+      } else {
+        ReflectiveBinding(() => wrapReflection(Some(m.invoke(this))), List(m.getReturnType, m.getName))
       }
     }
-
-  private def discoverBinding(clazz: Class[_], ids: List[Identifier] = Nil, name: Option[String] = None): Option[Binding] =
-    wrapReflection {
-      this.getClass
-          .getMatchingMethod (name, clazz)
-          .map (m => ReflectiveBinding(() => wrapReflection(m.invoke(this)), ids))
-    }
-
+  }
 
   private def wrapReflection[T](fn: => T): T = {
     try {
@@ -122,9 +107,14 @@ trait ReflectionBinder {
     }
   }
 
-  case class ReflectiveBinding(fn: () => Any, identifiers: List[Identifier]) extends Binding {
-    def get = Some(fn())
+  case class ReflectiveBinding(fn: () => Option[Any], identifiers: List[Identifier]) extends Binding {
+    def get = fn()
   }
+}
+
+trait ReflectiveBidingDeclaration {
+  def identifiers(memberName: String, memberType: Class[_]): List[Identifier]
+  def get: Option[Any]
 }
 
 class BindingException(message: String, cause: Throwable) extends RuntimeException(message,cause) {

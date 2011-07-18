@@ -5,6 +5,7 @@ import sys._
 
 trait Injector {
   def getBinding(identifiers: List[Identifier]): Option[Binding]
+  def getBindings(identifiers: List[Identifier]): List[Binding]
 
   def compose(other: Injector): Injector = InjectorAggregation(List(this, other))
 
@@ -27,12 +28,14 @@ object InjectorAggregation {
 
 class ImmutableInjectorAggregation(chain: List[Injector]) extends Injector {
   def getBinding(identifiers: List[Identifier]) = chain.view.map(_ getBinding identifiers).collectFirst{case Some(b) => b}
+  def getBindings(identifiers: List[Identifier]) = chain.flatMap(_ getBindings identifiers)
 }
 
 class MutableInjectorAggregation(chain: List[Injector]) extends InitializeableInjector[MutableInjectorAggregation] with MutableInjectorUser {
   initInjector(this)
 
   def getBindingInternal(identifiers: List[Identifier]) = chain.view.map(_ getBinding identifiers).collectFirst{case Some(b) => b}
+  def getBindingsInternal(identifiers: List[Identifier]) = chain.flatMap(_ getBinding identifiers)
 
   override def injector_=(newParentInjector: Injector) {
     initInjector(newParentInjector)
@@ -40,7 +43,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InitializeableIn
   }
 
   protected def init() = {
-    val childInits: List[() => Unit] = chain.flatMap {
+    val childInits = chain.flatMap {
       case childInjector: InitializeableInjector[_] => Some(childInjector.partialInit())
       case _ => None
     }.flatten
@@ -90,8 +93,10 @@ trait Initializeable[I] { this: I =>
 
 trait InitializeableInjector[I <: InitializeableInjector[I]] extends Injector with Initializeable[I] { this: I =>
   def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_.getBindingInternal(identifiers))
+  def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_.getBindingsInternal(identifiers))
 
   def getBindingInternal(identifiers: List[Identifier]): Option[Binding]
+  def getBindingsInternal(identifiers: List[Identifier]): List[Binding]
 }
 
 trait Injectable {

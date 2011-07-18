@@ -13,18 +13,21 @@ import java.io.{InputStream, FileInputStream, File}
  * @author Oleg Ilyenko
  */
 trait Module extends ReflectionBinder with WordBinder with InitializeableInjector[Module] with Injectable with MutableInjectorUser with CreationHelper {
-  def getBindingInternal(identifiers: List[Identifier]) =
-       wordBindings find (_ hasIdentifiers identifiers) orElse discoverBinding(identifiers)
-
+  lazy val bindings = wordBindings ++ reflectiveBindings
+  def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ hasIdentifiers identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ hasIdentifiers identifiers)
   protected def init() = initiNonLazyWordBindings()
 }
 
 trait StaticModule extends ReflectionBinder with Injector with Injectable with CreationHelper {
-  def getBinding(identifiers: List[Identifier]) = discoverBinding(identifiers)
+  def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ hasIdentifiers identifiers)
+  def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ hasIdentifiers identifiers)
 }
 
 class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule] with OpenInjectable with MutableInjectorUser with CreationHelper {
   def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ hasIdentifiers identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ hasIdentifiers identifiers)
+
   protected def init() = initiNonLazyWordBindings()
 }
 
@@ -35,6 +38,7 @@ object DynamicModule {
 
 object NilInjector extends Injector {
   def getBinding(identifiers: List[Identifier]) = None
+  def getBindings(identifiers: List[Identifier]) = Nil
 }
 
 object SystemPropertiesInjector extends RawInjector {
@@ -58,6 +62,7 @@ trait RawInjector extends Injector {
   def getRawValue(name: String): Option[String]
 
   def getBinding(identifiers: List[Identifier]) = discoverBinding(identifiers)
+  def getBindings(identifiers: List[Identifier]) = discoverBinding(identifiers).toList
 
   protected def discoverBinding(ids: List[Identifier]): Option[Binding] =
     bindingCache find (_ hasIdentifiers ids) orElse {

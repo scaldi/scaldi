@@ -11,24 +11,26 @@ class ReflectionWrapper(clazz: Class[_]) {
     import ReflectionHelper._
 
     /**
-     * @returns method with provided name that satisfies provided conditions
+     * @returns first method with provided name that satisfies provided conditions
      */
     def getMatchingMethod(name: Option[String], returnType: Class[_], args: Class[_]*) =
       clazz.getMethods.find { method =>
         (name map (method.getName ==) getOrElse true) &&
-            returnType.isAssignableFrom(method.getReturnType) &&
-            method.getParameterTypes.length == args.length &&
-            !method.getParameterTypes.zipWithIndex.exists {case (cl, idx) => cl != args(idx)}
+        returnType.isAssignableFrom(method.getReturnType) &&
+        method.getParameterTypes.length == args.length &&
+        !method.getParameterTypes.zipWithIndex.exists {case (cl, idx) => cl != args(idx)}
       }
 
     /**
      * @returns all methods that satisfy provided conditions
      */
-    def getMatchingMethods(returnType: Class[_], args: Class[_]*) = clazz.getMethods.filter { method =>
-        returnType.isAssignableFrom(method.getReturnType) &&
-        method.getParameterTypes.length == args.length &&
-        !method.getParameterTypes.zipWithIndex.exists {case (cl, idx) => cl != args(idx)}
-    } toList
+    def getMatchingMethods(name: Option[String], returnType: Class[_], args: Class[_]*) =
+      clazz.getMethods.filter { method =>
+          (name map (method.getName ==) getOrElse true) &&
+          returnType.isAssignableFrom(method.getReturnType) &&
+          method.getParameterTypes.length == args.length &&
+          !method.getParameterTypes.zipWithIndex.exists {case (cl, idx) => cl != args(idx)}
+      } toList
 
     def getAnnotatedMethods(returnType: Class[_], args: Class[_]*) = clazz.getMethods.filter { method =>
         returnType.isAssignableFrom(method.getReturnType) &&

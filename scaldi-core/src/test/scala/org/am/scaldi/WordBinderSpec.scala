@@ -46,50 +46,70 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       binder.wordBindings(0) hasIdentifiers (List(classOf[HttpServer])) should be (false)
     }
 
+    "treat later bindings as overrieds for earlier and more that one binding od the same type" in {
+      val binder = new DynamicModule {
+        bind [Server] to new HttpServer("localhost", 80)
+        bind [Server] to new HttpServer("www.test.com", 8080)
+      }.initNonLazy()
+
+      binder.wordBindings should have size (2)
+      binder.getBinding(List(classOf[Server])).get.get should be === Some(HttpServer("www.test.com", 8080))
+
+      val bindings = binder.getBindings(List(classOf[Server]))
+      bindings should have size (2)
+      bindings(0).get should be === Some(HttpServer("www.test.com", 8080))
+      bindings(1).get should be === Some(HttpServer("localhost", 80))
+    }
+
     "allow to define normal lazy bingings that would be instantialted only one time" in {
       var instanceCount = 0
-      val binder = new WordBinder {
-        bind [Server] identifiedBy 'host and "httpServer" to {
+      val binder = new DynamicModule {
+        bind [Server] identifiedBy 'server and "httpServer" to {
           instanceCount  += 1
           new HttpServer("localhost", Random.nextInt())
         }
-      }
+
+        bind [Server] identifiedBy 'otherServer to HttpServer("test", 8080)
+      }.initNonLazy()
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.wordBindings(0).get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
       instanceCount should be (1)
+      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
     }
 
     "allow to define normal non-lazy bingings that would be instantialted only one time" in {
       var instanceCount = 0
-      val binder = new WordBinder {
-        bind [Server] identifiedBy 'host and "httpServer" toNonLazy {
+      val binder = new DynamicModule {
+        bind [Server] identifiedBy 'server and "httpServer" toNonLazy {
           instanceCount  += 1
           new HttpServer("localhost", Random.nextInt())
         }
-      }
 
-      instanceCount should be (0) // non-lazy binding will be initialized by Initializeable but not on it's own
-      (1 to 10).map(x => binder.wordBindings(0).get).distinct should have size (1)
+        bind [Server] identifiedBy 'otherServer toNonLazy HttpServer("test", 8080)
+      }.initNonLazy()
+
       instanceCount should be (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      instanceCount should be (1)
+      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
     }
 
     "allow to define provider bingings that would be instantialted each time" in {
       var instanceCount = 0
-      val binder = new WordBinder {
-        bind [Server] identifiedBy 'host and "httpServer" toProvider {
+      val binder = new DynamicModule {
+        bind [Server] identifiedBy 'server and "httpServer" toProvider {
           instanceCount  += 1
           new HttpServer("localhost", Random.nextInt())
         }
-      }
+
+        bind [Server] identifiedBy 'otherServer toProvider HttpServer("test", 8080)
+      }.initNonLazy()
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.wordBindings(0).get).distinct should have size (10)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (10)
       instanceCount should be (10)
+      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
     }
   }
-
-  trait Server
-
-  case class HttpServer(host: String, port: Int) extends Server
 }
