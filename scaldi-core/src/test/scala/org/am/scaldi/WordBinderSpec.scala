@@ -17,12 +17,14 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
     "collect all identifiers for bindings" in {
       val binder = new WordBinder {
         bind [String] identifiedBy 'host and "httpServer" to "localhost"
+        bind [String] as 'host and "httpServer" to "localhost"
         binding identifiedBy classOf[String] and 'host and "httpServer" to "localhost"
         bind [String] to "localhost" identifiedBy 'host and "httpServer"
+        bind [String] to "localhost" as 'host and "httpServer"
         binding to "localhost" identifiedBy classOf[String] and 'host and "httpServer"
       }
 
-      binder.wordBindings should have size (4)
+      binder.wordBindings should have size (6)
       binder.wordBindings foreach (_.hasIdentifiers(List(classOf[String], "host", "httpServer")) should be (true))
     }
 

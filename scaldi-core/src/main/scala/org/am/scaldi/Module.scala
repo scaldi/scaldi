@@ -14,8 +14,10 @@ import java.io.{InputStream, FileInputStream, File}
  */
 trait Module extends ReflectionBinder with WordBinder with InitializeableInjector[Module] with Injectable with MutableInjectorUser with CreationHelper {
   lazy val bindings = wordBindings ++ reflectiveBindings
+
   def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ hasIdentifiers identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ hasIdentifiers identifiers)
+
   protected def init() = initiNonLazyWordBindings()
 }
 
@@ -35,7 +37,10 @@ class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule
 
 object DynamicModule {
   def apply(initBindingsFn: DynamicModule => Unit): Injector = new DynamicModule ~ initBindingsFn
-  def apply(args: Array[String]): Injector = apply(m => m.bind [Array[String]] identifiedBy 'args toNonLazy args)
+}
+
+object Args {
+  def apply(args: Array[String]): Injector = DynamicModule(m => m.bind [Array[String]] identifiedBy 'args toNonLazy args)
 }
 
 object NilInjector extends Injector {
