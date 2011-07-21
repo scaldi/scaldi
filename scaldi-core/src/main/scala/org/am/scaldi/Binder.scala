@@ -4,7 +4,7 @@ import org.am.scaldi.util.Util._
 import java.lang.reflect.{Method, InvocationTargetException}
 
 trait WordBinder {
-  private var bindingsInProgress: List[BindHelper] = Nil
+  private var bindingsInProgress: List[BindHelper[_]] = Nil
   private var bindings: List[BoundHelper] = Nil
 
   lazy val wordBindings: List[Binding] = {
@@ -19,16 +19,18 @@ trait WordBinder {
     bindings.map(_ getBinding).reverse
   }
 
-  def binding = {
-    val helper = new BindHelper({ (bind, bound) =>
-      bindingsInProgress = bindingsInProgress - bind
+  def binding = createBinding[Any](None)
+  def bind[T : Manifest] = createBinding[T](Some(manifest[T].erasure))
+
+  private def createBinding[T](mainType: Option[Class[_]]) = {
+    val helper = new BindHelper[T]({ (bind, bound) =>
+      bindingsInProgress = bindingsInProgress filterNot (bind ==)
       bindings = bindings :+ bound
     })
     bindingsInProgress = bindingsInProgress :+ helper
+    mainType foreach (helper identifiedBy _)
     helper
   }
-
-  def bind[T : Manifest] = binding identifiedBy manifest[T].erasure
 
   protected def initiNonLazyWordBindings(): () => Unit = wordBindings |>
       (b => () => b.collect{case binding @ NonLazyBinding(_, _) => binding}.foreach(_.get))
@@ -42,22 +44,23 @@ trait CanBeIdentified[R] { this: R =>
     this
   }
 
+  def as(ids: Identifier*): R = identifiedBy(ids: _*)
+
   def and(ids: Identifier*): R = identifiedBy(ids: _*)
 }
 
-class BindHelper(onBound: (BindHelper, BoundHelper) => Unit) extends CanBeIdentified[BindHelper] {
+class BindHelper[R](onBound: (BindHelper[R], BoundHelper) => Unit) extends CanBeIdentified[BindHelper[R]] {
   var createFn: Option[Option[() => Any]] = None
 
   def to(none: None.type) = bindNone(LazyBinding(None, _))
-  def to[T : Manifest](fn: => T) = bind(LazyBinding(Some(() => fn), _))
-  def in[T : Manifest](fn: => T) = to(fn)
+  def to[T <: R : Manifest](fn: => T) = bind(LazyBinding(Some(() => fn), _))
+  def in[T <: R : Manifest](fn: => T) = to(fn)
 
-  def toNonLazy(none: None.type) = bindNone(NonLazyBinding(None, _))
-  def toNonLazy[T : Manifest](fn: => T) = bind(NonLazyBinding(Some(() => fn), _))
-  def inNonLazy[T : Manifest](fn: => T) = to(fn)
+  def toNonLazy[T <: R : Manifest](fn: => T) = bind(NonLazyBinding(Some(() => fn), _))
+  def inNonLazy[T <: R : Manifest](fn: => T) = to(fn)
 
-  def toProvider[T : Manifest](fn: => T) = bind(ProviderBinding(() => fn, _))
-  def inProvider[T : Manifest](fn: => T) = to(fn)
+  def toProvider[T <: R : Manifest](fn: => T) = bind(ProviderBinding(() => fn, _))
+  def inProvider[T <: R : Manifest](fn: => T) = to(fn)
 
   private def bind[T : Manifest](bindingFn: List[Identifier] => Binding) = {
     val bound = new BoundHelper(bindingFn, identifiers, Some(manifest[T].erasure))
