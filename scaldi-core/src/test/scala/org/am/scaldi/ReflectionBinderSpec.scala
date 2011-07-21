@@ -27,7 +27,7 @@ class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
       binder.getBinding(List("otherServer", classOf[HttpServer])).get.get should be === Some(HttpServer("test", 8080))
     }
 
-    "support ReflectiveBidingDeclaration ar return type of class members and treat it differently" in {
+    "support ReflectiveBidingDeclaration as return type of class members and treat it differently" in {
       case class Special[T: Manifest](fn: () => T) extends ReflectiveBidingDeclaration {
         def get = Some(fn())
         def identifiers(memberName: String, memberType: Class[_]) = List(manifest[T].erasure, "special")

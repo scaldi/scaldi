@@ -13,7 +13,7 @@ class TcpModule extends Module {
   lazy val tcpServer = new TcpServer
 }
 
-class TcpServer(implicit inj: Injector) extends Injectable {
+class TcpServer(implicit inj: Injector) extends Server with Injectable  {
   val port = inject [Int] ('tcpPort is by default 1234)
   val host = inject [String] ('tcpHost)
 

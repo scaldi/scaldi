@@ -22,6 +22,8 @@ trait Module extends ReflectionBinder with WordBinder with InitializeableInjecto
 trait StaticModule extends ReflectionBinder with Injector with Injectable with CreationHelper {
   def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ hasIdentifiers identifiers)
   def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ hasIdentifiers identifiers)
+
+  implicit val injector: Injector = this
 }
 
 class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule] with OpenInjectable with MutableInjectorUser with CreationHelper {

@@ -58,16 +58,23 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InitializeableIn
   }
 }
 
-trait MutableInjectorUser { self: Injector =>
+trait Freezable {
+  protected def isFrozen: Boolean
+}
+
+trait MutableInjectorUser { self: Injector with Freezable =>
   private var _injector: Injector = this
 
   implicit def injector = _injector
+
   def injector_=(newParentInjector: Injector) {
+    if (isFrozen) throw new InjectException("Injector already frozen, so you can't mutate it anymore!")
+
     _injector = newParentInjector
   }
 }
 
-trait Initializeable[I] { this: I =>
+trait Initializeable[I] extends Freezable { this: I =>
   private var initialized = false
 
   def initNonLazy() : I = partialInit() match {
@@ -86,6 +93,8 @@ trait Initializeable[I] { this: I =>
       Some(initFn)
     } else None
   }
+
+  protected def isFrozen = initialized
 
   protected def init(): () => Unit
 }
