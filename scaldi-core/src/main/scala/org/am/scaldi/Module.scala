@@ -15,22 +15,22 @@ import java.io.{InputStream, FileInputStream, File}
 trait Module extends ReflectionBinder with WordBinder with InitializeableInjector[Module] with Injectable with MutableInjectorUser with CreationHelper {
   lazy val bindings = wordBindings ++ reflectiveBindings
 
-  def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ hasIdentifiers identifiers)
-  def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ hasIdentifiers identifiers)
+  def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ isDefinedFor identifiers)
 
   protected def init() = initiNonLazyWordBindings()
 }
 
 trait StaticModule extends ReflectionBinder with Injector with Injectable with CreationHelper {
-  def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ hasIdentifiers identifiers)
-  def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ hasIdentifiers identifiers)
+  def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ isDefinedFor identifiers)
+  def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ isDefinedFor identifiers)
 
   implicit val injector: Injector = this
 }
 
 class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule] with OpenInjectable with MutableInjectorUser with CreationHelper {
-  def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ hasIdentifiers identifiers)
-  def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ hasIdentifiers identifiers)
+  def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
 
   protected def init() = initiNonLazyWordBindings()
 }
@@ -72,7 +72,7 @@ trait RawInjector extends Injector {
   def getBindings(identifiers: List[Identifier]) = discoverBinding(identifiers).toList
 
   protected def discoverBinding(ids: List[Identifier]): Option[Binding] =
-    bindingCache find (_ hasIdentifiers ids) orElse {
+    bindingCache find (_ isDefinedFor ids) orElse {
       (ids match {
         case ClassIdentifier(c) :: StringIdentifier(name)  :: Nil => discoverBinding(name, c, ids)
         case StringIdentifier(name) :: ClassIdentifier(c) :: Nil => discoverBinding(name, c, ids)
@@ -102,6 +102,7 @@ trait RawInjector extends Injector {
     }
 
   case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
+    protected val condition = None
     def get = Some(value)
   }
 }

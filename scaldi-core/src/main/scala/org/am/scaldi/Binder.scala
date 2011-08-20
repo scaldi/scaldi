@@ -33,7 +33,7 @@ trait WordBinder {
   }
 
   protected def initiNonLazyWordBindings(): () => Unit = wordBindings |>
-      (b => () => b.collect{case binding @ NonLazyBinding(_, _) => binding}.foreach(_.get))
+      (b => () => b.collect{case binding @ NonLazyBinding(_, _, _) => binding}.foreach(_.get))
 }
 
 trait CanBeIdentified[R] { this: R =>
@@ -49,42 +49,56 @@ trait CanBeIdentified[R] { this: R =>
   def and(ids: Identifier*): R = identifiedBy(ids: _*)
 }
 
-class BindHelper[R](onBound: (BindHelper[R], BoundHelper) => Unit) extends CanBeIdentified[BindHelper[R]] {
+trait CanBeConditional[R] { this: R =>
+  var condition: Option[Condition] = None
+
+  def when(cond: Condition) = {
+    condition = Some(cond)
+    this
+  }
+}
+
+class BindHelper[R](onBound: (BindHelper[R], BoundHelper) => Unit)
+    extends CanBeIdentified[BindHelper[R]] with CanBeConditional[BindHelper[R]] {
   var createFn: Option[Option[() => Any]] = None
 
-  def to(none: None.type) = bindNone(LazyBinding(None, _))
-  def to[T <: R : Manifest](fn: => T) = bind(LazyBinding(Some(() => fn), _))
+  def to(none: None.type) = bindNone(LazyBinding(None, _, _))
+  def to[T <: R : Manifest](fn: => T) = bind(LazyBinding(Some(() => fn), _, _))
   def in[T <: R : Manifest](fn: => T) = to(fn)
 
-  def toNonLazy[T <: R : Manifest](fn: => T) = bind(NonLazyBinding(Some(() => fn), _))
+  def toNonLazy[T <: R : Manifest](fn: => T) = bind(NonLazyBinding(Some(() => fn), _, _))
   def inNonLazy[T <: R : Manifest](fn: => T) = to(fn)
 
-  def toProvider[T <: R : Manifest](fn: => T) = bind(ProviderBinding(() => fn, _))
+  def toProvider[T <: R : Manifest](fn: => T) = bind(ProviderBinding(() => fn, _, _))
   def inProvider[T <: R : Manifest](fn: => T) = to(fn)
 
-  private def bind[T : Manifest](bindingFn: List[Identifier] => Binding) = {
-    val bound = new BoundHelper(bindingFn, identifiers, Some(manifest[T].erasure))
+  private def bind[T : Manifest](bindingFn: (List[Identifier], Option[Condition]) => Binding) = {
+    val bound = new BoundHelper(bindingFn, identifiers, condition, Some(manifest[T].erasure))
     onBound(this, bound)
     bound
   }
 
-  private def bindNone(bindingFn: List[Identifier] => Binding) = {
-    val bound = new BoundHelper(bindingFn, identifiers, None)
+  private def bindNone(bindingFn: (List[Identifier], Option[Condition]) => Binding) = {
+    val bound = new BoundHelper(bindingFn, identifiers, condition, None)
     onBound(this, bound)
     bound
   }
 }
 
 class BoundHelper(
-       bindingFn: List[Identifier] => Binding,
-       initialIdentifiers: List[Identifier],
-       bindingType: Option[Class[_]])
-    extends CanBeIdentified[BoundHelper] {
-  def getBinding = bindingFn((initialIdentifiers ++ identifiers, bindingType) match {
-    case (ids, _) if ids.exists(_.isInstanceOf[ClassIdentifier]) => ids
-    case (ids, Some(t)) => ids :+ ClassIdentifier(t)
-    case (ids, None) => ids
-  })
+   bindingFn: (List[Identifier], Option[Condition]) => Binding,
+   initialIdentifiers: List[Identifier],
+   initialCondition: Option[Condition],
+   bindingType: Option[Class[_]]
+) extends CanBeIdentified[BoundHelper] with CanBeConditional[BoundHelper] {
+  def getBinding = bindingFn (
+    (initialIdentifiers ++ identifiers, bindingType) match {
+      case (ids, _) if ids.exists(_.isInstanceOf[ClassIdentifier]) => ids
+      case (ids, Some(t)) => ids :+ ClassIdentifier(t)
+      case (ids, None) => ids
+    },
+    condition orElse initialCondition
+  )
 }
 
 trait ReflectionBinder {
@@ -108,6 +122,7 @@ trait ReflectionBinder {
     }
 
   case class ReflectiveBinding(fn: () => Option[Any], identifiers: List[Identifier]) extends Binding {
+    protected val condition = None
     def get = fn()
   }
 }

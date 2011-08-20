@@ -25,7 +25,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       }
 
       binder.wordBindings should have size (6)
-      binder.wordBindings foreach (_.hasIdentifiers(List(classOf[String], "host", "httpServer")) should be (true))
+      binder.wordBindings foreach (_.isDefinedFor(List(classOf[String], "host", "httpServer")) should be (true))
     }
 
     "infer binding type only when it's not specified" in {
@@ -34,8 +34,8 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       }
 
       binder.wordBindings should have size (1)
-      binder.wordBindings(0) hasIdentifiers (List(classOf[Server])) should be (true)
-      binder.wordBindings(0) hasIdentifiers (List(classOf[HttpServer])) should be (true)
+      binder.wordBindings(0) isDefinedFor (List(classOf[Server])) should be (true)
+      binder.wordBindings(0) isDefinedFor (List(classOf[HttpServer])) should be (true)
     }
 
     "not infer binding type only when it is specified explicitly" in {
@@ -44,8 +44,8 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       }
 
       binder.wordBindings should have size (1)
-      binder.wordBindings(0) hasIdentifiers (List(classOf[Server])) should be (true)
-      binder.wordBindings(0) hasIdentifiers (List(classOf[HttpServer])) should be (false)
+      binder.wordBindings(0) isDefinedFor (List(classOf[Server])) should be (true)
+      binder.wordBindings(0) isDefinedFor (List(classOf[HttpServer])) should be (false)
     }
 
     "treat later bindings as overrieds for earlier and more that one binding od the same type" in {
@@ -112,6 +112,30 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (10)
       instanceCount should be (10)
       binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+    }
+
+    "support conditions with 'when'" in {
+      var prodMode = true
+
+      val binder = new DynamicModule {
+        val ProdMode = Condition(prodMode)
+        val DevMode = !ProdMode
+
+        bind [String] as 'host when ProdMode to "www.prod-server.com"
+        bind [String] as 'host when DevMode to "localhost"
+
+        bind [Int] when ProdMode as 'port to 1234
+      }
+
+      binder.wordBindings should have size (3)
+
+      binder.getBinding(List('host)).get.get.get should be === "www.prod-server.com"
+      binder.getBinding(List('port)).get.get.get should be === 1234
+
+      prodMode = false
+
+      binder.getBinding(List('host)).get.get.get should be === "localhost"
+      binder.getBinding(List('port)) should be ('empty)
     }
   }
 }
