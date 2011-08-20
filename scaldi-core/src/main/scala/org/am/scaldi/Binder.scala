@@ -90,16 +90,14 @@ class BoundHelper(
 trait ReflectionBinder {
   lazy val reflectiveBindings: List[Binding] = wrapReflection {
     this.getClass.getMethods.toList.filter(_.getParameterTypes.length == 0).map { m =>
-      if (classOf[ReflectiveBidingDeclaration].isAssignableFrom(m.getReturnType)) {
-        val decl = m.invoke(this).asInstanceOf[ReflectiveBidingDeclaration]
-        ReflectiveBinding(() => decl.get, decl.identifiers(m.getName, m.getReturnType))
-      } else {
+      if (classOf[BidingProvider].isAssignableFrom(m.getReturnType))
+        m.invoke(this).asInstanceOf[BidingProvider].getBinding(m)
+      else
         ReflectiveBinding(() => wrapReflection(Some(m.invoke(this))), List(m.getReturnType, m.getName))
-      }
     }
   }
 
-  private def wrapReflection[T](fn: => T): T = {
+  private def wrapReflection[T](fn: => T): T =
     try {
       fn
     } catch {
@@ -108,16 +106,14 @@ trait ReflectionBinder {
       case e: Exception =>
         throw new BindingException("Exceprion during reflectivg binding discovery", e)
     }
-  }
 
   case class ReflectiveBinding(fn: () => Option[Any], identifiers: List[Identifier]) extends Binding {
     def get = fn()
   }
 }
 
-trait ReflectiveBidingDeclaration {
-  def identifiers(memberName: String, memberType: Class[_]): List[Identifier]
-  def get: Option[Any]
+trait BidingProvider {
+  def getBinding(method: Method): Binding
 }
 
 class BindingException(message: String, cause: Throwable) extends RuntimeException(message,cause) {
