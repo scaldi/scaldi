@@ -1,5 +1,7 @@
 package org.am.scaldi
 
+import annotation.implicitNotFound
+
 trait Identifier {
   def sameAs(other: Identifier): Boolean
 }
@@ -8,6 +10,7 @@ object Identifier {
   implicit def toIdentifier[T : CanBeIdentifier](target: T): Identifier = implicitly[CanBeIdentifier[T]].toIdentifier(target)
 }
 
+@implicitNotFound(msg = "${T} can't be trated as Identifier. Please consider defining CanBeIdentifier for it.")
 trait CanBeIdentifier[T] {
   def toIdentifier(target: T): Identifier
 }

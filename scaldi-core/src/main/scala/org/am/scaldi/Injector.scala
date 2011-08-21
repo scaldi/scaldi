@@ -1,28 +1,51 @@
 package org.am.scaldi
 
 import org.am.scaldi.util.Util._
+import annotation.implicitNotFound
 
 trait Injector {
   def getBinding(identifiers: List[Identifier]): Option[Binding]
   def getBindings(identifiers: List[Identifier]): List[Binding]
 
-  def compose(other: Injector): Injector = InjectorAggregation(List(this, other))
-
-  def ++(other: Injector): Injector = compose(other)
-
-  def ::(other: Injector): Injector = InjectorAggregation(List(other, this))
+  def ++[I <: Injector, R <: Injector](other: I)(implicit comp: CanCompose[this.type, I, R]): R = comp.compose(this, other)
+  def ::[I <: Injector, R <: Injector](other: I)(implicit comp: CanCompose[I, this.type, R]): R = comp.compose(other, this)
 }
 
-object InjectorAggregation {
-  def apply(chain: List[Injector]) = chain filter (NilInjector !=) match {
-    case Nil => NilInjector
-    case inj :: Nil => inj
-    case c @ inj :: rest =>
-      (c
-        find (i => i.isInstanceOf[MutableInjectorUser] || i.isInstanceOf[InitializeableInjector[_]])
-        map (u => new MutableInjectorAggregation(chain))
-        getOrElse new ImmutableInjectorAggregation(chain))
+object Injector extends LowPriorityMutableWithOtherInjectorCompositions {
+  implicit object nilWithNilComposition extends CanCompose[NilInjector.type, NilInjector.type, NilInjector.type] {
+    def compose(cmp1: NilInjector.type, cmp2: NilInjector.type) = NilInjector
   }
+
+  implicit def nilWithOtherInjectorComposition[I <: Injector] = new CanCompose[NilInjector.type, I, I] {
+    def compose(cmp1: NilInjector.type, cmp2: I) = cmp2
+  }
+
+  implicit def otherInjectorWithNilComposition[I <: Injector] = new CanCompose[I, NilInjector.type, I] {
+    def compose(cmp1: I, cmp2: NilInjector.type) = cmp1
+  }
+}
+
+trait LowPriorityMutableWithOtherInjectorCompositions extends LowPriorityOtherWithMutableInjectorCompositions {
+  implicit def mutableInjectorWithOtherComposition[I1 <: Injector with MutableInjector, I2 <: Injector] = new CanCompose[I1, I2, MutableInjectorAggregation] {
+    def compose(cmp1: I1, cmp2: I2) = new MutableInjectorAggregation(List(cmp1, cmp2))
+  }
+}
+
+trait LowPriorityOtherWithMutableInjectorCompositions extends LowPriorityImmutableInjectorCompositions {
+  implicit def otherInjectorWithMutableComposition[I1 <: Injector, I2 <: Injector with MutableInjector] = new CanCompose[I1, I2, MutableInjectorAggregation] {
+    def compose(cmp1: I1, cmp2: I2) = new MutableInjectorAggregation(List(cmp1, cmp2))
+  }
+}
+
+trait LowPriorityImmutableInjectorCompositions {
+   implicit def immutableComposition[I1 <: Injector, I2 <: Injector] = new CanCompose[I1, I2, ImmutableInjectorAggregation] {
+    def compose(cmp1: I1, cmp2: I2) = new ImmutableInjectorAggregation(List(cmp1, cmp2))
+  }
+}
+
+@implicitNotFound(msg = "Cannot compose ${A} with ${B}. Please consider defining CanCompose for such composition.")
+trait CanCompose[-A, -B, +R] {
+  def compose(cmp1: A, cmp2: B): R
 }
 
 class ImmutableInjectorAggregation(chain: List[Injector]) extends Injector {
@@ -62,7 +85,7 @@ trait Freezable {
   protected def isFrozen: Boolean
 }
 
-trait MutableInjectorUser { self: Injector with Freezable =>
+trait MutableInjectorUser extends MutableInjector { self: Injector with Freezable =>
   private var _injector: Injector = this
 
   implicit def injector = _injector
@@ -99,12 +122,14 @@ trait Initializeable[I] extends Freezable { this: I =>
   protected def init(): () => Unit
 }
 
-trait InitializeableInjector[I <: InitializeableInjector[I]] extends Injector with Initializeable[I] { this: I =>
-  def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_.getBindingInternal(identifiers))
-  def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_.getBindingsInternal(identifiers))
+trait InitializeableInjector[I <: InitializeableInjector[I]] extends Injector with Initializeable[I] with MutableInjector { this: I =>
+  final def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_.getBindingInternal(identifiers))
+  final def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_.getBindingsInternal(identifiers))
 
   def getBindingInternal(identifiers: List[Identifier]): Option[Binding]
   def getBindingsInternal(identifiers: List[Identifier]): List[Binding]
 }
+
+trait MutableInjector
 
 class InjectException(message: String) extends RuntimeException(message)

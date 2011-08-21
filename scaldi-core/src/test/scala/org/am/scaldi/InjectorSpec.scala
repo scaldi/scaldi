@@ -5,17 +5,35 @@ import org.scalatest.matchers.ShouldMatchers
 import java.util.Properties
 
 class InjectorSpec extends WordSpec with ShouldMatchers {
-  "Injector" should {
-    "compose with other injectors and the injecttors that come first should override bindings of later injectors" in {
+  "Injector composition" should {
+    "produce real injector when composed with NilInjector or produce NilInjector when both of them are NilInjectors" in {
+      val realModule = new Test2Module
+
+      NilInjector :: NilInjector should be theSameInstanceAs (NilInjector)
+      realModule :: NilInjector should be theSameInstanceAs (realModule)
+      NilInjector :: realModule should be theSameInstanceAs (realModule)
+    }
+
+    "produce Mutable aggreagation if at least one of the injectors is mutable" in {
+      val mutable = new Test2Module
+      val immutable = new StaticModule {}
+
+      (mutable ++ mutable).getClass should be === classOf[MutableInjectorAggregation]
+      (mutable ++ immutable).getClass should be === classOf[MutableInjectorAggregation]
+      (immutable ++ mutable).getClass should be === classOf[MutableInjectorAggregation]
+    }
+
+    "produce Immutable aggreagation if both injectors are not mutable" in {
+      val immutable = new StaticModule {}
+
+      (immutable ++ immutable).getClass should be === classOf[ImmutableInjectorAggregation]
+    }
+
+    "compose injectors so, that injectors that come first should override bindings of later injectors" in {
       import org.am.scaldi.Injectable._
 
       {
         implicit val injector = new Test2Module ++ new Test1Module ++ new AppModule
-        inject [Server] should be === HttpServer("test2", 8080)
-      }
-
-      {
-        implicit val injector = new Test2Module compose new Test1Module compose new AppModule
         inject [Server] should be === HttpServer("test2", 8080)
       }
 
