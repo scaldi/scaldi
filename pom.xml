@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <name>Scaldi - Scala Dependency Injection Framework</name>
-                                                 
+
     <scm>
         <connection>scm:git:git://github.com/OlegIlyenko/scaldi.git</connection>
         <developerConnection>scm:git:git@github.com:OlegIlyenko/scaldi.git</developerConnection>
@@ -26,16 +26,19 @@
 
     <modules>
         <module>scaldi-core</module>
+
+        <!-- temporary disabled modules -->
+
         <!--<module>scaldi-core-examples</module>-->
         <!--<module>scaldi-lift</module>-->
         <!--<module>scaldi-lift-examples</module>-->
     </modules>
 
     <properties>
-        <scala.version>2.9.0</scala.version>
+        <scala.version>2.9.1</scala.version>
 
         <scalatest.version>1.6.1</scalatest.version>
-        <scalatest.artifactId>scalatest_2.9.0</scalatest.artifactId>
+        <scalatest.artifactId>scalatest_2.9.1</scalatest.artifactId>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -126,10 +129,17 @@
                 <artifactId>maven-scala-plugin</artifactId>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
+                        <goals><goal>compile</goal><goal>testCompile</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals><goal>jar</goal></goals>
                     </execution>
                 </executions>
             </plugin>
