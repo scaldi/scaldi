@@ -26,12 +26,6 @@
 
     <modules>
         <module>scaldi-core</module>
-
-        <!-- temporary disabled modules -->
-
-        <!--<module>scaldi-core-examples</module>-->
-        <!--<module>scaldi-lift</module>-->
-        <!--<module>scaldi-lift-examples</module>-->
     </modules>
 
     <properties>
