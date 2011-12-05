@@ -13,7 +13,7 @@ You can find main project's home page here:
 
 Scaladocs for the latest version of the project can be found here:
 
-[http://olegilyenko.github.com/scaldi/latest/api](http://olegilyenko.github.com/scaldi/latest/api)
+[http://olegilyenko.github.com/scaldi/api/index.html#scaldi](http://olegilyenko.github.com/scaldi/api/index.html#scaldi)
 
 At the moment project is poorly documented, but it will be fixed soon. At the moment I can recommend you to take a look
 at the tests:
