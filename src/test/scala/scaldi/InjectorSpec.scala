@@ -1,4 +1,4 @@
-package org.am.scaldi
+package scaldi
 
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
@@ -30,7 +30,7 @@ class InjectorSpec extends WordSpec with ShouldMatchers {
     }
 
     "compose injectors so, that injectors that come first should override bindings of later injectors" in {
-      import org.am.scaldi.Injectable._
+      import scaldi.Injectable._
 
       {
         implicit val injector = new Test2Module ++ new Test1Module ++ new AppModule
@@ -93,7 +93,7 @@ class InjectorSpec extends WordSpec with ShouldMatchers {
   "SystemPropertiesInjector" should {
     "look for simple bindings in system properties and convert them to required type" in {
       implicit val injector = SystemPropertiesInjector :: new AppModule
-      import org.am.scaldi.Injectable._
+      import scaldi.Injectable._
 
       try {
         System.setProperty("host", "test-sys")

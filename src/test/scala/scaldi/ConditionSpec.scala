@@ -1,4 +1,4 @@
-package org.am.scaldi
+package scaldi
 
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers

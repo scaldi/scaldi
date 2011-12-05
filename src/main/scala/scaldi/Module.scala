@@ -1,7 +1,7 @@
-package org.am.scaldi
+package scaldi
 
 import util.CreationHelper
-import org.am.scaldi.util.Util._
+import scaldi.util.Util._
 import sys._
 
 import java.util.Properties

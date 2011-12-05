@@ -1,6 +1,6 @@
-package org.am.scaldi
+package scaldi
 
-import org.am.scaldi.util.Util._
+import scaldi.util.Util._
 import annotation.implicitNotFound
 
 trait Injector {

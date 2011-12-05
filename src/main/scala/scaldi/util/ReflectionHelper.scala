@@ -1,4 +1,4 @@
-package org.am.scaldi.util
+package scaldi.util
 
 import collection.mutable.ListBuffer
 

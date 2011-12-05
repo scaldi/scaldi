@@ -1,4 +1,4 @@
-package org.am.scaldi.util
+package scaldi.util
 
 trait CreationHelper {
   implicit def anyToCreationWrapper[T](obj: T) = new CreationWrapper(obj)

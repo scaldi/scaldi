@@ -1,4 +1,4 @@
-package org.am.scaldi
+package scaldi
 
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
@@ -36,7 +36,7 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
       server.getConnection.welcomeMessage should be === "Hi"
     }
 
-    import org.am.scaldi.Injectable._
+    import scaldi.Injectable._
     val defaultDb = PostgresqlDatabase("default_db")
 
     "inject by type" in {

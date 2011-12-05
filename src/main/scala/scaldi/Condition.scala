@@ -1,4 +1,4 @@
-package org.am.scaldi
+package scaldi
 
 trait Condition {
   def satisfies(identifiers: List[Identifier]): Boolean

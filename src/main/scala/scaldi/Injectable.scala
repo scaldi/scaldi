@@ -1,6 +1,6 @@
-package org.am.scaldi
+package scaldi
 
-import org.am.scaldi.util.Util._
+import scaldi.util.Util._
 
 trait Injectable {
   protected def inject[T](implicit injector: Injector, m: Manifest[T]): T =

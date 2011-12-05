@@ -1,4 +1,4 @@
-package org.am.scaldi
+package scaldi
 
 trait Binding {
   protected val identifiers: List[Identifier]

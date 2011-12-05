@@ -1,4 +1,4 @@
-package org.am.scaldi.util
+package scaldi.util
 
 object Util extends CreationHelper {
   implicit def toWorkflowHelper[T](any: T) = new WorkflowHelper[T](any)

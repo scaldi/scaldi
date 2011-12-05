@@ -1,4 +1,4 @@
-package org.am.scaldi
+package scaldi
 
 import annotation.implicitNotFound
 

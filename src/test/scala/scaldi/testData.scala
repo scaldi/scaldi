@@ -1,4 +1,4 @@
-package org.am.scaldi
+package scaldi
 
 trait Server
 case class HttpServer(host: String, port: Int) extends Server
@@ -20,7 +20,7 @@ class TcpServer(implicit inj: Injector) extends Server with Injectable  {
   def getConnection = new TcpConnection
 }
 
-import org.am.scaldi.Injectable._
+import scaldi.Injectable._
 
 class TcpConnection(implicit inj: Injector) {
   val welcomeMessage = inject [String] ('welcome is by default "Hi")
