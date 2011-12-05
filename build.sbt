@@ -20,6 +20,11 @@ seq(ghpages.settings:_*)
 
 git.remoteRepo := "git@github.com:OlegIlyenko/scaldi.git"
 
+com.jsuereth.sbtsite.SiteKeys.siteMappings <<=
+  (com.jsuereth.sbtsite.SiteKeys.siteMappings, pamflet.write, pamflet.output) map { (mappings, _, dir) =>
+    mappings ++ (dir ** "*.*" x relativeTo(dir))
+  }
+
 pomExtra := <xml:group>
   <inceptionYear>2011</inceptionYear>
   <name>Scaldi - Scala Dependency Injection Framework</name>
