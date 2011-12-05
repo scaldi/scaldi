@@ -18,7 +18,7 @@ seq(site.settings:_*)
 
 seq(ghpages.settings:_*)
 
-git.remoteRepo := "git@github.com:OlegIlyenko/scaldi.git"
+git.remoteRepo := "git://github.com/OlegIlyenko/scaldi.git"
 
 com.jsuereth.sbtsite.SiteKeys.siteMappings <<=
   (com.jsuereth.sbtsite.SiteKeys.siteMappings, pamflet.write, pamflet.output) map { (mappings, _, dir) =>
