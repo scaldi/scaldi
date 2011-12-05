@@ -7,7 +7,7 @@ projects consuming power of scala language. With *Scaldi* you can define your ap
 At the moment *Scaldi* is proof of concept. I hope you will find it helpful. Your feedback is very welcome and it would be very helpful
 for the further project development!
 
-You can find main project's home page here:
+You can find project's home page here:
 
 [http://olegilyenko.github.com/scaldi/Scaldi.html](http://olegilyenko.github.com/scaldi/Scaldi.html)
 
