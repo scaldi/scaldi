@@ -1,0 +1,127 @@
+<html manifest="pamflet.manifest">
+      <head>
+        <title>Scaldi — Scaldi</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/pamflet.js"></script>
+        <script type="text/javascript" src="js/prettify/prettify.js"></script><script type="text/javascript" src="js/prettify/lang-scala.js"></script><link type="text/css" rel="stylesheet" href="css/prettify.css"></link><script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      </head>
+      <body>
+        <a class="page next nav" href="Getting+Started.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Scaldi</span>
+              
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Scaldi">Scaldi</h1><p><em>Scaldi</em> — is Scala dependency injection library. Basically Scala
+already have everything you need for dependency injection. But still some things can be made easier.
+Goal of the project is to provide more standard and easy way to make dependency injection in Scala
+projects consuming power of the Scala language. With <em>Scaldi</em> you can define your application modules in pure Scala
+without any annotations or XML.
+</p><h2 id="Getting+a+Taste+of+Scaldi">Getting a Taste of Scaldi</h2><pre><code class="prettyprint lang-scala">class AppModule extends Module {
+  bind [Printer] to new StreamPrinter
+  bind [PrintStream] to Console.out
+}
+
+class ConfigModule extends Module {
+  binding identifiedBy &quot;userName&quot; to &quot;Bob&quot;
+  binding identifiedBy &quot;prefix&quot; and &quot;console&quot; to &quot;Howdy, &quot;
+}
+
+object MyApp extends App with Injectable {
+  implicit val modules = new AppModule :: new ConfigModule
+
+  val printer = inject [Printer]
+
+  printer print &quot;Welcome!&quot;
+}
+
+trait Printer {
+  def print(str: String): Unit
+}
+
+class StreamPrinter(implicit inj: Injector) extends Printer with Injectable {
+  val userName = inject [String] (identified by &quot;userName&quot; and by default &quot;Anonimous&quot;)
+  val prefix = inject [String] (&quot;console&quot; and &quot;prefix&quot; and by default &quot;Hello, &quot;)
+  val writer = inject [PrintStream] (by default Console.err)
+
+  def print(str: String) {
+    writer.println(prefix + userName + &quot; - &quot; + str)
+  }
+}
+</code></pre><p>I demonstrated you one of many <em>Scaldi</em> flavours. If something bothers you in this example,
+don’t be afraid, <em>Scaldi</em> has also many other flavours that can match your taste.
+</p><p>For example, you can define you bindings by defining <code>val</code>s and <code>def</code>s. So example above can also be written as:
+</p><pre><code class="prettyprint lang-scala">class AppModule extends Module {
+  lazy val printer: Printer = new StreamPrinter
+  lazy val consoleStream: PrintStream = Console.out
+}
+
+class ConfigModule extends Module {
+  val userName = &quot;Bob&quot;
+
+  binding identifiedBy &quot;prefix&quot; and &quot;console&quot; to &quot;Howdy, &quot;
+}
+</code></pre><p>You can even avoid dependency on <code>Injector</code> in your own classes, if you like:
+</p><pre><code class="prettyprint lang-scala">class AppModule extends Module {
+  bind [Printer] to StreamPrinter(
+    userName = inject (identified by &quot;userName&quot; and by default &quot;Anonimous&quot;),
+    prefix = inject (&quot;console&quot; and &quot;prefix&quot; and by default &quot;Hello, &quot;),
+    writer = inject (by default Console.err)
+  )
+
+  bind [PrintStream] to Console.out
+}
+
+// ...
+
+case class StreamPrinter(userName: String, prefix : String, writer:PrintStream) extends Printer {
+  def print(str: String) {
+    writer.println(prefix + userName + &quot; - &quot; + str)
+  }
+}
+</code></pre><h2 id="Features">Features</h2><p>Among many useful features of <em>Scaldi</em>, I would like to highlight most important ones:
+</p><ul><li>100% scala for binding definition and usage
+</li><li>Advanced compile-time and run-time module composition
+</li><li><p>You are given choice to decide how you want to make dependency injection:
+</p><ul><li>If you want to stay on the safe side, you can use side-effect free <code>StaticModule</code> which can contribute it’s own
+bindings to the module composition, but can’t consume other bindings from the composition
+</li><li>Or you can use <code>Module</code> which has some side effect during initialization process, but can also consume all
+other bindings from the module composition
+</li></ul></li><li><p>Ability to define your bindings in number of ways
+</p><ul><li>with expressive and type-safe Scala DSL:
+</li></ul><pre><code>    bind [Server] as 'http to new HttpServer
+</code></pre><ul><li>as members of a class or trait:
+</li></ul><pre><code>    lazy val http: Server = new HttpServer
+</code></pre><ul><li>in properties file (for the simple bindings)
+</li><li>create your own - it’s easy!
+</li></ul></li><li><p>Expressive and type-safe injection Scala DSL:
+</p><pre><code>inject [Server] (identified by 'http and by default new HttpServer)
+</code></pre></li><li>Conditional bindings
+</li><li>Laziness by default
+</li><li>Highly extensible - you can generally customize any aspect of the library like identifiers, conditions, modules, etc.
+</li></ul><h4>Contents</h4><div class="current">Scaldi</div><ol class="toc"> <li><div><a href="Getting+Started.html">Getting Started</a></div></li><li><div><a href="Project+Setup.html">Project Setup</a></div></li><li><div><a href="API+Reference.html">API Reference</a></div></li><li><div><a href="Feedback.html">Feedback</a></div></li><li><div><a href="License.html">License</a></div></li><li class="generated"><div><a href="Contents+in+Depth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined+Pages.html">Combined Pages</a></div></li> </ol>
+          </div>
+        </div>
+        <a class="fork nav" href="http://github.com/OlegIlyenko/scaldi"><img alt="Fork me on GitHub" src="img/fork.png"></img></a>
+      </body>
+    </html>
