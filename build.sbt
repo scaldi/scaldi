@@ -14,6 +14,12 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "1.6.1" % "test"
 )
 
+seq(site.settings:_*)
+
+seq(ghpages.settings:_*)
+
+git.remoteRepo := "git@github.com:OlegIlyenko/scaldi.git"
+
 pomExtra := <xml:group>
   <inceptionYear>2011</inceptionYear>
   <name>Scaldi - Scala Dependency Injection Framework</name>
