@@ -1,3 +1,5 @@
+import com.jsuereth.sbtsite.SiteKeys
+
 name := "scaldi"
 
 organization := "org.angelsmasterpiece.scaldi"
@@ -22,8 +24,8 @@ git.remoteRepo := "git://github.com/OlegIlyenko/scaldi.git"
 
 site.addMappingsToSiteDir(mappings in packageDoc in Compile, "api")
 
-com.jsuereth.sbtsite.SiteKeys.siteMappings <<=
-  (com.jsuereth.sbtsite.SiteKeys.siteMappings, PamfletKeys.write, PamfletKeys.output) map { (mappings, _, dir) =>
+SiteKeys.siteMappings <<=
+  (SiteKeys.siteMappings, PamfletKeys.write, PamfletKeys.output) map { (mappings, _, dir) =>
     mappings ++ (dir ** "*.*" x relativeTo(dir))
   }
 
