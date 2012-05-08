@@ -113,7 +113,7 @@ case class InjectConstraints[+T](default: Option[() => T] = None, initialIdentif
   }
 
   def and(by: ByWord) = new ByWord(identifiers)
-  def witch(by: ByWord) = and(by)
+  def which(by: ByWord) = and(by)
   def that(by: ByWord) = and(by)
   def is(by: ByWord) = and(by)
 

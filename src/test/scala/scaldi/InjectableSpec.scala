@@ -63,7 +63,7 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
         inject [Database] (identified by 'remote and by default new PostgresqlDatabase("default_db")),
         inject [Database] (identified by 'remote is by default defaultDb),
         inject [Database] ('remote is by default defaultDb),
-        inject [Database] ('remote witch by default defaultDb),
+        inject [Database] ('remote which by default defaultDb),
         inject [Database] ('remote that by default defaultDb),
         inject [Database] (by default defaultDb and identified by 'remote),
         inject (by default defaultDb),
