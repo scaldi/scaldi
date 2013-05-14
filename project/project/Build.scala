@@ -5,5 +5,5 @@ object PluginDef extends Build {
   lazy val root = Project("plugins", file(".")) dependsOn (ghpages, pamflet)
 
   lazy val ghpages = uri("git://github.com/jsuereth/xsbt-ghpages-plugin.git")
-  lazy val pamflet = uri("git://github.com/n8han/pamflet-plugin#0.3.0")
+  lazy val pamflet = uri("git://github.com/n8han/pamflet-plugin#0.4.1")
 }
