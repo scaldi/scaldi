@@ -20,6 +20,8 @@ at the tests:
 
 [http://github.com/OlegIlyenko/scaldi/tree/master/src/test/scala/scaldi](http://github.com/OlegIlyenko/scaldi/tree/master/src/test/scala/scaldi)
 
+[![Build Status](https://travis-ci.org/OlegIlyenko/scaldi.png?branch=master)](https://travis-ci.org/OlegIlyenko/scaldi)
+
 ## SBT Configuration
 
 At first you need to add new repository:
