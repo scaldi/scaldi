@@ -49,7 +49,7 @@ Now you can add this dependency (you need to specify scala version manually in t
     <dependency>
         <groupId>org.angelsmasterpiece.scaldi</groupId>
         <artifactId>scaldi_2.10</artifactId>
-        <version>0.1</version>
+        <version>0.1.1</version>
     </dependency>
 
 ## License
