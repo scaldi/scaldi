@@ -4,7 +4,7 @@ name := "scaldi"
 
 organization := "org.angelsmasterpiece.scaldi"
 
-version := "0.1.1"
+version := "0.2-SNAPSHOT"
 
 crossScalaVersions := Seq("2.9.2", "2.10.1")
 
