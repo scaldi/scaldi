@@ -30,7 +30,7 @@ At first you need to add new repository:
 
 Now you can add library dependency:
 
-    libraryDependencies += "org.angelsmasterpiece.scaldi" %% "scaldi" % "0.1"
+    libraryDependencies += "org.angelsmasterpiece.scaldi" %% "scaldi" % "0.1.1"
 
 ## Maven Configuration
 
@@ -48,7 +48,7 @@ Now you can add this dependency (you need to specify scala version manually in t
 
     <dependency>
         <groupId>org.angelsmasterpiece.scaldi</groupId>
-        <artifactId>scaldi_2.9.1</artifactId>
+        <artifactId>scaldi_2.10</artifactId>
         <version>0.1</version>
     </dependency>
 

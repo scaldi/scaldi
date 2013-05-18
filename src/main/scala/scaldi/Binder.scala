@@ -32,7 +32,7 @@ trait WordBinder {
     helper
   }
 
-  protected def initiNonLazyWordBindings(): () => Unit = wordBindings |>
+  protected def initNonLazyWordBindings(): () => Unit = wordBindings |>
       (b => () => b.collect{case binding @ NonLazyBinding(_, _, _) => binding}.foreach(_.get))
 }
 
@@ -67,10 +67,10 @@ class BindHelper[R](onBound: (BindHelper[R], BoundHelper) => Unit)
   def in[T <: R : Manifest](fn: => T) = to(fn)
 
   def toNonLazy[T <: R : Manifest](fn: => T) = bind(NonLazyBinding(Some(() => fn), _, _))
-  def inNonLazy[T <: R : Manifest](fn: => T) = to(fn)
+  def inNonLazy[T <: R : Manifest](fn: => T) = toNonLazy(fn)
 
   def toProvider[T <: R : Manifest](fn: => T) = bind(ProviderBinding(() => fn, _, _))
-  def inProvider[T <: R : Manifest](fn: => T) = to(fn)
+  def inProvider[T <: R : Manifest](fn: => T) = toProvider(fn)
 
   private def bind[T : Manifest](bindingFn: (List[Identifier], Option[Condition]) => Binding) = {
     val bound = new BoundHelper(bindingFn, identifiers, condition, Some(manifest[T].erasure))

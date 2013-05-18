@@ -21,6 +21,10 @@ class InjectorSpec extends WordSpec with ShouldMatchers {
       (mutable ++ mutable).getClass should be === classOf[MutableInjectorAggregation]
       (mutable ++ immutable).getClass should be === classOf[MutableInjectorAggregation]
       (immutable ++ mutable).getClass should be === classOf[MutableInjectorAggregation]
+
+      ((if (true) immutable else NilInjector) :: immutable).getClass should be === classOf[ImmutableInjectorAggregation]
+      ((if (false) immutable else NilInjector) :: immutable).getClass should be === classOf[ImmutableInjectorAggregation]
+      ((if (false) mutable else NilInjector) :: immutable).getClass should be === classOf[MutableInjectorAggregation]
     }
 
     "produce Immutable aggreagation if both injectors are not mutable" in {

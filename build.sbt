@@ -4,21 +4,21 @@ name := "scaldi"
 
 organization := "org.angelsmasterpiece.scaldi"
 
-version := "0.2-SNAPSHOT"
+version := "0.1.1"
 
-crossScalaVersions := Seq("2.9.1")
+crossScalaVersions := Seq("2.9.2", "2.10.1")
 
-scalaVersion := "2.9.1"
+scalaVersion := "2.10.1"
 
 scalacOptions += "-deprecation"
 
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "1.6.1" % "test"
+  "org.scalatest" %% "scalatest" % "1.9.1" % "test"
 )
 
-seq(site.settings:_*)
+seq(site.settings: _*)
 
-seq(ghpages.settings:_*)
+seq(ghpages.settings: _*)
 
 git.remoteRepo := "git://github.com/OlegIlyenko/scaldi.git"
 

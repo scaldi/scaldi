@@ -18,10 +18,10 @@ trait Module extends ReflectionBinder with WordBinder with InitializeableInjecto
   def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ isDefinedFor identifiers)
 
-  protected def init() = initiNonLazyWordBindings()
+  protected def init() = initNonLazyWordBindings()
 }
 
-trait StaticModule extends ReflectionBinder with Injector with Injectable with CreationHelper {
+trait StaticModule extends ReflectionBinder with ImmutableInjector with Injectable with CreationHelper {
   def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ isDefinedFor identifiers)
   def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ isDefinedFor identifiers)
 
@@ -32,7 +32,7 @@ class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule
   def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
 
-  protected def init() = initiNonLazyWordBindings()
+  protected def init() = initNonLazyWordBindings()
 }
 
 object DynamicModule {
@@ -43,7 +43,7 @@ object Args {
   def apply(args: Array[String]): Injector = DynamicModule(m => m.bind [Array[String]] identifiedBy 'args toNonLazy args)
 }
 
-object NilInjector extends Injector {
+object NilInjector extends ImmutableInjector {
   def getBinding(identifiers: List[Identifier]) = None
   def getBindings(identifiers: List[Identifier]) = Nil
 }

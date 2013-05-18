@@ -11,7 +11,10 @@ trait Injector {
   def ::[I <: Injector, R <: Injector](other: I)(implicit comp: CanCompose[I, this.type, R]): R = comp.compose(other, this)
 }
 
-object Injector extends LowPriorityMutableWithOtherInjectorCompositions {
+trait MutableInjector extends Injector
+trait ImmutableInjector extends Injector
+
+object Injector extends LowPriorityImmutableInjectorComposition {
   implicit object nilWithNilComposition extends CanCompose[NilInjector.type, NilInjector.type, NilInjector.type] {
     def compose(cmp1: NilInjector.type, cmp2: NilInjector.type) = NilInjector
   }
@@ -25,22 +28,18 @@ object Injector extends LowPriorityMutableWithOtherInjectorCompositions {
   }
 }
 
-trait LowPriorityMutableWithOtherInjectorCompositions extends LowPriorityOtherWithMutableInjectorCompositions {
-  implicit def mutableInjectorWithOtherComposition[I1 <: Injector with MutableInjector, I2 <: Injector] = new CanCompose[I1, I2, MutableInjectorAggregation] {
-    def compose(cmp1: I1, cmp2: I2) = new MutableInjectorAggregation(List(cmp1, cmp2))
-  }
+trait LowPriorityImmutableInjectorComposition extends LowPriorityMutableInjectorComposition {
+  implicit def immutableComposition[I1 <: ImmutableInjector, I2 <: ImmutableInjector] =
+    new CanCompose[I1, I2, ImmutableInjectorAggregation] {
+      def compose(cmp1: I1, cmp2: I2) = new ImmutableInjectorAggregation(List(cmp1, cmp2))
+    }
 }
 
-trait LowPriorityOtherWithMutableInjectorCompositions extends LowPriorityImmutableInjectorCompositions {
-  implicit def otherInjectorWithMutableComposition[I1 <: Injector, I2 <: Injector with MutableInjector] = new CanCompose[I1, I2, MutableInjectorAggregation] {
-    def compose(cmp1: I1, cmp2: I2) = new MutableInjectorAggregation(List(cmp1, cmp2))
-  }
-}
-
-trait LowPriorityImmutableInjectorCompositions {
-   implicit def immutableComposition[I1 <: Injector, I2 <: Injector] = new CanCompose[I1, I2, ImmutableInjectorAggregation] {
-    def compose(cmp1: I1, cmp2: I2) = new ImmutableInjectorAggregation(List(cmp1, cmp2))
-  }
+trait LowPriorityMutableInjectorComposition {
+  implicit def mutableInjectorComposition[I1 <: Injector, I2 <: Injector] =
+    new CanCompose[I1, I2, MutableInjectorAggregation] {
+      def compose(cmp1: I1, cmp2: I2) = new MutableInjectorAggregation(List(cmp1, cmp2))
+    }
 }
 
 @implicitNotFound(msg = "Cannot compose ${A} with ${B}. Please consider defining CanCompose for such composition.")
@@ -129,7 +128,5 @@ trait InitializeableInjector[I <: InitializeableInjector[I]] extends Injector wi
   def getBindingInternal(identifiers: List[Identifier]): Option[Binding]
   def getBindingsInternal(identifiers: List[Identifier]): List[Binding]
 }
-
-trait MutableInjector
 
 class InjectException(message: String) extends RuntimeException(message)
