@@ -2,14 +2,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>scaldi</title>
+          <title>scaldi - scaldi</title>
+          <meta name="description" content="scaldi - scaldi" />
+          <meta name="keywords" content="scaldi scaldi" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
-      <link type="text/css" media="screen" rel="stylesheet" href="../lib/template.css" />
-      <script type="text/javascript" src="../lib/jquery.js"></script>
+      <link href="../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../lib/jquery.js" id="jquery-js"></script>
       <script type="text/javascript" src="../lib/jquery-ui.js"></script>
       <script type="text/javascript" src="../lib/template.js"></script>
       <script type="text/javascript" src="../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../index.html';
+            var hash = 'scaldi.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
     
         </head>
         <body class="value">
@@ -19,660 +34,794 @@
         <h1>scaldi</h1>
       </div>
 
-      <h4 class="signature" id="signature">
-      <span class="kind">package</span>
-      <span class="symbol"> 
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
         <span class="name">scaldi</span>
-        
-        
       </span>
       </h4>
       
-          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Scaldi - is Scala dependency injection library. Basically Scala already have everything you need for dependency
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Scaldi - is Scala dependency injection library. Basically Scala already have everything you need for dependency
 injection. But still some things can be made easier. Goal of the project is to provide more standard and easy way
 to make dependency injection in Scala projects consuming power of the Scala language. With Scaldi you can define
-your application modules in pure Scala without any annotations or XML.</p><p>For more information see: <a href="http://olegilyenko.github.com/scaldi/Scaldi.html">http://olegilyenko.github.com/scaldi/Scaldi.html</a>
-</p></div></div>
+your application modules in pure Scala without any annotations or XML.</p><p>For more information see: <a href="http://olegilyenko.github.com/scaldi/Scaldi.html" target="_blank">http://olegilyenko.github.com/scaldi/Scaldi.html</a>
+</p></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
         
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="scaldi"><span>scaldi</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
 
       <div id="template">
-
-        <div id="mbrsel">
-          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
-          
-          
-          <div id="visbl">
-              <span class="filtertype">Visibility</span>
-              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
-            </div>
-        </div>
-
+        <div id="allMembers">
         
 
-        <div class="types members" id="types">
+        <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li visbl="pub" name="scaldi.AndCondition" data-isabs="false">
+              <ol><li name="scaldi.AndCondition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AndConditionextendsConditionwithProductwithSerializable"></a>
       <a id="AndCondition:AndCondition"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="AndCondition.html"><span class="name">AndCondition</span></a>
-        
-        <span class="params">(<span name="conditions">conditions: List[Condition]</span>)</span><span class="result"> extends Condition with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="AndCondition.html"><span class="name">AndCondition</span></a><span class="params">(<span name="conditions">conditions: <span class="extype" name="scala.List">List</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]</span>)</span><span class="result"> extends <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.BidingProvider" data-isabs="true">
+    </li><li name="scaldi.BidingProvider" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="BidingProviderextendsAnyRef"></a>
       <a id="BidingProvider:BidingProvider"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="BidingProvider.html"><span class="name">BidingProvider</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="BidingProvider.html"><span class="name">BidingProvider</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.BindHelper" data-isabs="false">
-      <a id="BindHelper:BindHelper[R]"></a>
+    </li><li name="scaldi.BindHelper" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BindHelper[R]extendsCanBeIdentified[scaldi.BindHelper[R]]withCanBeConditional[scaldi.BindHelper[R]]"></a>
+      <a id="BindHelper[R]:BindHelper[R]"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="BindHelper.html"><span class="name">BindHelper</span></a>
-        <span class="tparams">[<span name="R">R</span>]</span>
-        <span class="result"> extends CanBeIdentified[BindHelper[R]] with CanBeConditional[BindHelper[R]]</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="BindHelper.html"><span class="name">BindHelper</span></a><span class="tparams">[<span name="R">R</span>]</span><span class="result"> extends <a href="CanBeIdentified.html" class="extype" name="scaldi.CanBeIdentified">CanBeIdentified</a>[<a href="BindHelper.html" class="extype" name="scaldi.BindHelper">BindHelper</a>[<span class="extype" name="scaldi.BindHelper.R">R</span>]] with <a href="CanBeConditional.html" class="extype" name="scaldi.CanBeConditional">CanBeConditional</a>[<a href="BindHelper.html" class="extype" name="scaldi.BindHelper">BindHelper</a>[<span class="extype" name="scaldi.BindHelper.R">R</span>]]</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Binding" data-isabs="true">
+    </li><li name="scaldi.Binding" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="BindingextendsAnyRef"></a>
       <a id="Binding:Binding"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="Binding.html"><span class="name">Binding</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Binding.html"><span class="name">Binding</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.BindingException" data-isabs="false">
+    </li><li name="scaldi.BindingException" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BindingExceptionextendsRuntimeException"></a>
       <a id="BindingException:BindingException"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="BindingException.html"><span class="name">BindingException</span></a>
-        
-        <span class="result"> extends RuntimeException</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="BindingException.html"><span class="name">BindingException</span></a><span class="result"> extends <span class="extype" name="scala.RuntimeException">RuntimeException</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.BoundHelper" data-isabs="false">
+    </li><li name="scaldi.BoundHelper" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BoundHelperextendsCanBeIdentified[scaldi.BoundHelper]withCanBeConditional[scaldi.BoundHelper]"></a>
       <a id="BoundHelper:BoundHelper"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="BoundHelper.html"><span class="name">BoundHelper</span></a>
-        
-        <span class="result"> extends CanBeIdentified[BoundHelper] with CanBeConditional[BoundHelper]</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="BoundHelper.html"><span class="name">BoundHelper</span></a><span class="result"> extends <a href="CanBeIdentified.html" class="extype" name="scaldi.CanBeIdentified">CanBeIdentified</a>[<a href="BoundHelper.html" class="extype" name="scaldi.BoundHelper">BoundHelper</a>] with <a href="CanBeConditional.html" class="extype" name="scaldi.CanBeConditional">CanBeConditional</a>[<a href="BoundHelper.html" class="extype" name="scaldi.BoundHelper">BoundHelper</a>]</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.ByWord" data-isabs="false">
+    </li><li name="scaldi.ByWord" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ByWordextendsAnyRef"></a>
       <a id="ByWord:ByWord"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="ByWord.html"><span class="name">ByWord</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ByWord.html"><span class="name">ByWord</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.CanBeConditional" data-isabs="true">
-      <a id="CanBeConditional:CanBeConditional[R]"></a>
+    </li><li name="scaldi.CanBeConditional" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CanBeConditional[R]extendsAnyRef"></a>
+      <a id="CanBeConditional[R]:CanBeConditional[R]"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="CanBeConditional.html"><span class="name">CanBeConditional</span></a>
-        <span class="tparams">[<span name="R">R</span>]</span>
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CanBeConditional.html"><span class="name">CanBeConditional</span></a><span class="tparams">[<span name="R">R</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.CanBeIdentified" data-isabs="true">
-      <a id="CanBeIdentified:CanBeIdentified[R]"></a>
+    </li><li name="scaldi.CanBeIdentified" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CanBeIdentified[R]extendsAnyRef"></a>
+      <a id="CanBeIdentified[R]:CanBeIdentified[R]"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="CanBeIdentified.html"><span class="name">CanBeIdentified</span></a>
-        <span class="tparams">[<span name="R">R</span>]</span>
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CanBeIdentified.html"><span class="name">CanBeIdentified</span></a><span class="tparams">[<span name="R">R</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.CanBeIdentifier" data-isabs="true">
-      <a id="CanBeIdentifier:CanBeIdentifier[T]"></a>
+    </li><li name="scaldi.CanBeIdentifier" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CanBeIdentifier[T]extendsAnyRef"></a>
+      <a id="CanBeIdentifier[T]:CanBeIdentifier[T]"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="CanBeIdentifier.html"><span class="name">CanBeIdentifier</span></a>
-        <span class="tparams">[<span name="T">T</span>]</span>
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CanBeIdentifier.html"><span class="name">CanBeIdentifier</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@implicitNotFound</span><span class="args">(<span>
       
-      <span name="&quot;${T} can't be trated as Identifier. Please consider defining CanBeIdentifier for it.&quot;" class="defval">...</span>
+      <span class="defval" name="&quot;${T} can't be treated as Identifier. Please consider defining CanBeIdentifier for it.&quot;">...</span>
     </span>)</span>
               
         </dd></dl></div>
-    </li><li visbl="pub" name="scaldi.CanCompose" data-isabs="true">
-      <a id="CanCompose:CanCompose[A, B, R]"></a>
+    </li><li name="scaldi.CanCompose" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CanCompose[-A,-B,+R]extendsAnyRef"></a>
+      <a id="CanCompose[-A,-B,+R]:CanCompose[A,B,R]"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="CanCompose.html"><span class="name">CanCompose</span></a>
-        <span class="tparams">[<span name="A">-A</span>, <span name="B">-B</span>, <span name="R">+R</span>]</span>
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CanCompose.html"><span class="name">CanCompose</span></a><span class="tparams">[<span name="A">-A</span>, <span name="B">-B</span>, <span name="R">+R</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@implicitNotFound</span><span class="args">(<span>
       
-      <span name="&quot;Cannot compose ${A} with ${B}. Please consider defining CanCompose for such composition.&quot;" class="defval">...</span>
+      <span class="defval" name="&quot;Cannot compose ${A} with ${B}. Please consider defining CanCompose for such composition.&quot;">...</span>
     </span>)</span>
               
         </dd></dl></div>
-    </li><li visbl="pub" name="scaldi.ClassIdentifier" data-isabs="false">
+    </li><li name="scaldi.ClassIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ClassIdentifierextendsIdentifierwithProductwithSerializable"></a>
       <a id="ClassIdentifier:ClassIdentifier"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="ClassIdentifier.html"><span class="name">ClassIdentifier</span></a>
-        
-        <span class="params">(<span name="clazz">clazz: Class[_]</span>)</span><span class="result"> extends Identifier with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ClassIdentifier.html"><span class="name">ClassIdentifier</span></a><span class="params">(<span name="clazz">clazz: <span class="extype" name="scala.Predef.Class">Class</span>[_]</span>)</span><span class="result"> extends <a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Condition" data-isabs="true">
+    </li><li name="scaldi.Condition" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ConditionextendsAnyRef"></a>
       <a id="Condition:Condition"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="Condition.html"><span class="name">Condition</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Condition.html"><span class="name">Condition</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.DynamicModule" data-isabs="false">
+    </li><li name="scaldi.DynamicModule" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DynamicModuleextendsWordBinderwithInitializeableInjector[scaldi.DynamicModule]withOpenInjectablewithMutableInjectorUserwithCreationHelper"></a>
       <a id="DynamicModule:DynamicModule"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="DynamicModule.html"><span class="name">DynamicModule</span></a>
-        
-        <span class="result"> extends WordBinder with InitializeableInjector[DynamicModule] with OpenInjectable with MutableInjectorUser with CreationHelper</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="DynamicModule.html"><span class="name">DynamicModule</span></a><span class="result"> extends <a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a> with <a href="InitializeableInjector.html" class="extype" name="scaldi.InitializeableInjector">InitializeableInjector</a>[<a href="DynamicModule.html" class="extype" name="scaldi.DynamicModule">DynamicModule</a>] with <a href="OpenInjectable.html" class="extype" name="scaldi.OpenInjectable">OpenInjectable</a> with <a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a> with <a href="util/CreationHelper.html" class="extype" name="scaldi.util.CreationHelper">CreationHelper</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Freezable" data-isabs="true">
+    </li><li name="scaldi.Freezable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="FreezableextendsAnyRef"></a>
       <a id="Freezable:Freezable"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="Freezable.html"><span class="name">Freezable</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Freezable.html"><span class="name">Freezable</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.IdentifiedWord" data-isabs="false">
-      <a id="IdentifiedWord:IdentifiedWord[T]"></a>
+    </li><li name="scaldi.IdentifiedWord" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IdentifiedWord[+T]extendsAnyRef"></a>
+      <a id="IdentifiedWord[+T]:IdentifiedWord[T]"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="IdentifiedWord.html"><span class="name">IdentifiedWord</span></a>
-        <span class="tparams">[<span name="T">+T</span>]</span>
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="IdentifiedWord.html"><span class="name">IdentifiedWord</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Identifier" data-isabs="true">
+    </li><li name="scaldi.Identifier" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="IdentifierextendsAnyRef"></a>
       <a id="Identifier:Identifier"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="Identifier.html"><span class="name">Identifier</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Identifier.html"><span class="name">Identifier</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.ImmutableInjectorAggregation" data-isabs="false">
+    </li><li name="scaldi.ImmutableInjector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ImmutableInjectorextendsInjector"></a>
+      <a id="ImmutableInjector:ImmutableInjector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ImmutableInjector.html"><span class="name">ImmutableInjector</span></a><span class="result"> extends <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.ImmutableInjectorAggregation" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ImmutableInjectorAggregationextendsInjector"></a>
       <a id="ImmutableInjectorAggregation:ImmutableInjectorAggregation"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="ImmutableInjectorAggregation.html"><span class="name">ImmutableInjectorAggregation</span></a>
-        
-        <span class="result"> extends Injector</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ImmutableInjectorAggregation.html"><span class="name">ImmutableInjectorAggregation</span></a><span class="result"> extends <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Initializeable" data-isabs="true">
-      <a id="Initializeable:Initializeable[I]"></a>
+    </li><li name="scaldi.Initializeable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="Initializeable[I]extendsFreezable"></a>
+      <a id="Initializeable[I]:Initializeable[I]"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="Initializeable.html"><span class="name">Initializeable</span></a>
-        <span class="tparams">[<span name="I">I</span>]</span>
-        <span class="result"> extends Freezable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Initializeable.html"><span class="name">Initializeable</span></a><span class="tparams">[<span name="I">I</span>]</span><span class="result"> extends <a href="Freezable.html" class="extype" name="scaldi.Freezable">Freezable</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.InitializeableInjector" data-isabs="true">
-      <a id="InitializeableInjector:InitializeableInjector[I]"></a>
+    </li><li name="scaldi.InitializeableInjector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="InitializeableInjector[I&lt;:scaldi.InitializeableInjector[I]]extendsInjectorwithInitializeable[I]withMutableInjector"></a>
+      <a id="InitializeableInjector[I&lt;:InitializeableInjector[I]]:InitializeableInjector[I]"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="InitializeableInjector.html"><span class="name">InitializeableInjector</span></a>
-        <span class="tparams">[<span name="I">I &lt;: InitializeableInjector[I]</span>]</span>
-        <span class="result"> extends Injector with Initializeable[I] with MutableInjector</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="InitializeableInjector.html"><span class="name">InitializeableInjector</span></a><span class="tparams">[<span name="I">I &lt;: <a href="InitializeableInjector.html" class="extype" name="scaldi.InitializeableInjector">InitializeableInjector</a>[<span class="extype" name="scaldi.InitializeableInjector.I">I</span>]</span>]</span><span class="result"> extends <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a> with <a href="Initializeable.html" class="extype" name="scaldi.Initializeable">Initializeable</a>[<span class="extype" name="scaldi.InitializeableInjector.I">I</span>] with <a href="MutableInjector.html" class="extype" name="scaldi.MutableInjector">MutableInjector</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.InjectConstraints" data-isabs="false">
-      <a id="InjectConstraints:InjectConstraints[T]"></a>
+    </li><li name="scaldi.InjectConstraints" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="InjectConstraints[+T]extendsProductwithSerializable"></a>
+      <a id="InjectConstraints[+T]:InjectConstraints[T]"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="InjectConstraints.html"><span class="name">InjectConstraints</span></a>
-        <span class="tparams">[<span name="T">+T</span>]</span>
-        <span class="params">(<span name="default">default: Option[() ⇒ T]</span>, <span name="initialIdentifiers">initialIdentifiers: List[Identifier]</span>)</span><span class="result"> extends Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="InjectConstraints.html"><span class="name">InjectConstraints</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="params">(<span name="default">default: <span class="extype" name="scala.Option">Option</span>[() ⇒ <span class="extype" name="scaldi.InjectConstraints.T">T</span>] = <span class="symbol">scala.None</span></span>, <span name="initialIdentifiers">initialIdentifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">immutable.this.Nil</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.InjectException" data-isabs="false">
+    </li><li name="scaldi.InjectException" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="InjectExceptionextendsRuntimeException"></a>
       <a id="InjectException:InjectException"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="InjectException.html"><span class="name">InjectException</span></a>
-        
-        <span class="result"> extends RuntimeException</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="InjectException.html"><span class="name">InjectException</span></a><span class="result"> extends <span class="extype" name="scala.RuntimeException">RuntimeException</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Injectable" data-isabs="true">
+    </li><li name="scaldi.Injectable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="InjectableextendsAnyRef"></a>
       <a id="Injectable:Injectable"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="Injectable.html"><span class="name">Injectable</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Injectable.html"><span class="name">Injectable</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Injector" data-isabs="true">
+    </li><li name="scaldi.Injector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="InjectorextendsAnyRef"></a>
       <a id="Injector:Injector"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="Injector.html"><span class="name">Injector</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Injector.html"><span class="name">Injector</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.LazyBinding" data-isabs="false">
+    </li><li name="scaldi.LazyBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LazyBindingextendsBindingwithProductwithSerializable"></a>
       <a id="LazyBinding:LazyBinding"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="LazyBinding.html"><span class="name">LazyBinding</span></a>
-        
-        <span class="params">(<span name="createFn">createFn: Option[() ⇒ Any]</span>, <span name="identifiers">identifiers: List[Identifier]</span>, <span name="condition">condition: Option[Condition]</span>)</span><span class="result"> extends Binding with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LazyBinding.html"><span class="name">LazyBinding</span></a><span class="params">(<span name="createFn">createFn: <span class="extype" name="scala.Option">Option</span>[() ⇒ <span class="extype" name="scala.Any">Any</span>]</span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">scala.None</span></span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.LowPriorityImmutableInjectorCompositions" data-isabs="true">
-      <a id="LowPriorityImmutableInjectorCompositions:LowPriorityImmutableInjectorCompositions"></a>
+    </li><li name="scaldi.LowPriorityImmutableInjectorComposition" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LowPriorityImmutableInjectorCompositionextendsLowPriorityMutableInjectorComposition"></a>
+      <a id="LowPriorityImmutableInjectorComposition:LowPriorityImmutableInjectorComposition"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="LowPriorityImmutableInjectorCompositions.html"><span class="name">LowPriorityImmutableInjectorCompositions</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LowPriorityImmutableInjectorComposition.html"><span class="name">LowPriorityImmutableInjectorComposition</span></a><span class="result"> extends <a href="LowPriorityMutableInjectorComposition.html" class="extype" name="scaldi.LowPriorityMutableInjectorComposition">LowPriorityMutableInjectorComposition</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.LowPriorityMutableWithOtherInjectorCompositions" data-isabs="true">
-      <a id="LowPriorityMutableWithOtherInjectorCompositions:LowPriorityMutableWithOtherInjectorCompositions"></a>
+    </li><li name="scaldi.LowPriorityMutableInjectorComposition" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LowPriorityMutableInjectorCompositionextendsAnyRef"></a>
+      <a id="LowPriorityMutableInjectorComposition:LowPriorityMutableInjectorComposition"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="LowPriorityMutableWithOtherInjectorCompositions.html"><span class="name">LowPriorityMutableWithOtherInjectorCompositions</span></a>
-        
-        <span class="result"> extends LowPriorityOtherWithMutableInjectorCompositions</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LowPriorityMutableInjectorComposition.html"><span class="name">LowPriorityMutableInjectorComposition</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.LowPriorityOtherWithMutableInjectorCompositions" data-isabs="true">
-      <a id="LowPriorityOtherWithMutableInjectorCompositions:LowPriorityOtherWithMutableInjectorCompositions"></a>
-      <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="LowPriorityOtherWithMutableInjectorCompositions.html"><span class="name">LowPriorityOtherWithMutableInjectorCompositions</span></a>
-        
-        <span class="result"> extends LowPriorityImmutableInjectorCompositions</span>
-      </span>
-      </h4>
-      
-    </li><li visbl="pub" name="scaldi.Module" data-isabs="true">
+    </li><li name="scaldi.Module" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ModuleextendsReflectionBinderwithWordBinderwithInitializeableInjector[scaldi.Module]withInjectablewithMutableInjectorUserwithCreationHelper"></a>
       <a id="Module:Module"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="Module.html"><span class="name">Module</span></a>
-        
-        <span class="result"> extends ReflectionBinder with WordBinder with InitializeableInjector[Module] with Injectable with MutableInjectorUser with CreationHelper</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Module.html"><span class="name">Module</span></a><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a> with <a href="InitializeableInjector.html" class="extype" name="scaldi.InitializeableInjector">InitializeableInjector</a>[<a href="Module.html" class="extype" name="scaldi.Module">Module</a>] with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a> with <a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a> with <a href="util/CreationHelper.html" class="extype" name="scaldi.util.CreationHelper">CreationHelper</a></span>
       </span>
       </h4>
       <p class="comment cmt">Standard application module
 </p>
-    </li><li visbl="pub" name="scaldi.MutableInjector" data-isabs="true">
+    </li><li name="scaldi.MutableInjector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="MutableInjectorextendsInjector"></a>
       <a id="MutableInjector:MutableInjector"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="MutableInjector.html"><span class="name">MutableInjector</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="MutableInjector.html"><span class="name">MutableInjector</span></a><span class="result"> extends <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.MutableInjectorAggregation" data-isabs="false">
+    </li><li name="scaldi.MutableInjectorAggregation" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MutableInjectorAggregationextendsInitializeableInjector[scaldi.MutableInjectorAggregation]withMutableInjectorUser"></a>
       <a id="MutableInjectorAggregation:MutableInjectorAggregation"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="MutableInjectorAggregation.html"><span class="name">MutableInjectorAggregation</span></a>
-        
-        <span class="result"> extends InitializeableInjector[MutableInjectorAggregation] with MutableInjectorUser</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="MutableInjectorAggregation.html"><span class="name">MutableInjectorAggregation</span></a><span class="result"> extends <a href="InitializeableInjector.html" class="extype" name="scaldi.InitializeableInjector">InitializeableInjector</a>[<a href="MutableInjectorAggregation.html" class="extype" name="scaldi.MutableInjectorAggregation">MutableInjectorAggregation</a>] with <a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.MutableInjectorUser" data-isabs="true">
+    </li><li name="scaldi.MutableInjectorUser" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="MutableInjectorUserextendsMutableInjector"></a>
       <a id="MutableInjectorUser:MutableInjectorUser"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="MutableInjectorUser.html"><span class="name">MutableInjectorUser</span></a>
-        
-        <span class="result"> extends MutableInjector</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="MutableInjectorUser.html"><span class="name">MutableInjectorUser</span></a><span class="result"> extends <a href="MutableInjector.html" class="extype" name="scaldi.MutableInjector">MutableInjector</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.NonLazyBinding" data-isabs="false">
+    </li><li name="scaldi.NonLazyBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="NonLazyBindingextendsBindingwithProductwithSerializable"></a>
       <a id="NonLazyBinding:NonLazyBinding"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="NonLazyBinding.html"><span class="name">NonLazyBinding</span></a>
-        
-        <span class="params">(<span name="createFn">createFn: Option[() ⇒ Any]</span>, <span name="identifiers">identifiers: List[Identifier]</span>, <span name="condition">condition: Option[Condition]</span>)</span><span class="result"> extends Binding with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="NonLazyBinding.html"><span class="name">NonLazyBinding</span></a><span class="params">(<span name="createFn">createFn: <span class="extype" name="scala.Option">Option</span>[() ⇒ <span class="extype" name="scala.Any">Any</span>]</span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">scala.None</span></span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.NotCondition" data-isabs="false">
+    </li><li name="scaldi.NotCondition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="NotConditionextendsConditionwithProductwithSerializable"></a>
       <a id="NotCondition:NotCondition"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="NotCondition.html"><span class="name">NotCondition</span></a>
-        
-        <span class="params">(<span name="condition">condition: Condition</span>)</span><span class="result"> extends Condition with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="NotCondition.html"><span class="name">NotCondition</span></a><span class="params">(<span name="condition">condition: <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a></span>)</span><span class="result"> extends <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.OpenInjectable" data-isabs="true">
+    </li><li name="scaldi.OpenInjectable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="OpenInjectableextendsInjectable"></a>
       <a id="OpenInjectable:OpenInjectable"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="OpenInjectable.html"><span class="name">OpenInjectable</span></a>
-        
-        <span class="result"> extends Injectable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="OpenInjectable.html"><span class="name">OpenInjectable</span></a><span class="result"> extends <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.OrCondition" data-isabs="false">
+    </li><li name="scaldi.OrCondition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OrConditionextendsConditionwithProductwithSerializable"></a>
       <a id="OrCondition:OrCondition"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="OrCondition.html"><span class="name">OrCondition</span></a>
-        
-        <span class="params">(<span name="conditions">conditions: List[Condition]</span>)</span><span class="result"> extends Condition with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="OrCondition.html"><span class="name">OrCondition</span></a><span class="params">(<span name="conditions">conditions: <span class="extype" name="scala.List">List</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]</span>)</span><span class="result"> extends <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.PropertiesInjector" data-isabs="false">
+    </li><li name="scaldi.PropertiesInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="PropertiesInjectorextendsRawInjector"></a>
       <a id="PropertiesInjector:PropertiesInjector"></a>
       <h4 class="signature">
-      <span class="kind">class</span>
-      <span class="symbol"> 
-        <a href="PropertiesInjector.html"><span class="name">PropertiesInjector</span></a>
-        
-        <span class="result"> extends RawInjector</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="PropertiesInjector.html"><span class="name">PropertiesInjector</span></a><span class="result"> extends <a href="RawInjector.html" class="extype" name="scaldi.RawInjector">RawInjector</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.ProviderBinding" data-isabs="false">
+    </li><li name="scaldi.ProviderBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ProviderBindingextendsBindingwithProductwithSerializable"></a>
       <a id="ProviderBinding:ProviderBinding"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="ProviderBinding.html"><span class="name">ProviderBinding</span></a>
-        
-        <span class="params">(<span name="createFn">createFn: () ⇒ Any</span>, <span name="identifiers">identifiers: List[Identifier]</span>, <span name="condition">condition: Option[Condition]</span>)</span><span class="result"> extends Binding with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ProviderBinding.html"><span class="name">ProviderBinding</span></a><span class="params">(<span name="createFn">createFn: () ⇒ <span class="extype" name="scala.Any">Any</span></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">scala.None</span></span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.RawInjector" data-isabs="true">
+    </li><li name="scaldi.RawInjector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RawInjectorextendsInjector"></a>
       <a id="RawInjector:RawInjector"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="RawInjector.html"><span class="name">RawInjector</span></a>
-        
-        <span class="result"> extends Injector</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RawInjector.html"><span class="name">RawInjector</span></a><span class="result"> extends <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.ReflectionBinder" data-isabs="true">
+    </li><li name="scaldi.ReflectionBinder" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ReflectionBinderextendsAnyRef"></a>
       <a id="ReflectionBinder:ReflectionBinder"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="ReflectionBinder.html"><span class="name">ReflectionBinder</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ReflectionBinder.html"><span class="name">ReflectionBinder</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.StaticModule" data-isabs="true">
+    </li><li name="scaldi.StaticModule" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="StaticModuleextendsReflectionBinderwithImmutableInjectorwithInjectablewithCreationHelper"></a>
       <a id="StaticModule:StaticModule"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="StaticModule.html"><span class="name">StaticModule</span></a>
-        
-        <span class="result"> extends ReflectionBinder with Injector with Injectable with CreationHelper</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="StaticModule.html"><span class="name">StaticModule</span></a><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a> with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a> with <a href="util/CreationHelper.html" class="extype" name="scaldi.util.CreationHelper">CreationHelper</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.StringIdentifier" data-isabs="false">
+    </li><li name="scaldi.StringIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StringIdentifierextendsIdentifierwithProductwithSerializable"></a>
       <a id="StringIdentifier:StringIdentifier"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="StringIdentifier.html"><span class="name">StringIdentifier</span></a>
-        
-        <span class="params">(<span name="str">str: String</span>)</span><span class="result"> extends Identifier with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="StringIdentifier.html"><span class="name">StringIdentifier</span></a><span class="params">(<span name="str">str: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.SysPropCondition" data-isabs="false">
+    </li><li name="scaldi.SysPropCondition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SysPropConditionextendsConditionwithProductwithSerializable"></a>
       <a id="SysPropCondition:SysPropCondition"></a>
       <h4 class="signature">
-      <span class="kind">case class</span>
-      <span class="symbol"> 
-        <a href="SysPropCondition.html"><span class="name">SysPropCondition</span></a>
-        
-        <span class="params">(<span name="name">name: String</span>, <span name="value">value: Option[String]</span>)</span><span class="result"> extends Condition with Product with Serializable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="SysPropCondition.html"><span class="name">SysPropCondition</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">scala.None</span></span>)</span><span class="result"> extends <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.WordBinder" data-isabs="true">
+    </li><li name="scaldi.WordBinder" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="WordBinderextendsAnyRef"></a>
       <a id="WordBinder:WordBinder"></a>
       <h4 class="signature">
-      <span class="kind">trait</span>
-      <span class="symbol"> 
-        <a href="WordBinder.html"><span class="name">WordBinder</span></a>
-        
-        <span class="result"> extends AnyRef</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="WordBinder.html"><span class="name">WordBinder</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
     </li></ol>
             </div>
-        
+
         
 
-        <div class="values members" id="values">
+        <div id="values" class="values members">
               <h3>Value Members</h3>
-              <ol><li visbl="pub" name="scaldi.Args" data-isabs="false">
+              <ol><li name="scaldi.Args" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Args"></a>
       <a id="Args:Args"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
         <a href="Args$.html"><span class="name">Args</span></a>
-        
-        <span class="result"> extends AnyRef</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.CanBeIdentifier" data-isabs="false">
+    </li><li name="scaldi.CanBeIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CanBeIdentifier"></a>
       <a id="CanBeIdentifier:CanBeIdentifier"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
         <a href="CanBeIdentifier$.html"><span class="name">CanBeIdentifier</span></a>
-        
-        <span class="result"> extends AnyRef</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Condition" data-isabs="false">
+    </li><li name="scaldi.Condition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Condition"></a>
       <a id="Condition:Condition"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
         <a href="Condition$.html"><span class="name">Condition</span></a>
-        
-        <span class="result"> extends AnyRef</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.DynamicModule" data-isabs="false">
+    </li><li name="scaldi.DynamicModule" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DynamicModule"></a>
       <a id="DynamicModule:DynamicModule"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
         <a href="DynamicModule$.html"><span class="name">DynamicModule</span></a>
-        
-        <span class="result"> extends AnyRef</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Identifier" data-isabs="false">
+    </li><li name="scaldi.Identifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Identifier"></a>
       <a id="Identifier:Identifier"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
         <a href="Identifier$.html"><span class="name">Identifier</span></a>
-        
-        <span class="result"> extends AnyRef</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Injectable" data-isabs="false">
+    </li><li name="scaldi.Injectable" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Injectable"></a>
       <a id="Injectable:Injectable"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
-        <a href="Injectable$.html"><span class="name">Injectable</span></a>
-        
-        <span class="result"> extends OpenInjectable</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Injectable$.html"><span class="name">Injectable</span></a><span class="result"> extends <a href="OpenInjectable.html" class="extype" name="scaldi.OpenInjectable">OpenInjectable</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.Injector" data-isabs="false">
+    </li><li name="scaldi.Injector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Injector"></a>
       <a id="Injector:Injector"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
-        <a href="Injector$.html"><span class="name">Injector</span></a>
-        
-        <span class="result"> extends LowPriorityMutableWithOtherInjectorCompositions</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Injector$.html"><span class="name">Injector</span></a><span class="result"> extends <a href="LowPriorityImmutableInjectorComposition.html" class="extype" name="scaldi.LowPriorityImmutableInjectorComposition">LowPriorityImmutableInjectorComposition</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.NilInjector" data-isabs="false">
+    </li><li name="scaldi.NilInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="NilInjector"></a>
       <a id="NilInjector:NilInjector"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
-        <a href="NilInjector$.html"><span class="name">NilInjector</span></a>
-        
-        <span class="result"> extends Injector</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="NilInjector$.html"><span class="name">NilInjector</span></a><span class="result"> extends <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.PropertiesInjector" data-isabs="false">
+    </li><li name="scaldi.PropertiesInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="PropertiesInjector"></a>
       <a id="PropertiesInjector:PropertiesInjector"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
         <a href="PropertiesInjector$.html"><span class="name">PropertiesInjector</span></a>
-        
-        <span class="result"> extends AnyRef</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.SystemPropertiesInjector" data-isabs="false">
+    </li><li name="scaldi.SystemPropertiesInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SystemPropertiesInjector"></a>
       <a id="SystemPropertiesInjector:SystemPropertiesInjector"></a>
       <h4 class="signature">
-      <span class="kind">object</span>
-      <span class="symbol"> 
-        <a href="SystemPropertiesInjector$.html"><span class="name">SystemPropertiesInjector</span></a>
-        
-        <span class="result"> extends RawInjector</span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SystemPropertiesInjector$.html"><span class="name">SystemPropertiesInjector</span></a><span class="result"> extends <a href="RawInjector.html" class="extype" name="scaldi.RawInjector">RawInjector</a></span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="scaldi.util" data-isabs="false">
+    </li><li name="scaldi.util" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="util"></a>
       <a id="util:util"></a>
       <h4 class="signature">
-      <span class="kind">package</span>
-      <span class="symbol"> 
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
         <a href="util/package.html"><span class="name">util</span></a>
-        
-        
       </span>
       </h4>
       
@@ -682,10 +831,30 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
         
 
         
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
 
       </div>
-      
+
       <div id="tooltip"></div>
-      
+
+      <div id="footer">  </div>
+
+
     </body>
       </html>
