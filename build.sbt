@@ -20,7 +20,7 @@ seq(site.settings: _*)
 
 seq(ghpages.settings: _*)
 
-git.remoteRepo := "git://github.com/OlegIlyenko/scaldi.git"
+git.remoteRepo := "git@github.com:OlegIlyenko/scaldi.git"
 
 site.addMappingsToSiteDir(mappings in packageDoc in Compile, "api")
 
