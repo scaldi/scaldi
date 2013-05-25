@@ -11,7 +11,7 @@ class ReflectionWrapper(clazz: Class[_]) {
     import ReflectionHelper._
 
     /**
-     * @returns first method with provided name that satisfies provided conditions
+     * @return first method with provided name that satisfies provided conditions
      */
     def getMatchingMethod(name: Option[String], returnType: Class[_], args: Class[_]*) =
       clazz.getMethods.find { method =>
@@ -22,7 +22,7 @@ class ReflectionWrapper(clazz: Class[_]) {
       }
 
     /**
-     * @returns all methods that satisfy provided conditions
+     * @return all methods that satisfy provided conditions
      */
     def getMatchingMethods(name: Option[String], returnType: Class[_], args: Class[_]*) =
       clazz.getMethods.filter { method =>
@@ -42,7 +42,7 @@ class ReflectionWrapper(clazz: Class[_]) {
 class ReflectionObjectWrapper(obj: Object) {
 
     /**
-     * @returns Some(value) of the <code>val</code> or None if such val not found
+     * @return Some(value) of the <code>val</code> or None if such val not found
      */
     def getValValue[T](name: String)(implicit m: Manifest[T]): Option[T] =
         obj.getClass.getMethods.find(_.getName == name) match {
