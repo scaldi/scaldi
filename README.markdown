@@ -30,7 +30,7 @@ At first you need to add new repository:
 
 Now you can add library dependency:
 
-    libraryDependencies += "org.angelsmasterpiece.scaldi" %% "scaldi" % "0.1.1"
+    libraryDependencies += "com.github.scaldi" %% "scaldi" % "0.1.2"
 
 ## Maven Configuration
 
