@@ -4,7 +4,7 @@ name := "scaldi"
 
 organization := "com.github.scaldi"
 
-version := "0.1.2"
+version := "0.1.3-SNAPSHOT"
 
 crossScalaVersions := Seq("2.9.2", "2.10.1")
 
