@@ -50,10 +50,10 @@ trait CanBeIdentified[R] { this: R =>
 }
 
 trait CanBeConditional[R] { this: R =>
-  var condition: Option[Condition] = None
+  var condition: Option[() => Condition] = None
 
-  def when(cond: Condition) = {
-    condition = Some(cond)
+  def when(cond: => Condition) = {
+    condition = Some(() => cond)
     this
   }
 }
@@ -72,13 +72,13 @@ class BindHelper[R](onBound: (BindHelper[R], BoundHelper) => Unit)
   def toProvider[T <: R : Manifest](fn: => T) = bind(ProviderBinding(() => fn, _, _))
   def inProvider[T <: R : Manifest](fn: => T) = toProvider(fn)
 
-  private def bind[T : Manifest](bindingFn: (List[Identifier], Option[Condition]) => Binding) = {
+  private def bind[T : Manifest](bindingFn: (List[Identifier], Option[() => Condition]) => Binding) = {
     val bound = new BoundHelper(bindingFn, identifiers, condition, Some(manifest[T].erasure))
     onBound(this, bound)
     bound
   }
 
-  private def bindNone(bindingFn: (List[Identifier], Option[Condition]) => Binding) = {
+  private def bindNone(bindingFn: (List[Identifier], Option[() => Condition]) => Binding) = {
     val bound = new BoundHelper(bindingFn, identifiers, condition, None)
     onBound(this, bound)
     bound
@@ -86,9 +86,9 @@ class BindHelper[R](onBound: (BindHelper[R], BoundHelper) => Unit)
 }
 
 class BoundHelper(
-   bindingFn: (List[Identifier], Option[Condition]) => Binding,
+   bindingFn: (List[Identifier], Option[() => Condition]) => Binding,
    initialIdentifiers: List[Identifier],
-   initialCondition: Option[Condition],
+   initialCondition: Option[() => Condition],
    bindingType: Option[Class[_]]
 ) extends CanBeIdentified[BoundHelper] with CanBeConditional[BoundHelper] {
   def getBinding = bindingFn (

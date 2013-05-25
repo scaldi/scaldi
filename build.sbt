@@ -2,9 +2,9 @@ import com.jsuereth.sbtsite.SiteKeys
 
 name := "scaldi"
 
-organization := "org.angelsmasterpiece.scaldi"
+organization := "com.github.scaldi"
 
-version := "0.2-SNAPSHOT"
+version := "0.1.2-SNAPSHOT"
 
 crossScalaVersions := Seq("2.9.2", "2.10.1")
 
