@@ -3,8 +3,8 @@ package scaldi.util
 import language.{postfixOps, implicitConversions}
 
 object ReflectionHelper {
-    implicit def classToReflectionWrapper(cl: Class[_]) = new ReflectionWrapper(cl)
-    implicit def objectToReflectionObjectWrapper(obj: Object) = new ReflectionObjectWrapper(obj)
+  implicit def classToReflectionWrapper(cl: Class[_]) = new ReflectionWrapper(cl)
+  implicit def objectToReflectionObjectWrapper(obj: Object) = new ReflectionObjectWrapper(obj)
 }
 
 class ReflectionWrapper(clazz: Class[_]) {

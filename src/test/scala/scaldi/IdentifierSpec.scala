@@ -16,7 +16,7 @@ class IdentifierSpec extends WordSpec with ShouldMatchers {
       }
 
       "be converted from class" in {
-        getId(classOf[String]) should be === ClassIdentifier(classOf[String])
+        getId(classOf[String]) should be === TypeTagIdentifier.typeId[String]
       }
     }
 

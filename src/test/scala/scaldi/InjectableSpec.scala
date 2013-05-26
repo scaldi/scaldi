@@ -23,7 +23,7 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
       server.getConnection.welcomeMessage should be === "Hello user!"
     }
 
-    "treat binding that return None as non-defined and use default of throw exception if no default provided" in {
+    "treat binding that return None as non-defined and use default or throw an exception if no default provided" in {
       val module = new TcpModule :: DynamicModule(_.bind [String] identifiedBy 'welcome to None) :: DynamicModule({ m =>
         m.binding identifiedBy 'tcpHost to "test"
         m.binding identifiedBy 'welcome to "Hello user!"
@@ -92,8 +92,8 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
      * find correct Function2 instance
      */
     "ignore generics and return wrong bindings" in {
-      val adderWrong = inject [(Int, Int) => Int]
-      evaluating(adderWrong(2, 3)) should produce[ClassCastException]
+      val adderTypeOnly = inject [(Int, Int) => Int]
+      adderTypeOnly(2, 3) should be === 5
 
       val adderRight = inject [(Int, Int) => Int] ('intAdder)
       adderRight(2, 3) should be === 5
