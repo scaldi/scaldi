@@ -1,5 +1,7 @@
 package scaldi
 
+import language.{existentials, implicitConversions}
+
 import annotation.implicitNotFound
 
 trait Identifier {

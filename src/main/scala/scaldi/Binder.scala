@@ -1,5 +1,7 @@
 package scaldi
 
+import language.postfixOps
+
 import scaldi.util.Util._
 import java.lang.reflect.{Method, InvocationTargetException}
 
@@ -20,7 +22,7 @@ trait WordBinder {
   }
 
   def binding = createBinding[Any](None)
-  def bind[T : Manifest] = createBinding[T](Some(manifest[T].erasure))
+  def bind[T : Manifest] = createBinding[T](Some(manifest[T].runtimeClass))
 
   private def createBinding[T](mainType: Option[Class[_]]) = {
     val helper = new BindHelper[T]({ (bind, bound) =>
@@ -73,7 +75,7 @@ class BindHelper[R](onBound: (BindHelper[R], BoundHelper) => Unit)
   def inProvider[T <: R : Manifest](fn: => T) = toProvider(fn)
 
   private def bind[T : Manifest](bindingFn: (List[Identifier], Option[() => Condition]) => Binding) = {
-    val bound = new BoundHelper(bindingFn, identifiers, condition, Some(manifest[T].erasure))
+    val bound = new BoundHelper(bindingFn, identifiers, condition, Some(manifest[T].runtimeClass))
     onBound(this, bound)
     bound
   }

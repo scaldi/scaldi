@@ -1,6 +1,6 @@
 package scaldi.util
 
-import collection.mutable.ListBuffer
+import language.{postfixOps, implicitConversions}
 
 object ReflectionHelper {
     implicit def classToReflectionWrapper(cl: Class[_]) = new ReflectionWrapper(cl)
@@ -47,7 +47,7 @@ class ReflectionObjectWrapper(obj: Object) {
     def getValValue[T](name: String)(implicit m: Manifest[T]): Option[T] =
         obj.getClass.getMethods.find(_.getName == name) match {
             case Some(method) =>
-                if (m.erasure.isAssignableFrom(method.getReturnType) && method.getParameterTypes.length == 0)
+                if (m.runtimeClass.isAssignableFrom(method.getReturnType) && method.getParameterTypes.length == 0)
                     Some(method.invoke(obj).asInstanceOf[T])
                 else
                     None

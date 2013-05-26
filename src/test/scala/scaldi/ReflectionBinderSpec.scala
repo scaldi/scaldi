@@ -30,7 +30,7 @@ class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
 
     "support BidingProvider as return type of class members and use it to retrieve actual binding" in {
       case class Special[T: Manifest](fn: () => T) extends BidingProvider {
-        def getBinding(method: Method) = LazyBinding(Some(fn), List(manifest[T].erasure, "special"))
+        def getBinding(method: Method) = LazyBinding(Some(fn), List(manifest[T].runtimeClass, "special"))
       }
 
       val binder = new StaticModule {

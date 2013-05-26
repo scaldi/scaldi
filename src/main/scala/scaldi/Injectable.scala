@@ -1,31 +1,33 @@
 package scaldi
 
+import language.{postfixOps, implicitConversions}
+
 import scaldi.util.Util._
 
 trait Injectable {
   protected def inject[T](implicit injector: Injector, m: Manifest[T]): T =
-    List[Identifier](ClassIdentifier(check(m).erasure)) |>
+    List[Identifier](ClassIdentifier(check(m).runtimeClass)) |>
         (ids => injectWithDefault[T](injector, noBindingFound(ids))(ids))
 
   protected def inject[T](identifiers: Identifier*)(implicit injector: Injector, m: Manifest[T]): T =
-    List[Identifier](ClassIdentifier(check(m).erasure)) ++ identifiers |>
+    List[Identifier](ClassIdentifier(check(m).runtimeClass)) ++ identifiers |>
         (ids => injectWithDefault[T](injector, noBindingFound(ids))(ids))
 
   protected def inject[T](constraints: => InjectConstraints[T])(implicit injector: Injector, m: Manifest[T]): T =
-    List(ClassIdentifier(check(m).erasure)) ++ constraints.identifiers |>
+    List(ClassIdentifier(check(m).runtimeClass)) ++ constraints.identifiers |>
       (ids => injectWithDefault[T](injector, constraints.default map(_()) getOrElse noBindingFound(ids))(ids))
 
   protected def injectWithDefault[T](default: => T)(implicit injector: Injector, m: Manifest[T]): T =
-    List(ClassIdentifier(check(m).erasure)) |> injectWithDefault[T](injector, default)
+    List(ClassIdentifier(check(m).runtimeClass)) |> injectWithDefault[T](injector, default)
 
   protected def injectWithDefault[T](identifiers: Identifier*)(default: => T)(implicit injector: Injector, m: Manifest[T]): T =
-    List(ClassIdentifier(check(m).erasure)) ++ identifiers |> injectWithDefault[T](injector, default)
+    List(ClassIdentifier(check(m).runtimeClass)) ++ identifiers |> injectWithDefault[T](injector, default)
 
   protected def injectAllOfType[T](implicit injector: Injector, m: Manifest[T]): List[T] =
     injectAllOfType[T]()(injector, m)
 
   protected def injectAllOfType[T](identifiers: Identifier*)(implicit injector: Injector, m: Manifest[T]): List[T] =
-    List[Identifier](ClassIdentifier(check(m).erasure)) ++ identifiers |>
+    List[Identifier](ClassIdentifier(check(m).runtimeClass)) ++ identifiers |>
         (ids => injector getBindings ids flatMap (_.get) map (_.asInstanceOf[T]))
 
   protected def injectAll(identifiers: Identifier*)(implicit injector: Injector): List[Any] =
@@ -40,7 +42,7 @@ trait Injectable {
    * For more info, please refer to https://issues.scala-lang.org/browse/SI-2609
    */
   private def check[T](m: Manifest[T]) =
-    if (m.erasure == classOf[Object])
+    if (m.runtimeClass == classOf[Object])
       throw new InjectException("Unfortunately inject can't infer required binding type. " +
           "Please provide expected injection type explicitly: inject [MyType]")
     else m

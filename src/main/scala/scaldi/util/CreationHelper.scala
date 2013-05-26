@@ -1,5 +1,7 @@
 package scaldi.util
 
+import language.implicitConversions
+
 trait CreationHelper {
   implicit def anyToCreationWrapper[T](obj: T) = new CreationWrapper(obj)
 

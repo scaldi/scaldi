@@ -6,11 +6,11 @@ organization := "com.github.scaldi"
 
 version := "0.1.3-SNAPSHOT"
 
-crossScalaVersions := Seq("2.9.2", "2.10.1")
+crossScalaVersions := Seq("2.10.1")
 
 scalaVersion := "2.10.1"
 
-scalacOptions += "-deprecation"
+scalacOptions += "-deprecation -feature"
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "1.9.1" % "test"
