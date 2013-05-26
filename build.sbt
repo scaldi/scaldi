@@ -12,10 +12,10 @@ scalaVersion := "2.10.1"
 
 scalacOptions ++= Seq("-deprecation", "-feature")
 
-libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+libraryDependencies <++= (scalaVersion)(sv => Seq(
+  "org.scala-lang" % "scala-reflect" % sv,
   "org.scalatest" %% "scalatest" % "1.9.1" % "test"
-)
+))
 
 seq(site.settings: _*)
 
