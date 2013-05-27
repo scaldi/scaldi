@@ -17,6 +17,8 @@ libraryDependencies <++= (scalaVersion)(sv => Seq(
   "org.scalatest" %% "scalatest" % "1.9.1" % "test"
 ))
 
+fork := true
+
 seq(site.settings: _*)
 
 seq(ghpages.settings: _*)
