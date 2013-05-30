@@ -2,6 +2,8 @@ import com.jsuereth.sbtsite.SiteKeys
 
 name := "scaldi"
 
+description := "Scaldi - Scala Dependency Injection Library"
+
 organization := "com.github.scaldi"
 
 version := "0.2"
@@ -46,7 +48,6 @@ SiteKeys.siteMappings <<=
 pomExtra := <xml:group>
   <url>http://scaldi.github.io/scaldi/Scaldi.html</url>
   <inceptionYear>2011</inceptionYear>
-  <name>Scaldi - Scala Dependency Injection Library</name>
   <licenses>
     <license>
       <name>Apache License, ASL Version 2.0</name>
