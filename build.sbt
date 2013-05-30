@@ -16,11 +16,25 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "1.9.1" % "test"
 )
 
+publishMavenStyle := true
+
+publishArtifact in Test := false
+
+pomIncludeRepository := { x => false }
+
+publishTo <<= version { v: String =>
+  val nexus = "https://oss.sonatype.org/"
+  if (v.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases" at nexus + "service/local/staging/deploy/maven2")
+}
+
 seq(site.settings: _*)
 
 seq(ghpages.settings: _*)
 
-git.remoteRepo := "git@github.com:OlegIlyenko/scaldi.git"
+git.remoteRepo := "git@github.com:scaldi/scaldi.git"
 
 site.addMappingsToSiteDir(mappings in packageDoc in Compile, "api")
 
@@ -30,8 +44,9 @@ SiteKeys.siteMappings <<=
   }
 
 pomExtra := <xml:group>
+  <url>http://scaldi.github.io/scaldi/Scaldi.html</url>
   <inceptionYear>2011</inceptionYear>
-  <name>Scaldi - Scala Dependency Injection Framework</name>
+  <name>Scaldi - Scala Dependency Injection Library</name>
   <licenses>
     <license>
       <name>Apache License, ASL Version 2.0</name>
@@ -47,10 +62,10 @@ pomExtra := <xml:group>
   </developers>
   <issueManagement>
     <system>GitHub</system>
-    <url>http://github.com/OlegIlyenko/scaldi/issues</url>
+    <url>http://github.com/scaldi/scaldi/issues</url>
   </issueManagement>
   <scm>
-    <connection>scm:git://github.com/OlegIlyenko/scaldi.git</connection>
-    <url>http://github.com/OlegIlyenko/scaldi/tree/master</url>
+    <connection>scm:git:git@github.com:scaldi/scaldi.git</connection>
+    <url>git@github.com:scaldi/scaldi.git</url>
   </scm>
 </xml:group>
