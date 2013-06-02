@@ -22,34 +22,18 @@ at the tests:
 
 [![Build Status](https://travis-ci.org/scaldi/scaldi.png?branch=master)](https://travis-ci.org/scaldi/scaldi)
 
-## SBT Configuration
+## Adding Scaldi to Your Build
 
-At first you need to add new repository:
+SBT Configuration:
 
-    resolvers += "Angelsmasterpiece repo" at "https://raw.github.com/OlegIlyenko/angelsmasterpiece-maven-repo/master"
+    libraryDependencies += "com.github.scaldi" %% "scaldi" % "0.2"
 
-Now you can add library dependency:
-
-    libraryDependencies += "com.github.scaldi" %% "scaldi" % "0.1.2"
-
-## Maven Configuration
-
-In order to use **Scaldi** in maven project you should add one new repository in your *pom.xml*:
-
-    <repositories>
-        <repository>
-            <id>angelsmasterpiece-repo</id>
-            <name>Angelsmasterpiece Repository</name>
-            <url>https://raw.github.com/OlegIlyenko/angelsmasterpiece-maven-repo/master</url>
-        </repository>
-    </repositories>
-
-Now you can add this dependency (you need to specify scala version manually in the *artifactId*):
+Maven Configuration (you need to specify scala version manually in the *artifactId*):
 
     <dependency>
-        <groupId>org.angelsmasterpiece.scaldi</groupId>
+        <groupId>com.github.scaldi</groupId>
         <artifactId>scaldi_2.10</artifactId>
-        <version>0.1.1</version>
+        <version>0.2</version>
     </dependency>
 
 ## License
