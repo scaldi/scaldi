@@ -137,37 +137,33 @@ other bindings from the module composition
 </li><li>Highly extensible - you can generally customize any aspect of the library like identifiers, conditions, modules, etc.</li></ul><h2 id="Getting+Started">Getting Started</h2><p><em>This section is still under construction and will be updated soon.</em> Meanwhile you can look at some usage example in
 the <a  href="Scaldi.html">start page</a>.
 </p><p>If you want to get some more examples, I can also recommend you to look at the test classes:
-</p><p><a  href="http://github.com/OlegIlyenko/scaldi/tree/master/src/test/scala/scaldi">http://github.com/OlegIlyenko/scaldi/tree/master/src/test/scala/scaldi</a>
-</p><p>If you want to use <em>Scaldi</em> in your project, please look at <a  href="Project+Setup.html">Project Setup</a> page.</p><h2 id="Project+Setup">Project Setup</h2><p>If you want to use <em>Scaldi</em> in your project, the easiest way would be to use <em>SBT</em>. You can of course use it in
-maven projects or just download JAR file from <a  href="http://github.com/OlegIlyenko/angelsmasterpiece-maven-repo/tree/master/org/angelsmasterpiece/scaldi/scaldi_2.9.1">here</a>.
-</p><h3 id="SBT+Configuration">SBT Configuration</h3><p>At first you need to add new repository:
-</p><pre><code class="prettyprint lang-scala">resolvers += &quot;Angelsmasterpiece repo&quot; at
-    &quot;https://raw.github.com/OlegIlyenko/angelsmasterpiece-maven-repo/master&quot;
-</code></pre><p>Now you can add library dependency:
-</p><pre><code class="prettyprint lang-scala">libraryDependencies += &quot;org.angelsmasterpiece.scaldi&quot; %% &quot;scaldi&quot; % &quot;0.1&quot;
-</code></pre><h3 id="Maven+Configuration">Maven Configuration</h3><p>In order to use <em>Scaldi</em> in maven project you should add one new repository in your <em>pom.xml</em>:
-</p><pre><code class="prettyprint lang-xml">&lt;repository&gt;
-    &lt;id&gt;angelsmasterpiece-repo&lt;/id&gt;
-    &lt;name&gt;Angelsmasterpiece Repository&lt;/name&gt;
-    &lt;url&gt;https://raw.github.com/OlegIlyenko/angelsmasterpiece-maven-repo/master&lt;/url&gt;
-&lt;/repository&gt;
-</code></pre><p>Now you can add this dependency (you need to specify scala version manually for the <em>artifactId</em>):
+</p><p><a  href="http://github.com/scaldi/scaldi/tree/master/src/test/scala/scaldi">http://github.com/scaldi/scaldi/tree/master/src/test/scala/scaldi</a>
+</p><p>If you want to use <em>Scaldi</em> in your project, please look at <a  href="Project+Setup.html">Project Setup</a> page.
+</p><h3 id="Using+Scaldi+in+Play+Applications">Using Scaldi in Play Applications</h3><p>If you want to use Scaldi in <a  href="http://www.playframework.com/">Play</a> application, then you need to look at
+<a  href="https://github.com/scaldi/scaldi-play">scaldi-play</a> project. Here you can find an introductory blog post:
+</p><p>http://hacking-scala.tumblr.com/post/51407241538/easy-dependency-injection-in-play-framework-with-scaldi</p><h2 id="Project+Setup">Project Setup</h2><p>The only thing you need is to add dependency in the build file. Scaldi does not have any external dependencies.
+</p><p>Current version of Scaldi (0.2) is cross-compiled with Scala version 2.9.2 and 2.10.
+</p><h3 id="SBT+Configuration">SBT Configuration</h3><pre><code class="prettyprint lang-scala">libraryDependencies += &quot;com.github.scaldi&quot; %% &quot;scaldi&quot; % &quot;0.2&quot;
+</code></pre><h3 id="Maven+Configuration">Maven Configuration</h3><p>You need to specify scala version manually for the <em>artifactId</em>:
 </p><pre><code class="prettyprint lang-xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.angelsmasterpiece.scaldi&lt;/groupId&gt;
-    &lt;artifactId&gt;scaldi_2.9.1&lt;/artifactId&gt;
-    &lt;version&gt;0.1&lt;/version&gt;
+    &lt;groupId&gt;com.github.scaldi&lt;/groupId&gt;
+    &lt;artifactId&gt;scaldi_2.10&lt;/artifactId&gt;
+    &lt;version&gt;0.2&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre><h2 id="API+Reference">API Reference</h2><h3 id="Scaladocs">Scaladocs</h3><p>You can find <em>Scaladocs</em> for the latest version of the project here:
-</p><p><a  href="http://olegilyenko.github.com/scaldi/api/index.html#scaldi.package">http://olegilyenko.github.com/scaldi/api/index.html#scaldi.package</a></p><h2 id="Feedback">Feedback</h2><p>If you have some issues or improvements ideas, I’m happy to help you. Actually your feedback will help me
+</p><p><a  href="http://scaldi.github.com/scaldi/api/index.html#scaldi.package">http://scaldi.github.com/scaldi/api/index.html#scaldi.package</a></p><h2 id="Feedback">Feedback</h2><p>If you have some issues or improvements ideas, I’m happy to help you. Actually your feedback will help me
 a lot and will be highly appreciated! You can put your issues here:
-</p><p><a  href="http://github.com/OlegIlyenko/scaldi/issues">http://github.com/OlegIlyenko/scaldi/issues</a>
+</p><p><a  href="http://github.com/scaldi/scaldi/issues">http://github.com/scaldi/scaldi/issues</a>
+</p><p>If you have some question or need support, then you can ask it at StackOverflow
+(just don’t forget to add <strong>scala</strong> and <strong>scaldi</strong> tags):
+</p><p>http://stackoverflow.com/questions/ask?tags=scala,scaldi
 </p><p>Also please feel free to fork project itself and send me pull requests. Here you can find a source code:
-</p><p><a  href="http://github.com/OlegIlyenko/scaldi">http://github.com/OlegIlyenko/scaldi</a>
+</p><p><a  href="http://github.com/scaldi/scaldi">http://github.com/scaldi/scaldi</a>
 </p><p>If you want to contact me, just send me a private message on <em>Github</em>. You can find my profile here:
 </p><p><a  href="https://github.com/OlegIlyenko">https://github.com/OlegIlyenko</a>
 </p><p>Or just <a  href="https://twitter.com/#!/easyangel">tweet me</a></p><h2 id="License">License</h2><p><strong>Scaldi</strong> is licensed under <a  href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
           </div>
         </div>
-        <a class="fork nav" href="http://github.com/OlegIlyenko/scaldi"><img alt="Fork me on GitHub" src="img/fork.png"></img></a>
+        <a class="fork nav" href="http://github.com/scaldi/scaldi"><img alt="Fork me on GitHub" src="img/fork.png"></img></a>
       </body>
     </html>

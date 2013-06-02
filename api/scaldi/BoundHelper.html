@@ -85,7 +85,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="scaldi.BoundHelper#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(bindingFn:(List[scaldi.Identifier],Option[scaldi.Condition])=&gt;scaldi.Binding,initialIdentifiers:List[scaldi.Identifier],initialCondition:Option[scaldi.Condition],bindingType:Option[Class[_]]):scaldi.BoundHelper"></a>
+      <a id="&lt;init&gt;(bindingFn:(List[scaldi.Identifier],Option[()=&gt;scaldi.Condition])=&gt;scaldi.Binding,initialIdentifiers:List[scaldi.Identifier],initialCondition:Option[()=&gt;scaldi.Condition],bindingType:Option[Class[_]]):scaldi.BoundHelper"></a>
       <a id="&lt;init&gt;:BoundHelper"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -93,7 +93,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">BoundHelper</span><span class="params">(<span name="bindingFn">bindingFn: (<span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>], <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]) ⇒ <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a></span>, <span name="initialIdentifiers">initialIdentifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>]</span>, <span name="initialCondition">initialCondition: <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]</span>, <span name="bindingType">bindingType: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Class">Class</span>[_]]</span>)</span>
+        <span class="name">BoundHelper</span><span class="params">(<span name="bindingFn">bindingFn: (<span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>], <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]) ⇒ <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a></span>, <span name="initialIdentifiers">initialIdentifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>]</span>, <span name="initialCondition">initialCondition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]</span>, <span name="bindingType">bindingType: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Class">Class</span>[_]]</span>)</span>
       </span>
       </h4>
       
@@ -227,15 +227,15 @@
               
         </dd></dl></div>
     </li><li name="scaldi.CanBeConditional#condition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="condition:Option[scaldi.Condition]"></a>
-      <a id="condition:Option[Condition]"></a>
+      <a id="condition:Option[()=&gt;scaldi.Condition]"></a>
+      <a id="condition:Option[()⇒Condition]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">var</span>
       </span>
       <span class="symbol">
-        <span class="name">condition</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]</span>
+        <span class="name">condition</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]</span>
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CanBeConditional.html" class="extype" name="scaldi.CanBeConditional">CanBeConditional</a></dd></dl></div>
@@ -473,15 +473,15 @@
               
         </dd></dl></div>
     </li><li name="scaldi.CanBeConditional#when" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="when(cond:scaldi.Condition):scaldi.CanBeConditional[R]withR"></a>
-      <a id="when(Condition):CanBeConditional[BoundHelper]withBoundHelper"></a>
+      <a id="when(cond:=&gt;scaldi.Condition):scaldi.CanBeConditional[R]withR"></a>
+      <a id="when(⇒Condition):CanBeConditional[BoundHelper]withBoundHelper"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">when</span><span class="params">(<span name="cond">cond: <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a></span>)</span><span class="result">: <a href="CanBeConditional.html" class="extype" name="scaldi.CanBeConditional">CanBeConditional</a>[<a href="" class="extype" name="scaldi.BoundHelper">BoundHelper</a>] with <a href="" class="extype" name="scaldi.BoundHelper">BoundHelper</a></span>
+        <span class="name">when</span><span class="params">(<span name="cond">cond: ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a></span>)</span><span class="result">: <a href="CanBeConditional.html" class="extype" name="scaldi.CanBeConditional">CanBeConditional</a>[<a href="" class="extype" name="scaldi.BoundHelper">BoundHelper</a>] with <a href="" class="extype" name="scaldi.BoundHelper">BoundHelper</a></span>
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CanBeConditional.html" class="extype" name="scaldi.CanBeConditional">CanBeConditional</a></dd></dl></div>

@@ -40,7 +40,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ProviderBinding</span><span class="params">(<span name="createFn">createFn: () ⇒ <span class="extype" name="scala.Any">Any</span></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">scala.None</span></span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">ProviderBinding</span><span class="params">(<span name="createFn">createFn: () ⇒ <span class="extype" name="scala.Any">Any</span></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">scala.None</span></span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
@@ -85,7 +85,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="scaldi.ProviderBinding#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(createFn:()=&gt;Any,identifiers:List[scaldi.Identifier],condition:Option[scaldi.Condition]):scaldi.ProviderBinding"></a>
+      <a id="&lt;init&gt;(createFn:()=&gt;Any,identifiers:List[scaldi.Identifier],condition:Option[()=&gt;scaldi.Condition]):scaldi.ProviderBinding"></a>
       <a id="&lt;init&gt;:ProviderBinding"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -93,7 +93,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ProviderBinding</span><span class="params">(<span name="createFn">createFn: () ⇒ <span class="extype" name="scala.Any">Any</span></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">scala.None</span></span>)</span>
+        <span class="name">ProviderBinding</span><span class="params">(<span name="createFn">createFn: () ⇒ <span class="extype" name="scala.Any">Any</span></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">scala.None</span></span>)</span>
       </span>
       </h4>
       
@@ -201,15 +201,15 @@
               
         </dd></dl></div>
     </li><li name="scaldi.ProviderBinding#condition" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="condition:Option[scaldi.Condition]"></a>
-      <a id="condition:Option[Condition]"></a>
+      <a id="condition:Option[()=&gt;scaldi.Condition]"></a>
+      <a id="condition:Option[()⇒Condition]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">condition</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]</span>
+        <span class="name">condition</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>]</span>
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.ProviderBinding">ProviderBinding</a> → <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a></dd></dl></div>
