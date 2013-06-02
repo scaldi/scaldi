@@ -22,7 +22,7 @@ at the tests:
 
 [![Build Status](https://travis-ci.org/scaldi/scaldi.png?branch=master)](https://travis-ci.org/scaldi/scaldi)
 
-## Adding Scaldi to Your Build
+## Adding Scaldi in Your Build
 
 SBT Configuration:
 
