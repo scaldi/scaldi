@@ -8,9 +8,9 @@ organization := "com.github.scaldi"
 
 version := "0.2.1-SNAPSHOT"
 
-crossScalaVersions := Seq("2.9.2", "2.10.1")
+crossScalaVersions := Seq("2.9.2", "2.10.3")
 
-scalaVersion := "2.10.1"
+scalaVersion := "2.10.3"
 
 scalacOptions += "-deprecation"
 
