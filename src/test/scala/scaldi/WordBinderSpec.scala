@@ -48,7 +48,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       binder.wordBindings(0) isDefinedFor (List(classOf[HttpServer])) should be (false)
     }
 
-    "treat later bindings as overrieds for earlier and more that one binding od the same type" in {
+    "treat later bindings as overrides for earlier and more that one binding od the same type" in {
       val binder = new DynamicModule {
         bind [Server] to new HttpServer("localhost", 80)
         bind [Server] to new HttpServer("www.test.com", 8080)
@@ -63,7 +63,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       bindings(1).get should be === Some(HttpServer("localhost", 80))
     }
 
-    "allow to define normal lazy bingings that would be instantialted only one time" in {
+    "allow to define normal lazy bindings that would be instantiated only one time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
         bind [Server] identifiedBy 'server and "httpServer" to {
@@ -80,7 +80,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
     }
 
-    "allow to define normal non-lazy bingings that would be instantialted only one time" in {
+    "allow to define normal non-lazy bindings that would be instantiated only one time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
         bind [Server] identifiedBy 'server and "httpServer" toNonLazy {
@@ -97,7 +97,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
     }
 
-    "allow to define provider bingings that would be instantialted each time" in {
+    "allow to define provider bindings that would be instantiated each time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
         bind [Server] identifiedBy 'server and "httpServer" toProvider {
