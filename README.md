@@ -4,9 +4,6 @@ Goal of the project is to provide more standard and easy way to make dependency 
 projects consuming power of scala language. With *Scaldi* you can define your application modules in pure scala
 (without any annotations or XML).
 
-At the moment *Scaldi* is proof of concept. I hope you will find it helpful. Your feedback is very welcome and it would be very helpful
-for the further project development!
-
 You can find project's home page here:
 
 [http://scaldi.org](http://scaldi.org)
