@@ -1,10 +1,9 @@
 package scaldi
 
-import org.scalatest.WordSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{Matchers, WordSpec}
 import java.text.DateFormat
 
-class InjectableSpec extends WordSpec with ShouldMatchers {
+class InjectableSpec extends WordSpec with Matchers {
 
   "Injectable" should {
 
@@ -18,9 +17,9 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
       binding should be ('defined)
 
       val server = binding.get.get.get.asInstanceOf[TcpServer]
-      server.port should be === 1234
-      server.host should be === "test"
-      server.getConnection.welcomeMessage should be === "Hello user!"
+      server.port should equal (1234)
+      server.host should equal ("test")
+      server.getConnection.welcomeMessage should equal ("Hello user!")
     }
 
     "treat binding that return None as non-defined and use default or throw an exception if no default provided" in {
@@ -33,15 +32,15 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
       binding should be ('defined)
 
       val server = binding.get.get.get.asInstanceOf[TcpServer]
-      server.getConnection.welcomeMessage should be === "Hi"
+      server.getConnection.welcomeMessage should equal ("Hi")
     }
 
     import scaldi.Injectable._
     val defaultDb = PostgresqlDatabase("default_db")
 
     "inject by type" in {
-      inject [Database] should be === MysqlDatabase("my_app")
-      inject [Database] (classOf[ConnectionProvider]) should be === MysqlDatabase("my_app")
+      inject [Database] should equal (MysqlDatabase("my_app"))
+      inject [Database] (classOf[ConnectionProvider]) should equal (MysqlDatabase("my_app"))
     }
 
     "inject using identifiers" in {
@@ -84,7 +83,7 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
 
     "also be available in module, but use resulting (compised) injector" in {
       val server = inject [Server] ('real and 'http)
-      server should be  === HttpServer("marketing.org", 8081)
+      server should equal (HttpServer("marketing.org", 8081))
     }
 
     /**
@@ -93,10 +92,10 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
      */
     "ignore generics and return wrong bindings" in {
       val adderTypeOnly = inject [(Int, Int) => Int]
-      adderTypeOnly(2, 3) should be === 5
+      adderTypeOnly(2, 3) should equal (5)
 
       val adderRight = inject [(Int, Int) => Int] ('intAdder)
-      adderRight(2, 3) should be === 5
+      adderRight(2, 3) should equal (5)
     }
 
     "inject all using type parameter" in {

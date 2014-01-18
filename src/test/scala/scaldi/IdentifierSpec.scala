@@ -1,22 +1,21 @@
 package scaldi
 
-import org.scalatest.WordSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{Matchers, WordSpec}
 import java.text.{DateFormat, SimpleDateFormat}
 
-class IdentifierSpec extends WordSpec with ShouldMatchers {
+class IdentifierSpec extends WordSpec with Matchers {
   "Identifier" when {
     "defaults are used" should {
       "be converted from string" in {
-        getId("str") should be === StringIdentifier("str")
+        getId("str") should equal (StringIdentifier("str"))
       }
 
       "be converted from symbol" in {
-        getId('sym) should be === StringIdentifier("sym")
+        getId('sym) should equal (StringIdentifier("sym"))
       }
 
       "be converted from class" in {
-        getId(classOf[String]) should be === TypeTagIdentifier.typeId[String]
+        getId(classOf[String]) should equal (TypeTagIdentifier.typeId[String])
       }
     }
 

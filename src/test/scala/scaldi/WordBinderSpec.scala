@@ -1,10 +1,9 @@
 package scaldi
 
-import org.scalatest.WordSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{Matchers, WordSpec}
 import scala.util.Random
 
-class WordBinderSpec extends WordSpec with ShouldMatchers {
+class WordBinderSpec extends WordSpec with Matchers {
   "WordBinder" should {
     "require to bind something" in {
       val binder = new WordBinder {
@@ -55,12 +54,12 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       }.initNonLazy()
 
       binder.wordBindings should have size (2)
-      binder.getBinding(List(classOf[Server])).get.get should be === Some(HttpServer("www.test.com", 8080))
+      binder.getBinding(List(classOf[Server])).get.get should equal (Some(HttpServer("www.test.com", 8080)))
 
       val bindings = binder.getBindings(List(classOf[Server]))
       bindings should have size (2)
-      bindings(0).get should be === Some(HttpServer("www.test.com", 8080))
-      bindings(1).get should be === Some(HttpServer("localhost", 80))
+      bindings(0).get should equal (Some(HttpServer("www.test.com", 8080)))
+      bindings(1).get should equal (Some(HttpServer("localhost", 80)))
     }
 
     "allow to define normal lazy bindings that would be instantiated only one time" in {
@@ -77,7 +76,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       instanceCount should be (0)
       (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
       instanceCount should be (1)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
     "allow to define normal non-lazy bindings that would be instantiated only one time" in {
@@ -94,7 +93,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       instanceCount should be (1)
       (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
       instanceCount should be (1)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
     "allow to define provider bindings that would be instantiated each time" in {
@@ -111,7 +110,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       instanceCount should be (0)
       (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (10)
       instanceCount should be (10)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
     "support conditions with 'when'" in {
@@ -129,12 +128,12 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
 
       binder.wordBindings should have size (3)
 
-      binder.getBinding(List('host)).get.get.get should be === "www.prod-server.com"
-      binder.getBinding(List('port)).get.get.get should be === 1234
+      binder.getBinding(List('host)).get.get.get should equal ("www.prod-server.com")
+      binder.getBinding(List('port)).get.get.get should equal (1234)
 
       prodMode = false
 
-      binder.getBinding(List('host)).get.get.get should be === "localhost"
+      binder.getBinding(List('host)).get.get.get should equal ("localhost")
       binder.getBinding(List('port)) should be ('empty)
     }
   }
