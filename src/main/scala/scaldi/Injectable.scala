@@ -8,6 +8,15 @@ import TypeTagIdentifier._
 import util.ReflectionHelper
 
 trait Injectable {
+  protected def injectProvider[T](implicit injector: Injector, tt: TypeTag[T]): () => T =
+    () => inject(injector, tt)
+
+  protected def injectProvider[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T]): () => T =
+    () => inject(identifiers: _*)(injector, tt)
+
+  protected def injectProvider[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T]): () => T =
+    () => inject(constraints)(injector, tt)
+
   protected def inject[T](implicit injector: Injector, tt: TypeTag[T]): T =
     List[Identifier](typeId[T]) |>
         (ids => injectWithDefault[T](injector, noBindingFound(ids))(ids))
@@ -36,20 +45,6 @@ trait Injectable {
   protected def injectAll(identifiers: Identifier*)(implicit injector: Injector): List[Any] =
     identifiers |> (ids => injector getBindings ids.toList flatMap (_.get))
 
-  /**
-   * This check is requires because Scala can't infer return type, so you can't write something like this:
-   *     val host: String = inject
-   *
-   * In this example `Nothing` would be inferred. And it's not what most users expect!
-   *
-   * For more info, please refer to https://issues.scala-lang.org/browse/SI-2609
-   */
-  private def check[T](tt: TypeTag[T]) =
-    if (tt == typeTag[Nothing])
-      throw new InjectException("Unfortunately inject can't infer required binding type. " +
-          "Please provide expected injection type explicitly: inject [MyType]")
-    else tt
-
   private def injectWithDefault[T](injector: Injector, default: => T)(ids: List[Identifier]) =
     injector getBinding ids flatMap (_.get) map (_.asInstanceOf[T]) getOrElse default
 
@@ -73,6 +68,15 @@ trait OpenInjectable extends Injectable {
 
   override implicit def canBeIdentifiedToConstraints[T: CanBeIdentifier](target: T) =
     super.canBeIdentifiedToConstraints[T](target)
+
+  override def injectProvider[T](implicit injector: Injector, tt: TypeTag[T]): () => T =
+    super.injectProvider(injector, tt)
+
+  override def injectProvider[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T]): () => T =
+    super.injectProvider(identifiers: _*)(injector, tt)
+
+  override def injectProvider[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T]): () => T =
+    super.injectProvider(constraints)(injector, tt)
 
   override def inject[T](implicit injector: Injector, tt: TypeTag[T]) =
     super.inject[T](injector, tt)

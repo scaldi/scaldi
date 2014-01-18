@@ -1,6 +1,5 @@
 package scaldi
 
-import util.CreationHelper
 import scaldi.util.Util._
 import sys._
 
@@ -14,7 +13,7 @@ import scaldi.util.ReflectionHelper._
  *
  * @author Oleg Ilyenko
  */
-trait Module extends ReflectionBinder with WordBinder with InitializeableInjector[Module] with Injectable with MutableInjectorUser with CreationHelper {
+trait Module extends ReflectionBinder with WordBinder with InitializeableInjector[Module] with Injectable with MutableInjectorUser {
   lazy val bindings = wordBindings ++ reflectiveBindings
 
   def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
@@ -23,14 +22,14 @@ trait Module extends ReflectionBinder with WordBinder with InitializeableInjecto
   protected def init() = initNonLazyWordBindings()
 }
 
-trait StaticModule extends ReflectionBinder with ImmutableInjector with Injectable with CreationHelper {
+trait StaticModule extends ReflectionBinder with ImmutableInjector with Injectable {
   def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ isDefinedFor identifiers)
   def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ isDefinedFor identifiers)
 
   implicit val injector: Injector = this
 }
 
-class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule] with OpenInjectable with MutableInjectorUser with CreationHelper {
+class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule] with OpenInjectable with MutableInjectorUser {
   def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
 
@@ -38,7 +37,7 @@ class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule
 }
 
 object DynamicModule {
-  def apply(initBindingsFn: DynamicModule => Unit): Injector = new DynamicModule ~ initBindingsFn
+  def apply(initBindingsFn: DynamicModule => Unit): Injector = new DynamicModule <| initBindingsFn
 }
 
 object Args {
@@ -61,7 +60,7 @@ class PropertiesInjector private (properties: Properties) extends RawInjector {
 object PropertiesInjector {
   def apply(fileName: String): PropertiesInjector = apply(new File(fileName))
   def apply(file: File): PropertiesInjector = apply(new FileInputStream(file))
-  def apply(stream: InputStream): PropertiesInjector = apply(new Properties ~ (_ load stream))
+  def apply(stream: InputStream): PropertiesInjector = apply(new Properties <| (_ load stream))
   def apply(properties: Properties): PropertiesInjector = new PropertiesInjector(properties)
 }
 

@@ -86,10 +86,6 @@ class InjectableSpec extends WordSpec with Matchers {
       server should equal (HttpServer("marketing.org", 8081))
     }
 
-    /**
-     * Generics would be erased at runtime, so framework is not able to
-     * find correct Function2 instance
-     */
     "ignore generics and return wrong bindings" in {
       val adderTypeOnly = inject [(Int, Int) => Int]
       adderTypeOnly(2, 3) should equal (5)
