@@ -23,7 +23,7 @@ class WordBinderSpec extends WordSpec with Matchers {
         binding to "localhost" identifiedBy classOf[String] and 'host and "httpServer"
       }
 
-      binder.wordBindings should have size (6)
+      binder.wordBindings should have size 6
       binder.wordBindings foreach (_.isDefinedFor(List(classOf[String], "host", "httpServer")) should be (true))
     }
 
@@ -32,9 +32,9 @@ class WordBinderSpec extends WordSpec with Matchers {
         binding to new HttpServer("localhost", 80)
       }
 
-      binder.wordBindings should have size (1)
-      binder.wordBindings(0) isDefinedFor (List(classOf[Server])) should be (true)
-      binder.wordBindings(0) isDefinedFor (List(classOf[HttpServer])) should be (true)
+      binder.wordBindings should have size 1
+      binder.wordBindings(0) isDefinedFor List(classOf[Server]) should be (true)
+      binder.wordBindings(0) isDefinedFor List(classOf[HttpServer]) should be (true)
     }
 
     "not infer binding type only when it is specified explicitly" in {
@@ -42,9 +42,9 @@ class WordBinderSpec extends WordSpec with Matchers {
         bind [Server] to new HttpServer("localhost", 80)
       }
 
-      binder.wordBindings should have size (1)
-      binder.wordBindings(0) isDefinedFor (List(classOf[Server])) should be (true)
-      binder.wordBindings(0) isDefinedFor (List(classOf[HttpServer])) should be (false)
+      binder.wordBindings should have size 1
+      binder.wordBindings(0) isDefinedFor List(classOf[Server]) should be (true)
+      binder.wordBindings(0) isDefinedFor List(classOf[HttpServer]) should be (false)
     }
 
     "treat later bindings as overrides for earlier and more that one binding od the same type" in {
@@ -53,11 +53,11 @@ class WordBinderSpec extends WordSpec with Matchers {
         bind [Server] to new HttpServer("www.test.com", 8080)
       }.initNonLazy()
 
-      binder.wordBindings should have size (2)
+      binder.wordBindings should have size 2
       binder.getBinding(List(classOf[Server])).get.get should equal (Some(HttpServer("www.test.com", 8080)))
 
       val bindings = binder.getBindings(List(classOf[Server]))
-      bindings should have size (2)
+      bindings should have size 2
       bindings(0).get should equal (Some(HttpServer("www.test.com", 8080)))
       bindings(1).get should equal (Some(HttpServer("localhost", 80)))
     }
@@ -74,7 +74,7 @@ class WordBinderSpec extends WordSpec with Matchers {
       }.initNonLazy()
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
       instanceCount should be (1)
       binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
@@ -91,7 +91,7 @@ class WordBinderSpec extends WordSpec with Matchers {
       }.initNonLazy()
 
       instanceCount should be (1)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
       instanceCount should be (1)
       binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
@@ -108,7 +108,7 @@ class WordBinderSpec extends WordSpec with Matchers {
       }.initNonLazy()
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (10)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 10
       instanceCount should be (10)
       binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
@@ -126,7 +126,7 @@ class WordBinderSpec extends WordSpec with Matchers {
         bind [Int] when ProdMode as 'port to 1234
       }
 
-      binder.wordBindings should have size (3)
+      binder.wordBindings should have size 3
 
       binder.getBinding(List('host)).get.get.get should equal ("www.prod-server.com")
       binder.getBinding(List('port)).get.get.get should equal (1234)

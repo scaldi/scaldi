@@ -51,7 +51,7 @@ class ReflectionBinderSpec extends WordSpec with Matchers {
       }
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
       instanceCount should be (1)
       binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
@@ -68,7 +68,7 @@ class ReflectionBinderSpec extends WordSpec with Matchers {
       }
 
       instanceCount should be (1)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
       instanceCount should be (1)
       binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
@@ -85,7 +85,7 @@ class ReflectionBinderSpec extends WordSpec with Matchers {
       }
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (10)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 10
       instanceCount should be (10)
       binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }

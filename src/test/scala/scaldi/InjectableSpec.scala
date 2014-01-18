@@ -53,7 +53,7 @@ class InjectableSpec extends WordSpec with Matchers {
         injectWithDefault [Database] ('database, "local")(defaultDb)
       )
 
-      results should have size (6)
+      results should have size 6
       results.distinct should (contain(MysqlDatabase("my_app"): Database) and have size (1))
     }
 
@@ -73,8 +73,8 @@ class InjectableSpec extends WordSpec with Matchers {
         injectWithDefault (defaultDb)
       )
 
-      results should have size (12)
-      results.distinct should (contain(defaultDb: Database) and have size (1))
+      results should have size 12
+      results.distinct should (contain(defaultDb: Database) and have size 1)
     }
 
     "throw exception if no default provided and bonding not fould" in {
@@ -100,18 +100,18 @@ class InjectableSpec extends WordSpec with Matchers {
 
     "inject all using type parameter" in {
       injectAllOfType [String] ('host) should
-          (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size (3))
+          (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size 3)
 
       injectAllOfType [HttpServer] should
-          (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size (2))
+          (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size 2)
     }
 
     "inject all using without type parameter" in {
       injectAll('host).asInstanceOf[List[String]] should
-          (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size (3))
+          (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size 3)
 
       injectAll('server).asInstanceOf[List[HttpServer]] should
-          (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size (2))
+          (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size 2)
     }
   }
 
