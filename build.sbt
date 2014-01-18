@@ -12,8 +12,11 @@ scalaVersion := "2.10.3"
 
 scalacOptions += "-deprecation"
 
+fork := true
+
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "2.0" % "test"
+  "org.scalatest" %% "scalatest" % "2.0" % "test",
+  "org.scala-lang" % "scala-reflect" % scalaVersion.value
 )
 
 publishMavenStyle := true
@@ -33,7 +36,7 @@ publishTo <<= version { v: String =>
 git.remoteRepo := "git@github.com:scaldi/scaldi.git"
 
 pomExtra := <xml:group>
-  <url>http://scaldi.github.io/scaldi/Scaldi.html</url>
+  <url>http://scaldi.org</url>
   <inceptionYear>2011</inceptionYear>
   <licenses>
     <license>
