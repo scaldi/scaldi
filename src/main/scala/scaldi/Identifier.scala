@@ -1,5 +1,8 @@
 package scaldi
 
+import language.{existentials, implicitConversions}
+
+import scala.reflect.runtime.universe.{TypeTag, Type}
 import annotation.implicitNotFound
 
 trait Identifier {
@@ -16,24 +19,37 @@ trait CanBeIdentifier[T] {
 }
 
 object CanBeIdentifier {
-  implicit val stringCanBeIdentifier = new CanBeIdentifier[String] {
+  implicit object StringCanBeIdentifier extends CanBeIdentifier[String] {
     def toIdentifier(str: String) = StringIdentifier(str)
   }
 
-  implicit val symbolCanBeIdentifier = new CanBeIdentifier[Symbol] {
+  implicit object SymbolCanBeIdentifier extends CanBeIdentifier[Symbol] {
     def toIdentifier(sym: Symbol) = StringIdentifier(sym.name)
   }
 
-  implicit def classCanBeIdentifier[T] = new CanBeIdentifier[Class[T]] {
-    def toIdentifier(c: Class[T]) = ClassIdentifier(c)
+  implicit def ClassCanBeIdentifier[T: TypeTag] = new CanBeIdentifier[Class[T]] {
+    def toIdentifier(c: Class[T]) = TypeTagIdentifier.typeId[T]
+  }
+
+  implicit def TypeTagCanBeIdentifier[T: TypeTag] = new CanBeIdentifier[TypeTag[T]] {
+    def toIdentifier(typeTag: TypeTag[T]) = TypeTagIdentifier(typeTag.tpe)
+  }
+
+  implicit object TypeCanBeIdentifier extends CanBeIdentifier[Type] {
+    def toIdentifier(tpe: Type) = TypeTagIdentifier(tpe)
   }
 }
 
-case class ClassIdentifier(clazz: Class[_]) extends Identifier {
-  def sameAs(other: Identifier) = other match {
-    case ClassIdentifier(c) if c.isAssignableFrom(clazz) => true
-    case _ => false
-  }
+case class TypeTagIdentifier(tpe: Type) extends Identifier {
+  def sameAs(other: Identifier) =
+    other match {
+      case TypeTagIdentifier(otherTpe) if tpe <:< otherTpe => true
+      case _ => false
+    }
+}
+
+object TypeTagIdentifier {
+  def typeId[T: TypeTag] = TypeTagIdentifier(implicitly[TypeTag[T]].tpe)
 }
 
 case class StringIdentifier(str: String) extends Identifier {

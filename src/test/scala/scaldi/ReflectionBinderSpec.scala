@@ -4,6 +4,7 @@ import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
 import scala.util.Random
 import java.lang.reflect.Method
+import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
 
 class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
   "ReflectionBinder" should {
@@ -29,16 +30,12 @@ class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
     }
 
     "support BidingProvider as return type of class members and use it to retrieve actual binding" in {
-      case class Special[T: Manifest](fn: () => T) extends BidingProvider {
-        def getBinding(method: Method) = LazyBinding(Some(fn), List(manifest[T].erasure, "special"))
-      }
-
       val binder = new StaticModule {
-        lazy val someBinding = Special(() => HttpServer("test", 8080))
+        lazy val someBinding = SpecialBindingProvider(() => HttpServer("test", 8080))
       }
 
       binder.getBinding(List("someBinding")) should be ('empty)
-      binder.getBinding(List(classOf[BidingProvider])) should be ('empty)
+      binder.getBinding(List(classOf[BindingProvider])) should be ('empty)
       binder.getBinding(List(classOf[Server])).get.get should be === Some(HttpServer("test", 8080))
       binder.getBinding(List("special")).get.get should be === Some(HttpServer("test", 8080))
     }
@@ -94,4 +91,8 @@ class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
       binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
     }
   }
+}
+
+case class SpecialBindingProvider[T: TypeTag](fn: () => T) extends BindingProvider {
+  def getBinding(name: String, tpe: Type) = LazyBinding(Some(fn), List(typeTag[T], "special"))
 }

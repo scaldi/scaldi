@@ -1,5 +1,7 @@
 package scaldi.util
 
+import language.implicitConversions
+
 object Util extends CreationHelper {
   implicit def toWorkflowHelper[T](any: T) = new WorkflowHelper[T](any)
 

@@ -6,6 +6,8 @@ import sys._
 
 import java.util.Properties
 import java.io.{InputStream, FileInputStream, File}
+import scala.reflect.runtime.universe.{TypeTag, Type, typeOf}
+import scaldi.util.ReflectionHelper._
 
 /**
  * Standard application module
@@ -74,8 +76,8 @@ trait RawInjector extends Injector {
   protected def discoverBinding(ids: List[Identifier]): Option[Binding] =
     bindingCache find (_ isDefinedFor ids) orElse {
       (ids match {
-        case ClassIdentifier(c) :: StringIdentifier(name)  :: Nil => discoverBinding(name, c, ids)
-        case StringIdentifier(name) :: ClassIdentifier(c) :: Nil => discoverBinding(name, c, ids)
+        case TypeTagIdentifier(c) :: StringIdentifier(name)  :: Nil => discoverBinding(name, c, ids)
+        case StringIdentifier(name) :: TypeTagIdentifier(c) :: Nil => discoverBinding(name, c, ids)
         case _ => None
       }) match {
         case res @ Some(binding) =>
@@ -85,17 +87,17 @@ trait RawInjector extends Injector {
       }
     }
 
-  private def discoverBinding(name: String, clazz: Class[_], ids: List[Identifier] = Nil): Option[Binding] =
-    getRawValue(name) flatMap (convert(_, clazz)) map(RawBinding(_, ids))
+  private def discoverBinding(name: String, tpe: Type, ids: List[Identifier] = Nil): Option[Binding] =
+    getRawValue(name) flatMap (convert(_, tpe)) map(RawBinding(_, ids))
 
-  private def convert(value: String, clazz: Class[_]): Option[Any] =
+  private def convert(value: String, tpe: Type): Option[Any] =
     try {
-      if (clazz == classOf[Int]) Some(value.toInt)
-      else if (clazz == classOf[Float]) Some(value.toFloat)
-      else if (clazz == classOf[Double]) Some(value.toDouble)
-      else if (clazz == classOf[Boolean]) Some(value.toBoolean)
-      else if (clazz == classOf[File]) Some(new File(value))
-      else if (clazz == classOf[String]) Some(value)
+      if (tpe == typeOf[Int]) Some(value.toInt)
+      else if (tpe == typeOf[Float]) Some(value.toFloat)
+      else if (tpe == typeOf[Double]) Some(value.toDouble)
+      else if (tpe == typeOf[Boolean]) Some(value.toBoolean)
+      else if (tpe == typeOf[File]) Some(new File(value))
+      else if (tpe == typeOf[String]) Some(value)
       else None
     } catch {
       case e: Exception => None
