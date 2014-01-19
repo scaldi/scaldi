@@ -2,43 +2,44 @@ package scaldi
 
 import language.{postfixOps, implicitConversions}
 
+import scaldi.util.constraints._
 import scaldi.util.Util._
-import scala.reflect.runtime.universe.{TypeTag, typeTag}
+import scala.reflect.runtime.universe.TypeTag
 import TypeTagIdentifier._
-import util.ReflectionHelper
+import scaldi.util.constraints.NotNothing
 
 trait Injectable {
-  protected def injectProvider[T](implicit injector: Injector, tt: TypeTag[T]): () => T =
-    () => inject(injector, tt)
+  protected def injectProvider[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): () => T =
+    () => inject(injector, tt, nn)
 
-  protected def injectProvider[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T]): () => T =
-    () => inject(identifiers: _*)(injector, tt)
+  protected def injectProvider[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): () => T =
+    () => inject(identifiers: _*)(injector, tt, nn)
 
-  protected def injectProvider[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T]): () => T =
-    () => inject(constraints)(injector, tt)
+  protected def injectProvider[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): () => T =
+    () => inject(constraints)(injector, tt, nn)
 
-  protected def inject[T](implicit injector: Injector, tt: TypeTag[T]): T =
+  protected def inject[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
     List[Identifier](typeId[T]) |>
         (ids => injectWithDefault[T](injector, noBindingFound(ids))(ids))
 
-  protected def inject[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T]): T =
+  protected def inject[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
     List[Identifier](typeId[T]) ++ identifiers |>
         (ids => injectWithDefault[T](injector, noBindingFound(ids))(ids))
 
-  protected def inject[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T]): T =
+  protected def inject[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
     List(typeId[T]) ++ constraints.identifiers |>
       (ids => injectWithDefault[T](injector, constraints.default map(_()) getOrElse noBindingFound(ids))(ids))
 
-  protected def injectWithDefault[T](default: => T)(implicit injector: Injector, tt: TypeTag[T]): T =
+  protected def injectWithDefault[T](default: => T)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
     List(typeId[T]) |> injectWithDefault[T](injector, default)
 
-  protected def injectWithDefault[T](identifiers: Identifier*)(default: => T)(implicit injector: Injector, tt: TypeTag[T]): T =
+  protected def injectWithDefault[T](identifiers: Identifier*)(default: => T)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
     List(typeId[T]) ++ identifiers |> injectWithDefault[T](injector, default)
 
-  protected def injectAllOfType[T](implicit injector: Injector, tt: TypeTag[T]): List[T] =
-    injectAllOfType[T]()(injector, tt)
+  protected def injectAllOfType[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): List[T] =
+    injectAllOfType[T]()(injector, tt, nn)
 
-  protected def injectAllOfType[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T]): List[T] =
+  protected def injectAllOfType[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): List[T] =
     List[Identifier](typeId[T]) ++ identifiers |>
         (ids => injector getBindings ids flatMap (_.get) map (_.asInstanceOf[T]))
 
@@ -69,35 +70,35 @@ trait OpenInjectable extends Injectable {
   override implicit def canBeIdentifiedToConstraints[T: CanBeIdentifier](target: T) =
     super.canBeIdentifiedToConstraints[T](target)
 
-  override def injectProvider[T](implicit injector: Injector, tt: TypeTag[T]): () => T =
-    super.injectProvider(injector, tt)
+  override def injectProvider[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): () => T =
+    super.injectProvider(injector, tt, nn)
 
-  override def injectProvider[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T]): () => T =
-    super.injectProvider(identifiers: _*)(injector, tt)
+  override def injectProvider[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): () => T =
+    super.injectProvider(identifiers: _*)(injector, tt, nn)
 
-  override def injectProvider[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T]): () => T =
-    super.injectProvider(constraints)(injector, tt)
+  override def injectProvider[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): () => T =
+    super.injectProvider(constraints)(injector, tt, nn)
 
-  override def inject[T](implicit injector: Injector, tt: TypeTag[T]) =
-    super.inject[T](injector, tt)
+  override def inject[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]) =
+    super.inject[T](injector, tt, nn)
 
-  override def inject[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T]): T =
-    super.inject[T](identifiers: _*)(injector, tt)
+  override def inject[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
+    super.inject[T](identifiers: _*)(injector, tt, nn)
 
-  override def inject[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T]) =
-    super.inject[T](constraints)(injector, tt)
+  override def inject[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]) =
+    super.inject[T](constraints)(injector, tt, nn)
 
-  override def injectWithDefault[T](default: => T)(implicit injector: Injector, tt: TypeTag[T]) =
-    super.injectWithDefault[T](default)(injector, tt)
+  override def injectWithDefault[T](default: => T)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]) =
+    super.injectWithDefault[T](default)(injector, tt, nn)
 
-  override def injectWithDefault[T](identifiers: Identifier*)(default: => T)(implicit injector: Injector, tt: TypeTag[T]): T =
-    super.injectWithDefault[T](identifiers: _*)(default)(injector, tt)
+  override def injectWithDefault[T](identifiers: Identifier*)(default: => T)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
+    super.injectWithDefault[T](identifiers: _*)(default)(injector, tt, nn)
 
-  override def injectAllOfType[T](implicit injector: Injector, tt: TypeTag[T]): List[T] =
-    super.injectAllOfType[T](injector, tt)
+  override def injectAllOfType[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): List[T] =
+    super.injectAllOfType[T](injector, tt, nn)
 
-  override def injectAllOfType[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T]): List[T] =
-    super.injectAllOfType[T](identifiers: _*)(injector, tt)
+  override def injectAllOfType[T](identifiers: Identifier*)(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): List[T] =
+    super.injectAllOfType[T](identifiers: _*)(injector, tt, nn)
 
   override def injectAll(identifiers: Identifier*)(implicit injector: Injector): List[Any] =
     super.injectAll(identifiers: _*)(injector)
