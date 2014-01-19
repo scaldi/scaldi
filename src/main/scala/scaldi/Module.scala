@@ -13,13 +13,18 @@ import scaldi.util.ReflectionHelper._
  *
  * @author Oleg Ilyenko
  */
-trait Module extends ReflectionBinder with WordBinder with InitializeableInjector[Module] with Injectable with MutableInjectorUser {
-  lazy val bindings = wordBindings ++ reflectiveBindings
+trait Module extends ReflectionBinder
+                with WordBinder
+                with InjectorWithLifecycle[Module]
+                with Injectable
+                with MutableInjectorUser
+                with ShutdownHookLifecycleManager {
+  lazy val bindings = wordBindings ++ (reflectiveBindings map BindingWithLifecycle.apply)
 
   def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ isDefinedFor identifiers)
 
-  protected def init() = initNonLazyWordBindings()
+  protected def init(lifecycleManager: LifecycleManager) = initNonLazyWordBindings(lifecycleManager)
 }
 
 trait StaticModule extends ReflectionBinder with ImmutableInjector with Injectable {
@@ -29,11 +34,15 @@ trait StaticModule extends ReflectionBinder with ImmutableInjector with Injectab
   implicit val injector: Injector = this
 }
 
-class DynamicModule extends WordBinder with InitializeableInjector[DynamicModule] with OpenInjectable with MutableInjectorUser {
+class DynamicModule extends WordBinder
+                       with InjectorWithLifecycle[DynamicModule]
+                       with OpenInjectable
+                       with MutableInjectorUser
+                       with ShutdownHookLifecycleManager {
   def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
 
-  protected def init() = initNonLazyWordBindings()
+  protected def init(lifecycleManager: LifecycleManager) = initNonLazyWordBindings(lifecycleManager)
 }
 
 object DynamicModule {
@@ -103,7 +112,7 @@ trait RawInjector extends Injector {
     }
 
   case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
-    protected val condition = None
-    def get = Some(value)
+    val condition = None
+    override def get = Some(value)
   }
 }

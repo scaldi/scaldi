@@ -1,38 +1,99 @@
 package scaldi
 
-trait Binding {
-  protected val identifiers: List[Identifier]
-  protected val condition: Option[() => Condition]
+import scaldi.util.Util._
 
-  def get: Option[Any]
+trait Identifiable {
+  def identifiers: List[Identifier]
+  def condition: Option[() => Condition]
+
   def isDefinedFor(desiredIdentifiers: List[Identifier]) =
     (desiredIdentifiers forall (d => identifiers exists (_ sameAs d))) &&
-        (condition map (_() satisfies desiredIdentifiers) getOrElse true)
+      (condition map (_() satisfies desiredIdentifiers) getOrElse true)
+}
+
+trait Binding extends Identifiable {
+  def get: Option[Any]
+}
+
+object Binding {
+  def apply(lifecycleManager: LifecycleManager, binding: BindingWithLifecycle) = new Binding {
+    def get = binding get lifecycleManager
+    def condition = binding.condition
+    def identifiers = binding.identifiers
+  }
+}
+
+trait BindingWithLifecycle extends Identifiable {
+  def lifecycle: BindingLifecycle[Any]
+  def get(lifecycleManager: LifecycleManager): Option[Any]
+}
+
+object BindingWithLifecycle {
+  def apply(binding: Binding) = new BindingWithLifecycle {
+    val lifecycle = BindingLifecycle.empty
+
+    def condition = binding.condition
+    def identifiers = binding.identifiers
+
+    def get(lifecycleManager: LifecycleManager) = binding.get
+  }
 }
 
 case class NonLazyBinding(
    private val createFn: Option[() => Any],
    identifiers: List[Identifier] = Nil,
-   condition: Option[() => Condition] = None
-) extends Binding {
-  lazy val target = createFn map (_())
-  def get = target
+   condition: Option[() => Condition] = None,
+   lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty
+) extends BindingWithLifecycle {
+  lazy val target = createFn map (_() <| lifecycle.initializeObject)
+  var destroyableAdded = false
+
+  override def get(lifecycleManager: LifecycleManager) = {
+    lifecycle.destroy foreach { d =>
+      lifecycleManager addDestroyable (() => d(target))
+      destroyableAdded = true
+    }
+
+    target
+  }
 }
 
 case class LazyBinding(
   private val createFn: Option[() => Any],
   identifiers: List[Identifier] = Nil,
-  condition: Option[() => Condition] = None
-) extends Binding {
-  lazy val target = createFn map (_())
-  def get = target
+  condition: Option[() => Condition] = None,
+  lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty
+) extends BindingWithLifecycle {
+  lazy val target = createFn map (_() <| lifecycle.initializeObject)
+  var destroyableAdded = false
+
+  override def get(lifecycleManager: LifecycleManager) = {
+    lifecycle.destroy foreach { d =>
+      lifecycleManager addDestroyable (() => d(target))
+      destroyableAdded = true
+    }
+
+    target
+  }
 }
 
 case class ProviderBinding(
   private val createFn: () => Any,
   identifiers: List[Identifier] = Nil,
+  condition: Option[() => Condition] = None,
+  lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty
+) extends BindingWithLifecycle {
+  def target = createFn() <| lifecycle.initializeObject
+  override def get(lifecycleManager: LifecycleManager) = {
+    lifecycle.destroy foreach (d => lifecycleManager addDestroyable (() => d(target)))
+    Some(target)
+  }
+}
+
+case class SimpleBinding[T](
+  boundValue: Option[() => T],
+  identifiers: List[Identifier] = Nil,
   condition: Option[() => Condition] = None
 ) extends Binding {
-  def target = createFn()
-  def get = Some(target)
+  lazy val get = boundValue map (_())
 }

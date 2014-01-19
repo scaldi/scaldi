@@ -47,25 +47,36 @@ trait CanCompose[-A, -B, +R] {
   def compose(cmp1: A, cmp2: B): R
 }
 
-class ImmutableInjectorAggregation(chain: List[Injector]) extends Injector {
+class ImmutableInjectorAggregation(chain: List[ImmutableInjector]) extends Injector {
   def getBinding(identifiers: List[Identifier]) = chain.view.map(_ getBinding identifiers).collectFirst{case Some(b) => b}
   def getBindings(identifiers: List[Identifier]) = chain.flatMap(_ getBindings identifiers)
 }
 
-class MutableInjectorAggregation(chain: List[Injector]) extends InitializeableInjector[MutableInjectorAggregation] with MutableInjectorUser {
+class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLifecycle[MutableInjectorAggregation]
+                                                           with MutableInjectorUser
+                                                           with ShutdownHookLifecycleManager {
   initInjector(this)
 
-  def getBindingInternal(identifiers: List[Identifier]) = chain.view.map(_ getBinding identifiers).collectFirst{case Some(b) => b}
-  def getBindingsInternal(identifiers: List[Identifier]) = chain.flatMap(_ getBindings identifiers)
+  def getBindingInternal(identifiers: List[Identifier]) =
+    chain.view.map {
+      case child: InjectorWithLifecycle[_] => child getBindingInternal identifiers
+      case child => child getBinding identifiers map BindingWithLifecycle.apply
+    }.collectFirst{case Some(b) => b}
+
+  def getBindingsInternal(identifiers: List[Identifier]) =
+    chain.flatMap {
+      case child: InjectorWithLifecycle[_] => child getBindingsInternal identifiers
+      case child => child getBindings identifiers map BindingWithLifecycle.apply
+    }
 
   override def injector_=(newParentInjector: Injector) {
-    initInjector(newParentInjector)
     super.injector_=(newParentInjector)
+    initInjector(newParentInjector)
   }
 
-  protected def init() = {
+  protected def init(lifecycleManager: LifecycleManager) = {
     val childInits = chain.flatMap {
-      case childInjector: InitializeableInjector[_] => Some(childInjector.partialInit())
+      case childInjector: InjectorWithLifecycle[_] => Some(childInjector.partialInit(lifecycleManager))
       case _ => None
     }.flatten
 
@@ -96,10 +107,10 @@ trait MutableInjectorUser extends MutableInjector { self: Injector with Freezabl
   }
 }
 
-trait Initializeable[I] extends Freezable { this: I =>
+trait Initializeable[I] extends Freezable { this: I with LifecycleManager =>
   private var initialized = false
 
-  def initNonLazy() : I = partialInit() match {
+  def initNonLazy() : I = partialInit(this) match {
     case Some(fn) =>
       fn()
       this
@@ -107,9 +118,9 @@ trait Initializeable[I] extends Freezable { this: I =>
       this
   }
 
-  def partialInit() : Option[() => Unit] = {
+  def partialInit(lifecycleManager: LifecycleManager) : Option[() => Unit] = {
     if (!initialized) {
-      val initFn = init()
+      val initFn = init(lifecycleManager)
 
       initialized = true
       Some(initFn)
@@ -118,15 +129,17 @@ trait Initializeable[I] extends Freezable { this: I =>
 
   protected def isFrozen = initialized
 
-  protected def init(): () => Unit
+  protected def init(lifecycleManager: LifecycleManager): () => Unit
 }
 
-trait InitializeableInjector[I <: InitializeableInjector[I]] extends Injector with Initializeable[I] with MutableInjector { this: I =>
-  final def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_.getBindingInternal(identifiers))
-  final def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_.getBindingsInternal(identifiers))
+trait InjectorWithLifecycle[I <: InjectorWithLifecycle[I]] extends Injector with Initializeable[I] with MutableInjector {
+  this: I with LifecycleManager =>
 
-  def getBindingInternal(identifiers: List[Identifier]): Option[Binding]
-  def getBindingsInternal(identifiers: List[Identifier]): List[Binding]
+  final def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingInternal identifiers map (Binding.apply(this, _)))
+  final def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingsInternal identifiers map (Binding.apply(this, _)))
+
+  def getBindingInternal(identifiers: List[Identifier]): Option[BindingWithLifecycle]
+  def getBindingsInternal(identifiers: List[Identifier]): List[BindingWithLifecycle]
 }
 
 class InjectException(message: String) extends RuntimeException(message)

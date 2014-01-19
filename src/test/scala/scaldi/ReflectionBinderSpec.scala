@@ -93,5 +93,5 @@ class ReflectionBinderSpec extends WordSpec with Matchers {
 }
 
 case class SpecialBindingProvider[T: TypeTag](fn: () => T) extends BindingProvider {
-  def getBinding(name: String, tpe: Type) = LazyBinding(Some(fn), List(typeTag[T], "special"))
+  def getBinding(name: String, tpe: Type) = SimpleBinding(Some(fn), List(typeTag[T], "special"))
 }
