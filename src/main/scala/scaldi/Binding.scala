@@ -49,8 +49,12 @@ case class NonLazyBinding(
   var destroyableAdded = false
 
   override def get(lifecycleManager: LifecycleManager) = {
-    lifecycle.destroy foreach { d =>
-      lifecycleManager addDestroyable (() => d(target))
+    for {
+      d <- lifecycle.destroy
+      t <- target
+      if !destroyableAdded
+    } {
+      lifecycleManager addDestroyable (() => d(t))
       destroyableAdded = true
     }
 
@@ -68,8 +72,12 @@ case class LazyBinding(
   var destroyableAdded = false
 
   override def get(lifecycleManager: LifecycleManager) = {
-    lifecycle.destroy foreach { d =>
-      lifecycleManager addDestroyable (() => d(target))
+    for {
+      d <- lifecycle.destroy
+      t <- target
+      if !destroyableAdded
+    } {
+      lifecycleManager addDestroyable (() => d(t))
       destroyableAdded = true
     }
 

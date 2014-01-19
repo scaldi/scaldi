@@ -2,7 +2,16 @@ package scaldi
 
 trait Server
 case class HttpServer(host: String, port: Int) extends Server
+class CustomServer extends Server {
+  var initializedCount = 0
+  var destroyedCount = 0
 
+  def init() =
+    initializedCount = initializedCount + 1
+
+  def terminate() =
+    destroyedCount = destroyedCount + 1
+}
 
 trait Database
 trait ConnectionProvider

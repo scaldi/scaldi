@@ -78,23 +78,23 @@ class BindHelper[R](onBound: (BindHelper[R], BoundHelper[_]) => Unit)
     extends CanBeIdentified[BindHelper[R]] with CanBeConditional[BindHelper[R]] {
   var createFn: Option[Option[() => Any]] = None
 
-  def to(none: None.type) = bindNone[R](LazyBinding(None, _, _))
-  def to[T <: R : TypeTag](fn: => T) = bind(LazyBinding(Some(() => fn), _, _))
+  def to(none: None.type) = bindNone[R](LazyBinding(None, _, _, _))
+  def to[T <: R : TypeTag](fn: => T) = bind(LazyBinding(Some(() => fn), _, _, _))
   def in[T <: R : TypeTag](fn: => T) = to(fn)
 
-  def toNonLazy[T <: R : TypeTag](fn: => T) = bind(NonLazyBinding(Some(() => fn), _, _))
+  def toNonLazy[T <: R : TypeTag](fn: => T) = bind(NonLazyBinding(Some(() => fn), _, _, _))
   def inNonLazy[T <: R : TypeTag](fn: => T) = toNonLazy(fn)
 
-  def toProvider[T <: R : TypeTag](fn: => T) = bind(ProviderBinding(() => fn, _, _))
+  def toProvider[T <: R : TypeTag](fn: => T) = bind(ProviderBinding(() => fn, _, _, _))
   def inProvider[T <: R : TypeTag](fn: => T) = toProvider(fn)
 
-  private def bind[T : TypeTag](bindingFn: (List[Identifier], Option[() => Condition]) => BindingWithLifecycle) = {
+  private def bind[T : TypeTag](bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle) = {
     val bound = new BoundHelper[T](bindingFn, identifiers, condition, Some(typeTag[T].tpe))
     onBound(this, bound)
     bound
   }
 
-  private def bindNone[D](bindingFn: (List[Identifier], Option[() => Condition]) => BindingWithLifecycle) = {
+  private def bindNone[D](bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle) = {
     val bound = new BoundHelper[D](bindingFn, identifiers, condition, None)
     onBound(this, bound)
     bound
@@ -102,7 +102,7 @@ class BindHelper[R](onBound: (BindHelper[R], BoundHelper[_]) => Unit)
 }
 
 class BoundHelper[D](
-   bindingFn: (List[Identifier], Option[() => Condition]) => BindingWithLifecycle,
+   bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle,
    initialIdentifiers: List[Identifier],
    initialCondition: Option[() => Condition],
    bindingType: Option[Type]
@@ -113,7 +113,8 @@ class BoundHelper[D](
       case (ids, Some(t)) => ids :+ TypeTagIdentifier(t)
       case (ids, None) => ids
     },
-    condition orElse initialCondition
+    condition orElse initialCondition,
+    lifecycle.asInstanceOf[BindingLifecycle[Any]]
   )
 }
 

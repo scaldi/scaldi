@@ -136,5 +136,43 @@ class WordBinderSpec extends WordSpec with Matchers {
       binder.getBinding(List('host)).get.get.get should equal ("localhost")
       binder.getBinding(List('port)) should be ('empty)
     }
+
+    "allow to define init and destroy functions" in {
+      implicit val module = new DynamicModule {
+        bind [Server] as 'server1 to new CustomServer initWith (_.init()) destroyWith (_.terminate())
+        bind [Server] as 'server2 to new CustomServer initWith (_.init())
+        bind [Server] as 'server3 to new CustomServer destroyWith (_.terminate())
+      }
+
+      import Injectable._
+
+      (1 to 3) foreach (i => inject[Server](s"server$i"))
+
+      val server1 = inject[Server]('server1).asInstanceOf[CustomServer]
+      val server2 = inject[Server]('server2).asInstanceOf[CustomServer]
+      val server3 = inject[Server]('server3).asInstanceOf[CustomServer]
+
+      server1.initializedCount should equal (1)
+      server1.destroyedCount should equal (0)
+
+      server2.initializedCount should equal (1)
+      server2.destroyedCount should equal (0)
+
+      server3.initializedCount should equal (0)
+      server3.destroyedCount should equal (0)
+
+      module.destroy()
+      module.destroy()
+      module.destroy()
+
+      server1.initializedCount should equal (1)
+      server1.destroyedCount should equal (1)
+
+      server2.initializedCount should equal (1)
+      server2.destroyedCount should equal (0)
+
+      server3.initializedCount should equal (0)
+      server3.destroyedCount should equal (1)
+    }
   }
 }
