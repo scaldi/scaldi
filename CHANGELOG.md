@@ -9,5 +9,6 @@
   val ints = inject [List[Int]]
   ```
 * Updated SBT build to 0.13.1
-* TOOD: `injectProvider`
+* TODO: `injectProvider`
 * TODO: removal of `CreationHelper`
+* TODO: lifecycle

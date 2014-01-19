@@ -57,7 +57,7 @@ class InjectableSpec extends WordSpec with Matchers {
       results.distinct should (contain(MysqlDatabase("my_app"): Database) and have size (1))
     }
 
-    "inject default if binding not fould" in {
+    "inject default if binding not found" in {
       val results = List [Database] (
         inject [Database] (identified by 'remote and by default new PostgresqlDatabase("default_db")),
         inject [Database] (identified by 'remote is by default defaultDb),
@@ -77,7 +77,36 @@ class InjectableSpec extends WordSpec with Matchers {
       results.distinct should (contain(defaultDb: Database) and have size 1)
     }
 
-    "throw exception if no default provided and bonding not fould" in {
+    "correctly inject provider" in {
+      var str1Counter = 0
+      var str2Counter = 0
+
+      implicit val injector = DynamicModule({ m =>
+        m.binding identifiedBy 'str1 to {
+          str1Counter = str1Counter + 1
+          s"str1 $str1Counter"
+        }
+
+        m.binding identifiedBy 'str2 toProvider {
+          str2Counter = str2Counter + 1
+          s"str2 $str2Counter"
+        }
+      })
+
+      val str1 = injectProvider[String]('str1)
+      val str2 = injectProvider[String]('str2)
+
+      str1() should equal ("str1 1")
+      str1() should equal ("str1 1")
+
+      str2() should equal ("str2 1")
+      str2() should equal ("str2 2")
+
+      str1Counter should equal (1)
+      str2Counter should equal (2)
+    }
+
+    "throw exception if no default provided and bonding not found" in {
       evaluating(inject [DateFormat]) should produce [InjectException]
     }
 
@@ -86,12 +115,12 @@ class InjectableSpec extends WordSpec with Matchers {
       server should equal (HttpServer("marketing.org", 8081))
     }
 
-    "ignore generics and return wrong bindings" in {
-      val adderTypeOnly = inject [(Int, Int) => Int]
-      adderTypeOnly(2, 3) should equal (5)
+    "distinguish generic types" in {
+      val intAdder = inject [(Int, Int) => Int]
+      intAdder(2, 3) should equal (5)
 
-      val adderRight = inject [(Int, Int) => Int] ('intAdder)
-      adderRight(2, 3) should equal (5)
+      val stringAdder = inject [(String, String) => String]
+      stringAdder("Hello", "World") should equal ("Hello, World")
     }
 
     "inject all using type parameter" in {
@@ -102,7 +131,7 @@ class InjectableSpec extends WordSpec with Matchers {
           (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size 2)
     }
 
-    "inject all using without type parameter" in {
+    "inject all without type parameter" in {
       injectAll('host).asInstanceOf[List[String]] should
           (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size 3)
 
@@ -123,6 +152,7 @@ class InjectableSpec extends WordSpec with Matchers {
     binding identifiedBy 'host and 'github to "www.github.com"
 
     binding identifiedBy 'server to HttpServer("localhost", 80)
+    binding identifiedBy 'server to None
     binding identifiedBy 'server to HttpServer("test", 8080)
 
     binding identifiedBy 'intAdder to ((a: Int, b: Int) => a + b)
