@@ -13,7 +13,7 @@ class InjectorSpec extends WordSpec with Matchers {
       NilInjector :: realModule should be theSameInstanceAs (realModule)
     }
 
-    "produce Mutable aggreagation if at least one of the injectors is mutable" in {
+    "produce mutable aggregation if at least one of the injectors is mutable" in {
       val mutable = new Test2Module
       val immutable = new StaticModule {}
 
@@ -48,7 +48,7 @@ class InjectorSpec extends WordSpec with Matchers {
   }
 
   "StaticModule" should {
-    "provide implicit inlector and be Injectable" in {
+    "provide implicit injector and be Injectable" in {
       implicit val module = new StaticModule {
         lazy val server = new TcpServer
         lazy val otherServer = HttpServer(inject [String] ("httpHost"), inject [Int] ('httpPort))
@@ -71,7 +71,7 @@ class InjectorSpec extends WordSpec with Matchers {
   }
 
   "DynamicModule" should {
-    "provide implicit inlector and be Injectable" in {
+    "provide implicit injector and be Injectable" in {
       implicit val module = new DynamicModule {
         binding to new TcpServer
         binding to HttpServer(inject [String] ("httpHost"), inject [Int] ('httpPort))
