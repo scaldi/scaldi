@@ -1,10 +1,9 @@
 package scaldi
 
-import org.scalatest.WordSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{Matchers, WordSpec}
 import scala.util.Random
 
-class WordBinderSpec extends WordSpec with ShouldMatchers {
+class WordBinderSpec extends WordSpec with Matchers {
   "WordBinder" should {
     "require to bind something" in {
       val binder = new WordBinder {
@@ -24,7 +23,7 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
         binding to "localhost" identifiedBy classOf[String] and 'host and "httpServer"
       }
 
-      binder.wordBindings should have size (6)
+      binder.wordBindings should have size 6
       binder.wordBindings foreach (_.isDefinedFor(List(classOf[String], "host", "httpServer")) should be (true))
     }
 
@@ -33,9 +32,9 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
         binding to new HttpServer("localhost", 80)
       }
 
-      binder.wordBindings should have size (1)
-      binder.wordBindings(0) isDefinedFor (List(classOf[Server])) should be (true)
-      binder.wordBindings(0) isDefinedFor (List(classOf[HttpServer])) should be (true)
+      binder.wordBindings should have size 1
+      binder.wordBindings(0) isDefinedFor List(classOf[Server]) should be (true)
+      binder.wordBindings(0) isDefinedFor List(classOf[HttpServer]) should be (true)
     }
 
     "not infer binding type only when it is specified explicitly" in {
@@ -43,27 +42,27 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
         bind [Server] to new HttpServer("localhost", 80)
       }
 
-      binder.wordBindings should have size (1)
-      binder.wordBindings(0) isDefinedFor (List(classOf[Server])) should be (true)
-      binder.wordBindings(0) isDefinedFor (List(classOf[HttpServer])) should be (false)
+      binder.wordBindings should have size 1
+      binder.wordBindings(0) isDefinedFor List(classOf[Server]) should be (true)
+      binder.wordBindings(0) isDefinedFor List(classOf[HttpServer]) should be (false)
     }
 
-    "treat later bindings as overrieds for earlier and more that one binding od the same type" in {
+    "treat later bindings as overrides for earlier and more that one binding od the same type" in {
       val binder = new DynamicModule {
         bind [Server] to new HttpServer("localhost", 80)
         bind [Server] to new HttpServer("www.test.com", 8080)
       }.initNonLazy()
 
-      binder.wordBindings should have size (2)
-      binder.getBinding(List(classOf[Server])).get.get should be === Some(HttpServer("www.test.com", 8080))
+      binder.wordBindings should have size 2
+      binder.getBinding(List(classOf[Server])).get.get should equal (Some(HttpServer("www.test.com", 8080)))
 
       val bindings = binder.getBindings(List(classOf[Server]))
-      bindings should have size (2)
-      bindings(0).get should be === Some(HttpServer("www.test.com", 8080))
-      bindings(1).get should be === Some(HttpServer("localhost", 80))
+      bindings should have size 2
+      bindings(0).get should equal (Some(HttpServer("www.test.com", 8080)))
+      bindings(1).get should equal (Some(HttpServer("localhost", 80)))
     }
 
-    "allow to define normal lazy bingings that would be instantialted only one time" in {
+    "allow to define normal lazy bindings that would be instantiated only one time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
         bind [Server] identifiedBy 'server and "httpServer" to {
@@ -75,12 +74,12 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       }.initNonLazy()
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
       instanceCount should be (1)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
-    "allow to define normal non-lazy bingings that would be instantialted only one time" in {
+    "allow to define normal non-lazy bindings that would be instantiated only one time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
         bind [Server] identifiedBy 'server and "httpServer" toNonLazy {
@@ -92,12 +91,12 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       }.initNonLazy()
 
       instanceCount should be (1)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
       instanceCount should be (1)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
-    "allow to define provider bingings that would be instantialted each time" in {
+    "allow to define provider bindings that would be instantiated each time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
         bind [Server] identifiedBy 'server and "httpServer" toProvider {
@@ -109,9 +108,9 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
       }.initNonLazy()
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (10)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 10
       instanceCount should be (10)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
     "support conditions with 'when'" in {
@@ -127,15 +126,53 @@ class WordBinderSpec extends WordSpec with ShouldMatchers {
         bind [Int] when ProdMode as 'port to 1234
       }
 
-      binder.wordBindings should have size (3)
+      binder.wordBindings should have size 3
 
-      binder.getBinding(List('host)).get.get.get should be === "www.prod-server.com"
-      binder.getBinding(List('port)).get.get.get should be === 1234
+      binder.getBinding(List('host)).get.get.get should equal ("www.prod-server.com")
+      binder.getBinding(List('port)).get.get.get should equal (1234)
 
       prodMode = false
 
-      binder.getBinding(List('host)).get.get.get should be === "localhost"
+      binder.getBinding(List('host)).get.get.get should equal ("localhost")
       binder.getBinding(List('port)) should be ('empty)
+    }
+
+    "allow to define init and destroy functions" in {
+      implicit val module = new DynamicModule {
+        bind [Server] as 'server1 to new CustomServer initWith (_.init()) destroyWith (_.terminate())
+        bind [Server] as 'server2 to new CustomServer initWith (_.init())
+        bind [Server] as 'server3 to new CustomServer destroyWith (_.terminate())
+      }
+
+      import Injectable._
+
+      (1 to 3) foreach (i => inject[Server](s"server$i"))
+
+      val server1 = inject[Server]('server1).asInstanceOf[CustomServer]
+      val server2 = inject[Server]('server2).asInstanceOf[CustomServer]
+      val server3 = inject[Server]('server3).asInstanceOf[CustomServer]
+
+      server1.initializedCount should equal (1)
+      server1.destroyedCount should equal (0)
+
+      server2.initializedCount should equal (1)
+      server2.destroyedCount should equal (0)
+
+      server3.initializedCount should equal (0)
+      server3.destroyedCount should equal (0)
+
+      module.destroy()
+      module.destroy()
+      module.destroy()
+
+      server1.initializedCount should equal (1)
+      server1.destroyedCount should equal (1)
+
+      server2.initializedCount should equal (1)
+      server2.destroyedCount should equal (0)
+
+      server3.initializedCount should equal (0)
+      server3.destroyedCount should equal (1)
     }
   }
 }

@@ -1,9 +1,8 @@
 package scaldi
 
-import org.scalatest.WordSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{Matchers, WordSpec}
 
-class ConditionSpec extends WordSpec with ShouldMatchers {
+class ConditionSpec extends WordSpec with Matchers {
   "Condition" should {
     val onlyTest: PartialFunction[List[Identifier], Boolean] = {
       case List(StringIdentifier("test")) => true

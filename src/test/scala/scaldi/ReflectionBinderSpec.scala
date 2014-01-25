@@ -1,11 +1,11 @@
 package scaldi
 
-import org.scalatest.WordSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{Matchers, WordSpec}
 import scala.util.Random
 import java.lang.reflect.Method
+import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
 
-class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
+class ReflectionBinderSpec extends WordSpec with Matchers {
   "ReflectionBinder" should {
     "discover bindings using reflection" in {
       val binder = new StaticModule {
@@ -21,26 +21,22 @@ class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
         def otherServer = new HttpServer("test", 8080)
       }
 
-      binder.getBinding(List("myHttpServer", classOf[Server])).get.get should be === Some(HttpServer("localhost", 80))
+      binder.getBinding(List("myHttpServer", classOf[Server])).get.get should equal (Some(HttpServer("localhost", 80)))
       binder.getBinding(List("myHttpServer", classOf[HttpServer])) should be ('empty)
 
-      binder.getBinding(List("otherServer", classOf[Server])).get.get should be === Some(HttpServer("test", 8080))
-      binder.getBinding(List("otherServer", classOf[HttpServer])).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer", classOf[Server])).get.get should equal (Some(HttpServer("test", 8080)))
+      binder.getBinding(List("otherServer", classOf[HttpServer])).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
     "support BidingProvider as return type of class members and use it to retrieve actual binding" in {
-      case class Special[T: Manifest](fn: () => T) extends BidingProvider {
-        def getBinding(method: Method) = LazyBinding(Some(fn), List(manifest[T].erasure, "special"))
-      }
-
       val binder = new StaticModule {
-        lazy val someBinding = Special(() => HttpServer("test", 8080))
+        lazy val someBinding = SpecialBindingProvider(() => HttpServer("test", 8080))
       }
 
       binder.getBinding(List("someBinding")) should be ('empty)
-      binder.getBinding(List(classOf[BidingProvider])) should be ('empty)
-      binder.getBinding(List(classOf[Server])).get.get should be === Some(HttpServer("test", 8080))
-      binder.getBinding(List("special")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List(classOf[BindingProvider])) should be ('empty)
+      binder.getBinding(List(classOf[Server])).get.get should equal (Some(HttpServer("test", 8080)))
+      binder.getBinding(List("special")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
     "discover lazy vals that have semantics of lazy bindings" in {
@@ -55,9 +51,9 @@ class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
       }
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
       instanceCount should be (1)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
     "discover normal vals that have semantics of non-lazy bindings and instntiated immediately" in {
@@ -72,9 +68,9 @@ class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
       }
 
       instanceCount should be (1)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (1)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
       instanceCount should be (1)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
     "discover defs that have semantics of provider bindings" in {
@@ -89,9 +85,13 @@ class ReflectionBinderSpec extends WordSpec with ShouldMatchers {
       }
 
       instanceCount should be (0)
-      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size (10)
+      (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 10
       instanceCount should be (10)
-      binder.getBinding(List("otherServer")).get.get should be === Some(HttpServer("test", 8080))
+      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
     }
   }
+}
+
+case class SpecialBindingProvider[T: TypeTag](fn: () => T) extends BindingProvider {
+  def getBinding(name: String, tpe: Type) = SimpleBinding(Some(fn), List(typeTag[T], "special"))
 }

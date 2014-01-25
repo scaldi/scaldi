@@ -1,21 +1,22 @@
-import com.jsuereth.sbtsite.SiteKeys
-
 name := "scaldi"
 
 description := "Scaldi - Scala Dependency Injection Library"
 
-organization := "com.github.scaldi"
+organization := "org.scaldi"
 
-version := "0.2.1-SNAPSHOT"
+version := "0.3-SNAPSHOT"
 
-crossScalaVersions := Seq("2.9.2", "2.10.3")
+crossScalaVersions := Seq("2.10.3")
 
 scalaVersion := "2.10.3"
 
 scalacOptions += "-deprecation"
 
+fork := true
+
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "1.9.1" % "test"
+  "org.scalatest" %% "scalatest" % "2.0" % "test",
+  "org.scala-lang" % "scala-reflect" % scalaVersion.value
 )
 
 publishMavenStyle := true
@@ -32,21 +33,10 @@ publishTo <<= version { v: String =>
     Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 
-seq(site.settings: _*)
-
-seq(ghpages.settings: _*)
-
 git.remoteRepo := "git@github.com:scaldi/scaldi.git"
 
-site.addMappingsToSiteDir(mappings in packageDoc in Compile, "api")
-
-SiteKeys.siteMappings <<=
-  (SiteKeys.siteMappings, PamfletKeys.write, PamfletKeys.output) map { (mappings, _, dir) =>
-    mappings ++ (dir ** "*.*" x relativeTo(dir))
-  }
-
 pomExtra := <xml:group>
-  <url>http://scaldi.github.io/scaldi/Scaldi.html</url>
+  <url>http://scaldi.org</url>
   <inceptionYear>2011</inceptionYear>
   <licenses>
     <license>

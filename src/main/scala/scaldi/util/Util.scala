@@ -1,10 +1,14 @@
 package scaldi.util
 
-object Util extends CreationHelper {
-  implicit def toWorkflowHelper[T](any: T) = new WorkflowHelper[T](any)
+import language.implicitConversions
 
-  class WorkflowHelper[T](target: T) {
+object Util {
+  implicit class WorkflowHelper[T](val target: T) extends AnyVal {
     def |>[R](fn: T => R) = fn(target)
+    def <|[R](fn: T => Unit) = {
+      fn(target)
+      target
+    }
   }
 
   type Cache[K, V] = collection.mutable.Map[K, V]

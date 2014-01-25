@@ -1,10 +1,9 @@
 package scaldi
 
-import org.scalatest.WordSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{Matchers, WordSpec}
 import java.text.DateFormat
 
-class InjectableSpec extends WordSpec with ShouldMatchers {
+class InjectableSpec extends WordSpec with Matchers {
 
   "Injectable" should {
 
@@ -18,12 +17,12 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
       binding should be ('defined)
 
       val server = binding.get.get.get.asInstanceOf[TcpServer]
-      server.port should be === 1234
-      server.host should be === "test"
-      server.getConnection.welcomeMessage should be === "Hello user!"
+      server.port should equal (1234)
+      server.host should equal ("test")
+      server.getConnection.welcomeMessage should equal ("Hello user!")
     }
 
-    "treat binding that return None as non-defined and use default of throw exception if no default provided" in {
+    "treat binding that return None as non-defined and use default or throw an exception if no default provided" in {
       val module = new TcpModule :: DynamicModule(_.bind [String] identifiedBy 'welcome to None) :: DynamicModule({ m =>
         m.binding identifiedBy 'tcpHost to "test"
         m.binding identifiedBy 'welcome to "Hello user!"
@@ -33,15 +32,15 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
       binding should be ('defined)
 
       val server = binding.get.get.get.asInstanceOf[TcpServer]
-      server.getConnection.welcomeMessage should be === "Hi"
+      server.getConnection.welcomeMessage should equal ("Hi")
     }
 
     import scaldi.Injectable._
     val defaultDb = PostgresqlDatabase("default_db")
 
     "inject by type" in {
-      inject [Database] should be === MysqlDatabase("my_app")
-      inject [Database] (classOf[ConnectionProvider]) should be === MysqlDatabase("my_app")
+      inject [Database] should equal (MysqlDatabase("my_app"))
+      inject [Database] (classOf[ConnectionProvider]) should equal (MysqlDatabase("my_app"))
     }
 
     "inject using identifiers" in {
@@ -54,11 +53,11 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
         injectWithDefault [Database] ('database, "local")(defaultDb)
       )
 
-      results should have size (6)
+      results should have size 6
       results.distinct should (contain(MysqlDatabase("my_app"): Database) and have size (1))
     }
 
-    "inject default if binding not fould" in {
+    "inject default if binding not found" in {
       val results = List [Database] (
         inject [Database] (identified by 'remote and by default new PostgresqlDatabase("default_db")),
         inject [Database] (identified by 'remote is by default defaultDb),
@@ -74,45 +73,70 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
         injectWithDefault (defaultDb)
       )
 
-      results should have size (12)
-      results.distinct should (contain(defaultDb: Database) and have size (1))
+      results should have size 12
+      results.distinct should (contain(defaultDb: Database) and have size 1)
     }
 
-    "throw exception if no default provided and bonding not fould" in {
+    "correctly inject provider" in {
+      var str1Counter = 0
+      var str2Counter = 0
+
+      implicit val injector = DynamicModule({ m =>
+        m.binding identifiedBy 'str1 to {
+          str1Counter = str1Counter + 1
+          s"str1 $str1Counter"
+        }
+
+        m.binding identifiedBy 'str2 toProvider {
+          str2Counter = str2Counter + 1
+          s"str2 $str2Counter"
+        }
+      })
+
+      val str1 = injectProvider[String]('str1)
+      val str2 = injectProvider[String]('str2)
+
+      str1() should equal ("str1 1")
+      str1() should equal ("str1 1")
+
+      str2() should equal ("str2 1")
+      str2() should equal ("str2 2")
+
+      str1Counter should equal (1)
+      str2Counter should equal (2)
+    }
+
+    "throw exception if no default provided and bonding not found" in {
       evaluating(inject [DateFormat]) should produce [InjectException]
     }
 
     "also be available in module, but use resulting (compised) injector" in {
       val server = inject [Server] ('real and 'http)
-      server should be  === HttpServer("marketing.org", 8081)
+      server should equal (HttpServer("marketing.org", 8081))
     }
 
-    /**
-     * Generics would be erased at runtime, so framework is not able to
-     * find correct Function2 instance
-     */
-    "ignore generics and return wrong bindings" in {
-      val adderWrong = inject [(Int, Int) => Int]
-      evaluating(adderWrong(2, 3)) should produce[ClassCastException]
+    "distinguish generic types" in {
+      val intAdder = inject [(Int, Int) => Int]
+      intAdder(2, 3) should equal (5)
 
-      val adderRight = inject [(Int, Int) => Int] ('intAdder)
-      adderRight(2, 3) should be === 5
+      val stringAdder = inject [(String, String) => String]
+      stringAdder("Hello", "World") should equal ("Hello, World")
     }
 
     "inject all using type parameter" in {
       injectAllOfType [String] ('host) should
-          (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size (3))
+          (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size 3)
 
       injectAllOfType [HttpServer] should
-          (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size (2))
+          (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size 2)
     }
 
-    "inject all using without type parameter" in {
+    "inject all without type parameter" in {
       injectAll('host).asInstanceOf[List[String]] should
-          (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size (3))
+          (contain("www.google.com") and contain("www.yahoo.com") and contain("www.github.com") and have size 3)
 
       injectAll('server).asInstanceOf[List[HttpServer]] should
-          (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size (2))
+          (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size 2)
     }
   }
 
@@ -128,6 +152,7 @@ class InjectableSpec extends WordSpec with ShouldMatchers {
     binding identifiedBy 'host and 'github to "www.github.com"
 
     binding identifiedBy 'server to HttpServer("localhost", 80)
+    binding identifiedBy 'server to None
     binding identifiedBy 'server to HttpServer("test", 8080)
 
     binding identifiedBy 'intAdder to ((a: Int, b: Int) => a + b)
