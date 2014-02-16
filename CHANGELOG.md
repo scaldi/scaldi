@@ -22,6 +22,7 @@
   ```
   bind [Server] as to new LifecycleServer initWith (_.init()) destroyWith (_.terminate())
   ```
+
   Mutable `Injector`s also got `destroy` method which you can call explicitly or, if you forgot to do this, it would be
   called on JVM shutdown automatically.
 * Documentation for all public API.
