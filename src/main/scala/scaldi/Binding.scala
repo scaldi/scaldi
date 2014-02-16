@@ -93,8 +93,9 @@ case class ProviderBinding(
 ) extends BindingWithLifecycle {
   def target = createFn() <| lifecycle.initializeObject
   override def get(lifecycleManager: LifecycleManager) = {
-    lifecycle.destroy foreach (d => lifecycleManager addDestroyable (() => d(target)))
-    Some(target)
+    val value = target
+    lifecycle.destroy foreach (d => lifecycleManager addDestroyable (() => d(value)))
+    Some(value)
   }
 }
 

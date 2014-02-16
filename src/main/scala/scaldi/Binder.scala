@@ -3,7 +3,7 @@ package scaldi
 import language.postfixOps
 
 import scaldi.util.Util._
-import scala.reflect.runtime.universe.{TypeTag, Type, MethodSymbol, typeTag}
+import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
 
 trait WordBinder {
   private var bindingsInProgress: List[BindHelper[_]] = Nil

@@ -2,7 +2,7 @@ package scaldi
 
 trait Server
 case class HttpServer(host: String, port: Int) extends Server
-class CustomServer extends Server {
+class LifecycleServer extends Server {
   var initializedCount = 0
   var destroyedCount = 0
 

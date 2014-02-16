@@ -139,18 +139,18 @@ class WordBinderSpec extends WordSpec with Matchers {
 
     "allow to define init and destroy functions" in {
       implicit val module = new DynamicModule {
-        bind [Server] as 'server1 to new CustomServer initWith (_.init()) destroyWith (_.terminate())
-        bind [Server] as 'server2 to new CustomServer initWith (_.init())
-        bind [Server] as 'server3 to new CustomServer destroyWith (_.terminate())
+        bind [Server] as 'server1 to new LifecycleServer initWith (_.init()) destroyWith (_.terminate())
+        bind [Server] as 'server2 to new LifecycleServer initWith (_.init())
+        bind [Server] as 'server3 to new LifecycleServer destroyWith (_.terminate())
       }
 
       import Injectable._
 
       (1 to 3) foreach (i => inject[Server](s"server$i"))
 
-      val server1 = inject[Server]('server1).asInstanceOf[CustomServer]
-      val server2 = inject[Server]('server2).asInstanceOf[CustomServer]
-      val server3 = inject[Server]('server3).asInstanceOf[CustomServer]
+      val server1 = inject[Server]('server1).asInstanceOf[LifecycleServer]
+      val server2 = inject[Server]('server2).asInstanceOf[LifecycleServer]
+      val server3 = inject[Server]('server3).asInstanceOf[LifecycleServer]
 
       server1.initializedCount should equal (1)
       server1.destroyedCount should equal (0)

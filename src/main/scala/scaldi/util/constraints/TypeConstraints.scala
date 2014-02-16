@@ -8,12 +8,14 @@ trait NotExists extends Existence
 
 trait IsTypeClassExists[TypeClass, Answer]
 
-object IsTypeClassExists {
-  private val evidence: IsTypeClassExists[Any, Any] =
-    new Object with IsTypeClassExists[Any, Any]
-
+object IsTypeClassExists extends LowPriorityIsTypeClassExists {
   implicit def typeClassExistsEv[TypeClass, Answer](implicit a: TypeClass) =
     evidence.asInstanceOf[IsTypeClassExists[TypeClass, Exists]]
+}
+
+trait LowPriorityIsTypeClassExists {
+  protected val evidence: IsTypeClassExists[Any, Any] =
+    new Object with IsTypeClassExists[Any, Any]
 
   implicit def typeClassNotExistsEv[TypeClass, Answer] =
     evidence.asInstanceOf[IsTypeClassExists[TypeClass, NotExists]]
