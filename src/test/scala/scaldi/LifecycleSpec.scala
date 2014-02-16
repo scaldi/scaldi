@@ -6,10 +6,15 @@ class LifecycleSpec extends WordSpec with Matchers {
 
   "BindingLifecycle" should {
     "allow to define init function which should be called one time for lazy and non-lazy bindings" in {
-      implicit val module = new Module {
+      val module1 = new Module {
         bind [Server] as 'serverLazy to new LifecycleServer initWith (_.init())
+      }
+
+      val module2 = new Module {
         bind [Server] as 'serverNonLazy toNonLazy new LifecycleServer initWith (_.init())
       }
+
+      implicit val moduleAggregation = module1 :: module2
 
       import Injectable._
 
@@ -38,11 +43,16 @@ class LifecycleSpec extends WordSpec with Matchers {
     }
 
     "allow to define destroy function which should be called one time for every created instance" in {
-      implicit val module = new Module {
+      val module1 = new Module {
         bind [Server] as 'serverLazy to new LifecycleServer destroyWith (_.terminate())
+      }
+
+      val module2 = new Module {
         bind [Server] as 'serverNonLazy toNonLazy  new LifecycleServer destroyWith (_.terminate())
         bind [Server] as 'serverProvider toProvider new LifecycleServer destroyWith (_.terminate())
       }
+
+      implicit val moduleAggregation = module1 :: module2
 
       import Injectable._
 
@@ -50,12 +60,11 @@ class LifecycleSpec extends WordSpec with Matchers {
       val serverNonLazy = inject[Server] ('serverNonLazy)
       val serverProvider = inject[Server] ('serverProvider)
 
-      1 to 20 foreach (_ => module.destroy())
+      1 to 20 foreach (_ => moduleAggregation.destroy())
       
       serverLazy.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
       serverNonLazy.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
       serverProvider.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
     }
   }
-
 }
