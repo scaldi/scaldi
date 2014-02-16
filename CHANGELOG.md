@@ -20,7 +20,7 @@
 * `CreationHelper` utility object is removed.
 * Added binding lifecycle. Now you can add `initWith` and `destroyWith` functions to the bindings:
   ```
-  bind [Server] as to new LifecycleServer initWith (_.init()) destroyWith (_.terminate())
+  bind [Server] to new LifecycleServer initWith (_.init()) destroyWith (_.terminate())
   ```
 
   Mutable `Injector`s also got `destroy` method which you can call explicitly or, if you forgot to do this, it would be
