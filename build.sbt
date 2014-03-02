@@ -4,7 +4,7 @@ description := "Scaldi - Scala Dependency Injection Library"
 
 organization := "org.scaldi"
 
-version := "0.3"
+version := "0.4-SNAPSHOT"
 
 crossScalaVersions := Seq("2.10.3")
 
