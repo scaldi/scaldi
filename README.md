@@ -23,14 +23,14 @@ at the tests:
 
 SBT Configuration:
 
-    libraryDependencies += "com.github.scaldi" %% "scaldi" % "0.2"
+    libraryDependencies += "org.scaldi" %% "scaldi" % "0.3"
 
 Maven Configuration (you need to specify scala version manually in the *artifactId*):
 
     <dependency>
-        <groupId>com.github.scaldi</groupId>
+        <groupId>org.scaldi</groupId>
         <artifactId>scaldi_2.10</artifactId>
-        <version>0.2</version>
+        <version>0.3</version>
     </dependency>
 
 ## License

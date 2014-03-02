@@ -1,4 +1,4 @@
-## v0.3 (coming soon) ~ 21.0.2014
+## v0.3 (02.03.2014)
 
 * GroupId is changed to `org.scaldi`. So if you want to include it in the project, you need to use following configuration now:
  ```
@@ -25,4 +25,4 @@
 
   Mutable `Injector`s also got `destroy` method which you can call explicitly or, if you forgot to do this, it would be
   called on JVM shutdown automatically.
-* Documentation for all public API.
+* `inject` will now make sure during the compilation time, that provided binding class is inferred correctly (in other words it's not `Nothing`)

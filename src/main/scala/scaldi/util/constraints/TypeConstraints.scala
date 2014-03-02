@@ -42,16 +42,18 @@ object And {
 }
 
 @implicitNotFound("Argument does not satisfy constraints: ${A} Or ${B}")
-trait Or[A, B]
+trait Or[A, B] {
+  def get: Either[A, B]
+}
 
 object Or {
-  private val evidence: Or[Any, Any] = new Object with Or[Any, Any]
+  implicit def aExistsEv[A, B](implicit a: A) = new Or[A, B] {
+    def get = Left(a)
+  }
 
-  implicit def aExistsEv[A, B](implicit a: A) =
-    evidence.asInstanceOf[Or[A, B]]
-
-  implicit def bExistsEv[A, B](implicit b: B) =
-    evidence.asInstanceOf[Or[A, B]]
+  implicit def bExistsEv[A, B](implicit b: B) = new Or[A, B] {
+    def get = Right(b)
+  }
 }
 
 @implicitNotFound("Type inference was unable to figure out the type. You need to provide it explicitly.")
