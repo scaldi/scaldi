@@ -15,7 +15,7 @@ Scaladocs for the latest version of the project can be found here:
 At the moment project is poorly documented, but it will be fixed soon. At the moment I can recommend you to take a look
 at the tests:
 
-[http://scaldi.org/scaldi/tree/master/src/test/scala/scaldi](http://scaldi.org/scaldi/tree/master/src/test/scala/scaldi)
+[https://github.com/scaldi/scaldi/tree/master/src/test/scala/scaldi](https://github.com/scaldi/scaldi/tree/master/src/test/scala/scaldi)
 
 [![Build Status](https://travis-ci.org/scaldi/scaldi.png?branch=master)](https://travis-ci.org/scaldi/scaldi)
 
