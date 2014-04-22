@@ -18,6 +18,8 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.1.3" % "test",
   "org.scala-lang" % "scala-reflect" % scalaVersion.value
 ) ++ (
+  // `scala-xml` is introduced in 2.11 so we need to exclude it,
+  // if cross-compiling to 2.10
   if (scalaVersion.value.substring(2, 4).toInt >= 11)
     Seq("org.scala-lang.modules" %% "scala-xml" % "1.0.1" % "test")
   else
