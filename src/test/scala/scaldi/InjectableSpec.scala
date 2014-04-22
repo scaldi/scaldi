@@ -49,11 +49,10 @@ class InjectableSpec extends WordSpec with Matchers {
         inject [Database] (identified by 'local and 'database),
         inject [Database] (by default defaultDb and identified by 'database and 'local),
         inject [Database] (by default new MysqlDatabase("my_app") and 'database and 'local),
-        inject [Database] ('database, "local"),
-        injectWithDefault [Database] ('database, "local")(defaultDb)
+        inject [Database] ('database and "local" and by default defaultDb)
       )
 
-      results should have size 6
+      results should have size 5
       results.distinct should (contain(MysqlDatabase("my_app"): Database) and have size (1))
     }
 
@@ -67,13 +66,10 @@ class InjectableSpec extends WordSpec with Matchers {
         inject [Database] (by default defaultDb and identified by 'remote),
         inject (by default defaultDb),
         inject (by default defaultDb and 'local),
-        inject (by default new PostgresqlDatabase("default_db")),
-        injectWithDefault [Database] ('database, "remote")(defaultDb),
-        injectWithDefault ('database, "local")(defaultDb),
-        injectWithDefault (defaultDb)
+        inject (by default new PostgresqlDatabase("default_db"))
       )
 
-      results should have size 12
+      results should have size 9
       results.distinct should (contain(defaultDb: Database) and have size 1)
     }
 
