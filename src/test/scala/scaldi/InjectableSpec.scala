@@ -103,7 +103,7 @@ class InjectableSpec extends WordSpec with Matchers {
     }
 
     "throw exception if no default provided and bonding not found" in {
-      evaluating(inject [DateFormat]) should produce [InjectException]
+      an [InjectException] should be thrownBy inject [DateFormat]
     }
 
     "also be available in module, but use resulting (compised) injector" in {

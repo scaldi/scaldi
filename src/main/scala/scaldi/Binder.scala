@@ -133,9 +133,9 @@ trait ReflectionBinder {
       .map(_.asMethod)
       .map { m =>
         if (m.returnType <:< typeOf[BindingProvider])
-          reflection.reflectMethod(m).apply().asInstanceOf[BindingProvider].getBinding(m.name.decoded, m.returnType)
+          reflection.reflectMethod(m).apply().asInstanceOf[BindingProvider].getBinding(m.name.decodedName.toString, m.returnType)
         else
-          ReflectiveBinding(() => Some(reflection.reflectMethod(m).apply()), List(m.returnType, m.name.decoded))
+          ReflectiveBinding(() => Some(reflection.reflectMethod(m).apply()), List(m.returnType, m.name.decodedName.toString))
       }
       .toList
   }
