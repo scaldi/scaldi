@@ -10,7 +10,7 @@ class WordBinderSpec extends WordSpec with Matchers {
         bind [String] identifiedBy 'host
       }
 
-      evaluating(binder.wordBindings) should produce [BindingException]
+      an [BindingException] should be thrownBy binder.wordBindings
     }
 
     "collect all identifiers for bindings" in {
