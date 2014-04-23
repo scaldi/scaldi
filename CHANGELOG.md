@@ -2,9 +2,9 @@
 
 * Added support for scala 2.11 (cross-compiling with 2.10 and 2.11)
 * Small clean-up of `Injectable`
-    * Dropped several `inject` method overloads in order make it work with 2.11.
+    * Dropped several `inject` method overloads in order to make it work with 2.11.
       In most cases you will not notice any difference. If you are using vararg version of `inject` that takes the seq of
-      identifies as an argument then you need to rewrite it with standard `inject` DSL and use `and` to provide several identifiers.
+      identifies as an argument, then you need to rewrite it with standard `inject` DSL and use `and` to provide several identifiers.
       Here is an example:
       ```
       // don't work anymore
