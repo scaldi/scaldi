@@ -29,8 +29,8 @@ Maven Configuration (you need to specify scala version manually in the *artifact
 
     <dependency>
         <groupId>org.scaldi</groupId>
-        <artifactId>scaldi_2.10</artifactId>
-        <version>0.3</version>
+        <artifactId>scaldi_2.11</artifactId>
+        <version>0.3.1</version>
     </dependency>
 
 ## License

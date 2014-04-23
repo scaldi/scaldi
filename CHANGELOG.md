@@ -1,3 +1,27 @@
+## v0.3.1 (23.04.2014)
+
+* Added support for scala 2.11 (cross-compiling with 2.10 and 2.11)
+* Small clean-up of `Injectable`
+    * Dropped several `inject` method overloads in order make it work with 2.11.
+      In most cases you will not notice any difference. If you are using vararg version of `inject` that takes the seq of
+      identifies as an argument then you need to rewrite it with standard `inject` DSL and use `and` to provide several identifiers.
+      Here is an example:
+      ```
+      // don't work anymore
+      inject [Database] ('local, 'db)
+
+      // use this syntax instead
+      inject [Database] ('local and 'db)
+
+      // or this one
+      inject [Database] (identified by 'local and 'db)
+      ```
+    * Dropped `injectWithDefault` in favour of existing `inject` DSL. So if you want to provide a default for the binding,
+      then please use this syntax instead:
+      ```
+      inject [Database] (by default new Riak)
+      ```
+
 ## v0.3 (02.03.2014)
 
 * GroupId is changed to `org.scaldi`. So if you want to include it in the project, you need to use following configuration now:
