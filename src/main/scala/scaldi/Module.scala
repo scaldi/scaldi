@@ -100,12 +100,12 @@ trait RawInjector extends Injector {
 
   private def convert(value: String, tpe: Type): Option[Any] =
     try {
-      if (tpe == typeOf[Int]) Some(value.toInt)
-      else if (tpe == typeOf[Float]) Some(value.toFloat)
-      else if (tpe == typeOf[Double]) Some(value.toDouble)
-      else if (tpe == typeOf[Boolean]) Some(value.toBoolean)
-      else if (tpe == typeOf[File]) Some(new File(value))
-      else if (tpe == typeOf[String]) Some(value)
+      if (tpe =:= typeOf[Int]) Some(value.toInt)
+      else if (tpe =:= typeOf[Float]) Some(value.toFloat)
+      else if (tpe =:= typeOf[Double]) Some(value.toDouble)
+      else if (tpe =:= typeOf[Boolean]) Some(value.toBoolean)
+      else if (tpe =:= typeOf[File]) Some(new File(value))
+      else if (tpe =:= typeOf[String]) Some(value)
       else None
     } catch {
       case e: Exception => None
