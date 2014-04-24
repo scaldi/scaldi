@@ -1,3 +1,7 @@
+## v0.3.2 (24.04.2014)
+
+* Minor bugfix in raw property injector
+
 ## v0.3.1 (23.04.2014)
 
 * Added support for scala 2.11 (cross-compiling with 2.10 and 2.11)
