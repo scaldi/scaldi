@@ -14,7 +14,7 @@ Scaladocs for the latest version of the project can be found here:
 At the moment project is poorly documented, but it will be fixed soon. At the moment I can recommend you to take a look
 at the tests:
 
-[https://github.com/scaldi/scaldi/tree/master/src/test/scala/scaldi](https://github.com/scaldi/scaldi/tree/master/src/test/scala/scaldi)
+[https://github.com/scaldi/scaldi/tree/master/src/test/scala/scaldi](https://github.com/scaldi/scaldi/tree/master/src/test/scala/scaldi) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.11)
 
 [![Build Status](https://travis-ci.org/scaldi/scaldi.png?branch=master)](https://travis-ci.org/scaldi/scaldi)
 
