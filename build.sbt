@@ -40,7 +40,18 @@ publishTo <<= version { v: String =>
     Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 
+// nice prompt!
+shellPrompt in ThisBuild := { state =>
+  scala.Console.MAGENTA + Project.extract(state).currentRef.project + "> " + scala.Console.RESET
+}
+
 git.remoteRepo := "git@github.com:scaldi/scaldi.git"
+
+site.settings
+
+site.includeScaladoc()
+
+ghpages.settings
 
 pomExtra := <xml:group>
   <url>http://scaldi.org</url>
