@@ -1,0 +1,306 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>constraints - scaldi.util.constraints</title>
+          <meta name="description" content="constraints - scaldi.util.constraints" />
+          <meta name="keywords" content="constraints scaldi.util.constraints" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../index.html';
+            var hash = 'scaldi.util.constraints.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../lib/package_big.png" />
+        <p id="owner"><a href="../../package.html" class="extype" name="scaldi">scaldi</a>.<a href="../package.html" class="extype" name="scaldi.util">util</a></p>
+        <h1>constraints</h1>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">constraints</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="scaldi.util.constraints.And" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="And[A,B]extendsAnyRef"></a>
+      <a id="And[A,B]:And[A,B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="And.html"><span class="name">And</span></a><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@implicitNotFound</span><span class="args">(<span>
+      
+      <span class="defval" name="&quot;Argument does not satisfy constraints: ${A} And ${B}&quot;">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scaldi.util.constraints.Existence" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ExistenceextendsAnyRef"></a>
+      <a id="Existence:Existence"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Existence.html"><span class="name">Existence</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.Exists" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ExistsextendsExistence"></a>
+      <a id="Exists:Exists"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Exists.html"><span class="name">Exists</span></a><span class="result"> extends <a href="Existence.html" class="extype" name="scaldi.util.constraints.Existence">Existence</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.IsTypeClassExists" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="IsTypeClassExists[TypeClass,Answer]extendsAnyRef"></a>
+      <a id="IsTypeClassExists[TypeClass,Answer]:IsTypeClassExists[TypeClass,Answer]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="IsTypeClassExists.html"><span class="name">IsTypeClassExists</span></a><span class="tparams">[<span name="TypeClass">TypeClass</span>, <span name="Answer">Answer</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.LowPriorityIsTypeClassExists" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LowPriorityIsTypeClassExistsextendsAnyRef"></a>
+      <a id="LowPriorityIsTypeClassExists:LowPriorityIsTypeClassExists"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LowPriorityIsTypeClassExists.html"><span class="name">LowPriorityIsTypeClassExists</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.Not" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Not[T]extendsAnyRef"></a>
+      <a id="Not[T]:Not[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Not.html"><span class="name">Not</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@implicitNotFound</span><span class="args">(<span>
+      
+      <span class="defval" name="&quot;Argument does not satisfy constraints: Not ${T}&quot;">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scaldi.util.constraints.NotExists" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="NotExistsextendsExistence"></a>
+      <a id="NotExists:NotExists"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="NotExists.html"><span class="name">NotExists</span></a><span class="result"> extends <a href="Existence.html" class="extype" name="scaldi.util.constraints.Existence">Existence</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.NotNothing" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="NotNothing[T]extendsAnyRef"></a>
+      <a id="NotNothing[T]:NotNothing[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="NotNothing.html"><span class="name">NotNothing</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@implicitNotFound</span><span class="args">(<span>
+      
+      <span class="defval" name="&quot;Type inference was unable to figure out the type. You need to provide it explicitly.&quot;">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scaldi.util.constraints.Or" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Or[A,B]extendsAnyRef"></a>
+      <a id="Or[A,B]:Or[A,B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Or.html"><span class="name">Or</span></a><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@implicitNotFound</span><span class="args">(<span>
+      
+      <span class="defval" name="&quot;Argument does not satisfy constraints: ${A} Or ${B}&quot;">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="scaldi.util.constraints.And" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="And"></a>
+      <a id="And:And"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="And$.html"><span class="name">And</span></a>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.IsTypeClassExists" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IsTypeClassExists"></a>
+      <a id="IsTypeClassExists:IsTypeClassExists"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="IsTypeClassExists$.html"><span class="name">IsTypeClassExists</span></a><span class="result"> extends <a href="LowPriorityIsTypeClassExists.html" class="extype" name="scaldi.util.constraints.LowPriorityIsTypeClassExists">LowPriorityIsTypeClassExists</a></span>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.Not" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Not"></a>
+      <a id="Not:Not"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Not$.html"><span class="name">Not</span></a>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.NotNothing" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="NotNothing"></a>
+      <a id="NotNothing:NotNothing"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="NotNothing$.html"><span class="name">NotNothing</span></a>
+      </span>
+      </h4>
+      
+    </li><li name="scaldi.util.constraints.Or" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Or"></a>
+      <a id="Or:Or"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Or$.html"><span class="name">Or</span></a>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
