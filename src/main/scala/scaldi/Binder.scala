@@ -8,6 +8,7 @@ import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
 trait WordBinder {
   private var bindingsInProgress: List[BindHelper[_]] = Nil
   private var bindings: List[BoundHelper[_]] = Nil
+  private var contextCondition: Option[() => Condition] = None
 
   lazy val wordBindings: List[BindingWithLifecycle] = {
     if (bindingsInProgress nonEmpty) {
@@ -21,16 +22,26 @@ trait WordBinder {
     bindings.map(_ getBinding).reverse
   }
 
-  def binding = createBinding[Any](None)
-  def bind[T : TypeTag] = createBinding[T](Some(typeTag[T]))
+  def binding = createBinding[Any](None, contextCondition)
+  def bind[T : TypeTag] = createBinding[T](Some(typeTag[T]), contextCondition)
 
-  private def createBinding[T](mainType: Option[TypeTag[_]]) = {
+  def when(condition: => Condition)(fn: => Unit) = {
+    contextCondition = contextCondition map (c => () => condition and c()) orElse Some(() => condition)
+    fn
+    contextCondition = None
+  }
+
+  private def createBinding[T](mainType: Option[TypeTag[_]], condition: Option[() => Condition]) = {
     val helper = new BindHelper[T]({ (bind, bound) =>
       bindingsInProgress = bindingsInProgress filterNot (bind ==)
       bindings = bindings :+ bound
     })
+
     bindingsInProgress = bindingsInProgress :+ helper
+
     mainType foreach (helper identifiedBy _)
+    condition foreach (c => helper when c())
+
     helper
   }
 
@@ -55,7 +66,7 @@ trait CanBeConditional[R] { this: R =>
   var condition: Option[() => Condition] = None
 
   def when(cond: => Condition) = {
-    condition = Some(() => cond)
+    condition = condition map (c => () => cond and c()) orElse Some(() => cond)
     this
   }
 }
