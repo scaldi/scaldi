@@ -53,6 +53,8 @@ site.includeScaladoc()
 
 ghpages.settings
 
+instrumentSettings
+
 pomExtra := <xml:group>
   <url>http://scaldi.org</url>
   <inceptionYear>2011</inceptionYear>
