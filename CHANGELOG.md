@@ -1,3 +1,13 @@
+## v0.3.3 (TBD)
+
+* conditions are now composed together with **and** if applied several times for the same binding and `when` block added:
+  ```
+  when (inDevMode or inTestMode) {
+    bind [Database] to new Riak
+    bind [PaymentService] to new MockPaymentService
+  }
+  ```
+
 ## v0.3.2 (24.04.2014)
 
 * Minor bugfix in raw property injector
