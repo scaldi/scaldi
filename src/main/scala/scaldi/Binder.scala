@@ -141,6 +141,7 @@ trait ReflectionBinder {
       .members
       .filter(_.isPublic)
       .filter(_.isMethod)
+      .filterNot(_.isMacro)
       .map(_.asMethod)
       .map { m =>
         if (m.returnType <:< typeOf[BindingProvider])
