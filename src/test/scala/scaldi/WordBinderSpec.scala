@@ -115,26 +115,58 @@ class WordBinderSpec extends WordSpec with Matchers {
 
     "support conditions with 'when'" in {
       var prodMode = true
+      var specialMode = true
 
       val binder = new DynamicModule {
         val ProdMode = Condition(prodMode)
+        val SpecialMode = Condition(specialMode)
         val DevMode = !ProdMode
 
         bind [String] as 'host when ProdMode to "www.prod-server.com"
         bind [String] as 'host when DevMode to "localhost"
 
+        bind [Int] as 'id when ProdMode when SpecialMode to 123
+
         bind [Int] when ProdMode as 'port to 1234
+
+        when (DevMode) {
+          bind [String] as 'userName to "testUser"
+          bind [Long] as 'timeout to 1000L
+
+          bind [String] when SpecialMode as 'path to "/index.html"
+
+          when (SpecialMode) {
+            bind [String] as 'password to "secret"
+          }
+        }
       }
 
-      binder.wordBindings should have size 3
+      binder.wordBindings should have size 8
 
       binder.getBinding(List('host)).get.get.get should equal ("www.prod-server.com")
       binder.getBinding(List('port)).get.get.get should equal (1234)
+      binder.getBinding(List('userName)) should be ('empty)
+      binder.getBinding(List('timeout)) should be ('empty)
+      binder.getBinding(List('path)) should be ('empty)
+      binder.getBinding(List('password)) should be ('empty)
+      binder.getBinding(List('id)).get.get.get should equal (123)
 
+      specialMode = false
       prodMode = false
 
       binder.getBinding(List('host)).get.get.get should equal ("localhost")
       binder.getBinding(List('port)) should be ('empty)
+      binder.getBinding(List('userName)).get.get.get should equal ("testUser")
+      binder.getBinding(List('timeout)).get.get.get should be (1000L)
+      binder.getBinding(List('path)) should be ('empty)
+      binder.getBinding(List('password)) should be ('empty)
+      binder.getBinding(List('id)) should be ('empty)
+
+      specialMode = true
+
+      binder.getBinding(List('path)).get.get.get should equal ("/index.html")
+      binder.getBinding(List('password)).get.get.get should be ("secret")
+      binder.getBinding(List('id)) should be ('empty)
     }
 
     "allow to define init and destroy functions" in {
