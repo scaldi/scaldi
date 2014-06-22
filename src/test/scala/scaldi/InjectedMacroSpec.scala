@@ -1,0 +1,67 @@
+package scaldi
+
+import org.scalatest.{Matchers, WordSpec}
+import Injectable.inject
+import java.util.Date
+
+class InjectedMacroSpec extends WordSpec with Matchers {
+  "`injected` macro" should {
+    "support basic injection" in {
+      implicit val inj = new Module {
+        bind [DepSimple] to injected [DepSimple]
+
+        binding to "Test"
+        bind [Server] to new HttpServer("localhost", 80)
+      }
+
+      inject [DepSimple] should equal (new DepSimple("Test", new HttpServer("localhost", 80) ))
+    }
+
+    "support multiple argument lists" in {
+      implicit val inj = new Module {
+        bind [DepMultiArgList] to injected [DepMultiArgList]
+
+        binding to "Test"
+        bind [Server] to new HttpServer("localhost", 80)
+        bind [Long] to 100L
+        bind [List[Int]] to List(1, 2, 3)
+      }
+
+      inject [DepMultiArgList] should equal (new DepMultiArgList("Test", new HttpServer("localhost", 80))(100L)(100L, List(1, 2, 3)))
+    }
+
+    "support default arguments in the first argument list" in {
+      implicit val inj = new Module {
+        bind [DepWithDefaults] to injected [DepWithDefaults]
+
+        bind [Server] to new HttpServer("localhost", 80)
+      }
+
+      inject [DepWithDefaults] should equal (new DepWithDefaults(d2 = new HttpServer("localhost", 80)))
+    }
+
+    "support overrides" in {
+      implicit val inj = new Module {
+        bind [DepWithDefaults] to injected [DepWithDefaults] ('d1 -> Dep1("Override"), 'd3 -> Dep2("Another override"))
+
+        bind [Server] to new HttpServer("localhost", 80)
+        binding to Dep1("Defined in module")
+      }
+
+      inject [DepWithDefaults] should equal (new DepWithDefaults(Dep1("Override"), new HttpServer("localhost", 80), Dep2("Another override")))
+    }
+  }
+}
+
+class DepSimple(a: String, s: Server) extends Debug('a -> a, 's -> s)
+class DepWithDefaults(d1: Dep1 = Dep1("Default Value"), d2: Server, d3: Dep2 = Dep2("123")) extends Debug('d1 -> d1, 'd2 -> d2, 'd3 -> d3)
+class DepMultiArgList(a: String, s: Server)(l: Long)(l1: Long, c: List[Int]) extends Debug('a -> a, 's -> s, 'l -> l, 'l1 -> l1, 'c -> c)
+
+class Debug(val props: (Symbol, Any)*) {
+  // hashCode is not overridden because I will use only equals in the test
+  override def equals(obj: scala.Any) =
+    obj.getClass == this.getClass && obj.asInstanceOf[Debug].props == this.props
+
+  override def toString =
+    props.toString()
+}
