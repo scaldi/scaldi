@@ -11,12 +11,12 @@ class ConditionSpec extends WordSpec with Matchers {
 
     val C = Condition
 
-    "be sutisfied if underlying function reutnds true" in {
+    "be sutisfied if underlying function returns true" in {
       C(true) satisfies Nil should be (true)
       C(onlyTest) satisfies List("test") should be (true)
     }
 
-    "not be sutisfied if underlying function reutnds false" in {
+    "not be sutisfied if underlying function returns false" in {
       C(false) satisfies Nil should be (false)
       C(onlyTest) satisfies List("wrong") should be (false)
     }

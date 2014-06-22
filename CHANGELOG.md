@@ -1,6 +1,8 @@
-## v0.3.3 (TBD)
+## v0.4 (TBD)
 
-* conditions are now composed together with **and** if applied several times for the same binding and `when` block added:
+* Constrictor injection with `injected` macros. Here is an example if it's usage:  `bind [Users] to injected [UserService]`.
+* Only Scala version 2.11 is supported from now on (mostly because of the macros)
+* Conditions are now composed together with **and** if applied several times for the same binding with `when` block:
   
   ```
   when (inDevMode or inTestMode) {

@@ -7,8 +7,9 @@ import scaldi.util.Util._
 import scala.reflect.runtime.universe.TypeTag
 import TypeTagIdentifier._
 import scaldi.util.constraints.NotNothing
+import scaldi.util.ReflectionHelper
 
-trait Injectable {
+trait Injectable extends Wire {
   protected def injectProvider[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): () => T =
     () => inject(injector, tt, nn)
 
@@ -34,6 +35,9 @@ trait Injectable {
 
   protected def injectAll(identifiers: Identifier*)(implicit injector: Injector): List[Any] =
     identifiers |> (ids => injector getBindings ids.toList flatMap (_.get))
+
+  protected def injectWithConstructorDefault[T, C](paramName: String)(implicit injector: Injector, tt: TypeTag[T], ct: TypeTag[C]): T =
+    injectWithDefault[T](injector, ReflectionHelper.getDefaultValueOfParam[T, C](paramName))(List(typeId[T]))
 
   private def injectWithDefault[T](injector: Injector, default: => T)(ids: List[Identifier]) =
     injector getBinding ids flatMap (_.get) map (_.asInstanceOf[T]) getOrElse default
@@ -79,6 +83,9 @@ trait OpenInjectable extends Injectable {
 
   override def injectAll(identifiers: Identifier*)(implicit injector: Injector): List[Any] =
     super.injectAll(identifiers: _*)(injector)
+
+  override def injectWithConstructorDefault[T, C](paramName: String)(implicit injector: Injector, tt: TypeTag[T], ct: TypeTag[C]): T =
+    super.injectWithConstructorDefault[T, C](paramName)(injector, tt, ct)
 }
 
 object Injectable extends OpenInjectable

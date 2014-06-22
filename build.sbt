@@ -6,9 +6,7 @@ organization := "org.scaldi"
 
 version := "0.3.3-SNAPSHOT"
 
-crossScalaVersions := Seq("2.10.4", "2.11.0")
-
-scalaVersion := "2.11.0"
+scalaVersion := "2.11.1"
 
 scalacOptions += "-deprecation"
 
@@ -40,7 +38,7 @@ publishTo <<= version { v: String =>
     Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 
-// nice prompt!
+// nice *magenta* prompt!
 shellPrompt in ThisBuild := { state =>
   scala.Console.MAGENTA + Project.extract(state).currentRef.project + "> " + scala.Console.RESET
 }

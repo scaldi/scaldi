@@ -1,56 +1,31 @@
 package scaldi.util
 
 import language.{postfixOps, implicitConversions}
+import scala.reflect.runtime.universe
+import scala.reflect.runtime.universe.TypeTag
+import scala.reflect.internal.{Names, StdNames}
 
 object ReflectionHelper {
-  implicit def classToReflectionWrapper(cl: Class[_]) = new ReflectionWrapper(cl)
-  implicit def objectToReflectionObjectWrapper(obj: Object) = new ReflectionObjectWrapper(obj)
-}
+  def getDefaultValueOfParam[T, C](paramName: String)(implicit tt: TypeTag[C]) = {
+    val tpe = tt.tpe
 
-class ReflectionWrapper(clazz: Class[_]) {
-    import ReflectionHelper._
+    tpe.members find (_.isConstructor) map (_.asMethod) match {
+      case None =>
+        throw new IllegalArgumentException(s"Type $tpe has no constructor.")
+      case Some(constructor) =>
+        constructor.paramLists.headOption.toList.flatten.zipWithIndex.find (_._1.name.decodedName.toString == paramName) match {
+          case Some((param, idx)) if param.isTerm && param.asTerm.isParamWithDefault =>
+            import universe._
 
-    /**
-     * @return first method with provided name that satisfies provided conditions
-     */
-    def getMatchingMethod(name: Option[String], returnType: Class[_], args: Class[_]*) =
-      clazz.getMethods.find { method =>
-        (name map (method.getName ==) getOrElse true) &&
-        returnType.isAssignableFrom(method.getReturnType) &&
-        method.getParameterTypes.length == args.length &&
-        !method.getParameterTypes.zipWithIndex.exists {case (cl, idx) => cl != args(idx)}
-      }
+            val names = universe.asInstanceOf[StdNames with Names]
+            val name = names.nme.defaultGetterName(names.nme.CONSTRUCTOR, idx + 1).encodedName.toString
+            val mirror = runtimeMirror(this.getClass.getClassLoader)
+            val reflection = mirror.reflect(mirror.reflectModule(tpe.typeSymbol.companion.asModule).instance)
 
-    /**
-     * @return all methods that satisfy provided conditions
-     */
-    def getMatchingMethods(name: Option[String], returnType: Class[_], args: Class[_]*) =
-      clazz.getMethods.filter { method =>
-          (name map (method.getName ==) getOrElse true) &&
-          returnType.isAssignableFrom(method.getReturnType) &&
-          method.getParameterTypes.length == args.length &&
-          !method.getParameterTypes.zipWithIndex.exists {case (cl, idx) => cl != args(idx)}
-      } toList
-
-    def getAnnotatedMethods(returnType: Class[_], args: Class[_]*) = clazz.getMethods.filter { method =>
-        returnType.isAssignableFrom(method.getReturnType) &&
-        method.getParameterTypes.length == args.length &&
-        !method.getParameterTypes.zipWithIndex.exists {case (cl, idx) => cl != args(idx)}
-    } toList
-}
-
-class ReflectionObjectWrapper(obj: Object) {
-
-    /**
-     * @return Some(value) of the <code>val</code> or None if such val not found
-     */
-    def getValValue[T](name: String)(implicit m: Manifest[T]): Option[T] =
-        obj.getClass.getMethods.find(_.getName == name) match {
-            case Some(method) =>
-                if (m.runtimeClass.isAssignableFrom(method.getReturnType) && method.getParameterTypes.length == 0)
-                    Some(method.invoke(obj).asInstanceOf[T])
-                else
-                    None
-            case None => None
+            reflection.reflectMethod(tpe.companion.member(TermName(name)).asMethod).apply().asInstanceOf[T]
+          case _ =>
+            throw new IllegalArgumentException(s"Can't find constructor argument $paramName with default value. Note, that only the first argument list is supported.")
         }
+    }
+  }
 }

@@ -34,3 +34,7 @@ import scaldi.Injectable._
 class TcpConnection(implicit inj: Injector) {
   val welcomeMessage = inject [String] ('welcome is by default "Hi")
 }
+
+case class Dep1(name: String)
+case class Dep2(name: String)
+case class Dep3(name: String)

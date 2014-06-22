@@ -27,7 +27,9 @@ trait Module extends ReflectionBinder
   protected def init(lifecycleManager: LifecycleManager) = initNonLazyWordBindings(lifecycleManager)
 }
 
-trait StaticModule extends ReflectionBinder with ImmutableInjector with Injectable {
+trait StaticModule extends ReflectionBinder
+                      with ImmutableInjector
+                      with Injectable {
   def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ isDefinedFor identifiers)
   def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ isDefinedFor identifiers)
 
