@@ -22,7 +22,7 @@ at the tests:
 
 SBT Configuration:
 
-    libraryDependencies += "org.scaldi" %% "scaldi" % "0.3.2"
+    libraryDependencies += "org.scaldi" %% "scaldi" % "0.4"
 
 ## License
 

@@ -1,4 +1,4 @@
-## v0.4 (TBD)
+## v0.4 (22.06.2014)
 
 * Constrictor injection with `injected` macros. Here is an example if it's usage:  `bind [Users] to injected [UserService]`.
 * Only Scala version 2.11 is supported from now on (mostly because of the macros)

@@ -100,7 +100,7 @@ class WireBuilder {
                 case (acc, l) => Apply(acc, l collect {case Right(v) => v})
               }
 
-              c.info(c.enclosingPosition, "Wired: " + c.universe.show(wiredType), false)
+//              c.info(c.enclosingPosition, "Wired: " + c.universe.show(wiredType), false)
               c.Expr[T](wiredType)
           }
         }
