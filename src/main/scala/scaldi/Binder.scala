@@ -142,6 +142,7 @@ trait ReflectionBinder {
       .filter(_.isPublic)
       .filter(_.isMethod)
       .filterNot(_.isMacro)
+      .filterNot(_.isConstructor)
       .map(_.asMethod)
       .map { m =>
         if (m.returnType <:< typeOf[BindingProvider])

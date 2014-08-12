@@ -50,8 +50,26 @@ class InjectedMacroSpec extends WordSpec with Matchers {
 
       inject [DepWithDefaults] should equal (new DepWithDefaults(Dep1("Override"), new HttpServer("localhost", 80), Dep2("Another override")))
     }
+
+    "inject implicit injector" in {
+      implicit val inj = new ImplicitArgumentsModule
+
+      inject [ImplicitArguments] should equal (new ImplicitArguments(dep1 = Dep1("foo"), Dep2("foo"), Dep3("foo")))
+    }
   }
 }
+
+class ImplicitArgumentsModule extends Module {
+  bind to injected [ImplicitArguments] ('dep1 -> inject [Dep1] (identified by 'foo))
+
+  bind [Dep1] identifiedBy 'foo to Dep1("foo")
+  bind [Dep1] identifiedBy 'bar to Dep1("bar")
+
+  binding to Dep2("foo")
+  binding to Dep3("foo")
+}
+
+case class ImplicitArguments(dep1: Dep1, dep2: Dep2, dep3: Dep3)(implicit inj: Injector)
 
 class DepSimple(a: String, s: Server) extends Debug('a -> a, 's -> s)
 class DepWithDefaults(d1: Dep1 = Dep1("Default Value"), d2: Server, d3: Dep2 = Dep2("123")) extends Debug('d1 -> d1, 'd2 -> d2, 'd3 -> d3)
