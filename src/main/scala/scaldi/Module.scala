@@ -1,6 +1,8 @@
 package scaldi
 
 import scaldi.util.Util._
+import scala.concurrent.duration.Duration
+import scala.util.control.NonFatal
 import sys._
 
 import java.util.Properties
@@ -103,14 +105,16 @@ trait RawInjector extends Injector {
   private def convert(value: String, tpe: Type): Option[Any] =
     try {
       if (tpe =:= typeOf[Int]) Some(value.toInt)
+      else if (tpe =:= typeOf[Long]) Some(value.toLong)
       else if (tpe =:= typeOf[Float]) Some(value.toFloat)
       else if (tpe =:= typeOf[Double]) Some(value.toDouble)
       else if (tpe =:= typeOf[Boolean]) Some(value.toBoolean)
       else if (tpe =:= typeOf[File]) Some(new File(value))
+      else if (tpe =:= typeOf[Duration]) Some(Duration(value))
       else if (tpe =:= typeOf[String]) Some(value)
       else None
     } catch {
-      case e: Exception => None
+      case NonFatal(e) => None
     }
 
   case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
