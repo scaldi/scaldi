@@ -93,6 +93,27 @@ class InjectorSpec extends WordSpec with Matchers {
     }
   }
 
+  "RawInjector" should {
+    "convert simple types" in {
+      import scala.concurrent.duration._
+      import java.io.File
+      val injector = new RawInjector {
+        override def getRawValue(name: String): Option[String] = Some(name)
+      }
+      def blindlyGetBindingFor[T: scala.reflect.runtime.universe.TypeTag](value: String): T = {
+        val mbBinding = injector.getBinding(List(TypeTagIdentifier.typeId[T], StringIdentifier(value)))
+        mbBinding shouldNot be(None)
+        val mbVal = mbBinding.get.get
+        mbVal shouldNot be(None)
+        mbVal.get.asInstanceOf[T]
+      }
+      blindlyGetBindingFor[Int]("-1") should be(-1)
+      blindlyGetBindingFor[Long]("987654321") should be(987654321L)
+      blindlyGetBindingFor[Duration]("10 seconds") should be(10 seconds)
+      blindlyGetBindingFor[File](".") should equal(new File("."))
+    }
+  }
+
   "SystemPropertiesInjector" should {
     "look for simple bindings in system properties and convert them to required type" in {
       implicit val injector = SystemPropertiesInjector :: new AppModule
