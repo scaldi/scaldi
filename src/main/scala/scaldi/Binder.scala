@@ -91,12 +91,15 @@ class BindHelper[R](onBound: (BindHelper[R], BoundHelper[_]) => Unit)
 
   def to(none: None.type) = bindNone[R](LazyBinding(None, _, _, _))
   def to[T <: R : TypeTag](fn: => T) = bind(LazyBinding(Some(() => fn), _, _, _))
+  @deprecated("`in` variant is deprecated in favor of `to` syntax", "0.5")
   def in[T <: R : TypeTag](fn: => T) = to(fn)
 
   def toNonLazy[T <: R : TypeTag](fn: => T) = bind(NonLazyBinding(Some(() => fn), _, _, _))
+  @deprecated("`in` variant is deprecated in favor of `to` syntax", "0.5")
   def inNonLazy[T <: R : TypeTag](fn: => T) = toNonLazy(fn)
 
   def toProvider[T <: R : TypeTag](fn: => T) = bind(ProviderBinding(() => fn, _, _, _))
+  @deprecated("`in` variant is deprecated in favor of `to` syntax", "0.5")
   def inProvider[T <: R : TypeTag](fn: => T) = toProvider(fn)
 
   private def bind[T : TypeTag](bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle) = {
