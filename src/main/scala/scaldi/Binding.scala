@@ -7,8 +7,10 @@ trait Identifiable {
   def condition: Option[() => Condition]
 
   def isDefinedFor(desiredIdentifiers: List[Identifier]) =
-    (desiredIdentifiers forall (d => identifiers exists (_ sameAs d))) &&
+    Identifier.sameAs(identifiers, desiredIdentifiers) &&
       (condition map (_() satisfies desiredIdentifiers) getOrElse true)
+
+  def isEager: Boolean = false
 }
 
 trait Binding extends Identifiable {
@@ -60,6 +62,8 @@ case class NonLazyBinding(
 
     target
   }
+
+  override def isEager = true
 }
 
 case class LazyBinding(

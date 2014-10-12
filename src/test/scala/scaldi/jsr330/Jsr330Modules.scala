@@ -2,21 +2,15 @@ package scaldi.jsr330
 
 import org.junit.Test
 import org.atinject.tck.auto.{Convertible, Car}
-import scaldi.{Injectable, Module}
+import scaldi.{OnDemandAnnotationInjector, Injectable, Module}
 
 class Jsr330Modules extends Injectable {
-  def createInjector =
-    new Module {
-      bind [Car] to {
-        // FIXME: just mocking up the instantiation
-        val c = classOf[Convertible].getDeclaredConstructors()(0)
-        c.setAccessible(true)
-        c.newInstance(null, null, null, null, null, null, null, null).asInstanceOf[Car]
-      }
-    }
+  lazy val CarModule = new Module {
+    bind [Car] to annotated [Convertible]
+  }
 
   def injectCar = {
-    implicit val injector = createInjector
+    implicit val injector = CarModule :: new OnDemandAnnotationInjector
 
     inject [Car]
   }

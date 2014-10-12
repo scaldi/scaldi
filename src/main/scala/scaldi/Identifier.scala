@@ -11,6 +11,9 @@ trait Identifier {
 
 object Identifier {
   implicit def toIdentifier[T : CanBeIdentifier](target: T): Identifier = implicitly[CanBeIdentifier[T]].toIdentifier(target)
+
+  def sameAs(a: List[Identifier], b: List[Identifier]) =
+    b forall (d => a exists (_ sameAs d))
 }
 
 @implicitNotFound(msg = "${T} can't be treated as Identifier. Please consider defining CanBeIdentifier for it.")

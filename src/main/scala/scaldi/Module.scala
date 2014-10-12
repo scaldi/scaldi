@@ -26,7 +26,7 @@ trait Module extends ReflectionBinder
   def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ isDefinedFor identifiers)
 
-  protected def init(lifecycleManager: LifecycleManager) = initNonLazyWordBindings(lifecycleManager)
+  protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
 }
 
 trait StaticModule extends ReflectionBinder
@@ -46,7 +46,7 @@ class DynamicModule extends WordBinder
   def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
 
-  protected def init(lifecycleManager: LifecycleManager) = initNonLazyWordBindings(lifecycleManager)
+  protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
 }
 
 object DynamicModule {
