@@ -8,14 +8,17 @@ version := "0.4.1-SNAPSHOT"
 
 scalaVersion := "2.11.1"
 
-scalacOptions += "-deprecation"
+scalacOptions ++= Seq("-deprecation", "-feature")
 
 fork := true
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+  "javax.inject" % "javax.inject" % "1",
   "org.scalatest" %% "scalatest" % "2.1.3" % "test",
-  "org.scala-lang.modules" %% "scala-xml" % "1.0.1" % "test"
+  "com.novocode" % "junit-interface" % "0.11" % "test",
+  "org.scala-lang.modules" %% "scala-xml" % "1.0.1" % "test",
+  "javax.inject" % "javax.inject-tck" % "1" % "test"
 )
 
 publishMavenStyle := true

@@ -1,5 +1,7 @@
 package scaldi
 
+import language.postfixOps
+
 import org.scalatest.{Matchers, WordSpec}
 import java.util.Properties
 
