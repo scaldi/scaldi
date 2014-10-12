@@ -42,6 +42,14 @@ trait LowPriorityMutableInjectorComposition {
     }
 }
 
+class ImmutableWrapper(delegate: Injector) extends Injector with ImmutableInjector {
+  def getBinding(identifiers: List[Identifier]): Option[Binding] =
+    delegate.getBinding(identifiers)
+
+  def getBindings(identifiers: List[Identifier]): List[Binding] =
+    delegate.getBindings(identifiers)
+}
+
 @implicitNotFound(msg = "Cannot compose ${A} with ${B}. Please consider defining CanCompose for such composition.")
 trait CanCompose[-A, -B, +R] {
   def compose(cmp1: A, cmp2: B): R
