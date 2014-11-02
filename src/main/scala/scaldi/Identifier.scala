@@ -7,10 +7,21 @@ import annotation.implicitNotFound
 
 trait Identifier {
   def sameAs(other: Identifier): Boolean
+  def required: Boolean = false
 }
 
 object Identifier {
   implicit def toIdentifier[T : CanBeIdentifier](target: T): Identifier = implicitly[CanBeIdentifier[T]].toIdentifier(target)
+
+  def sameAs(actual: List[Identifier], desired: List[Identifier]) = {
+    val matching = desired.map(d => actual filter (_ sameAs d))
+
+    !matching.contains(Nil) && {
+      val flatMatching = matching.flatten
+
+      actual.filter(_.required).forall(a => flatMatching exists a.sameAs)
+    }
+  }
 }
 
 @implicitNotFound(msg = "${T} can't be treated as Identifier. Please consider defining CanBeIdentifier for it.")
@@ -57,4 +68,12 @@ case class StringIdentifier(str: String) extends Identifier {
     case StringIdentifier(`str`) => true
     case _ => false
   }
+}
+
+case class RequiredIdentifier(delegate: Identifier, isRequired: Boolean) extends Identifier {
+  def sameAs(other: Identifier) = other match {
+    case r: RequiredIdentifier => delegate sameAs r.delegate
+    case _ => delegate sameAs other
+  }
+  override def required = isRequired
 }

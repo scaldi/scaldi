@@ -4,11 +4,15 @@ import language.postfixOps
 
 import scaldi.util.Util._
 import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
+import scaldi.util.ReflectionHelper
+import scaldi.jsr330.AnnotationBinding
 
 trait WordBinder {
   private var bindingsInProgress: List[BindHelper[_]] = Nil
   private var bindings: List[BoundHelper[_]] = Nil
   private var contextCondition: Option[() => Condition] = None
+
+  protected def injector: Injector
 
   lazy val wordBindings: List[BindingWithLifecycle] = {
     if (bindingsInProgress nonEmpty) {
@@ -31,6 +35,11 @@ trait WordBinder {
     contextCondition = None
   }
 
+  def annotated[T : TypeTag] = WordBindingProvider[T](AnnotationBinding(typeTag[T].tpe, () => injector, _, _, _))
+
+  def required(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = true)
+  def notRequired(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = false)
+
   private def createBinding[T](mainType: Option[TypeTag[_]], condition: Option[() => Condition]) = {
     val helper = new BindHelper[T]({ (bind, bound) =>
       bindingsInProgress = bindingsInProgress filterNot (bind ==)
@@ -45,8 +54,8 @@ trait WordBinder {
     helper
   }
 
-  protected def initNonLazyWordBindings(lifecycleManager: LifecycleManager): () => Unit =
-    wordBindings |> (b => () => b.collect{case binding: NonLazyBinding => binding}.foreach(_ get lifecycleManager))
+  protected def initEagerWordBindings(lifecycleManager: LifecycleManager): () => Unit =
+    wordBindings |> (b => () => b.filter(_.isEager).foreach(_ get lifecycleManager))
 }
 
 trait CanBeIdentified[R] { this: R =>
@@ -85,11 +94,14 @@ trait CanHaveLifecycle[H, D] { this: H =>
   }
 }
 
+case class WordBindingProvider[T](bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle)
+
 class BindHelper[R](onBound: (BindHelper[R], BoundHelper[_]) => Unit)
     extends CanBeIdentified[BindHelper[R]] with CanBeConditional[BindHelper[R]] {
   var createFn: Option[Option[() => Any]] = None
 
   def to(none: None.type) = bindNone[R](LazyBinding(None, _, _, _))
+  def to[T <: R : TypeTag](provider: WordBindingProvider[T]) = bind(provider.bindingFn)
   def to[T <: R : TypeTag](fn: => T) = bind(LazyBinding(Some(() => fn), _, _, _))
   @deprecated("`in` variant is deprecated in favor of `to` syntax", "0.5")
   def in[T <: R : TypeTag](fn: => T) = to(fn)
@@ -136,8 +148,8 @@ trait ReflectionBinder {
   lazy val reflectiveBindings: List[Binding] = {
     import scala.reflect.runtime.universe._
 
-    val mirror = runtimeMirror(this.getClass.getClassLoader)
-    val reflection = mirror.reflect(this)
+    val mirror = ReflectionHelper.mirror
+    val reflection = mirror reflect this
 
     // TODO: filter even more - all library, Scala and JDK methods should be somehow filtered!
     mirror.classSymbol(this.getClass).toType
@@ -147,6 +159,7 @@ trait ReflectionBinder {
       .filterNot(_.isMacro)
       .filterNot(_.isConstructor)
       .map(_.asMethod)
+      .filterNot(_.returnType =:= typeOf[Nothing])
       .map { m =>
         if (m.returnType <:< typeOf[BindingProvider])
           reflection.reflectMethod(m).apply().asInstanceOf[BindingProvider].getBinding(m.name.decodedName.toString, m.returnType)
@@ -166,6 +179,6 @@ trait BindingProvider {
   def getBinding(name: String, tpe: Type): Binding
 }
 
-class BindingException(message: String, cause: Throwable) extends RuntimeException(message,cause) {
+class BindingException(message: String, cause: Throwable) extends RuntimeException(message, cause) {
   def this(message: String) = this(message, null)
 }
