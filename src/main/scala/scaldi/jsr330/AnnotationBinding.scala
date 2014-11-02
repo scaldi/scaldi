@@ -43,8 +43,15 @@ case class AnnotationBinding(
     all map {case (af, f, am, m) => (f filterNot fieldOverrides.contains, m filterNot methodOverrides.contains)}
   }
 
-  private val scopes =
-    tpe.typeSymbol.annotations.filter(a => a.tree.tpe.typeSymbol.annotations.exists(_.tree.tpe =:= typeOf[Scope]))
+  private val scopes = {
+    val allScopes = tpe.typeSymbol.annotations.filter(a => a.tree.tpe.typeSymbol.annotations.exists(_.tree.tpe =:= typeOf[Scope]))
+    val customScopes = allScopes.filterNot(_.tree.tpe =:= typeOf[Singleton])
+
+    if (customScopes.nonEmpty)
+      throw new BindingException(s"Type `$tpe` contains custom JSR 330 scopes: ${customScopes mkString ", "}. Only `Singleton` scope is supported.")
+
+    allScopes
+  }
 
   private val singleton = scopes.exists(_.tree.tpe =:= typeOf[Singleton])
 
