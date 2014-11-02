@@ -17,7 +17,7 @@ class InjectorSpec extends WordSpec with Matchers {
 
     "produce mutable aggregation if at least one of the injectors is mutable" in {
       val mutable = new Test2Module
-      val immutable = new StaticModule {}
+      val immutable = ImmutableWrapper(DynamicModule(_ => ()))
 
       (mutable ++ mutable).getClass should equal (classOf[MutableInjectorAggregation])
       (mutable ++ immutable).getClass should equal (classOf[MutableInjectorAggregation])
@@ -29,7 +29,7 @@ class InjectorSpec extends WordSpec with Matchers {
     }
 
     "produce Immutable aggreagation if both injectors are not mutable" in {
-      val immutable = new StaticModule {}
+      val immutable = ImmutableWrapper(DynamicModule(_ => ()))
 
       (immutable ++ immutable).getClass should equal (classOf[ImmutableInjectorAggregation])
     }

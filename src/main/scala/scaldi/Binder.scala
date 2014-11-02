@@ -23,7 +23,9 @@ trait WordBinder {
       )
     }
 
-    bindings.map(_ getBinding).reverse
+    val injectorBinding = ProviderBinding(() => injector, List(TypeTagIdentifier.typeId[Injector]))
+
+    injectorBinding :: bindings.map(_ getBinding).reverse
   }
 
   def binding = createBinding[Any](None, contextCondition)
@@ -144,6 +146,7 @@ class BoundHelper[D](
   )
 }
 
+@deprecated("ReflectionBinder is deprecated and will be removed soon. As an alternative you can use `WordBinder` or create your own injector that is marked as `ImmutableInjector`.", "0.5")
 trait ReflectionBinder {
   lazy val reflectiveBindings: List[Binding] = {
     import scala.reflect.runtime.universe._
@@ -175,6 +178,7 @@ trait ReflectionBinder {
   }
 }
 
+@deprecated("BindingProvider is deprecated and will be removed soon. As an alternative you can use `ImmutableWrapper` injector to define an immutability boundary in composition or create your own injector that is marked as `ImmutableInjector`.", "0.5")
 trait BindingProvider {
   def getBinding(name: String, tpe: Type): Binding
 }

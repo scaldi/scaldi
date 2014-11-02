@@ -17,13 +17,12 @@ import scala.collection.JavaConverters._
  *
  * @author Oleg Ilyenko
  */
-trait Module extends ReflectionBinder
-                with WordBinder
+trait Module extends WordBinder
                 with InjectorWithLifecycle[Module]
                 with Injectable
                 with MutableInjectorUser
                 with ShutdownHookLifecycleManager {
-  lazy val bindings = wordBindings ++ (reflectiveBindings map BindingWithLifecycle.apply)
+  lazy val bindings = wordBindings
 
   def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ isDefinedFor identifiers)
@@ -31,6 +30,7 @@ trait Module extends ReflectionBinder
   protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
 }
 
+@deprecated("StaticModule is deprecated and will be removed soon. As an alternative you can use `ImmutableWrapper` injector to define an immutability boundary in composition or create your own injector that is marked as `ImmutableInjector`.", "0.5")
 trait StaticModule extends ReflectionBinder
                       with ImmutableInjector
                       with Injectable {

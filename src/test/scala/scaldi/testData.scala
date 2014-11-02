@@ -19,7 +19,7 @@ case class MysqlDatabase(name: String) extends Database with ConnectionProvider
 case class PostgresqlDatabase(name: String) extends Database with ConnectionProvider
 
 class TcpModule extends Module {
-  lazy val tcpServer = new TcpServer
+  binding identifiedBy 'tcpServer to new TcpServer
 }
 
 class TcpServer(implicit inj: Injector) extends Server with Injectable  {

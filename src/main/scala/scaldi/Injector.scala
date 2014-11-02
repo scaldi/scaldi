@@ -50,6 +50,10 @@ class ImmutableWrapper(delegate: Injector) extends Injector with ImmutableInject
     delegate.getBindings(identifiers)
 }
 
+object ImmutableWrapper {
+  def apply(delegate: Injector) = new ImmutableWrapper(delegate)
+}
+
 @implicitNotFound(msg = "Cannot compose ${A} with ${B}. Please consider defining CanCompose for such composition.")
 trait CanCompose[-A, -B, +R] {
   def compose(cmp1: A, cmp2: B): R

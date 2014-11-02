@@ -28,8 +28,8 @@ class WordBinderSpec extends WordSpec with Matchers {
         override def injector = ???
       }
 
-      binder.wordBindings should have size 6
-      binder.wordBindings foreach (_.isDefinedFor(List(classOf[String], "host", "httpServer")) should be (true))
+      binder.wordBindings should have size 7
+      binder.wordBindings filter (_.isDefinedFor(List(classOf[String], "host", "httpServer"))) should have size 6
     }
 
     "infer binding type only when it's not specified" in {
@@ -39,9 +39,9 @@ class WordBinderSpec extends WordSpec with Matchers {
         override def injector = ???
       }
 
-      binder.wordBindings should have size 1
-      binder.wordBindings(0) isDefinedFor List(classOf[Server]) should be (true)
-      binder.wordBindings(0) isDefinedFor List(classOf[HttpServer]) should be (true)
+      binder.wordBindings should have size 2
+      binder.wordBindings(1) isDefinedFor List(classOf[Server]) should be (true)
+      binder.wordBindings(1) isDefinedFor List(classOf[HttpServer]) should be (true)
     }
 
     "not infer binding type only when it is specified explicitly" in {
@@ -51,9 +51,9 @@ class WordBinderSpec extends WordSpec with Matchers {
         override def injector = ???
       }
 
-      binder.wordBindings should have size 1
-      binder.wordBindings(0) isDefinedFor List(classOf[Server]) should be (true)
-      binder.wordBindings(0) isDefinedFor List(classOf[HttpServer]) should be (false)
+      binder.wordBindings should have size 2
+      binder.wordBindings(1) isDefinedFor List(classOf[Server]) should be (true)
+      binder.wordBindings(1) isDefinedFor List(classOf[HttpServer]) should be (false)
     }
 
     "treat later bindings as overrides for earlier and more that one binding od the same type" in {
@@ -62,7 +62,7 @@ class WordBinderSpec extends WordSpec with Matchers {
         bind [Server] to new HttpServer("www.test.com", 8080)
       }.initNonLazy()
 
-      binder.wordBindings should have size 2
+      binder.wordBindings should have size 3
       binder.getBinding(List(classOf[Server])).get.get should equal (Some(HttpServer("www.test.com", 8080)))
 
       val bindings = binder.getBindings(List(classOf[Server]))
@@ -150,7 +150,7 @@ class WordBinderSpec extends WordSpec with Matchers {
         }
       }
 
-      binder.wordBindings should have size 8
+      binder.wordBindings should have size 9
 
       binder.getBinding(List('host)).get.get.get should equal ("www.prod-server.com")
       binder.getBinding(List('port)).get.get.get should equal (1234)
