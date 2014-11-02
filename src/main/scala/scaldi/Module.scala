@@ -9,6 +9,8 @@ import java.util.Properties
 import java.io.{InputStream, FileInputStream, File}
 import scala.reflect.runtime.universe.{TypeTag, Type, typeOf}
 import scaldi.util.ReflectionHelper._
+import com.typesafe.config._
+import scala.collection.JavaConverters._
 
 /**
  * Standard application module
@@ -77,6 +79,54 @@ object PropertiesInjector {
   def apply(properties: Properties): PropertiesInjector = new PropertiesInjector(properties)
 }
 
+class TypesafeConfigInjector private (config: Config) extends RawInjector {
+  override protected def discoverBinding(name: String, tpe: Type, ids: List[Identifier]) = {
+    val value = try {
+      if (tpe =:= typeOf[Int]) Some(config.getInt(name))
+      if (tpe =:= typeOf[List[Int]]) Some(config.getIntList(name).asScala.toList map (_.intValue))
+      else if (tpe =:= typeOf[Integer]) Some(config.getInt(name): java.lang.Integer)
+      else if (tpe =:= typeOf[List[Integer]]) Some(config.getIntList(name).asScala.toList)
+      else if (tpe =:= typeOf[Long]) Some(config.getLong(name))
+      else if (tpe =:= typeOf[List[Long]]) Some(config.getLongList(name).asScala.toList map (_.longValue))
+      else if (tpe =:= typeOf[java.lang.Long]) Some(config.getLong(name): java.lang.Long)
+      else if (tpe =:= typeOf[List[java.lang.Long]]) Some(config.getLongList(name).asScala.toList)
+      else if (tpe =:= typeOf[Double]) Some(config.getDouble(name))
+      else if (tpe =:= typeOf[List[Double]]) Some(config.getDoubleList(name).asScala.toList map (_.doubleValue))
+      else if (tpe =:= typeOf[java.lang.Double]) Some(config.getDouble(name): java.lang.Double)
+      else if (tpe =:= typeOf[List[java.lang.Double]]) Some(config.getDoubleList(name).asScala.toList)
+      else if (tpe =:= typeOf[Boolean]) Some(config.getBoolean(name))
+      else if (tpe =:= typeOf[List[Boolean]]) Some(config.getBooleanList(name).asScala.toList map (_.booleanValue))
+      else if (tpe =:= typeOf[java.lang.Boolean]) Some(config.getBoolean(name): java.lang.Boolean)
+      else if (tpe =:= typeOf[List[java.lang.Boolean]]) Some(config.getBooleanList(name).asScala.toList)
+      else if (tpe =:= typeOf[File]) Some(new File(config.getString(name)))
+      else if (tpe =:= typeOf[List[File]]) Some(config.getStringList(name).asScala.toList map (new File(_)))
+      else if (tpe =:= typeOf[Duration]) Some(Duration(config.getString(name)))
+      else if (tpe =:= typeOf[List[Duration]]) Some(config.getStringList(name).asScala.toList map (Duration(_)))
+      else if (tpe =:= typeOf[String]) Some(config.getString(name))
+      else if (tpe =:= typeOf[List[String]]) Some(config.getStringList(name).asScala.toList)
+      else if (tpe =:= typeOf[Config]) Some(config.getConfig(name))
+      else if (tpe =:= typeOf[List[Config]]) Some(config.getConfigList(name).asScala.toList)
+      else if (tpe =:= typeOf[ConfigValue]) Some(config.getValue(name))
+      else if (tpe =:= typeOf[ConfigList]) Some(config.getList(name))
+      else if (tpe =:= typeOf[ConfigObject]) Some(config.getObject(name))
+      else if (tpe =:= typeOf[List[ConfigObject]]) Some(config.getObjectList(name).asScala.toList)
+      else None
+    } catch {
+      case NonFatal(e) => None
+    }
+
+    value map (RawBinding(_, ids))
+  }
+
+  def getRawValue(name: String) = throw new IllegalStateException("Should not be used")
+}
+
+object TypesafeConfigInjector {
+  def apply(): TypesafeConfigInjector = apply(ConfigFactory.load())
+  def apply(baseName: String): TypesafeConfigInjector = apply(ConfigFactory.load(baseName))
+  def apply(config: Config): TypesafeConfigInjector = new TypesafeConfigInjector(config)
+}
+
 trait RawInjector extends Injector {
   private var bindingCache: List[Binding] = Nil
 
@@ -99,16 +149,19 @@ trait RawInjector extends Injector {
       }
     }
 
-  private def discoverBinding(name: String, tpe: Type, ids: List[Identifier] = Nil): Option[Binding] =
-    getRawValue(name) flatMap (convert(_, tpe)) map(RawBinding(_, ids))
+  protected def discoverBinding(name: String, tpe: Type, ids: List[Identifier] = Nil): Option[Binding] =
+    getRawValue(name) flatMap (convert(_, tpe)) map (RawBinding(_, ids))
 
   private def convert(value: String, tpe: Type): Option[Any] =
     try {
       if (tpe =:= typeOf[Int]) Some(value.toInt)
+      else if (tpe =:= typeOf[Integer]) Some(value.toInt: java.lang.Integer)
       else if (tpe =:= typeOf[Long]) Some(value.toLong)
-      else if (tpe =:= typeOf[Float]) Some(value.toFloat)
+      else if (tpe =:= typeOf[java.lang.Long]) Some(value.toLong: java.lang.Long)
       else if (tpe =:= typeOf[Double]) Some(value.toDouble)
+      else if (tpe =:= typeOf[java.lang.Double]) Some(value.toDouble: java.lang.Double)
       else if (tpe =:= typeOf[Boolean]) Some(value.toBoolean)
+      else if (tpe =:= typeOf[java.lang.Boolean]) Some(value.toBoolean: java.lang.Boolean)
       else if (tpe =:= typeOf[File]) Some(new File(value))
       else if (tpe =:= typeOf[Duration]) Some(Duration(value))
       else if (tpe =:= typeOf[String]) Some(value)
@@ -116,9 +169,9 @@ trait RawInjector extends Injector {
     } catch {
       case NonFatal(e) => None
     }
+}
 
-  case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
-    val condition = None
-    override def get = Some(value)
-  }
+case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
+  val condition = None
+  override def get = Some(value)
 }

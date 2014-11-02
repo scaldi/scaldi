@@ -14,6 +14,7 @@ fork := true
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+  "com.typesafe" % "config" % "1.2.1" % "optional",
   "javax.inject" % "javax.inject" % "1",
   "org.scalatest" %% "scalatest" % "2.1.3" % "test",
   "com.novocode" % "junit-interface" % "0.11" % "test",

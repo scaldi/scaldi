@@ -141,8 +141,11 @@ class InjectorSpec extends WordSpec with Matchers {
       props.setProperty("port", "54321")
 
       implicit val injector = PropertiesInjector(props) :: new AppModule
+      import Injectable._
 
-      Injectable.inject[Server] should equal (HttpServer("test-prop", 54321))
+      inject[Server] should equal (HttpServer("test-prop", 54321))
+
+      inject[Integer]('port) should equal (Integer.valueOf(54321))
     }
   }
 
