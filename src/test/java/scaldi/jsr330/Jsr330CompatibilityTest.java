@@ -12,7 +12,7 @@ import org.junit.runners.AllTests;
  *
  * This is a java class, because JUnit requires usage of static methods :(
  */
-//@RunWith(AllTests.class)
+@RunWith(AllTests.class)
 public class Jsr330CompatibilityTest {
     public static Test suite() {
         Car car = new Jsr330Modules().injectCar();

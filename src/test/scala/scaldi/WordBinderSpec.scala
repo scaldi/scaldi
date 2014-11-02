@@ -7,7 +7,10 @@ class WordBinderSpec extends WordSpec with Matchers {
   "WordBinder" should {
     "require to bind something" in {
       val binder = new WordBinder {
+
         bind [String] identifiedBy 'host
+
+        override def injector = ???
       }
 
       an [BindingException] should be thrownBy binder.wordBindings
@@ -21,6 +24,8 @@ class WordBinderSpec extends WordSpec with Matchers {
         bind [String] to "localhost" identifiedBy 'host and "httpServer"
         bind [String] to "localhost" as 'host and "httpServer"
         binding to "localhost" identifiedBy classOf[String] and 'host and "httpServer"
+
+        override def injector = ???
       }
 
       binder.wordBindings should have size 6
@@ -30,6 +35,8 @@ class WordBinderSpec extends WordSpec with Matchers {
     "infer binding type only when it's not specified" in {
       val binder = new WordBinder {
         binding to new HttpServer("localhost", 80)
+
+        override def injector = ???
       }
 
       binder.wordBindings should have size 1
@@ -40,6 +47,8 @@ class WordBinderSpec extends WordSpec with Matchers {
     "not infer binding type only when it is specified explicitly" in {
       val binder = new WordBinder {
         bind [Server] to new HttpServer("localhost", 80)
+
+        override def injector = ???
       }
 
       binder.wordBindings should have size 1

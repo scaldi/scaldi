@@ -4,11 +4,15 @@ import language.postfixOps
 
 import scaldi.util.Util._
 import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
+import scaldi.util.ReflectionHelper
+import scaldi.jsr330.AnnotationBinding
 
 trait WordBinder {
   private var bindingsInProgress: List[BindHelper[_]] = Nil
   private var bindings: List[BoundHelper[_]] = Nil
   private var contextCondition: Option[() => Condition] = None
+
+  protected def injector: Injector
 
   lazy val wordBindings: List[BindingWithLifecycle] = {
     if (bindingsInProgress nonEmpty) {
@@ -31,7 +35,10 @@ trait WordBinder {
     contextCondition = None
   }
 
-  def annotated[T : TypeTag] = WordBindingProvider[T](AnnotationBinding(typeTag[T].tpe, _, _, _))
+  def annotated[T : TypeTag] = WordBindingProvider[T](AnnotationBinding(typeTag[T].tpe, () => injector, _, _, _))
+
+  def required(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = true)
+  def notRequired(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = false)
 
   private def createBinding[T](mainType: Option[TypeTag[_]], condition: Option[() => Condition]) = {
     val helper = new BindHelper[T]({ (bind, bound) =>
@@ -141,8 +148,8 @@ trait ReflectionBinder {
   lazy val reflectiveBindings: List[Binding] = {
     import scala.reflect.runtime.universe._
 
-    val mirror = runtimeMirror(this.getClass.getClassLoader)
-    val reflection = mirror.reflect(this)
+    val mirror = ReflectionHelper.mirror
+    val reflection = mirror reflect this
 
     // TODO: filter even more - all library, Scala and JDK methods should be somehow filtered!
     mirror.classSymbol(this.getClass).toType
@@ -152,6 +159,7 @@ trait ReflectionBinder {
       .filterNot(_.isMacro)
       .filterNot(_.isConstructor)
       .map(_.asMethod)
+      .filterNot(_.returnType =:= typeOf[Nothing])
       .map { m =>
         if (m.returnType <:< typeOf[BindingProvider])
           reflection.reflectMethod(m).apply().asInstanceOf[BindingProvider].getBinding(m.name.decodedName.toString, m.returnType)
