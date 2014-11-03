@@ -145,7 +145,7 @@ trait Initializeable[I] extends Freezable { this: I with LifecycleManager =>
 }
 
 trait InjectorWithLifecycle[I <: InjectorWithLifecycle[I]] extends Injector with Initializeable[I] with MutableInjector {
-  this: I with LifecycleManager =>
+  this: I with LifecycleManager with Initializeable[I] =>
 
   final def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingInternal identifiers map (Binding.apply(this, _)))
   final def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingsInternal identifiers map (Binding.apply(this, _)))
