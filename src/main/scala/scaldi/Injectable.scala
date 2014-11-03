@@ -34,7 +34,7 @@ trait Injectable extends Wire {
         (ids => injector getBindings ids flatMap (_.get) map (_.asInstanceOf[T]))
 
   protected def injectAll(identifiers: Identifier*)(implicit injector: Injector): List[Any] =
-    identifiers |> (ids => injector getBindings ids.toList flatMap (_.get))
+    injector getBindings identifiers.toList flatMap (_.get)
 
   protected def injectWithConstructorDefault[T, C](paramName: String)(implicit injector: Injector, tt: TypeTag[T], ct: TypeTag[C]): T =
     injectWithDefault[T](injector, ReflectionHelper.getDefaultValueOfParam[T, C](paramName))(List(typeId[T]))
