@@ -16,7 +16,10 @@ case class AnnotationBinding(
   injector: () => Injector,
   identifiers: List[Identifier] = Nil,
   condition: Option[() => Condition] = None,
-  lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty
+  lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty,
+  eager: Boolean = false,
+  forcedScope: Option[Type] = None,
+  bindingConverter: Option[AnyRef => AnyRef] = None
 ) extends BindingWithLifecycle {
   import AnnotationBinding._
 
@@ -44,8 +47,12 @@ case class AnnotationBinding(
   }
 
   private val scopes = {
-    val allScopes = tpe.typeSymbol.annotations.filter(a => a.tree.tpe.typeSymbol.annotations.exists(_.tree.tpe =:= typeOf[Scope]))
-    val customScopes = allScopes.filterNot(_.tree.tpe =:= typeOf[Singleton])
+    val typeScopes = tpe.typeSymbol.annotations
+      .map(_.tree.tpe)
+      .filter(_.typeSymbol.annotations.exists(_.tree.tpe =:= typeOf[Scope]))
+
+    val allScopes = typeScopes ++ forcedScope.toList
+    val customScopes = allScopes.filterNot(_ =:= typeOf[Singleton])
 
     if (customScopes.nonEmpty)
       throw new BindingException(s"Type `$tpe` contains custom JSR 330 scopes: ${customScopes mkString ", "}. Only `Singleton` scope is supported.")
@@ -53,7 +60,7 @@ case class AnnotationBinding(
     allScopes
   }
 
-  private val singleton = scopes.exists(_.tree.tpe =:= typeOf[Singleton])
+  private val singleton = scopes exists (_ =:= typeOf[Singleton])
 
   private var instance: Option[AnyRef] = None
 
@@ -67,6 +74,8 @@ case class AnnotationBinding(
 
     instance
   }
+
+  override def isEager = eager
 
   private def getInstance() = {
     if (singleton)
@@ -108,7 +117,9 @@ case class AnnotationBinding(
 
     if (!jConstructor.isAccessible) jConstructor.setAccessible(true) // :(
 
-    jConstructor.newInstance(actualParams: _*).asInstanceOf[AnyRef]
+    val inst = jConstructor.newInstance(actualParams: _*).asInstanceOf[AnyRef]
+
+    bindingConverter map (_(inst)) getOrElse inst
   }
 
   private def injectField(inj: Injector, instance: AnyRef, field: Symbol) =

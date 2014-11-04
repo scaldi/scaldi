@@ -175,3 +175,18 @@ case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding
   val condition = None
   override def get = Some(value)
 }
+
+class SimpleContainerInjector(bindings: Injector => List[BindingWithLifecycle]) extends MutableInjectorUser with InjectorWithLifecycle[SimpleContainerInjector] with ShutdownHookLifecycleManager {
+  lazy val preparedBindings = bindings(injector)
+
+  def getBindingInternal(identifiers: List[Identifier]) = preparedBindings find (_ isDefinedFor identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]) = preparedBindings filter (_ isDefinedFor identifiers)
+
+  protected def init(lifecycleManager: LifecycleManager) = {
+    preparedBindings.foreach { binding =>
+      if (binding.isEager) binding.get(lifecycleManager)
+    }
+
+    () => ()
+  }
+}

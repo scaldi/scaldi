@@ -39,10 +39,10 @@ trait Injectable extends Wire {
   protected def injectWithConstructorDefault[T, C](paramName: String)(implicit injector: Injector, tt: TypeTag[T], ct: TypeTag[C]): T =
     injectWithDefault[T](injector, ReflectionHelper.getDefaultValueOfParam[T, C](paramName))(List(typeId[T]))
 
-  private def injectWithDefault[T](injector: Injector, default: => T)(ids: List[Identifier]) =
+  protected def injectWithDefault[T](injector: Injector, default: => T)(ids: List[Identifier]) =
     injector getBinding ids flatMap (_.get) map (_.asInstanceOf[T]) getOrElse default
 
-  private[scaldi] def noBindingFound(ids: List[Identifier]) =
+  protected def noBindingFound(ids: List[Identifier]) =
     throw new InjectException(ids map ("  * " +) mkString ("No binding found with following identifiers:\n", "\n", ""))
 
   // in case is identifier goes at first
@@ -86,6 +86,11 @@ trait OpenInjectable extends Injectable {
 
   override def injectWithConstructorDefault[T, C](paramName: String)(implicit injector: Injector, tt: TypeTag[T], ct: TypeTag[C]): T =
     super.injectWithConstructorDefault[T, C](paramName)(injector, tt, ct)
+
+  override def injectWithDefault[T](injector: Injector, default: => T)(ids: List[Identifier]) =
+    super.injectWithDefault[T](injector, default)(ids)
+
+  override def noBindingFound(ids: List[Identifier]) = super.noBindingFound(ids)
 }
 
 object Injectable extends OpenInjectable
