@@ -9,7 +9,7 @@ You can find project's home page here:
 
 Scaladocs for the latest version of the project can be found here:
 
-[http://scaldi.org/api/index.html#scaldi.package](http://scaldi.org/api/index.html#scaldi.package/api/index.html#scaldi.package)
+[http://scaldi.github.io/scaldi/latest/api/#package](http://scaldi.github.io/scaldi/latest/api/#package)
 
 At the moment project is poorly documented, but it will be fixed soon. At the moment I can recommend you to take a look
 at the tests:
