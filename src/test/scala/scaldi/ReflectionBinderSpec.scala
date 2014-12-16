@@ -28,7 +28,7 @@ class ReflectionBinderSpec extends WordSpec with Matchers {
       binder.getBinding(List("otherServer", classOf[HttpServer])).get.get should equal (Some(HttpServer("test", 8080)))
     }
 
-    "support BidingProvider as return type of class members and use it to retrieve actual binding" in {
+    "support BindingProvider as return type of class members and use it to retrieve actual binding" in {
       val binder = new StaticModule {
         lazy val someBinding = SpecialBindingProvider(() => HttpServer("test", 8080))
       }
