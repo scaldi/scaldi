@@ -2,11 +2,13 @@
 
 * JSR 330 support. Scaldi now fully implements (except optional static injection) [JSR 330 (Dependency Injection for Java)](https://jcp.org/en/jsr/detail?id=330) spec.
   * New syntax added to bind JSR 330 annotated classes
+
   ```
   bind [Engine] to annotated [V8Engine]
   ```
   * `OnDemandAnnotationInjector` - New `Injector` that creates JSR 330 compliant bindings on-demand (when they are injected)
   * `AnnotationIdentifier` allows to bind classes with JSR 330 `Qualifier` annotation. You can now also use it in the bindings:
+
   ```
   import scaldi.jsr330._
 
