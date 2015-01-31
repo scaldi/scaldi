@@ -1,3 +1,29 @@
+## v0.5 (31.01.2015)
+
+* JSR 330 support. Scaldi now fully implements (except optional static injection) [JSR 330 (Dependency Injection for Java)](https://jcp.org/en/jsr/detail?id=330) spec.
+  * New syntax added to bind JSR 330 annotated classes
+  ```
+  bind [Engine] to annotated [V8Engine]
+  ```
+  * `OnDemandAnnotationInjector` - New `Injector` that creates JSR 330 compliant bindings on-demand (when they are injected)
+  * `AnnotationIdentifier` allows to bind classes with JSR 330 `Qualifier` annotation. You can now also use it in the bindings:
+  ```
+  import scaldi.jsr330._
+
+  bind [Seat] identifiedBy qualifier [Drivers] to annotated [DriversSeat]
+  ```
+* Required identifiers. Every identifier now defines, whether it is required during the lookup. The only required built-in identifier
+  at the is `AnnotationIdentifier`. You can now also make an identifier (not) required in the binding with the new syntax:
+  ```
+  bind [Tire] identifiedBy required('spare) to annotated [SpareTire]
+  bind [Seat] identifiedBy notRequired(qualifier [Drivers]) to annotated [DriversSeat]
+  ```
+* `ImmutableWrapper` that was previously described in the documentation-only now is part of the scaldi codebase.
+* `in` binding syntax is now deprecated and will be removed in future versions of Scaldi.
+* [Typesafe config](https://github.com/typesafehub/config) is now natively supported via `TypesafeConfigInjector`
+* `ReflectiveBinder` and `StaticModule` are deprecated and will be removed in the next versions
+  * `Module` does not support `ReflectiveBinder` anymore - only word bindings are supported
+
 ## v0.4 (22.06.2014)
 
 * Constrictor injection with `injected` macros. Here is an example if it's usage:  `bind [Users] to injected [UserService]`.
