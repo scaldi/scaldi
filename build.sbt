@@ -1,6 +1,6 @@
 name := "scaldi"
 organization := "org.scaldi"
-version := "0.6-SNAPSHOT"
+version := "0.5"
 
 description := "Scaldi - Scala Dependency Injection Library"
 homepage := Some(url("http://scaldi.org"))
@@ -56,3 +56,11 @@ scmInfo := Some(ScmInfo(
   browseUrl = url("https://github.com/scaldi/scaldi"),
   connection = "scm:git:git@github.com:scaldi/scaldi.git"
 ))
+pomExtra := <xml:group>
+  <developers>
+    <developer>
+      <id>OlegIlyenko</id>
+      <name>Oleg Ilyenko</name>
+    </developer>
+  </developers>
+</xml:group>
