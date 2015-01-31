@@ -48,7 +48,7 @@ shellPrompt in ThisBuild := { state =>
   scala.Console.MAGENTA + Project.extract(state).currentRef.project + "> " + scala.Console.RESET
 }
 
-// Additions meta-info
+// Additional meta-info
 
 startYear := Some(2011)
 organizationHomepage := Some(url("https://github.com/scaldi"))
