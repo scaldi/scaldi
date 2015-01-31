@@ -30,7 +30,7 @@
       <div id="definition">
         <img src="../lib/package_big.png" />
         
-        <h1>scaldi</h1> <span class="permalink">
+        <h1>scaldi</h1><span class="permalink">
       <a href="../index.html#scaldi.package" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
@@ -174,23 +174,6 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindingLifecycle[-T]extendsProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
-      </a>
-    </span>
-      
-    </li><li name="scaldi.BindingProvider" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="BindingProviderextendsAnyRef"></a>
-      <a id="BindingProvider:BindingProvider"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="BindingProvider.html"><span class="name">BindingProvider</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../index.html#scaldi.package@BindingProviderextendsAnyRef" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
     </span>
@@ -479,6 +462,23 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
+    </li><li name="scaldi.ImmutableWrapper" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ImmutableWrapperextendsInjectorwithImmutableInjector"></a>
+      <a id="ImmutableWrapper:ImmutableWrapper"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ImmutableWrapper.html"><span class="name">ImmutableWrapper</span></a><span class="result"> extends <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a> with <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@ImmutableWrapperextendsInjectorwithImmutableInjector" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scaldi.Initializeable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="Initializeable[I]extendsFreezable"></a>
       <a id="Initializeable[I]:Initializeable[I]"></a>
@@ -650,7 +650,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
     </span>
       
     </li><li name="scaldi.Module" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="ModuleextendsReflectionBinderwithWordBinderwithInjectorWithLifecycle[scaldi.Module]withInjectablewithMutableInjectorUserwithShutdownHookLifecycleManager"></a>
+      <a id="ModuleextendsWordBinderwithInjectorWithLifecycle[scaldi.Module]withInjectablewithMutableInjectorUserwithShutdownHookLifecycleManager"></a>
       <a id="Module:Module"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -658,10 +658,10 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="Module.html"><span class="name">Module</span></a><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a> with <a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a>[<a href="Module.html" class="extype" name="scaldi.Module">Module</a>] with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a> with <a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a> with <a href="ShutdownHookLifecycleManager.html" class="extype" name="scaldi.ShutdownHookLifecycleManager">ShutdownHookLifecycleManager</a></span>
+        <a href="Module.html"><span class="name">Module</span></a><span class="result"> extends <a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a> with <a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a>[<a href="Module.html" class="extype" name="scaldi.Module">Module</a>] with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a> with <a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a> with <a href="ShutdownHookLifecycleManager.html" class="extype" name="scaldi.ShutdownHookLifecycleManager">ShutdownHookLifecycleManager</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#scaldi.package@ModuleextendsReflectionBinderwithWordBinderwithInjectorWithLifecycle[scaldi.Module]withInjectablewithMutableInjectorUserwithShutdownHookLifecycleManager" title="Permalink" target="_top">
+      <a href="../index.html#scaldi.package@ModuleextendsWordBinderwithInjectorWithLifecycle[scaldi.Module]withInjectablewithMutableInjectorUserwithShutdownHookLifecycleManager" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
     </span>
@@ -820,6 +820,23 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
+    </li><li name="scaldi.RawBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RawBindingextendsBindingwithProductwithSerializable"></a>
+      <a id="RawBinding:RawBinding"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="RawBinding.html"><span class="name">RawBinding</span></a><span class="params">(<span name="value">value: <span class="extype" name="scala.Any">Any</span></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>]</span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@RawBindingextendsBindingwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scaldi.RawInjector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="RawInjectorextendsInjector"></a>
       <a id="RawInjector:RawInjector"></a>
@@ -837,19 +854,19 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
-    </li><li name="scaldi.ReflectionBinder" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="ReflectionBinderextendsAnyRef"></a>
-      <a id="ReflectionBinder:ReflectionBinder"></a>
+    </li><li name="scaldi.RequiredIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RequiredIdentifierextendsIdentifierwithProductwithSerializable"></a>
+      <a id="RequiredIdentifier:RequiredIdentifier"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="ReflectionBinder.html"><span class="name">ReflectionBinder</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a href="RequiredIdentifier.html"><span class="name">RequiredIdentifier</span></a><span class="params">(<span name="delegate">delegate: <a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a></span>, <span name="isRequired">isRequired: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result"> extends <a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#scaldi.package@ReflectionBinderextendsAnyRef" title="Permalink" target="_top">
+      <a href="../index.html#scaldi.package@RequiredIdentifierextendsIdentifierwithProductwithSerializable" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
     </span>
@@ -888,19 +905,19 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
-    </li><li name="scaldi.StaticModule" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="StaticModuleextendsReflectionBinderwithImmutableInjectorwithInjectable"></a>
-      <a id="StaticModule:StaticModule"></a>
+    </li><li name="scaldi.SimpleContainerInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SimpleContainerInjectorextendsMutableInjectorUserwithInjectorWithLifecycle[scaldi.SimpleContainerInjector]withShutdownHookLifecycleManager"></a>
+      <a id="SimpleContainerInjector:SimpleContainerInjector"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a href="StaticModule.html"><span class="name">StaticModule</span></a><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a> with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></span>
+        <a href="SimpleContainerInjector.html"><span class="name">SimpleContainerInjector</span></a><span class="result"> extends <a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a> with <a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a>[<a href="SimpleContainerInjector.html" class="extype" name="scaldi.SimpleContainerInjector">SimpleContainerInjector</a>] with <a href="ShutdownHookLifecycleManager.html" class="extype" name="scaldi.ShutdownHookLifecycleManager">ShutdownHookLifecycleManager</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#scaldi.package@StaticModuleextendsReflectionBinderwithImmutableInjectorwithInjectable" title="Permalink" target="_top">
+      <a href="../index.html#scaldi.package@SimpleContainerInjectorextendsMutableInjectorUserwithInjectorWithLifecycle[scaldi.SimpleContainerInjector]withShutdownHookLifecycleManager" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
     </span>
@@ -956,6 +973,23 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
+    </li><li name="scaldi.TypesafeConfigInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TypesafeConfigInjectorextendsRawInjector"></a>
+      <a id="TypesafeConfigInjector:TypesafeConfigInjector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="TypesafeConfigInjector.html"><span class="name">TypesafeConfigInjector</span></a><span class="result"> extends <a href="RawInjector.html" class="extype" name="scaldi.RawInjector">RawInjector</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@TypesafeConfigInjectorextendsRawInjector" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scaldi.Wire" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="WireextendsAnyRef"></a>
       <a id="Wire:Wire"></a>
@@ -1007,6 +1041,83 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
+    </li><li name="scaldi.WordBindingProvider" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="WordBindingProvider[T]extendsProductwithSerializable"></a>
+      <a id="WordBindingProvider[T]:WordBindingProvider[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="WordBindingProvider.html"><span class="name">WordBindingProvider</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="bindingFn">bindingFn: (<span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>], <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>], <a href="BindingLifecycle.html" class="extype" name="scaldi.BindingLifecycle">BindingLifecycle</a>[<span class="extype" name="scala.Any">Any</span>]) ⇒ <a href="BindingWithLifecycle.html" class="extype" name="scaldi.BindingWithLifecycle">BindingWithLifecycle</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@WordBindingProvider[T]extendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scaldi.BindingProvider" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="BindingProviderextendsAnyRef"></a>
+      <a id="BindingProvider:BindingProvider"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="BindingProvider.html"><span class="name deprecated" title="Deprecated: (Since version 0.5) BindingProvider is deprecated and will be removed soon. As an alternative you can use ImmutableWrapper injector to define an immutability boundary in composition or create your own injector that is marked as ImmutableInjector.">BindingProvider</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@BindingProviderextendsAnyRef" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.5)</i> BindingProvider is deprecated and will be removed soon. As an alternative you can use <code>ImmutableWrapper</code> injector to define an immutability boundary in composition or create your own injector that is marked as <code>ImmutableInjector</code>.</p></dd></dl></div>
+    </li><li name="scaldi.ReflectionBinder" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="ReflectionBinderextendsAnyRef"></a>
+      <a id="ReflectionBinder:ReflectionBinder"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ReflectionBinder.html"><span class="name deprecated" title="Deprecated: (Since version 0.5) ReflectionBinder is deprecated and will be removed soon. As an alternative you can use WordBinder or create your own injector that is marked as ImmutableInjector.">ReflectionBinder</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@ReflectionBinderextendsAnyRef" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.5)</i> ReflectionBinder is deprecated and will be removed soon. As an alternative you can use <code>WordBinder</code> or create your own injector that is marked as <code>ImmutableInjector</code>.</p></dd></dl></div>
+    </li><li name="scaldi.StaticModule" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="StaticModuleextendsReflectionBinderwithImmutableInjectorwithInjectable"></a>
+      <a id="StaticModule:StaticModule"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="StaticModule.html"><span class="name deprecated" title="Deprecated: (Since version 0.5) StaticModule is deprecated and will be removed soon. As an alternative you can use ImmutableWrapper injector to define an immutability boundary in composition or create your own injector that is marked as ImmutableInjector.">StaticModule</span></a><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a> with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@StaticModuleextendsReflectionBinderwithImmutableInjectorwithInjectable" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.5)</i> StaticModule is deprecated and will be removed soon. As an alternative you can use <code>ImmutableWrapper</code> injector to define an immutability boundary in composition or create your own injector that is marked as <code>ImmutableInjector</code>.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1150,6 +1261,23 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
+    </li><li name="scaldi.ImmutableWrapper" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ImmutableWrapper"></a>
+      <a id="ImmutableWrapper:ImmutableWrapper"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ImmutableWrapper$.html"><span class="name">ImmutableWrapper</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@ImmutableWrapper" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scaldi.Injectable" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Injectable"></a>
       <a id="Injectable:Injectable"></a>
@@ -1252,6 +1380,23 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
+    </li><li name="scaldi.TypesafeConfigInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TypesafeConfigInjector"></a>
+      <a id="TypesafeConfigInjector:TypesafeConfigInjector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TypesafeConfigInjector$.html"><span class="name">TypesafeConfigInjector</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@TypesafeConfigInjector" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scaldi.WireBuilder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="WireBuilder"></a>
       <a id="WireBuilder:WireBuilder"></a>
@@ -1265,6 +1410,23 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@WireBuilder" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scaldi.jsr330" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="jsr330"></a>
+      <a id="jsr330:jsr330"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="jsr330/package.html"><span class="name">jsr330</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.package@jsr330" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
     </span>

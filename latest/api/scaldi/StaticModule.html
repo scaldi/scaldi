@@ -30,7 +30,9 @@
       <div id="definition">
         <img src="../lib/trait_big.png" />
         <p id="owner"><a href="package.html" class="extype" name="scaldi">scaldi</a></p>
-        <h1>StaticModule</h1> <span class="permalink">
+        <h1>StaticModule</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="scaldi">package scaldi</a>
+          </div></span></h3><span class="permalink">
       <a href="../index.html#scaldi.StaticModule" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
@@ -43,11 +45,14 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">StaticModule</span><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a> with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></span>
+        <span class="name deprecated" title="Deprecated: (Since version 0.5) StaticModule is deprecated and will be removed soon. As an alternative you can use ImmutableWrapper injector to define an immutability boundary in composition or create your own injector that is marked as ImmutableInjector.">StaticModule</span><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a> with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.5)</i> StaticModule is deprecated and will be removed soon. As an alternative you can use <code>ImmutableWrapper</code> injector to define an immutability boundary in composition or create your own injector that is marked as <code>ImmutableInjector</code>.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a>, <a href="Wire.html" class="extype" name="scaldi.Wire">Wire</a>, <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a>, <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -550,6 +555,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+    </li><li name="scaldi.Injectable#injectWithDefault" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="injectWithDefault[T](injector:scaldi.Injector,default:=&gt;T)(ids:List[scaldi.Identifier]):T"></a>
+      <a id="injectWithDefault[T](Injector,⇒T)(List[Identifier]):T"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">injectWithDefault</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="injector">injector: <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>, <span name="default">default: ⇒ <span class="extype" name="scaldi.Injectable.injectWithDefault.T">T</span></span>)</span><span class="params">(<span name="ids">ids: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>]</span>)</span><span class="result">: <span class="extype" name="scaldi.Injectable.injectWithDefault.T">T</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.StaticModule@injectWithDefault[T](injector:scaldi.Injector,default:=&gt;T)(ids:List[scaldi.Identifier]):T" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Wire#injected" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injected[T](overrides:Tuple2[String,_]*):T"></a>
       <a id="injected[T](Tuple2[String,_]*):T"></a>
@@ -652,6 +674,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scaldi.Injectable#noBindingFound" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="noBindingFound(ids:List[scaldi.Identifier]):Nothing"></a>
+      <a id="noBindingFound(List[Identifier]):Nothing"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">noBindingFound</span><span class="params">(<span name="ids">ids: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>]</span>)</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.StaticModule@noBindingFound(ids:List[scaldi.Identifier]):Nothing" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <a id="notify():Unit"></a>

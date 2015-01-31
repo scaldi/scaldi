@@ -30,7 +30,9 @@
       <div id="definition">
         <img src="../lib/trait_big.png" />
         <p id="owner"><a href="package.html" class="extype" name="scaldi">scaldi</a></p>
-        <h1>WordBinder</h1> <span class="permalink">
+        <h1>WordBinder</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="scaldi">package scaldi</a>
+          </div></span></h3><span class="permalink">
       <a href="../index.html#scaldi.WordBinder" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
@@ -92,10 +94,30 @@
 
         
 
-        
+        <div id="values" class="values members">
+              <h3>Abstract Value Members</h3>
+              <ol><li name="scaldi.WordBinder#injector" visbl="prt" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="injector:scaldi.Injector"></a>
+      <a id="injector:Injector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">injector</span><span class="result">: <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.WordBinder@injector:scaldi.Injector" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li></ol>
+            </div>
 
         <div id="values" class="values members">
-              <h3>Value Members</h3>
+              <h3>Concrete Value Members</h3>
               <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a>
       <a id="!=(Any):Boolean"></a>
@@ -147,6 +169,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scaldi.WordBinder#annotated" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="annotated[T](implicitevidence$2:reflect.runtime.universe.TypeTag[T]):scaldi.WordBindingProvider[T]"></a>
+      <a id="annotated[T](scala.reflect.api.JavaUniverse.TypeTag[T]):WordBindingProvider[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">annotated</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.reflect.api.TypeTags.TypeTag">scala.reflect.api.JavaUniverse.TypeTag</span>[<span class="extype" name="scaldi.WordBinder.annotated.T">T</span>]</span>)</span><span class="result">: <a href="WordBindingProvider.html" class="extype" name="scaldi.WordBindingProvider">WordBindingProvider</a>[<span class="extype" name="scaldi.WordBinder.annotated.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.WordBinder@annotated[T](implicitevidence$2:reflect.runtime.universe.TypeTag[T]):scaldi.WordBindingProvider[T]" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -312,19 +351,19 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scaldi.WordBinder#initNonLazyWordBindings" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="initNonLazyWordBindings(lifecycleManager:scaldi.LifecycleManager):()=&gt;Unit"></a>
-      <a id="initNonLazyWordBindings(LifecycleManager):()⇒Unit"></a>
+    </li><li name="scaldi.WordBinder#initEagerWordBindings" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="initEagerWordBindings(lifecycleManager:scaldi.LifecycleManager):()=&gt;Unit"></a>
+      <a id="initEagerWordBindings(LifecycleManager):()⇒Unit"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">initNonLazyWordBindings</span><span class="params">(<span name="lifecycleManager">lifecycleManager: <a href="LifecycleManager.html" class="extype" name="scaldi.LifecycleManager">LifecycleManager</a></span>)</span><span class="result">: () ⇒ <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">initEagerWordBindings</span><span class="params">(<span name="lifecycleManager">lifecycleManager: <a href="LifecycleManager.html" class="extype" name="scaldi.LifecycleManager">LifecycleManager</a></span>)</span><span class="result">: () ⇒ <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#scaldi.WordBinder@initNonLazyWordBindings(lifecycleManager:scaldi.LifecycleManager):()=&gt;Unit" title="Permalink" target="_top">
+      <a href="../index.html#scaldi.WordBinder@initEagerWordBindings(lifecycleManager:scaldi.LifecycleManager):()=&gt;Unit" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
     </span>
@@ -363,6 +402,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scaldi.WordBinder#notRequired" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="notRequired(identifier:scaldi.Identifier):scaldi.Identifier"></a>
+      <a id="notRequired(Identifier):Identifier"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notRequired</span><span class="params">(<span name="identifier">identifier: <a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a></span>)</span><span class="result">: <a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.WordBinder@notRequired(identifier:scaldi.Identifier):scaldi.Identifier" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <a id="notify():Unit"></a>
@@ -397,6 +453,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scaldi.WordBinder#required" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="required(identifier:scaldi.Identifier):scaldi.Identifier"></a>
+      <a id="required(Identifier):Identifier"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">required</span><span class="params">(<span name="identifier">identifier: <a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a></span>)</span><span class="result">: <a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.WordBinder@required(identifier:scaldi.Identifier):scaldi.Identifier" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>

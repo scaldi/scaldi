@@ -30,7 +30,9 @@
       <div id="definition">
         <img src="../../lib/object_big.png" />
         <p id="owner"><a href="../package.html" class="extype" name="scaldi">scaldi</a>.<a href="package.html" class="extype" name="scaldi.util">util</a></p>
-        <h1>ReflectionHelper</h1> <span class="permalink">
+        <h1>ReflectionHelper</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="scaldi.util">package util</a>
+          </div></span></h3><span class="permalink">
       <a href="../../index.html#scaldi.util.ReflectionHelper$" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" />
       </a>
@@ -184,6 +186,25 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="scaldi.util.ReflectionHelper#constructorSymbol" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="constructorSymbol(c:java.lang.reflect.Constructor[_]):reflect.runtime.universe.MethodSymbol"></a>
+      <a id="constructorSymbol(Constructor[_]):scala.reflect.api.JavaUniverse.MethodSymbol"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">constructorSymbol</span><span class="params">(<span name="c">c: <span class="extype" name="java.lang.reflect.Constructor">Constructor</span>[_]</span>)</span><span class="result">: <span class="extype" name="scala.reflect.api.Symbols.MethodSymbol">scala.reflect.api.JavaUniverse.MethodSymbol</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.util.ReflectionHelper$@constructorSymbol(c:java.lang.reflect.Constructor[_]):reflect.runtime.universe.MethodSymbol" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Dirty little trick to convert java constructor to scala constructor.</p><div class="fullcomment"><div class="comment cmt"><p>Dirty little trick to convert java constructor to scala constructor.
+(the reason for it is that scala reflection does not list private constructors)
+</p></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -309,6 +330,42 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scaldi.util.ReflectionHelper#methodParamsAnnotations" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="methodParamsAnnotations(method:reflect.runtime.universe.MethodSymbol):List[List[java.lang.annotation.Annotation]]"></a>
+      <a id="methodParamsAnnotations(scala.reflect.api.JavaUniverse.MethodSymbol):List[List[Annotation]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">methodParamsAnnotations</span><span class="params">(<span name="method">method: <span class="extype" name="scala.reflect.api.Symbols.MethodSymbol">scala.reflect.api.JavaUniverse.MethodSymbol</span></span>)</span><span class="result">: <span class="extype" name="scala.collection.immutable.List">List</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="java.lang.annotation.Annotation">Annotation</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.util.ReflectionHelper$@methodParamsAnnotations(method:reflect.runtime.universe.MethodSymbol):List[List[java.lang.annotation.Annotation]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Dirty little trick to convert get method argument annotations.</p><div class="fullcomment"><div class="comment cmt"><p>Dirty little trick to convert get method argument annotations.
+(the reason for it is that scala reflection does not give this information)
+</p></div></div>
+    </li><li name="scaldi.util.ReflectionHelper#mirror" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="mirror:reflect.runtime.universe.Mirror"></a>
+      <a id="mirror:Mirror"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mirror</span><span class="result">: <span class="extype" name="scala.reflect.api.JavaUniverse.Mirror">Mirror</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.util.ReflectionHelper$@mirror:reflect.runtime.universe.Mirror" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -360,6 +417,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scaldi.util.ReflectionHelper#overrides" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="overrides(method:reflect.runtime.universe.Symbol):List[reflect.runtime.universe.Symbol]"></a>
+      <a id="overrides(scala.reflect.api.JavaUniverse.Symbol):List[scala.reflect.api.JavaUniverse.Symbol]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">overrides</span><span class="params">(<span name="method">method: <span class="extype" name="scala.reflect.api.Symbols.Symbol">scala.reflect.api.JavaUniverse.Symbol</span></span>)</span><span class="result">: <span class="extype" name="scala.collection.immutable.List">List</span>[<span class="extype" name="scala.reflect.api.Symbols.Symbol">scala.reflect.api.JavaUniverse.Symbol</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.util.ReflectionHelper$@overrides(method:reflect.runtime.universe.Symbol):List[reflect.runtime.universe.Symbol]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>

@@ -1,0 +1,251 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>jsr330 - scaldi.jsr330</title>
+          <meta name="description" content="jsr330 - scaldi.jsr330" />
+          <meta name="keywords" content="jsr330 scaldi.jsr330" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'scaldi.jsr330.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../lib/package_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="scaldi">scaldi</a></p>
+        <h1>jsr330</h1><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">jsr330</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="scaldi.jsr330"><span>jsr330</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="scaldi.jsr330.AnnotationBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AnnotationBindingextendsBindingWithLifecyclewithProductwithSerializable"></a>
+      <a id="AnnotationBinding:AnnotationBinding"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="AnnotationBinding.html"><span class="name">AnnotationBinding</span></a><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>, <span name="injector">injector: () ⇒ <a href="../Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="../Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="../Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">None</span></span>, <span name="lifecycle">lifecycle: <a href="../BindingLifecycle.html" class="extype" name="scaldi.BindingLifecycle">BindingLifecycle</a>[<span class="extype" name="scala.Any">Any</span>] = <span class="symbol"><span class="name"><a href="../package.html">BindingLifecycle.empty</a></span></span></span>, <span name="eager">eager: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="forcedScope">forcedScope: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span>] = <span class="symbol">None</span></span>, <span name="bindingConverter">bindingConverter: <span class="extype" name="scala.Option">Option</span>[(<span class="extype" name="scala.AnyRef">AnyRef</span>) ⇒ <span class="extype" name="scala.AnyRef">AnyRef</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="../BindingWithLifecycle.html" class="extype" name="scaldi.BindingWithLifecycle">BindingWithLifecycle</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@AnnotationBindingextendsBindingWithLifecyclewithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Binding for JSR 330 compliant types.</p>
+    </li><li name="scaldi.jsr330.AnnotationIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AnnotationIdentifierextendsIdentifierwithProductwithSerializable"></a>
+      <a id="AnnotationIdentifier:AnnotationIdentifier"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="AnnotationIdentifier.html"><span class="name">AnnotationIdentifier</span></a><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>)</span><span class="result"> extends <a href="../Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@AnnotationIdentifierextendsIdentifierwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scaldi.jsr330.OnDemandAnnotationInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OnDemandAnnotationInjectorextendsMutableInjectorUserwithInjectorWithLifecycle[scaldi.jsr330.OnDemandAnnotationInjector]withShutdownHookLifecycleManager"></a>
+      <a id="OnDemandAnnotationInjector:OnDemandAnnotationInjector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="OnDemandAnnotationInjector.html"><span class="name">OnDemandAnnotationInjector</span></a><span class="result"> extends <a href="../MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a> with <a href="../InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a>[<a href="OnDemandAnnotationInjector.html" class="extype" name="scaldi.jsr330.OnDemandAnnotationInjector">OnDemandAnnotationInjector</a>] with <a href="../ShutdownHookLifecycleManager.html" class="extype" name="scaldi.ShutdownHookLifecycleManager">ShutdownHookLifecycleManager</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@OnDemandAnnotationInjectorextendsMutableInjectorUserwithInjectorWithLifecycle[scaldi.jsr330.OnDemandAnnotationInjector]withShutdownHookLifecycleManager" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Injector that creates JSR 330 compliant bindings on-demand (when they are injected)
+</p>
+    </li><li name="scaldi.jsr330.ScaldiProvider" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ScaldiProvider[T]extendsProvider[T]withProductwithSerializable"></a>
+      <a id="ScaldiProvider[T]:ScaldiProvider[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ScaldiProvider.html"><span class="name">ScaldiProvider</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="impl">impl: () ⇒ <span class="extype" name="scaldi.jsr330.ScaldiProvider.T">T</span></span>)</span><span class="result"> extends <span class="extype" name="javax.inject.Provider">Provider</span>[<span class="extype" name="scaldi.jsr330.ScaldiProvider.T">T</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@ScaldiProvider[T]extendsProvider[T]withProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="scaldi.jsr330.AnnotationBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AnnotationBinding"></a>
+      <a id="AnnotationBinding:AnnotationBinding"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="AnnotationBinding$.html"><span class="name">AnnotationBinding</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@AnnotationBinding" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scaldi.jsr330.AnnotationIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AnnotationIdentifier"></a>
+      <a id="AnnotationIdentifier:AnnotationIdentifier"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="AnnotationIdentifier$.html"><span class="name">AnnotationIdentifier</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@AnnotationIdentifier" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scaldi.jsr330#qualifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="qualifier[T&lt;:java.lang.annotation.Annotation](implicitevidence$1:reflect.runtime.universe.TypeTag[T]):scaldi.jsr330.AnnotationIdentifier"></a>
+      <a id="qualifier[T&lt;:Annotation](scala.reflect.api.JavaUniverse.TypeTag[T]):AnnotationIdentifier"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">qualifier</span><span class="tparams">[<span name="T">T &lt;: <span class="extype" name="java.lang.annotation.Annotation">Annotation</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.reflect.api.TypeTags.TypeTag">scala.reflect.api.JavaUniverse.TypeTag</span>[<span class="extype" name="scaldi.jsr330.qualifier.T">T</span>]</span>)</span><span class="result">: <a href="AnnotationIdentifier.html" class="extype" name="scaldi.jsr330.AnnotationIdentifier">AnnotationIdentifier</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@qualifier[T&lt;:java.lang.annotation.Annotation](implicitevidence$1:reflect.runtime.universe.TypeTag[T]):scaldi.jsr330.AnnotationIdentifier" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

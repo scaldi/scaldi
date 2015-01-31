@@ -30,7 +30,9 @@
       <div id="definition">
         <img src="../lib/trait_big.png" />
         <p id="owner"><a href="package.html" class="extype" name="scaldi">scaldi</a></p>
-        <h1>RawInjector</h1> <span class="permalink">
+        <h1>RawInjector</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="scaldi">package scaldi</a>
+          </div></span></h3><span class="permalink">
       <a href="../index.html#scaldi.RawInjector" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
@@ -52,7 +54,7 @@
           <div class="superTypes hiddenContent"><a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="PropertiesInjector.html" class="extype" name="scaldi.PropertiesInjector">PropertiesInjector</a>, <a href="SystemPropertiesInjector$.html" class="extype" name="scaldi.SystemPropertiesInjector">SystemPropertiesInjector</a></div>
+            <div class="subClasses hiddenContent"><a href="PropertiesInjector.html" class="extype" name="scaldi.PropertiesInjector">PropertiesInjector</a>, <a href="SystemPropertiesInjector$.html" class="extype" name="scaldi.SystemPropertiesInjector">SystemPropertiesInjector</a>, <a href="TypesafeConfigInjector.html" class="extype" name="scaldi.TypesafeConfigInjector">TypesafeConfigInjector</a></div>
           </div></div>
         
 
@@ -90,27 +92,7 @@
         <div id="allMembers">
         
 
-        <div id="types" class="types members">
-              <h3>Type Members</h3>
-              <ol><li name="scaldi.RawInjector.RawBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="RawBindingextendsBindingwithProductwithSerializable"></a>
-      <a id="RawBinding:RawBinding"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
-      </span>
-      <span class="symbol">
-        <a href="RawInjector$RawBinding.html"><span class="name">RawBinding</span></a><span class="params">(<span name="value">value: <span class="extype" name="scala.Any">Any</span></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>]</span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../index.html#scaldi.RawInjector@RawBindingextendsBindingwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
-      </a>
-    </span>
-      
-    </li></ol>
-            </div>
+        
 
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
@@ -261,6 +243,23 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="scaldi.RawInjector#discoverBinding" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="discoverBinding(name:String,tpe:reflect.runtime.universe.Type,ids:List[scaldi.Identifier]):Option[scaldi.Binding]"></a>
+      <a id="discoverBinding(String,scala.reflect.api.JavaUniverse.Type,List[Identifier]):Option[Binding]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">discoverBinding</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>, <span name="ids">ids: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">Nil</span></span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.RawInjector@discoverBinding(name:String,tpe:reflect.runtime.universe.Type,ids:List[scaldi.Identifier]):Option[scaldi.Binding]" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li name="scaldi.RawInjector#discoverBinding" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="discoverBinding(ids:List[scaldi.Identifier]):Option[scaldi.Binding]"></a>
       <a id="discoverBinding(List[Identifier]):Option[Binding]"></a>
