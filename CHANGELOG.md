@@ -13,12 +13,12 @@
   bind [Seat] identifiedBy qualifier [Drivers] to annotated [DriversSeat]
   ```
 * Required identifiers. Every identifier now defines, whether it is required during the lookup. The only required built-in identifier
-  at the is `AnnotationIdentifier`. You can now also make an identifier (not) required in the binding with the new syntax:
+  at the moment is `AnnotationIdentifier`. You can now also make an identifier (not) required in the binding with the new syntax:
   ```
   bind [Tire] identifiedBy required('spare) to annotated [SpareTire]
   bind [Seat] identifiedBy notRequired(qualifier [Drivers]) to annotated [DriversSeat]
   ```
-* `ImmutableWrapper` that was previously described in the documentation-only now is part of the scaldi codebase.
+* `ImmutableWrapper` that was previously described in the documentation now is part of the scaldi codebase.
 * `in` binding syntax is now deprecated and will be removed in future versions of Scaldi.
 * [Typesafe config](https://github.com/typesafehub/config) is now natively supported via `TypesafeConfigInjector`
 * `ReflectiveBinder` and `StaticModule` are deprecated and will be removed in the next versions
