@@ -7,6 +7,10 @@ You can find project's home page here:
 
 [http://scaldi.org](http://scaldi.org)
 
+Or jump directly to the documentation:
+
+[Scaldi documentation](http://scaldi.org/learn/)
+
 [![Build Status](https://travis-ci.org/scaldi/scaldi.png?branch=master)](https://travis-ci.org/scaldi/scaldi) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.11)
 
 ## Adding Scaldi in Your Build
