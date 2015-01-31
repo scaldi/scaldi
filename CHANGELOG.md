@@ -14,6 +14,7 @@
   ```
 * Required identifiers. Every identifier now defines, whether it is required during the lookup. The only required built-in identifier
   at the moment is `AnnotationIdentifier`. You can now also make an identifier (not) required in the binding with the new syntax:
+
   ```
   bind [Tire] identifiedBy required('spare) to annotated [SpareTire]
   bind [Seat] identifiedBy notRequired(qualifier [Drivers]) to annotated [DriversSeat]
