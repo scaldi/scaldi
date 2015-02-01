@@ -26,15 +26,12 @@ git.remoteRepo := "git@github.com:scaldi/scaldi.git"
 
 publishMavenStyle := true
 publishArtifact in Test := false
-pomIncludeRepository := { x => false }
-
-publishTo <<= version { v: String =>
-  val nexus = "https://oss.sonatype.org/"
-  if (v.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "content/repositories/snapshots")
+pomIncludeRepository := (_ => false)
+publishTo := Some(
+  if (version.value.trim.endsWith("SNAPSHOT"))
+    "snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
   else
-    Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
+    "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
 
 // Site and docs
 

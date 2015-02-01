@@ -5,7 +5,6 @@ import language.postfixOps
 import scaldi.util.Util._
 import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
 import scaldi.util.ReflectionHelper
-import scaldi.jsr330.AnnotationBinding
 
 trait WordBinder {
   private var bindingsInProgress: List[BindHelper[_]] = Nil
@@ -36,8 +35,6 @@ trait WordBinder {
     fn
     contextCondition = None
   }
-
-  def annotated[T : TypeTag] = WordBindingProvider[T](AnnotationBinding(typeTag[T].tpe, () => injector, _, _, _))
 
   def required(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = true)
   def notRequired(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = false)

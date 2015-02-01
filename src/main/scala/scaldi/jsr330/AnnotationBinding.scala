@@ -12,7 +12,7 @@ import scaldi._
  * Binding for JSR 330 compliant types.
  */
 case class AnnotationBinding(
-  tpe: Type,
+  instanceOrType: Either[AnyRef, Type],
   injector: () => Injector,
   identifiers: List[Identifier] = Nil,
   condition: Option[() => Condition] = None,
@@ -23,12 +23,23 @@ case class AnnotationBinding(
 ) extends BindingWithLifecycle {
   import AnnotationBinding._
 
+  private val tpe =
+    instanceOrType match {
+      case Left(inst) =>
+        ReflectionHelper.mirror.classSymbol(inst.getClass).toType
+      case Right(t) => t
+    }
+
   private val creator = {
     if (tpe.typeSymbol.isAbstract || !tpe.typeSymbol.isClass)
       throw new InjectException(s"Type `$tpe` should be non-abstract class.")
 
-    findConstructor(tpe) map (c => createNewInstance(c) _) getOrElse (
-      throw new InjectException(s"Type `$tpe` should either define default no-arg constructor or one constructor marked with javax.inject.Inject annotation."))
+    instanceOrType match {
+      case Left(inst) => (_: Injector) => inst
+      case Right(t) =>
+        findConstructor(tpe) map (c => createNewInstance(c) _) getOrElse (
+          throw new InjectException(s"Type `$tpe` should either define default no-arg constructor or one constructor marked with javax.inject.Inject annotation."))
+    }
   }
 
   private val fieldsAndMethods = {
@@ -84,13 +95,17 @@ case class AnnotationBinding(
         this.synchronized {
           if (instance.isDefined) instance -> false
           else {
-            instance = Some(initNewInstance())
+            val inst = initNewInstance()
+            instance = Some(bindingConverter map (_(inst)) getOrElse inst)
             instance -> true
           }
         }
       }
-    else
-      Some(initNewInstance()) -> true
+    else {
+      val inst = initNewInstance()
+
+      Some(bindingConverter map (_(inst)) getOrElse inst) -> true
+    }
   }
 
   def initNewInstance() = {
@@ -117,9 +132,7 @@ case class AnnotationBinding(
 
     if (!jConstructor.isAccessible) jConstructor.setAccessible(true) // :(
 
-    val inst = jConstructor.newInstance(actualParams: _*).asInstanceOf[AnyRef]
-
-    bindingConverter map (_(inst)) getOrElse inst
+    jConstructor.newInstance(actualParams: _*).asInstanceOf[AnyRef]
   }
 
   private def injectField(inj: Injector, instance: AnyRef, field: Symbol) =

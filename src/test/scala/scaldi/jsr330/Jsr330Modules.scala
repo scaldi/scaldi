@@ -1,6 +1,5 @@
 package scaldi.jsr330
 
-import org.junit.Test
 import org.atinject.tck.auto._
 
 import scaldi._

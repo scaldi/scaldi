@@ -112,6 +112,8 @@ trait MutableInjectorUser extends MutableInjector { self: Injector with Freezabl
 
   implicit def injector = _injector
 
+  implicit val injectorFn: () => Injector = () => injector
+
   def injector_=(newParentInjector: Injector) {
     if (isFrozen) throw new InjectException("Injector already frozen, so you can't mutate it anymore!")
 

@@ -17,7 +17,7 @@ class OnDemandAnnotationInjector extends MutableInjectorUser with InjectorWithLi
         bindings.find(_ isDefinedFor identifiers) orElse {
           this.synchronized {
             bindings.find(_ isDefinedFor identifiers) orElse {
-              val binding = new AnnotationBinding(tpe, () => injector, resultingIdentifiers)
+              val binding = new AnnotationBinding(Right(tpe), () => injector, resultingIdentifiers)
 
               if (binding.isEager) {
                 lifecycleManager map binding.get getOrElse (
