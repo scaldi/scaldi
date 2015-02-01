@@ -1,3 +1,9 @@
+## v0.5.1 (01.02.2015)
+
+* `AnnotationBinding` can now also inject already created instances
+* `annotated` binding syntax moved to jsr330 package
+
+
 ## v0.5 (31.01.2015)
 
 * JSR 330 support. Scaldi now fully implements (except optional static injection) [JSR 330 (Dependency Injection for Java)](https://jcp.org/en/jsr/detail?id=330) spec.

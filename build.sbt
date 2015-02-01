@@ -1,6 +1,6 @@
 name := "scaldi"
 organization := "org.scaldi"
-version := "0.6-SNAPSHOT"
+version := "0.5.1"
 
 description := "Scaldi - Scala Dependency Injection Library"
 homepage := Some(url("http://scaldi.org"))
