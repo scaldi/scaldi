@@ -98,7 +98,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="AnnotationBinding.html"><span class="name">AnnotationBinding</span></a><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>, <span name="injector">injector: () ⇒ <a href="../Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="../Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="../Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">None</span></span>, <span name="lifecycle">lifecycle: <a href="../BindingLifecycle.html" class="extype" name="scaldi.BindingLifecycle">BindingLifecycle</a>[<span class="extype" name="scala.Any">Any</span>] = <span class="symbol"><span class="name"><a href="../package.html">BindingLifecycle.empty</a></span></span></span>, <span name="eager">eager: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="forcedScope">forcedScope: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span>] = <span class="symbol">None</span></span>, <span name="bindingConverter">bindingConverter: <span class="extype" name="scala.Option">Option</span>[(<span class="extype" name="scala.AnyRef">AnyRef</span>) ⇒ <span class="extype" name="scala.AnyRef">AnyRef</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="../BindingWithLifecycle.html" class="extype" name="scaldi.BindingWithLifecycle">BindingWithLifecycle</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="AnnotationBinding.html"><span class="name">AnnotationBinding</span></a><span class="params">(<span name="instanceOrType">instanceOrType: <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span>]</span>, <span name="injector">injector: () ⇒ <a href="../Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="../Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="../Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">None</span></span>, <span name="lifecycle">lifecycle: <a href="../BindingLifecycle.html" class="extype" name="scaldi.BindingLifecycle">BindingLifecycle</a>[<span class="extype" name="scala.Any">Any</span>] = <span class="symbol"><span class="name"><a href="../package.html">BindingLifecycle.empty</a></span></span></span>, <span name="eager">eager: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="forcedScope">forcedScope: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span>] = <span class="symbol">None</span></span>, <span name="bindingConverter">bindingConverter: <span class="extype" name="scala.Option">Option</span>[(<span class="extype" name="scala.AnyRef">AnyRef</span>) ⇒ <span class="extype" name="scala.AnyRef">AnyRef</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="../BindingWithLifecycle.html" class="extype" name="scaldi.BindingWithLifecycle">BindingWithLifecycle</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#scaldi.jsr330.package@AnnotationBindingextendsBindingWithLifecyclewithProductwithSerializable" title="Permalink" target="_top">
@@ -195,6 +195,40 @@
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#scaldi.jsr330.package@AnnotationIdentifier" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scaldi.jsr330#annotated" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="annotated[T&lt;:AnyRef](instance:T)(implicitevidence$3:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]"></a>
+      <a id="annotated[T&lt;:AnyRef](T)(scala.reflect.api.JavaUniverse.TypeTag[T],()⇒Injector):WordBindingProvider[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">annotated</span><span class="tparams">[<span name="T">T &lt;: <span class="extype" name="scala.AnyRef">AnyRef</span></span>]</span><span class="params">(<span name="instance">instance: <span class="extype" name="scaldi.jsr330.annotated.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.reflect.api.TypeTags.TypeTag">scala.reflect.api.JavaUniverse.TypeTag</span>[<span class="extype" name="scaldi.jsr330.annotated.T">T</span>]</span>, <span name="injector">injector: () ⇒ <a href="../Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>)</span><span class="result">: <a href="../WordBindingProvider.html" class="extype" name="scaldi.WordBindingProvider">WordBindingProvider</a>[<span class="extype" name="scaldi.jsr330.annotated.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@annotated[T&lt;:AnyRef](instance:T)(implicitevidence$3:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scaldi.jsr330#annotated" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="annotated[T](implicitevidence$2:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]"></a>
+      <a id="annotated[T](scala.reflect.api.JavaUniverse.TypeTag[T],()⇒Injector):WordBindingProvider[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">annotated</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.reflect.api.TypeTags.TypeTag">scala.reflect.api.JavaUniverse.TypeTag</span>[<span class="extype" name="scaldi.jsr330.annotated.T">T</span>]</span>, <span name="injector">injector: () ⇒ <a href="../Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>)</span><span class="result">: <a href="../WordBindingProvider.html" class="extype" name="scaldi.WordBindingProvider">WordBindingProvider</a>[<span class="extype" name="scaldi.jsr330.annotated.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@annotated[T](implicitevidence$2:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" />
       </a>
     </span>
