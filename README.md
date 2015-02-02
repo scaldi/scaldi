@@ -17,7 +17,7 @@ Or jump directly to the documentation:
 
 SBT Configuration:
 
-    libraryDependencies += "org.scaldi" %% "scaldi" % "0.5.2"
+    libraryDependencies += "org.scaldi" %% "scaldi" % "0.5.3"
 
 ## License
 

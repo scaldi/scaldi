@@ -1,3 +1,7 @@
+## v0.5.3 (02.02.2015)
+
+* Improved the unregister of a shutdown hook behavior
+
 ## v0.5.2 (02.02.2015)
 
 * #43 - `Int` properties are injected by `TypesafeConfigInjector`
