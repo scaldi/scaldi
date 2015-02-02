@@ -1,5 +1,7 @@
 package scaldi
 
+import java.util.concurrent.atomic.AtomicBoolean
+
 import scaldi.util.Util._
 import scala.util.{Success, Failure, Try}
 import scala.util.control.Breaks._
@@ -27,20 +29,25 @@ trait LifecycleManager {
 
 trait ShutdownHookLifecycleManager extends LifecycleManager {
   private var toDestroy: List[() => Unit] = Nil
+  private val destroyed = new AtomicBoolean(false)
+  private var hookThread: Option[Thread] = None
 
   def addDestroyable(fn: () => Unit) = this.synchronized {
+    if (destroyed.get()) throw new IllegalStateException("Can't add more destroyable callbacks because the Injector is already destroyed.")
     if (toDestroy.isEmpty) addShutdownHook()
+
     toDestroy = toDestroy :+ fn
   }
 
   private def addShutdownHook() = {
-    sys.addShutdownHook(doDestroyAll(IgnoringErrorHandler))
+    hookThread = Some(sys.addShutdownHook(doDestroyAll(IgnoringErrorHandler)))
   }
 
   def destroy(errorHandler: Throwable => Boolean = IgnoringErrorHandler) =
     doDestroyAll(errorHandler)
 
   private def doDestroyAll(errorHandler: Throwable => Boolean) = this.synchronized {
+
     breakable {
       toDestroy.reverse.foreach { d =>
         Try(d()) match {
@@ -51,6 +58,8 @@ trait ShutdownHookLifecycleManager extends LifecycleManager {
       }
     }
 
+    destroyed.set(true)
+    hookThread foreach Runtime.getRuntime.removeShutdownHook
     toDestroy = Nil
   }
 }

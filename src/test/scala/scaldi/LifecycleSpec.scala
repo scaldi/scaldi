@@ -1,6 +1,9 @@
 package scaldi
 
+import java.util.concurrent.atomic.AtomicInteger
+
 import org.scalatest.{Matchers, WordSpec}
+import scaldi.util.JvmTestUtil
 
 class LifecycleSpec extends WordSpec with Matchers {
 
@@ -65,6 +68,34 @@ class LifecycleSpec extends WordSpec with Matchers {
       serverLazy.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
       serverNonLazy.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
       serverProvider.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
+    }
+  }
+
+  "ShutdownHookLifecycleManager" should {
+    "not allow to add destroyable after it was already destroyed" in {
+      JvmTestUtil.shutdownHookCount should be (0)
+
+      implicit val module = new Module {
+        bind [Server] as 'server to new LifecycleServer initWith (_.init()) destroyWith (_.terminate())
+      }
+
+      import Injectable._
+
+      inject[Server]('server).asInstanceOf[LifecycleServer].initializedCount should be (1)
+
+      val destroyedCount = new AtomicInteger(0)
+
+      module.addDestroyable(() => destroyedCount.incrementAndGet())
+
+      JvmTestUtil.shutdownHookCount should be (1)
+
+      module.destroy()
+
+      destroyedCount.get should be (1)
+      JvmTestUtil.shutdownHookCount should be (0)
+
+      an [IllegalStateException] should be thrownBy
+          module.addDestroyable(() => destroyedCount.incrementAndGet())
     }
   }
 }
