@@ -83,7 +83,7 @@ class TypesafeConfigInjector private (config: Config) extends RawInjector {
   override protected def discoverBinding(name: String, tpe: Type, ids: List[Identifier]) = {
     val value = try {
       if (tpe =:= typeOf[Int]) Some(config.getInt(name))
-      if (tpe =:= typeOf[List[Int]]) Some(config.getIntList(name).asScala.toList map (_.intValue))
+      else if (tpe =:= typeOf[List[Int]]) Some(config.getIntList(name).asScala.toList map (_.intValue))
       else if (tpe =:= typeOf[Integer]) Some(config.getInt(name): java.lang.Integer)
       else if (tpe =:= typeOf[List[Integer]]) Some(config.getIntList(name).asScala.toList)
       else if (tpe =:= typeOf[Long]) Some(config.getLong(name))

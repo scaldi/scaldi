@@ -16,6 +16,7 @@ class TypesafeConfigInjectorSpec extends WordSpec with Matchers {
     implicit val inj = TypesafeConfigInjector()
 
     "inject numbers" in {
+      inject [Int] ("numbersTest.port") should equal (123)
       inject [Long] ("numbersTest.port") should equal (123L)
       inject [List[Int]] ("numbersTest.listOfNumbers") should equal (List(5, 6, 7))
       inject [List[Double]] ("numbersTest.some.doubles") should equal (List(5.55, 6.76))
