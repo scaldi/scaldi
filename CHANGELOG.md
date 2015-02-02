@@ -1,8 +1,12 @@
+## v0.5.2 (02.02.2015)
+
+* #43 - `Int` properties are injected by `TypesafeConfigInjector`
+* #44 - JVM shutdown hook now unregister itself if `destroy` is called manually
+
 ## v0.5.1 (01.02.2015)
 
 * `AnnotationBinding` can now also inject already created instances
 * `annotated` binding syntax moved to jsr330 package
-
 
 ## v0.5 (31.01.2015)
 
