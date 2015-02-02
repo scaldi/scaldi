@@ -3,6 +3,7 @@ package scaldi
 import java.util.concurrent.atomic.AtomicBoolean
 
 import scaldi.util.Util._
+import scala.util.control.NonFatal
 import scala.util.{Success, Failure, Try}
 import scala.util.control.Breaks._
 
@@ -44,9 +45,9 @@ trait ShutdownHookLifecycleManager extends LifecycleManager {
   }
 
   def destroy(errorHandler: Throwable => Boolean = IgnoringErrorHandler) =
-    doDestroyAll(errorHandler)
+    doDestroyAll(errorHandler, manual = true)
 
-  private def doDestroyAll(errorHandler: Throwable => Boolean) = this.synchronized {
+  private def doDestroyAll(errorHandler: Throwable => Boolean, manual: Boolean = false) = this.synchronized {
 
     breakable {
       toDestroy.reverse.foreach { d =>
@@ -59,7 +60,14 @@ trait ShutdownHookLifecycleManager extends LifecycleManager {
     }
 
     destroyed.set(true)
-    hookThread foreach Runtime.getRuntime.removeShutdownHook
+
+    if (manual)
+      try {
+        hookThread foreach Runtime.getRuntime.removeShutdownHook
+      } catch {
+        case NonFatal(e) => // do nothing
+      }
+
     toDestroy = Nil
   }
 }
