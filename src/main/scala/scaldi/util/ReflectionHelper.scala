@@ -1,10 +1,13 @@
 package scaldi.util
 
+import java.lang.annotation.Annotation
+
 import language.{postfixOps, implicitConversions}
+import scala.reflect.ClassTag
 import scala.reflect.runtime.universe
-import scala.reflect.runtime.universe.{TypeTag, runtimeMirror, TermName, MethodSymbol, Symbol}
+import scala.reflect.runtime.universe.{TypeTag, Type, runtimeMirror, TermName, MethodSymbol, TermSymbol, Symbol}
 import scala.reflect.internal.{Names, StdNames}
-import java.lang.reflect.{Method, Constructor}
+import java.lang.reflect.{Field, Method, Constructor}
 
 object ReflectionHelper {
   def getDefaultValueOfParam[T, C](paramName: String)(implicit tt: TypeTag[C]) = {
@@ -45,7 +48,19 @@ object ReflectionHelper {
     method.overrides.filter(o => o.isPublic || o.isProtected || (!o.isPrivate && getPackage(o) == origPackage))
   }
 
+  def classToType(clazz: Class[_]) =
+    mirror.classSymbol(clazz).toType
+
   private def getPackage(s: Symbol): Symbol = if (s.isPackage) s else getPackage(s.owner)
+
+  def hasAnnotation[T <: Annotation : TypeTag](a: Annotation): Boolean =
+    hasAnnotation[T](classToType(a.getClass))
+
+  def hasAnnotation[T <: Annotation : TypeTag](t: Type): Boolean = {
+    val expectedTpe = implicitly[TypeTag[T]].tpe
+
+    t.baseClasses flatMap (_.annotations) exists (_.tree.tpe =:= expectedTpe)
+  }
 
   // Dirty tricks to support JSR 330
 
@@ -67,9 +82,16 @@ object ReflectionHelper {
   def methodParamsAnnotations(method: MethodSymbol) = {
     val mirror = ReflectionHelper.mirror
     val methodToJava = mirror.classSymbol(mirror.getClass).typeSignature.member(TermName("methodToJava")).asMethod
-
     val jmethod = mirror.reflect(mirror: AnyRef).reflectMethod(methodToJava).apply(method).asInstanceOf[Method]
 
-   jmethod.getParameterAnnotations.toList map (_.toList)
+    jmethod.getAnnotations.toList -> jmethod.getParameterAnnotations.toList.map(_.toList)
+  }
+
+  def fieldAnnotations(field: TermSymbol) = {
+    val mirror = ReflectionHelper.mirror
+    val fieldToJava = mirror.classSymbol(mirror.getClass).typeSignature.member(TermName("fieldToJava")).asMethod
+    val jfield = mirror.reflect(mirror: AnyRef).reflectMethod(fieldToJava).apply(field).asInstanceOf[Field]
+
+    jfield.getAnnotations.toList
   }
 }

@@ -49,6 +49,10 @@ object CanBeIdentifier {
   implicit object TypeCanBeIdentifier extends CanBeIdentifier[Type] {
     def toIdentifier(tpe: Type) = TypeTagIdentifier(tpe)
   }
+
+  implicit def identifierCanBeIdentifier[I <: Identifier] = new CanBeIdentifier[I] {
+    def toIdentifier(id: I) = id
+  }
 }
 
 case class TypeTagIdentifier(tpe: Type) extends Identifier {

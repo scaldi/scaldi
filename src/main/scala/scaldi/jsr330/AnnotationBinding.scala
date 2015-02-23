@@ -137,12 +137,17 @@ case class AnnotationBinding(
     jConstructor.newInstance(actualParams: _*).asInstanceOf[AnyRef]
   }
 
-  private def injectField(inj: Injector, instance: AnyRef, field: Symbol) =
-    ReflectionHelper.mirror.reflect(instance).reflectField(field.asTerm) set injectSymbol(inj)(field -> Nil)
+  private def injectField(inj: Injector, instance: AnyRef, field: Symbol) = {
+    val term = field.asTerm
+    val fieldAnnotations = ReflectionHelper.fieldAnnotations(term)
+
+    ReflectionHelper.mirror.reflect(instance).reflectField(term) set injectSymbol(inj)(field -> fieldAnnotations)
+  }
+
 
   private def injectMethod(inj: Injector, instance: AnyRef, method: Symbol) = {
-    val annotations = ReflectionHelper.methodParamsAnnotations(method.asMethod)
-    val params = method.typeSignature.paramLists.head.zip(annotations).map(injectSymbol(inj))
+    val (methodAnnotations, paramsAnnotations) = ReflectionHelper.methodParamsAnnotations(method.asMethod)
+    val params = method.typeSignature.paramLists.head.zip(paramsAnnotations map (methodAnnotations ++ _)).map(injectSymbol(inj))
     val reflection = ReflectionHelper.mirror.reflect(instance)
 
     reflection.reflectMethod(method.asMethod).apply(params: _*)
@@ -154,34 +159,22 @@ case class AnnotationBinding(
 
     if (it <:< typeOf[JProvider[_]]) {
       val actualType = it.typeArgs(0)
-      val identifiers = TypeTagIdentifier(actualType) :: (symbolIds(s) ++ annotationIds(annotations))
+      val identifiers = TypeTagIdentifier(actualType) :: annotationIds(annotations)
 
       ScaldiProvider(() => inj.getBinding(identifiers) flatMap (_.get) getOrElse Injectable.noBindingFound(identifiers))
     } else {
-      val identifiers = TypeTagIdentifier(it) :: (symbolIds(s) ++ annotationIds(annotations))
+      val identifiers = TypeTagIdentifier(it) :: annotationIds(annotations)
 
       inj.getBinding(identifiers) flatMap (_.get) getOrElse Injectable.noBindingFound(identifiers)
     }
   }
 
-  private def symbolIds(s: Symbol) =
-    s.annotations map (a => (a.tree.tpe, a.tree.tpe.typeSymbol.annotations, a.tree.children.tail)) collect {
-      case (at, aa, args) if at =:= typeOf[Named] =>
-        val value = args
-          .collect {case AssignOrNamedArg(Ident(TermName("value")), Literal(Constant(b))) => b.asInstanceOf[String]}
-          .head
-
-        StringIdentifier(value)
-      case (at, aa, args) if aa.exists(_.tree.tpe =:= typeOf[Qualifier]) =>
-        AnnotationIdentifier(at)
-    }
-
   private def annotationIds(annotations: List[Annotation]) =
     annotations collect {
       case named: Named =>
         StringIdentifier(named.value())
-      case a if a.annotationType().getAnnotation(classOf[Qualifier]) != null =>
-        AnnotationIdentifier(ReflectionHelper.mirror.classSymbol(a.annotationType()).toType)
+      case a if ReflectionHelper.hasAnnotation[Qualifier](a) =>
+        AnnotationIdentifier.forAnnotation(a)
     }
 }
 
