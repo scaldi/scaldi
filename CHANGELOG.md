@@ -1,3 +1,9 @@
+## v0.5.4 (23.02.2015)
+
+* #45 - Caching information on binding
+* #46 - Annotation identifier should be able to also compare annotation values
+* #47 - Workaround for reflection API bug https://issues.scala-lang.org/browse/SI-9177
+
 ## v0.5.3 (02.02.2015)
 
 * Improved the unregister of a shutdown hook behavior
