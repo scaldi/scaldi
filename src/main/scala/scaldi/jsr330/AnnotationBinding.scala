@@ -75,6 +75,8 @@ case class AnnotationBinding(
 
   private var instance: Option[AnyRef] = None
 
+  override def isCacheable = singleton && condition.isEmpty
+
   override def get(lifecycleManager: LifecycleManager) = {
     val (instance, isNew) = getInstance()
 

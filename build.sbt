@@ -20,6 +20,7 @@ libraryDependencies ++= Seq(
 )
 
 fork := true
+testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
 git.remoteRepo := "git@github.com:scaldi/scaldi.git"
 
 // Publishing

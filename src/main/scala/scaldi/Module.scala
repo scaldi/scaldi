@@ -174,6 +174,8 @@ trait RawInjector extends Injector {
 case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
   val condition = None
   override def get = Some(value)
+
+  override def isCacheable = true
 }
 
 class SimpleContainerInjector(bindings: Injector => List[BindingWithLifecycle]) extends MutableInjectorUser with InjectorWithLifecycle[SimpleContainerInjector] with ShutdownHookLifecycleManager {

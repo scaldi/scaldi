@@ -11,6 +11,7 @@ trait Identifiable {
       (condition map (_() satisfies desiredIdentifiers) getOrElse true)
 
   def isEager: Boolean = false
+  def isCacheable: Boolean = false
 }
 
 trait Binding extends Identifiable {
@@ -22,6 +23,9 @@ object Binding {
     def get = binding get lifecycleManager
     def condition = binding.condition
     def identifiers = binding.identifiers
+
+    override def isEager = binding.isEager
+    override def isCacheable = binding.isCacheable
   }
 }
 
@@ -38,6 +42,9 @@ object BindingWithLifecycle {
     def identifiers = binding.identifiers
 
     def get(lifecycleManager: LifecycleManager) = binding.get
+
+    override def isEager = binding.isEager
+    override def isCacheable = binding.isCacheable
   }
 }
 
@@ -64,6 +71,7 @@ case class NonLazyBinding(
   }
 
   override def isEager = true
+  override def isCacheable = true
 }
 
 case class LazyBinding(
@@ -87,6 +95,8 @@ case class LazyBinding(
 
     target
   }
+
+  override def isCacheable = true
 }
 
 case class ProviderBinding(
@@ -96,6 +106,7 @@ case class ProviderBinding(
   lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty
 ) extends BindingWithLifecycle {
   def target = createFn() <| lifecycle.initializeObject
+
   override def get(lifecycleManager: LifecycleManager) = {
     val value = target
     lifecycle.destroy foreach (d => lifecycleManager addDestroyable (() => d(value)))
@@ -106,7 +117,12 @@ case class ProviderBinding(
 case class SimpleBinding[T](
   boundValue: Option[() => T],
   identifiers: List[Identifier] = Nil,
-  condition: Option[() => Condition] = None
+  condition: Option[() => Condition] = None,
+  cacheable: Boolean = false,
+  eager: Boolean = false
 ) extends Binding {
   lazy val get = boundValue map (_())
+
+  override def isCacheable = cacheable && condition.isEmpty
+  override def isEager = eager
 }
