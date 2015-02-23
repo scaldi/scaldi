@@ -47,7 +47,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">AnnotationIdentifier</span><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>)</span><span class="result"> extends <a href="../Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">AnnotationIdentifier</span><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>, <span name="annotation">annotation: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="java.lang.annotation.Annotation">Annotation</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="../Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
@@ -92,7 +92,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="scaldi.jsr330.AnnotationIdentifier#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(tpe:reflect.runtime.universe.Type):scaldi.jsr330.AnnotationIdentifier"></a>
+      <a id="&lt;init&gt;(tpe:reflect.runtime.universe.Type,annotation:Option[java.lang.annotation.Annotation]):scaldi.jsr330.AnnotationIdentifier"></a>
       <a id="&lt;init&gt;:AnnotationIdentifier"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -100,10 +100,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">AnnotationIdentifier</span><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>)</span>
+        <span class="name">AnnotationIdentifier</span><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>, <span name="annotation">annotation: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="java.lang.annotation.Annotation">Annotation</span>] = <span class="symbol">None</span></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#scaldi.jsr330.AnnotationIdentifier@&lt;init&gt;(tpe:reflect.runtime.universe.Type):scaldi.jsr330.AnnotationIdentifier" title="Permalink" target="_top">
+      <a href="../../index.html#scaldi.jsr330.AnnotationIdentifier@&lt;init&gt;(tpe:reflect.runtime.universe.Type,annotation:Option[java.lang.annotation.Annotation]):scaldi.jsr330.AnnotationIdentifier" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" />
       </a>
     </span>
@@ -168,6 +168,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scaldi.jsr330.AnnotationIdentifier#annotation" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="annotation:Option[java.lang.annotation.Annotation]"></a>
+      <a id="annotation:Option[Annotation]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">annotation</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="java.lang.annotation.Annotation">Annotation</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.AnnotationIdentifier@annotation:Option[java.lang.annotation.Annotation]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>

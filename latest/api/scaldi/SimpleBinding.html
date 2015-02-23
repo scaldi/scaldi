@@ -45,7 +45,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">SimpleBinding</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="boundValue">boundValue: <span class="extype" name="scala.Option">Option</span>[() ⇒ <span class="extype" name="scaldi.SimpleBinding.T">T</span>]</span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">SimpleBinding</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="boundValue">boundValue: <span class="extype" name="scala.Option">Option</span>[() ⇒ <span class="extype" name="scaldi.SimpleBinding.T">T</span>]</span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">None</span></span>, <span name="cacheable">cacheable: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="eager">eager: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result"> extends <a href="Binding.html" class="extype" name="scaldi.Binding">Binding</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
@@ -90,7 +90,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="scaldi.SimpleBinding#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(boundValue:Option[()=&gt;T],identifiers:List[scaldi.Identifier],condition:Option[()=&gt;scaldi.Condition]):scaldi.SimpleBinding[T]"></a>
+      <a id="&lt;init&gt;(boundValue:Option[()=&gt;T],identifiers:List[scaldi.Identifier],condition:Option[()=&gt;scaldi.Condition],cacheable:Boolean,eager:Boolean):scaldi.SimpleBinding[T]"></a>
       <a id="&lt;init&gt;:SimpleBinding[T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -98,10 +98,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">SimpleBinding</span><span class="params">(<span name="boundValue">boundValue: <span class="extype" name="scala.Option">Option</span>[() ⇒ <span class="extype" name="scaldi.SimpleBinding.T">T</span>]</span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">None</span></span>)</span>
+        <span class="name">SimpleBinding</span><span class="params">(<span name="boundValue">boundValue: <span class="extype" name="scala.Option">Option</span>[() ⇒ <span class="extype" name="scaldi.SimpleBinding.T">T</span>]</span>, <span name="identifiers">identifiers: <span class="extype" name="scala.List">List</span>[<a href="Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a>] = <span class="symbol">Nil</span></span>, <span name="condition">condition: <span class="extype" name="scala.Option">Option</span>[() ⇒ <a href="Condition.html" class="extype" name="scaldi.Condition">Condition</a>] = <span class="symbol">None</span></span>, <span name="cacheable">cacheable: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="eager">eager: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#scaldi.SimpleBinding@&lt;init&gt;(boundValue:Option[()=&gt;T],identifiers:List[scaldi.Identifier],condition:Option[()=&gt;scaldi.Condition]):scaldi.SimpleBinding[T]" title="Permalink" target="_top">
+      <a href="../index.html#scaldi.SimpleBinding@&lt;init&gt;(boundValue:Option[()=&gt;T],identifiers:List[scaldi.Identifier],condition:Option[()=&gt;scaldi.Condition],cacheable:Boolean,eager:Boolean):scaldi.SimpleBinding[T]" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
     </span>
@@ -200,6 +200,23 @@
       </a>
     </span>
       
+    </li><li name="scaldi.SimpleBinding#cacheable" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="cacheable:Boolean"></a>
+      <a id="cacheable:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">cacheable</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.SimpleBinding@cacheable:Boolean" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -240,6 +257,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.SimpleBinding">SimpleBinding</a> → <a href="Identifiable.html" class="extype" name="scaldi.Identifiable">Identifiable</a></dd></dl></div>
+    </li><li name="scaldi.SimpleBinding#eager" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="eager:Boolean"></a>
+      <a id="eager:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eager</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.SimpleBinding@eager:Boolean" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -331,6 +365,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.SimpleBinding">SimpleBinding</a> → <a href="Identifiable.html" class="extype" name="scaldi.Identifiable">Identifiable</a></dd></dl></div>
+    </li><li name="scaldi.SimpleBinding#isCacheable" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isCacheable:Boolean"></a>
+      <a id="isCacheable:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isCacheable</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#scaldi.SimpleBinding@isCacheable:Boolean" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.SimpleBinding">SimpleBinding</a> → <a href="Identifiable.html" class="extype" name="scaldi.Identifiable">Identifiable</a></dd></dl></div>
     </li><li name="scaldi.Identifiable#isDefinedFor" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isDefinedFor(desiredIdentifiers:List[scaldi.Identifier]):Boolean"></a>
       <a id="isDefinedFor(List[Identifier]):Boolean"></a>
@@ -348,7 +399,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Identifiable.html" class="extype" name="scaldi.Identifiable">Identifiable</a></dd></dl></div>
-    </li><li name="scaldi.Identifiable#isEager" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="scaldi.SimpleBinding#isEager" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isEager:Boolean"></a>
       <a id="isEager:Boolean"></a>
       <h4 class="signature">
@@ -364,7 +415,7 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Identifiable.html" class="extype" name="scaldi.Identifiable">Identifiable</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.SimpleBinding">SimpleBinding</a> → <a href="Identifiable.html" class="extype" name="scaldi.Identifiable">Identifiable</a></dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>

@@ -115,7 +115,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="AnnotationIdentifier.html"><span class="name">AnnotationIdentifier</span></a><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>)</span><span class="result"> extends <a href="../Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="AnnotationIdentifier.html"><span class="name">AnnotationIdentifier</span></a><span class="params">(<span name="tpe">tpe: <span class="extype" name="scala.reflect.api.Types.Type">scala.reflect.api.JavaUniverse.Type</span></span>, <span name="annotation">annotation: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="java.lang.annotation.Annotation">Annotation</span>] = <span class="symbol">None</span></span>)</span><span class="result"> extends <a href="../Identifier.html" class="extype" name="scaldi.Identifier">Identifier</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#scaldi.jsr330.package@AnnotationIdentifierextendsIdentifierwithProductwithSerializable" title="Permalink" target="_top">
@@ -200,7 +200,7 @@
     </span>
       
     </li><li name="scaldi.jsr330#annotated" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="annotated[T&lt;:AnyRef](instance:T)(implicitevidence$3:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]"></a>
+      <a id="annotated[T&lt;:AnyRef](instance:T)(implicitevidence$4:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]"></a>
       <a id="annotated[T&lt;:AnyRef](T)(scala.reflect.api.JavaUniverse.TypeTag[T],()⇒Injector):WordBindingProvider[T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -211,13 +211,13 @@
         <span class="name">annotated</span><span class="tparams">[<span name="T">T &lt;: <span class="extype" name="scala.AnyRef">AnyRef</span></span>]</span><span class="params">(<span name="instance">instance: <span class="extype" name="scaldi.jsr330.annotated.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.reflect.api.TypeTags.TypeTag">scala.reflect.api.JavaUniverse.TypeTag</span>[<span class="extype" name="scaldi.jsr330.annotated.T">T</span>]</span>, <span name="injector">injector: () ⇒ <a href="../Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>)</span><span class="result">: <a href="../WordBindingProvider.html" class="extype" name="scaldi.WordBindingProvider">WordBindingProvider</a>[<span class="extype" name="scaldi.jsr330.annotated.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#scaldi.jsr330.package@annotated[T&lt;:AnyRef](instance:T)(implicitevidence$3:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]" title="Permalink" target="_top">
+      <a href="../../index.html#scaldi.jsr330.package@annotated[T&lt;:AnyRef](instance:T)(implicitevidence$4:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" />
       </a>
     </span>
       
     </li><li name="scaldi.jsr330#annotated" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="annotated[T](implicitevidence$2:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]"></a>
+      <a id="annotated[T](implicitevidence$3:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]"></a>
       <a id="annotated[T](scala.reflect.api.JavaUniverse.TypeTag[T],()⇒Injector):WordBindingProvider[T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -228,7 +228,24 @@
         <span class="name">annotated</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.reflect.api.TypeTags.TypeTag">scala.reflect.api.JavaUniverse.TypeTag</span>[<span class="extype" name="scaldi.jsr330.annotated.T">T</span>]</span>, <span name="injector">injector: () ⇒ <a href="../Injector.html" class="extype" name="scaldi.Injector">Injector</a></span>)</span><span class="result">: <a href="../WordBindingProvider.html" class="extype" name="scaldi.WordBindingProvider">WordBindingProvider</a>[<span class="extype" name="scaldi.jsr330.annotated.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../index.html#scaldi.jsr330.package@annotated[T](implicitevidence$2:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]" title="Permalink" target="_top">
+      <a href="../../index.html#scaldi.jsr330.package@annotated[T](implicitevidence$3:reflect.runtime.universe.TypeTag[T],implicitinjector:()=&gt;scaldi.Injector):scaldi.WordBindingProvider[T]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li><li name="scaldi.jsr330#annotation" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="annotation[A&lt;:java.lang.annotation.Annotation](a:A)(implicitevidence$2:reflect.runtime.universe.TypeTag[A]):scaldi.jsr330.AnnotationIdentifier"></a>
+      <a id="annotation[A&lt;:Annotation](A)(scala.reflect.api.JavaUniverse.TypeTag[A]):AnnotationIdentifier"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">annotation</span><span class="tparams">[<span name="A">A &lt;: <span class="extype" name="java.lang.annotation.Annotation">Annotation</span></span>]</span><span class="params">(<span name="a">a: <span class="extype" name="scaldi.jsr330.annotation.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.reflect.api.TypeTags.TypeTag">scala.reflect.api.JavaUniverse.TypeTag</span>[<span class="extype" name="scaldi.jsr330.annotation.A">A</span>]</span>)</span><span class="result">: <a href="AnnotationIdentifier.html" class="extype" name="scaldi.jsr330.AnnotationIdentifier">AnnotationIdentifier</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#scaldi.jsr330.package@annotation[A&lt;:java.lang.annotation.Annotation](a:A)(implicitevidence$2:reflect.runtime.universe.TypeTag[A]):scaldi.jsr330.AnnotationIdentifier" title="Permalink" target="_top">
         <img src="../../lib/permalink.png" />
       </a>
     </span>
