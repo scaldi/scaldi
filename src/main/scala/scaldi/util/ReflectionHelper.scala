@@ -3,7 +3,6 @@ package scaldi.util
 import java.lang.annotation.Annotation
 
 import language.{postfixOps, implicitConversions}
-import scala.reflect.ClassTag
 import scala.reflect.runtime.universe
 import scala.reflect.runtime.universe.{TypeTag, Type, runtimeMirror, TermName, MethodSymbol, TermSymbol, Symbol}
 import scala.reflect.internal.{Names, StdNames}
@@ -62,7 +61,17 @@ object ReflectionHelper {
     t.baseClasses flatMap (_.annotations) exists (_.tree.tpe =:= expectedTpe)
   }
 
-  // Dirty tricks to support JSR 330
+  // Dirty tricks to compensate for scala reflection API missing feature or bugs
+
+  // Workaround for https://issues.scala-lang.org/browse/SI-9177
+  // TODO: get rid of this workaround as soon as https://issues.scala-lang.org/browse/SI-9177 is resolved!
+  def isAssignableFrom(a: Type, b: Type) =
+    try {
+      b <:< a
+    } catch {
+      case e: Throwable if e.getMessage.contains("illegal cyclic reference") =>
+        false
+    }
 
   /**
    * Dirty little trick to convert java constructor to scala constructor.

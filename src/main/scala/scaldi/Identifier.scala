@@ -1,5 +1,7 @@
 package scaldi
 
+import scaldi.util.ReflectionHelper
+
 import language.{existentials, implicitConversions}
 
 import scala.reflect.runtime.universe.{TypeTag, Type}
@@ -58,7 +60,7 @@ object CanBeIdentifier {
 case class TypeTagIdentifier(tpe: Type) extends Identifier {
   def sameAs(other: Identifier) =
     other match {
-      case TypeTagIdentifier(otherTpe) if tpe <:< otherTpe => true
+      case TypeTagIdentifier(otherTpe) if ReflectionHelper.isAssignableFrom(otherTpe, tpe) => true
       case _ => false
     }
 }

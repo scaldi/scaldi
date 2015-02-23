@@ -9,7 +9,7 @@ import java.lang.annotation.Annotation
 case class AnnotationIdentifier(tpe: Type, annotation: Option[Annotation] = None) extends Identifier {
   def sameAs(other: Identifier) =
     other match {
-      case AnnotationIdentifier(otherTpe, otherAnnotation) if tpe <:< otherTpe =>
+      case AnnotationIdentifier(otherTpe, otherAnnotation) if ReflectionHelper.isAssignableFrom(otherTpe, tpe) =>
         (annotation, otherAnnotation) match {
           case (None, _) => true
           case (Some(a), Some(oa)) => a == oa
