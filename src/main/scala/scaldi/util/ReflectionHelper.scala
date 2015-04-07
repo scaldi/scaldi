@@ -69,7 +69,7 @@ object ReflectionHelper {
     try {
       b <:< a
     } catch {
-      case e: Throwable if e.getMessage.contains("illegal cyclic reference") =>
+      case e: Throwable if e.getMessage != null && e.getMessage.contains("illegal cyclic reference") =>
         false
     }
 
