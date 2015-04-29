@@ -1,3 +1,7 @@
+## v0.5.5 (23.02.2015)
+
+Minor bugfix release
+
 ## v0.5.4 (23.02.2015)
 
 * #45 - Caching information on binding
