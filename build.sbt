@@ -1,12 +1,12 @@
 name := "scaldi"
 organization := "org.scaldi"
-version := "0.6.0-SNAPSHOT"
+version := "0.5.5-SNAPSHOT"
 
 description := "Scaldi - Scala Dependency Injection Library"
 homepage := Some(url("http://scaldi.org"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-scalaVersion := "2.11.5"
+scalaVersion := "2.11.6"
 scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(

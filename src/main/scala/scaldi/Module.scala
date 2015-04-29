@@ -184,11 +184,6 @@ class SimpleContainerInjector(bindings: Injector => List[BindingWithLifecycle]) 
   def getBindingInternal(identifiers: List[Identifier]) = preparedBindings find (_ isDefinedFor identifiers)
   def getBindingsInternal(identifiers: List[Identifier]) = preparedBindings filter (_ isDefinedFor identifiers)
 
-  protected def init(lifecycleManager: LifecycleManager) = {
-    preparedBindings.foreach { binding =>
-      if (binding.isEager) binding.get(lifecycleManager)
-    }
-
-    () => ()
-  }
+  protected def init(lifecycleManager: LifecycleManager) =
+    preparedBindings |> (b => () => b.filter(_.isEager).foreach(_ get lifecycleManager))
 }
