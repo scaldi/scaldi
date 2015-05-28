@@ -12,15 +12,11 @@ scalacOptions ++= Seq("-deprecation", "-feature")
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
   "com.typesafe" % "config" % "1.2.1" % "optional",
-  "javax.inject" % "javax.inject" % "1",
 
-  "org.scalatest" %% "scalatest" % "2.2.1" % "test",
-  "com.novocode" % "junit-interface" % "0.11" % "test",
-  "javax.inject" % "javax.inject-tck" % "1" % "test"
+  "org.scalatest" %% "scalatest" % "2.2.1" % "test"
 )
 
 fork := true
-testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
 git.remoteRepo := "git@github.com:scaldi/scaldi.git"
 
 // Publishing
