@@ -1,3 +1,7 @@
+## v0.5.6 (28.05.2015)
+
+Extracted JSR 330 implementation in separate project: https://github.com/scaldi/scaldi-jsr330
+
 ## v0.5.5 (29.04.2015)
 
 Minor bugfix release
