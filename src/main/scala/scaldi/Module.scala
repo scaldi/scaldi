@@ -1,16 +1,17 @@
 package scaldi
 
-import scaldi.util.Util._
-import scala.concurrent.duration.Duration
-import scala.util.control.NonFatal
-import sys._
-
+import java.io.{File, FileInputStream, InputStream}
 import java.util.Properties
-import java.io.{InputStream, FileInputStream, File}
-import scala.reflect.runtime.universe.{TypeTag, Type, typeOf}
-import scaldi.util.ReflectionHelper._
+
 import com.typesafe.config._
+import scaldi.injectable.{Injectable, OpenInjectable}
+import scaldi.util.Util._
+
 import scala.collection.JavaConverters._
+import scala.concurrent.duration.Duration
+import scala.reflect.runtime.universe.{Type, typeOf}
+import scala.sys._
+import scala.util.control.NonFatal
 
 /**
  * Standard application module

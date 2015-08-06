@@ -1,5 +1,7 @@
 package scaldi
 
+import scaldi.injectable.Injectable
+
 trait Server
 case class HttpServer(host: String, port: Int) extends Server
 class LifecycleServer extends Server {
@@ -29,7 +31,8 @@ class TcpServer(implicit inj: Injector) extends Server with Injectable  {
   def getConnection = new TcpConnection
 }
 
-import scaldi.Injectable._
+import scaldi.injectable.Injectable
+import Injectable._
 
 class TcpConnection(implicit inj: Injector) {
   val welcomeMessage = inject [String] ('welcome is by default "Hi")
