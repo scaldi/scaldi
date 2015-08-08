@@ -3,7 +3,6 @@ package scaldi
 import java.util.concurrent.atomic.AtomicInteger
 
 import org.scalatest.{Matchers, WordSpec}
-import scaldi.injectable.Injectable
 import scaldi.util.JvmTestUtil
 
 class LifecycleSpec extends WordSpec with Matchers {

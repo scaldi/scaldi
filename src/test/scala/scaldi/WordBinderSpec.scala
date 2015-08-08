@@ -1,7 +1,6 @@
 package scaldi
 
 import org.scalatest.{Matchers, WordSpec}
-import scaldi.injectable.Injectable
 import scala.util.Random
 
 class WordBinderSpec extends WordSpec with Matchers {

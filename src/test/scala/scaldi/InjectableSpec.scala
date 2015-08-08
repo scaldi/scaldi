@@ -3,8 +3,6 @@ package scaldi
 import org.scalatest.{Matchers, WordSpec}
 import java.text.DateFormat
 
-import scaldi.injectable.Injectable
-
 class InjectableSpec extends WordSpec with Matchers {
 
   "Injectable" should {
@@ -37,7 +35,7 @@ class InjectableSpec extends WordSpec with Matchers {
       server.getConnection.welcomeMessage should equal ("Hi")
     }
 
-    import Injectable._
+    import scaldi.Injectable._
     val defaultDb = PostgresqlDatabase("default_db")
 
     "inject by type" in {

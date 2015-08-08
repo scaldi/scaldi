@@ -1,7 +1,6 @@
 package scaldi
 
 import org.scalatest.{Matchers, WordSpec}
-import scaldi.injectable.Injectable
 import Injectable.inject
 import java.util.Date
 

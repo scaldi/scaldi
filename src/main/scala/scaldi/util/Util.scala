@@ -15,15 +15,15 @@ object Util {
 
   def createCache[K, V]: Cache[K, V] = new collection.mutable.HashMap[K, V]()
 
-  implicit def toCacheUtils[K, V](cache: Cache[K, V]): CacheUtils[K, V] = new CacheUtils(cache)
+  implicit def toCacheUtils[K, V](cache: Cache[K, V]) = new CacheUtils(cache)
 
   class CacheUtils[K, V](cache: Cache[K, V]) {
     def caching(key: K)(fn: => V): V = cache.synchronized {
-      cache.getOrElse(key, {
+      cache get key getOrElse {
         val result = fn
         cache += key -> result
         result
-      })
+      }
     }
   }
 
