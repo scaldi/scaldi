@@ -9,17 +9,14 @@ import scala.language.{implicitConversions, postfixOps}
 import scala.reflect.runtime.universe.TypeTag
 
 /**
- * The only responsibility of this trait is to provide you with inject function
- * (so it just provides nice syntax for injecting dependencies).
- *
- *
- * It’s important to understand, that it’s the only purpose of it. So it is
- * completely stateless and knows nothing about actual bindings you have
- * defined in the module.
- *
- *
- * In order to actually find and inject dependencies, "inject" method always
- * takes an implicit parameter of type Injector.
+ * Provides injection DSL. You can extend it in your classes in order
+ * to use inject methods.
+ * Example:
+ * {{{
+ * Application (implicit inj: Injector) extends Injectable {
+ *    protected val db = inject[Database] // database can now be used as an instance of Database class`
+ * }
+ * }}}
  */
 trait Injectable extends Wire {
   /**
@@ -144,8 +141,11 @@ trait Injectable extends Wire {
     injector getBinding identifiers flatMap (_.get) map (_.asInstanceOf[T]) getOrElse default
 
   /**
-   * Injects a dependency defined by TypeClass. If dependency is not found, initializes it with constructor
-   * Constructor must have a parameter paramName with a default value
+   * Injects a dependency defined by type `T`. If dependency is not found, initializes it with the default
+   * value from the constructor of type `T`.
+   * This implies, that constructor must have one constructor with parameter `paramName` which has
+   * a default value. Method is part of `injected` macro implementation and not intended to be used outside of it.
+   * Uses reflection.
    *
    * @param paramName name of the
    * @param injector implicit Injector, should be defined in the scope. It's used to lookup bindings
@@ -164,7 +164,7 @@ trait Injectable extends Wire {
    * @param identifiers a list of identifiers
    */
   protected def noBindingFound(identifiers: List[Identifier]) =
-    throw new InjectException(identifiers map ("  * " +) mkString ("No binding found with following identifiers:\n", "\n", ""))
+    throw new InjectException(identifiers map ("  * " +) mkString("No binding found with following identifiers:\n", "\n", ""))
 
   /**
    * Implicit cast of classes that can be identifiers to an InjectConstraints with the identified as a first element
@@ -175,7 +175,7 @@ trait Injectable extends Wire {
    * @tparam T class that qualifies as an identifier
    * @return InjectConstraints
    */
-  protected implicit def canBeIdentifiedToConstraints[T : CanBeIdentifier](target: T): InjectConstraints[Nothing] =
+  protected implicit def canBeIdentifiedToConstraints[T: CanBeIdentifier](target: T): InjectConstraints[Nothing] =
     new InjectConstraints[Nothing](initialIdentifiers = List(implicitly[CanBeIdentifier[T]].toIdentifier(target)))
 
   /**
@@ -236,7 +236,15 @@ trait OpenInjectable extends Injectable {
 }
 
 /**
- * Injectable trait is completely stateless, so it can be declared as an Object
+ * Companion object of Injectable which can be just imported in contrast
+ * to Injectable trait which always need to be extended. After importing
+ * it, you can use an injection DSL without extending the trait.
+ * Example:
+ * {{{
+ * import scaldi.Injectable._
+ *
+ * val database = inject [Database]
+ * }}}
  */
 object Injectable extends OpenInjectable
 
@@ -269,7 +277,7 @@ class ByWord(initialIdentifiers: List[Identifier] = Nil) {
  * @tparam T class of the default parameter
  */
 case class InjectConstraints[+T](default: Option[() => T] = None, initialIdentifiers: List[Identifier] = Nil) {
-  var identifiers : List[Identifier] = initialIdentifiers
+  var identifiers: List[Identifier] = initialIdentifiers
 
   /**
    * Appends identifier to a current list of identifiers
