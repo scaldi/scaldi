@@ -228,7 +228,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Helper class to make injection with default value more readable.</p>
     </li><li name="scaldi.CanBeConditional" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="CanBeConditional[R]extendsAnyRef"></a>
       <a id="CanBeConditional[R]:CanBeConditional[R]"></a>
@@ -394,7 +394,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
-    </li><li name="scaldi.IdentifiedWord" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.IdentifiedWord" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="IdentifiedWord[+T]extendsAnyRef"></a>
       <a id="IdentifiedWord[+T]:IdentifiedWord[T]"></a>
       <h4 class="signature">
@@ -410,7 +410,9 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Helper class to make injection by identifier more readable.</p><div class="fullcomment"><div class="comment cmt"><p>Helper class to make injection by identifier more readable.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the dependency being injected
+</p></dd></dl></div>
     </li><li name="scaldi.Identifier" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="IdentifierextendsAnyRef"></a>
       <a id="Identifier:Identifier"></a>
@@ -496,7 +498,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
-    </li><li name="scaldi.InjectConstraints" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.InjectConstraints" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="InjectConstraints[+T]extendsProductwithSerializable"></a>
       <a id="InjectConstraints[+T]:InjectConstraints[T]"></a>
       <h4 class="signature">
@@ -512,7 +514,9 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">A wrapper for a default value for the injection and for its identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>A wrapper for a default value for the injection and for its identifiers.</p><p>It is here to make injection constraints look like natural language.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the dependency being injected
+</p></dd><dt class="param">default</dt><dd class="cmt"><p>default value for injected instance. It would be used if biding is not found in the <code>Injector</code>.</p></dd><dt class="param">initialIdentifiers</dt><dd class="cmt"><p>identifiers</p></dd></dl></div>
     </li><li name="scaldi.InjectException" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="InjectExceptionextendsRuntimeException"></a>
       <a id="InjectException:InjectException"></a>
@@ -530,7 +534,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
-    </li><li name="scaldi.Injectable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.Injectable" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="InjectableextendsWire"></a>
       <a id="Injectable:Injectable"></a>
       <h4 class="signature">
@@ -546,7 +550,12 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Provides injection DSL.</p><div class="fullcomment"><div class="comment cmt"><p>Provides injection DSL. You can extend it in your classes in order
+to use inject methods.</p><p>The only responsibility of this trait is to provide you with inject function
+(so it just provides nice syntax for injecting dependencies).</p><p>In order to actually find and inject dependencies, <code>inject</code> method always
+takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pre>Application (<span class="kw">implicit</span> inj: Injector) <span class="kw">extends</span> Injectable {
+   <span class="kw">protected</span> <span class="kw">val</span> db = inject [Database] <span class="cmt">// database can now be used as an instance of Database class`</span>
+}</pre></div></div>
     </li><li name="scaldi.Injector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="InjectorextendsAnyRef"></a>
       <a id="Injector:Injector"></a>
@@ -768,7 +777,8 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Exactly the same as Injectable trait, but with all methods made public
+</p>
     </li><li name="scaldi.OrCondition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="OrConditionextendsConditionwithProductwithSerializable"></a>
       <a id="OrCondition:OrCondition"></a>
@@ -1278,7 +1288,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </a>
     </span>
       
-    </li><li name="scaldi.Injectable" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.Injectable" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Injectable"></a>
       <a id="Injectable:Injectable"></a>
       <h4 class="signature">
@@ -1294,7 +1304,12 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Companion object of Injectable which can be just imported in contrast
+to Injectable trait which always need to be extended.</p><div class="fullcomment"><div class="comment cmt"><p>Companion object of Injectable which can be just imported in contrast
+to Injectable trait which always need to be extended. After importing
+it, you can use an injection DSL without extending the trait.</p><p>Example:</p><pre><span class="kw">import</span> scaldi.Injectable._
+
+<span class="kw">val</span> database = inject [Database]</pre></div></div>
     </li><li name="scaldi.Injector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Injector"></a>
       <a id="Injector:Injector"></a>

@@ -49,7 +49,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Helper class to make injection by identifier more readable.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the dependency being injected
+</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -89,7 +91,7 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="scaldi.IdentifiedWord#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="scaldi.IdentifiedWord#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="&lt;init&gt;(default:Option[()=&gt;T],initialIdentifiers:List[scaldi.Identifier]):scaldi.IdentifiedWord[T]"></a>
       <a id="&lt;init&gt;:IdentifiedWord[T]"></a>
       <h4 class="signature">
@@ -105,7 +107,7 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">default</dt><dd class="cmt"><p>default value for injected instance. It would be used if biding is not found in the <code>Injector</code>.</p></dd><dt class="param">initialIdentifiers</dt><dd class="cmt"><p>identifiers</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -184,18 +186,18 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="scaldi.IdentifiedWord#by" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="by[T](target:T*)(implicitevidence$3:scaldi.CanBeIdentifier[T]):scaldi.InjectConstraints[T]"></a>
-      <a id="by[T](T*)(CanBeIdentifier[T]):InjectConstraints[T]"></a>
+      <a id="by[I](target:I*)(implicitevidence$3:scaldi.CanBeIdentifier[I]):scaldi.InjectConstraints[T]"></a>
+      <a id="by[I](I*)(CanBeIdentifier[I]):InjectConstraints[T]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">by</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="target">target: <span class="extype" name="scaldi.IdentifiedWord.by.T">T</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="CanBeIdentifier.html" class="extype" name="scaldi.CanBeIdentifier">CanBeIdentifier</a>[<span class="extype" name="scaldi.IdentifiedWord.by.T">T</span>]</span>)</span><span class="result">: <a href="InjectConstraints.html" class="extype" name="scaldi.InjectConstraints">InjectConstraints</a>[<span class="extype" name="scaldi.IdentifiedWord.T">T</span>]</span>
+        <span class="name">by</span><span class="tparams">[<span name="I">I</span>]</span><span class="params">(<span name="target">target: <span class="extype" name="scaldi.IdentifiedWord.by.I">I</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="CanBeIdentifier.html" class="extype" name="scaldi.CanBeIdentifier">CanBeIdentifier</a>[<span class="extype" name="scaldi.IdentifiedWord.by.I">I</span>]</span>)</span><span class="result">: <a href="InjectConstraints.html" class="extype" name="scaldi.InjectConstraints">InjectConstraints</a>[<span class="extype" name="scaldi.IdentifiedWord.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#scaldi.IdentifiedWord@by[T](target:T*)(implicitevidence$3:scaldi.CanBeIdentifier[T]):scaldi.InjectConstraints[T]" title="Permalink" target="_top">
+      <a href="../index.html#scaldi.IdentifiedWord@by[I](target:I*)(implicitevidence$3:scaldi.CanBeIdentifier[I]):scaldi.InjectConstraints[T]" title="Permalink" target="_top">
         <img src="../lib/permalink.png" />
       </a>
     </span>

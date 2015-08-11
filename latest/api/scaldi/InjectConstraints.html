@@ -49,7 +49,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A wrapper for a default value for the injection and for its identifiers.</p><p>It is here to make injection constraints look like natural language.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the dependency being injected
+</p></dd><dt class="param">default</dt><dd class="cmt"><p>default value for injected instance. It would be used if biding is not found in the <code>Injector</code>.</p></dd><dt class="param">initialIdentifiers</dt><dd class="cmt"><p>identifiers</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -89,7 +91,7 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="scaldi.InjectConstraints#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="scaldi.InjectConstraints#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="&lt;init&gt;(default:Option[()=&gt;T],initialIdentifiers:List[scaldi.Identifier]):scaldi.InjectConstraints[T]"></a>
       <a id="&lt;init&gt;:InjectConstraints[T]"></a>
       <h4 class="signature">
@@ -105,7 +107,7 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">default</dt><dd class="cmt"><p>default value for injected instance. It would be used if biding is not found in the <code>Injector</code>.</p></dd><dt class="param">initialIdentifiers</dt><dd class="cmt"><p>identifiers</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -166,7 +168,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scaldi.InjectConstraints#and" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.InjectConstraints#and" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="and(by:scaldi.IdentifiedWord[_]):scaldi.IdentifiedWord[T]"></a>
       <a id="and(IdentifiedWord[_]):IdentifiedWord[T]"></a>
       <h4 class="signature">
@@ -182,8 +184,11 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
-    </li><li name="scaldi.InjectConstraints#and" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Helper method to make possible that &quot;identified&quot; follows &quot;and&quot; word.</p><div class="fullcomment"><div class="comment cmt"><p>Helper method to make possible that &quot;identified&quot; follows &quot;and&quot; word.</p><p>Example:
+<code>inject [Database] (by default defaultDb and identified by 'remote)</code>
+</p></div><dl class="paramcmts block"><dt class="param">by</dt><dd class="cmt"><p><code>IdentifiedWord</code> that follows the &quot;and&quot;
+</p></dd></dl></div>
+    </li><li name="scaldi.InjectConstraints#and" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="and(by:scaldi.ByWord):scaldi.ByWord"></a>
       <a id="and(ByWord):ByWord"></a>
       <h4 class="signature">
@@ -199,8 +204,11 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
-    </li><li name="scaldi.InjectConstraints#and" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Helper method to define a default value for injection.</p><div class="fullcomment"><div class="comment cmt"><p>Helper method to define a default value for injection.</p><p>Example:
+<code>inject [Database] ('database and by default defaultDb)</code>
+</p></div><dl class="paramcmts block"><dt class="param">by</dt><dd class="cmt"><p><code>ByWord</code> that follows the &quot;and&quot;
+</p></dd></dl></div>
+    </li><li name="scaldi.InjectConstraints#and" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="and(ids:scaldi.Identifier*):scaldi.InjectConstraints[T]"></a>
       <a id="and(Identifier*):InjectConstraints[T]"></a>
       <h4 class="signature">
@@ -216,7 +224,9 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Appends identifier to a current list of identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>Appends identifier to a current list of identifiers.
+</p></div><dl class="paramcmts block"><dt class="param">ids</dt><dd class="cmt"><p>one or many other identifiers
+</p></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -257,7 +267,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="scaldi.InjectConstraints#default" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.InjectConstraints#default" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="default:Option[()=&gt;T]"></a>
       <a id="default:Option[()⇒T]"></a>
       <h4 class="signature">
@@ -273,7 +283,7 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">default value for injected instance.</p><div class="fullcomment"><div class="comment cmt"><p>default value for injected instance. It would be used if biding is not found in the <code>Injector</code>.</p></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -364,8 +374,8 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
-    </li><li name="scaldi.InjectConstraints#is" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">identifiers</p>
+    </li><li name="scaldi.InjectConstraints#is" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="is(by:scaldi.ByWord):scaldi.ByWord"></a>
       <a id="is(ByWord):ByWord"></a>
       <h4 class="signature">
@@ -381,7 +391,10 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Alias to &quot;and&quot;</p><div class="fullcomment"><div class="comment cmt"><p>Alias to &quot;and&quot;</p><p>Example:
+<code>inject [Database] ('remote is by default defaultDb)</code>
+</p></div><dl class="paramcmts block"><dt class="param">by</dt><dd class="cmt"><p><code>ByWord</code> that follows the &quot;is&quot;
+</p></dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -467,7 +480,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scaldi.InjectConstraints#that" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.InjectConstraints#that" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="that(by:scaldi.ByWord):scaldi.ByWord"></a>
       <a id="that(ByWord):ByWord"></a>
       <h4 class="signature">
@@ -483,7 +496,10 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Alias to &quot;and&quot;</p><div class="fullcomment"><div class="comment cmt"><p>Alias to &quot;and&quot;</p><p>Example:
+<code>inject [Database] ('remote that by default defaultDb)</code>
+</p></div><dl class="paramcmts block"><dt class="param">by</dt><dd class="cmt"><p><code>ByWord</code> that follows the &quot;that&quot;
+</p></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -553,7 +569,7 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="scaldi.InjectConstraints#which" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.InjectConstraints#which" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="which(by:scaldi.ByWord):scaldi.ByWord"></a>
       <a id="which(ByWord):ByWord"></a>
       <h4 class="signature">
@@ -569,7 +585,10 @@
         <img src="../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Alias to &quot;and&quot;</p><div class="fullcomment"><div class="comment cmt"><p>Alias to &quot;and&quot;</p><p>Example:
+<code>inject [Database] ('remote which by default defaultDb)</code>
+</p></div><dl class="paramcmts block"><dt class="param">by</dt><dd class="cmt"><p>ByWord that follows the &quot;which&quot;
+</p></dd></dl></div>
     </li></ol>
             </div>
 
