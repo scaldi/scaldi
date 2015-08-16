@@ -1,36 +1,63 @@
 package scaldi
 
-import scaldi.util.Util._
-import scala.concurrent.duration.Duration
-import scala.util.control.NonFatal
-import sys._
-
+import java.io.{File, FileInputStream, InputStream}
 import java.util.Properties
-import java.io.{InputStream, FileInputStream, File}
-import scala.reflect.runtime.universe.{TypeTag, Type, typeOf}
-import scaldi.util.ReflectionHelper._
+
 import com.typesafe.config._
+import scaldi.util.Util._
+
 import scala.collection.JavaConverters._
+import scala.concurrent.duration.Duration
+import scala.reflect.runtime.universe.{Type, typeOf}
+import scala.sys._
+import scala.util.control.NonFatal
 
 /**
- * Standard application module
+ * Module is a place where you declare your bindings.
+ * It's also the most common injector that you can use in most cases.
+ * It is a mutable injector so it can have a lifecycle and it also provides nice DSL for the bindings.
  *
- * @author Oleg Ilyenko
+ *
+ * Module is an Injectable instance thanks to that you can inject other dependencies in your bindings.
  */
 trait Module extends WordBinder
                 with InjectorWithLifecycle[Module]
                 with Injectable
                 with MutableInjectorUser
                 with ShutdownHookLifecycleManager {
+  /**
+   * ??? Why is it a lazy val and not a def (same goes for wordBindings)? It's a mutable injector so bindings
+   * may be added dynamically? This field should be private? Why not directly useWordBindings in
+   * get BindingInternal? ???
+   */
   lazy val bindings = wordBindings
 
+  /**
+   * ??? This method should be 'protected' ???
+   * Binding lookup logic
+   * @param identifiers list of identifiers identifying a depencency
+   * @return a binding identified by identifiers
+   */
   def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
+
+  /**
+   * ??? This method should be 'protected' ???
+   * Bindings lookup logic
+   * @param identifiers list of identifiers identifying depencencies
+   * @return a list of bindings identified by identifiers
+   */
   def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ isDefinedFor identifiers)
 
+  /**
+   * Initializes bindings that are not Lazy
+   * @param lifecycleManager entity that will manage the lifecycle of the eager bindings
+   */
   protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
 }
 
-@deprecated("StaticModule is deprecated and will be removed soon. As an alternative you can use `ImmutableWrapper` injector to define an immutability boundary in composition or create your own injector that is marked as `ImmutableInjector`.", "0.5")
+@deprecated("StaticModule is deprecated and will be removed soon. As an alternative you can " +
+  "use `ImmutableWrapper` injector to define an immutability boundary in composition or create " +
+  "your own injector that is marked as `ImmutableInjector`.", "0.5")
 trait StaticModule extends ReflectionBinder
                       with ImmutableInjector
                       with Injectable {
