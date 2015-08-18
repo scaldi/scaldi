@@ -22,10 +22,8 @@ trait Module extends WordBinder
                 with Injectable
                 with MutableInjectorUser
                 with ShutdownHookLifecycleManager {
-  lazy val bindings = wordBindings
-
-  def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
-  def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ isDefinedFor identifiers)
+  def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
 
   protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
 }
