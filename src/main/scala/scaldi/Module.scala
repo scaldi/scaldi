@@ -25,32 +25,19 @@ trait Module extends WordBinder
                 with Injectable
                 with MutableInjectorUser
                 with ShutdownHookLifecycleManager {
-  /**
-   * ??? Why is it a lazy val and not a def (same goes for wordBindings)? It's a mutable injector so bindings
-   * may be added dynamically? This field should be private? Why not directly useWordBindings in
-   * get BindingInternal? ???
-   */
-  lazy val bindings = wordBindings
 
   /**
-   * ??? This method should be 'protected' ???
-   * Binding lookup logic
-   * @param identifiers list of identifiers identifying a depencency
-   * @return a binding identified by identifiers
+   * @inheritdoc
    */
-  def getBindingInternal(identifiers: List[Identifier]) = bindings find (_ isDefinedFor identifiers)
+  def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
 
   /**
-   * ??? This method should be 'protected' ???
-   * Bindings lookup logic
-   * @param identifiers list of identifiers identifying depencencies
-   * @return a list of bindings identified by identifiers
+   * @inheritdoc
    */
-  def getBindingsInternal(identifiers: List[Identifier]) = bindings filter (_ isDefinedFor identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
 
   /**
-   * Initializes bindings that are not Lazy
-   * @param lifecycleManager entity that will manage the lifecycle of the eager bindings
+   * @inheritdoc
    */
   protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
 }
@@ -61,52 +48,147 @@ trait Module extends WordBinder
 trait StaticModule extends ReflectionBinder
                       with ImmutableInjector
                       with Injectable {
+  /**
+   * @inheritdoc
+   */
   def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ isDefinedFor identifiers)
+
+  /**
+   * @inheritdoc
+   */
   def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ isDefinedFor identifiers)
 
   implicit val injector: Injector = this
 }
 
+/**
+ * ??? The inside of this class is the same as in Module ???
+ * Same as module, but with accessible `Injectable` methods.
+ */
 class DynamicModule extends WordBinder
                        with InjectorWithLifecycle[DynamicModule]
                        with OpenInjectable
                        with MutableInjectorUser
                        with ShutdownHookLifecycleManager {
+
+  /**
+   * @inheritdoc
+   */
   def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
+
+  /**
+   * @inheritdoc
+   */
   def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
 
+  /**
+   * @inheritdoc
+   */
   protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
 }
 
+/**
+ * `DynamicModule`'s companion object.
+ */
 object DynamicModule {
+  /**
+   * Standard factory method that accepts function that may initialize DinamicModule apon creation.
+   * @param initBindingsFn function initializing DynamicModule apon creation
+   * @return initialized DynamicModule
+   */
   def apply(initBindingsFn: DynamicModule => Unit): Injector = new DynamicModule <| initBindingsFn
 }
 
+/**
+ * Factory to initialize binding defined by `'args` in a readable way in a new `DynamicModule`.
+ */
 object Args {
+  /**
+   * Factory method used to initialize new `DynamicModule` with `'args` binded to supplied array.
+   * @param args array that will be binded to `'args` identifier
+   * @return new `DinamicModule` with a binding defined by `'args`
+   */
   def apply(args: Array[String]): Injector = DynamicModule(m => m.bind [Array[String]] identifiedBy 'args toNonLazy args)
 }
 
+/**
+ * Empty injector, used for injector combination or as a filler where injector is required,
+ * but there is no injection.
+ */
 object NilInjector extends ImmutableInjector {
+  /**
+   * @inheritdoc
+   */
   def getBinding(identifiers: List[Identifier]) = None
+
+  /**
+   * @inheritdoc
+   */
   def getBindings(identifiers: List[Identifier]) = Nil
 }
 
+/**
+ * Used to look for simple bindings in system properties.
+ */
 object SystemPropertiesInjector extends RawInjector {
+  /**
+   * @inheritdoc
+   * @param name system property's name
+   * @return system property defined by `name`
+   */
   def getRawValue(name: String) = props get name
 }
 
+/**
+ * Used to look for simple bindings in supplied properties (hash table)
+ * @param properties hash table with properties
+ */
 class PropertiesInjector private (properties: Properties) extends RawInjector {
+  /**
+   * @inheritdoc
+   * @param name property's name
+   * @return property defined by `name` as instance of String
+   */
   def getRawValue(name: String) = Option(properties get name).map(_.asInstanceOf[String])
 }
 
+/**
+ * Companion object with factories to handle different type of properties' source.
+ */
 object PropertiesInjector {
+  /**
+   * Factory method to retrieve properties from file.
+   * @param fileName name of the file with properties
+   * @return an instance of `PropertiesInjector` with properties from file with supplied file name
+   */
   def apply(fileName: String): PropertiesInjector = apply(new File(fileName))
+
+  /**
+   * Factory method to retrieve properties from file.
+   * @param file file with properties
+   * @return an instance of `PropertiesInjector` with properties from supplied file
+   */
   def apply(file: File): PropertiesInjector = apply(new FileInputStream(file))
+
+  /**
+   * Factory method to retrieve properties from input stream.
+   * @param stream input stream which will supply properties
+   * @return an instance of `PropertiesInjector` with properties from input stream
+   */
   def apply(stream: InputStream): PropertiesInjector = apply(new Properties <| (_ load stream))
+
+  /**
+   * Factory method to retrieve properties from a Properties instance.
+   * @param properties `Properties` instance with properties
+   * @return an instance of `PropertiesInjector` with properties supplied `Properties` instance
+   */
   def apply(properties: Properties): PropertiesInjector = new PropertiesInjector(properties)
 }
 
 class TypesafeConfigInjector private (config: Config) extends RawInjector {
+  /**
+   * @inheritdoc
+   */
   override protected def discoverBinding(name: String, tpe: Type, ids: List[Identifier]) = {
     val value = try {
       if (tpe =:= typeOf[Int]) Some(config.getInt(name))
@@ -145,27 +227,66 @@ class TypesafeConfigInjector private (config: Config) extends RawInjector {
     value map (RawBinding(_, ids))
   }
 
+  /**
+   * @inheritdoc
+   */
   def getRawValue(name: String) = throw new IllegalStateException("Should not be used")
 }
 
+/**
+ * Companion object with factory methods to specify the source of TypesafeConfig.
+ */
 object TypesafeConfigInjector {
+  /**
+   * Initializes injector with application's configuration.
+   * @return initialized injector
+   */
   def apply(): TypesafeConfigInjector = apply(ConfigFactory.load())
+
+  /**
+   * Initializes injector with the configuration found at `basename`.
+   * @param baseName the base name of configuration file
+   * @return initialized injector
+   */
   def apply(baseName: String): TypesafeConfigInjector = apply(ConfigFactory.load(baseName))
+
+  /**
+   * Initializes injector with the supplied config.
+   * @param config configuration instance
+   * @return initialized injector
+   */
   def apply(config: Config): TypesafeConfigInjector = new TypesafeConfigInjector(config)
 }
 
 trait RawInjector extends Injector {
   private var bindingCache: List[Binding] = Nil
 
+  /**
+   * Used to retrieve value from other places than modules (config, system, etc.).
+   * @param name name of the value
+   * @return raw value defined by name
+   */
   def getRawValue(name: String): Option[String]
 
+  /**
+   * @inheritdoc
+   */
   def getBinding(identifiers: List[Identifier]) = discoverBinding(identifiers)
+
+  /**
+   * @inheritdoc
+   */
   def getBindings(identifiers: List[Identifier]) = discoverBinding(identifiers).toList
 
+  /**
+   * Retrieves bindings based on supplied identifiers.
+   * @param ids identifiers describing binding
+   * @return found binding, `None` if binding was not found
+   */
   protected def discoverBinding(ids: List[Identifier]): Option[Binding] =
     bindingCache find (_ isDefinedFor ids) orElse {
       (ids match {
-        case TypeTagIdentifier(c) :: StringIdentifier(name)  :: Nil => discoverBinding(name, c, ids)
+        case TypeTagIdentifier(c) :: StringIdentifier(name) :: Nil => discoverBinding(name, c, ids)
         case StringIdentifier(name) :: TypeTagIdentifier(c) :: Nil => discoverBinding(name, c, ids)
         case _ => None
       }) match {
@@ -176,9 +297,22 @@ trait RawInjector extends Injector {
       }
     }
 
+  /**
+   * Retrieves value by name, converts it to specified type and associates it with supplied identifiers.
+   * @param name name of the value to bind
+   * @param tpe type of the value to bind
+   * @param ids identifiers of the resulting bindng
+   * @return option with resulting binding (`None` if binding was not found by name)
+   */
   protected def discoverBinding(name: String, tpe: Type, ids: List[Identifier] = Nil): Option[Binding] =
     getRawValue(name) flatMap (convert(_, tpe)) map (RawBinding(_, ids))
 
+  /**
+   * Converts value to a specified type.
+   * @param value supplied value
+   * @param tpe type to convert the value
+   * @return option with converted value (`None` if value could not be converted)
+   */
   private def convert(value: String, tpe: Type): Option[Any] =
     try {
       if (tpe =:= typeOf[Int]) Some(value.toInt)
@@ -198,19 +332,51 @@ trait RawInjector extends Injector {
     }
 }
 
+/**
+ * Binding holding a raw value (value from system properties, configuration, etc.).
+ * @param value value of the binding
+ * @param identifiers identifiers defining the binding
+ */
 case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
+  /**
+   * @inheritdoc
+   */
   val condition = None
+
+  /**
+   * @inheritdoc
+   */
   override def get = Some(value)
 
+  /**
+   * @inheritdoc
+   */
   override def isCacheable = true
 }
 
+/**
+ * ??? I could understand what this is used for ???
+ * @param bindings function transforming injector into a list of bindings
+ */
 class SimpleContainerInjector(bindings: Injector => List[BindingWithLifecycle]) extends MutableInjectorUser with InjectorWithLifecycle[SimpleContainerInjector] with ShutdownHookLifecycleManager {
+  /**
+   * A list of prepared bindings
+   */
   lazy val preparedBindings = bindings(injector)
 
+  /**
+   * @inheritdoc
+   */
   def getBindingInternal(identifiers: List[Identifier]) = preparedBindings find (_ isDefinedFor identifiers)
+
+  /**
+   * @inheritdoc
+   */
   def getBindingsInternal(identifiers: List[Identifier]) = preparedBindings filter (_ isDefinedFor identifiers)
 
+  /**
+   * @inheritdoc
+   */
   protected def init(lifecycleManager: LifecycleManager) =
     preparedBindings |> (b => () => b.filter(_.isEager).foreach(_ get lifecycleManager))
 }

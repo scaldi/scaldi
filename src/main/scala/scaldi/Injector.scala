@@ -4,7 +4,18 @@ import scaldi.util.Util._
 import annotation.implicitNotFound
 
 trait Injector {
+  /**
+   * Single binding lookup
+   * @param identifiers binding's identifiers
+   * @return option with bindings (none if not found)
+   */
   def getBinding(identifiers: List[Identifier]): Option[Binding]
+
+  /**
+   * List of bindings lookup
+   * @param identifiers bindings identifiers
+   * @return list of found bindings
+   */
   def getBindings(identifiers: List[Identifier]): List[Binding]
 
   def ++[I <: Injector, R <: Injector](other: I)(implicit comp: CanCompose[this.type, I, R]): R = comp.compose(this, other)
@@ -143,16 +154,38 @@ trait Initializeable[I] extends Freezable { this: I with LifecycleManager =>
 
   protected def isFrozen = initialized
 
+  /**
+   * Initializes bindings that are not Lazy
+   * @param lifecycleManager entity that will manage the lifecycle of the eager bindings
+   */
   protected def init(lifecycleManager: LifecycleManager): () => Unit
 }
 
 trait InjectorWithLifecycle[I <: InjectorWithLifecycle[I]] extends Injector with Initializeable[I] with MutableInjector {
   this: I with LifecycleManager with Initializeable[I] =>
 
+  /**
+   * @inheritdoc
+   */
   final def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingInternal identifiers map (Binding.apply(this, _)))
+
+  /**
+   * @inheritdoc
+   */
   final def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingsInternal identifiers map (Binding.apply(this, _)))
 
+  /**
+   * Binding lookup logic
+   * @param identifiers list of identifiers identifying a depencency
+   * @return a binding identified by identifiers
+   */
   def getBindingInternal(identifiers: List[Identifier]): Option[BindingWithLifecycle]
+
+  /**
+   * Bindings lookup logic
+   * @param identifiers list of identifiers identifying depencencies
+   * @return a list of bindings identified by identifiers
+   */
   def getBindingsInternal(identifiers: List[Identifier]): List[BindingWithLifecycle]
 }
 
