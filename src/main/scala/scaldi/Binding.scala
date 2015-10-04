@@ -6,8 +6,9 @@ trait Identifiable {
   def identifiers: List[Identifier]
 
   /**
-   * ??? I couldn't understand what this was used for ???
-   * @return optional condition
+   * Stores condition for binding.
+   * Used for conditional binding
+   * @return `Option` with function returning condition
    */
   def condition: Option[() => Condition]
 
@@ -26,8 +27,9 @@ trait Identifiable {
 
 trait Binding extends Identifiable {
   /**
-   * Retrieves stored binding's value
-   * @return binding's value or `None` if there is no value
+   * Retrieves stored binding's value, used during binding lookup during injection.
+   * If equals to `None`, binding is considered undefined
+   * @return `Option` with binding's value (or `None` if the binding is undefined)
    */
   def get: Option[Any]
 }

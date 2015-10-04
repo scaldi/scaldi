@@ -7,7 +7,7 @@ trait Injector {
   /**
    * Single binding lookup
    * @param identifiers binding's identifiers
-   * @return option with bindings (none if not found)
+   * @return option with binding (`None` if not found)
    */
   def getBinding(identifiers: List[Identifier]): Option[Binding]
 

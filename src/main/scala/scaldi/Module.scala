@@ -15,10 +15,10 @@ import scala.util.control.NonFatal
 /**
  * Module is a place where you declare your bindings.
  * It's also the most common injector that you can use in most cases.
- * It is a mutable injector so it can have a lifecycle and it also provides nice DSL for the bindings.
+ * It's a mutable injector so it can have a lifecycle and it also provides nice DSL for the bindings.
  *
  *
- * Module is an Injectable instance thanks to that you can inject other dependencies in your bindings.
+ * Module is an Injectable instance thanks to that you can inject other dependencies in module's bindings.
  */
 trait Module extends WordBinder
                 with InjectorWithLifecycle[Module]
@@ -62,8 +62,7 @@ trait StaticModule extends ReflectionBinder
 }
 
 /**
- * ??? The inside of this class is the same as in Module ???
- * Same as module, but with accessible `Injectable` methods.
+ * Same as module, but with accessible `Injectable`'s methods.
  */
 class DynamicModule extends WordBinder
                        with InjectorWithLifecycle[DynamicModule]
@@ -87,33 +86,40 @@ class DynamicModule extends WordBinder
   protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
 }
 
-/**
- * `DynamicModule`'s companion object.
- */
 object DynamicModule {
   /**
-   * Standard factory method that accepts function that may initialize DinamicModule apon creation.
-   * @param initBindingsFn function initializing DynamicModule apon creation
+   * Standard factory method that accepts function that may initialize DynamicModule' bindings upon creation.
+   * It lets initializing module with function instead of extending it
+   *
+   * {{{
+   *   implicit val injector = DynamicModule({ module =>
+   *      module.bind [Int] identifiedBy 'httpPort to 8081
+   *      module.bind [Server] identifiedBy 'http to HttpServer(inject [String] ('httpHost), inject [Int] ('httpPort))
+   *      module.binding identifiedBy 'database and "local" to MysqlDatabase("my_app")
+   *   })
+   * }}}
+   *
+   * @param initBindingsFn function initializing DynamicModule upon creation
    * @return initialized DynamicModule
    */
   def apply(initBindingsFn: DynamicModule => Unit): Injector = new DynamicModule <| initBindingsFn
 }
 
 /**
- * Factory to initialize binding defined by `'args` in a readable way in a new `DynamicModule`.
+ * Factory for creating injector from command line arguments
  */
 object Args {
   /**
-   * Factory method used to initialize new `DynamicModule` with `'args` binded to supplied array.
+   * Factory method used to initialize  a `Module` with binded command line arguments
    * @param args array that will be binded to `'args` identifier
-   * @return new `DinamicModule` with a binding defined by `'args`
+   * @return new `DynamicModule` with a binding defined for command line arguments
    */
-  def apply(args: Array[String]): Injector = DynamicModule(m => m.bind [Array[String]] identifiedBy 'args toNonLazy args)
+  def apply(args: Array[String]): Injector = DynamicModule(m => m.bind[Array[String]] identifiedBy 'args toNonLazy args)
 }
 
 /**
  * Empty injector, used for injector combination or as a filler where injector is required,
- * but there is no injection.
+ * but there are no bindings.
  */
 object NilInjector extends ImmutableInjector {
   /**
@@ -128,7 +134,7 @@ object NilInjector extends ImmutableInjector {
 }
 
 /**
- * Used to look for simple bindings in system properties.
+ * Used to look up for simple bindings in system properties.
  */
 object SystemPropertiesInjector extends RawInjector {
   /**
@@ -143,7 +149,7 @@ object SystemPropertiesInjector extends RawInjector {
  * Used to look for simple bindings in supplied properties (hash table)
  * @param properties hash table with properties
  */
-class PropertiesInjector private (properties: Properties) extends RawInjector {
+class PropertiesInjector private(properties: Properties) extends RawInjector {
   /**
    * @inheritdoc
    * @param name property's name
@@ -153,25 +159,25 @@ class PropertiesInjector private (properties: Properties) extends RawInjector {
 }
 
 /**
- * Companion object with factories to handle different type of properties' source.
+ * Factories to handle different type of properties' source.
  */
 object PropertiesInjector {
   /**
-   * Factory method to retrieve properties from file.
+   * Factory method to retrieve properties from a file name.
    * @param fileName name of the file with properties
    * @return an instance of `PropertiesInjector` with properties from file with supplied file name
    */
   def apply(fileName: String): PropertiesInjector = apply(new File(fileName))
 
   /**
-   * Factory method to retrieve properties from file.
+   * Factory method to retrieve properties from a file.
    * @param file file with properties
    * @return an instance of `PropertiesInjector` with properties from supplied file
    */
   def apply(file: File): PropertiesInjector = apply(new FileInputStream(file))
 
   /**
-   * Factory method to retrieve properties from input stream.
+   * Factory method to retrieve properties from an input stream.
    * @param stream input stream which will supply properties
    * @return an instance of `PropertiesInjector` with properties from input stream
    */
@@ -185,7 +191,11 @@ object PropertiesInjector {
   def apply(properties: Properties): PropertiesInjector = new PropertiesInjector(properties)
 }
 
-class TypesafeConfigInjector private (config: Config) extends RawInjector {
+/**
+ * Injector with bindings found in supplied typesafe configuration
+ * @param config typesafe configuration to get bindings from
+ */
+class TypesafeConfigInjector private(config: Config) extends RawInjector {
   /**
    * @inheritdoc
    */
@@ -234,7 +244,7 @@ class TypesafeConfigInjector private (config: Config) extends RawInjector {
 }
 
 /**
- * Companion object with factory methods to specify the source of TypesafeConfig.
+ * Factories to handle different type of Typesafe config's source.
  */
 object TypesafeConfigInjector {
   /**
@@ -258,6 +268,10 @@ object TypesafeConfigInjector {
   def apply(config: Config): TypesafeConfigInjector = new TypesafeConfigInjector(config)
 }
 
+/**
+ * Abstract `Injector` implementation that may be extended by other injectors that get values from
+ * specific source (command line, typesafe config, properties, etc.)
+ */
 trait RawInjector extends Injector {
   private var bindingCache: List[Binding] = Nil
 
@@ -279,7 +293,7 @@ trait RawInjector extends Injector {
   def getBindings(identifiers: List[Identifier]) = discoverBinding(identifiers).toList
 
   /**
-   * Retrieves bindings based on supplied identifiers.
+   * Retrieves bindings from cache based on supplied identifiers.
    * @param ids identifiers describing binding
    * @return found binding, `None` if binding was not found
    */
@@ -301,7 +315,7 @@ trait RawInjector extends Injector {
    * Retrieves value by name, converts it to specified type and associates it with supplied identifiers.
    * @param name name of the value to bind
    * @param tpe type of the value to bind
-   * @param ids identifiers of the resulting bindng
+   * @param ids identifiers of the resulting binding
    * @return option with resulting binding (`None` if binding was not found by name)
    */
   protected def discoverBinding(name: String, tpe: Type, ids: List[Identifier] = Nil): Option[Binding] =
@@ -333,7 +347,7 @@ trait RawInjector extends Injector {
 }
 
 /**
- * Binding holding a raw value (value from system properties, configuration, etc.).
+ * Binding with a raw value, not converted to any specific type (value from system properties, configuration, etc.).
  * @param value value of the binding
  * @param identifiers identifiers defining the binding
  */
@@ -355,13 +369,10 @@ case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding
 }
 
 /**
- * ??? I could understand what this is used for ???
+ * Container that transforms a list of bindings into a valid `Injector`
  * @param bindings function transforming injector into a list of bindings
  */
 class SimpleContainerInjector(bindings: Injector => List[BindingWithLifecycle]) extends MutableInjectorUser with InjectorWithLifecycle[SimpleContainerInjector] with ShutdownHookLifecycleManager {
-  /**
-   * A list of prepared bindings
-   */
   lazy val preparedBindings = bindings(injector)
 
   /**
