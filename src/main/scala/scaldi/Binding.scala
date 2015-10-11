@@ -4,6 +4,12 @@ import scaldi.util.Util._
 
 trait Identifiable {
   def identifiers: List[Identifier]
+
+  /**
+   * Stores condition for binding.
+   * Used for conditional binding
+   * @return `Option` with function returning condition
+   */
   def condition: Option[() => Condition]
 
   def isDefinedFor(desiredIdentifiers: List[Identifier]) =
@@ -11,10 +17,20 @@ trait Identifiable {
       (condition map (_() satisfies desiredIdentifiers) getOrElse true)
 
   def isEager: Boolean = false
+
+  /**
+   * Specifies if binding is cacheable
+   * @return true if binding is cacheable, false otherwise
+   */
   def isCacheable: Boolean = false
 }
 
 trait Binding extends Identifiable {
+  /**
+   * Retrieves stored binding's value, used during binding lookup during injection.
+   * If equals to `None`, binding is considered undefined
+   * @return `Option` with binding's value (or `None` if the binding is undefined)
+   */
   def get: Option[Any]
 }
 
