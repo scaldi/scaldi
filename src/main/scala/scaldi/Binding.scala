@@ -18,7 +18,7 @@ trait Identifiable {
 
   def isDefinedFor(desiredIdentifiers: List[Identifier]) =
     Identifier.sameAs(identifiers, desiredIdentifiers) &&
-      (condition map (_ () satisfies desiredIdentifiers) getOrElse true)
+      (condition map (fn => fn() satisfies desiredIdentifiers) getOrElse true)
 
   /**
     * Defines if binding is lazy or not
@@ -54,9 +54,10 @@ object Binding {
   /**
     * Standard factory method for binding that from `LifecycleManager` and
     * `BindingWithLifecycle` creates new `Binding`
+    *
     * @param lifecycleManager `LifecycleManager` that will handle initialization / destruction events for binding
     * @param binding `BindingWithLifecycle` actual binding
-    * @return
+    * @return a new binding (without lifecycle) which delegates all method calls to the provided `binding`
     */
   def apply(lifecycleManager: LifecycleManager, binding: BindingWithLifecycle) = new Binding {
     def get = binding get lifecycleManager
@@ -114,13 +115,11 @@ object BindingWithLifecycle {
   * @param condition binding's conditions (empty by default)
   * @param lifecycle binding's lifecycle (empty by default)
   */
-case class NonLazyBinding(
-                           private val createFn: Option[() => Any],
+case class NonLazyBinding(private val createFn: Option[() => Any],
                            identifiers: List[Identifier] = Nil,
                            condition: Option[() => Condition] = None,
-                           lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty
-                         ) extends BindingWithLifecycle {
-  lazy val target = createFn map (_ () <| lifecycle.initializeObject)
+                           lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
+  lazy val target = createFn map (fn => fn() <| lifecycle.initializeObject)
   var destroyableAdded = false
 
   /**
@@ -157,13 +156,11 @@ case class NonLazyBinding(
   * @param condition binding's conditions (empty by default)
   * @param lifecycle binding's lifecycle (empty by default)
   */
-case class LazyBinding(
-                        private val createFn: Option[() => Any],
+case class LazyBinding(private val createFn: Option[() => Any],
                         identifiers: List[Identifier] = Nil,
                         condition: Option[() => Condition] = None,
-                        lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty
-                      ) extends BindingWithLifecycle {
-  lazy val target = createFn map (_ () <| lifecycle.initializeObject)
+                        lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
+  lazy val target = createFn map (fn => fn() <| lifecycle.initializeObject)
   var destroyableAdded = false
 
   /**
@@ -195,12 +192,10 @@ case class LazyBinding(
   * @param condition binding's conditions (empty by default)
   * @param lifecycle binding's lifecycle (empty by default)
   */
-case class ProviderBinding(
-                            private val createFn: () => Any,
+case class ProviderBinding(private val createFn: () => Any,
                             identifiers: List[Identifier] = Nil,
                             condition: Option[() => Condition] = None,
-                            lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty
-                          ) extends BindingWithLifecycle {
+                            lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
   def target = createFn() <| lifecycle.initializeObject
 
   /**
@@ -223,18 +218,16 @@ case class ProviderBinding(
   * @param eager if binding is eager (non lazy) (false by default)
   * @tparam T binding's type
   */
-case class SimpleBinding[T](
-                             boundValue: Option[() => T],
+case class SimpleBinding[T](boundValue: Option[() => T],
                              identifiers: List[Identifier] = Nil,
                              condition: Option[() => Condition] = None,
                              cacheable: Boolean = false,
-                             eager: Boolean = false
-                           ) extends Binding {
+                             eager: Boolean = false) extends Binding {
 
   /**
     * @inheritdoc
     */
-  lazy val get = boundValue map (_ ())
+  lazy val get = boundValue map (fn => fn() )
 
   /**
     * @inheritdoc
