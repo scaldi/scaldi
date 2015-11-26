@@ -28,13 +28,13 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img src="../lib/trait_big.png" />
+        <img alt="Trait" src="../lib/trait_big.png" />
         <p id="owner"><a href="package.html" class="extype" name="scaldi">scaldi</a></p>
         <h1>Module</h1><h3><span class="morelinks"><div>Related Doc:
             <a href="package.html" class="extype" name="scaldi">package scaldi</a>
           </div></span></h3><span class="permalink">
       <a href="../index.html#scaldi.Module" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -49,7 +49,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Standard application module
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Module is a place where you declare your bindings.
+It's also the most common injector that you can use in most cases.
+It's a mutable injector so it can have a lifecycle and it also provides nice DSL for the bindings.</p><p>Module is an Injectable instance thanks to that you can inject other dependencies in module's bindings.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="ShutdownHookLifecycleManager.html" class="extype" name="scaldi.ShutdownHookLifecycleManager">ShutdownHookLifecycleManager</a>, <a href="LifecycleManager.html" class="extype" name="scaldi.LifecycleManager">LifecycleManager</a>, <a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a>, <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a>, <a href="Wire.html" class="extype" name="scaldi.Wire">Wire</a>, <a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a>[<a href="" class="extype" name="scaldi.Module">Module</a>], <a href="MutableInjector.html" class="extype" name="scaldi.MutableInjector">MutableInjector</a>, <a href="Initializeable.html" class="extype" name="scaldi.Initializeable">Initializeable</a>[<a href="" class="extype" name="scaldi.Module">Module</a>], <a href="Freezable.html" class="extype" name="scaldi.Freezable">Freezable</a>, <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, <a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
@@ -78,7 +80,6 @@
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -109,7 +110,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -126,7 +127,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@##():Int" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -143,7 +144,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@++[I&lt;:scaldi.Injector,R&lt;:scaldi.Injector](other:I)(implicitcomp:scaldi.CanCompose[Injector.this.type,I,R]):R" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
@@ -160,7 +161,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@::[I&lt;:scaldi.Injector,R&lt;:scaldi.Injector](other:I)(implicitcomp:scaldi.CanCompose[I,Injector.this.type,R]):R" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
@@ -177,7 +178,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -194,7 +195,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@IgnoringErrorHandler:Throwable=&gt;Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LifecycleManager.html" class="extype" name="scaldi.LifecycleManager">LifecycleManager</a></dd></dl></div>
@@ -211,7 +212,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@addDestroyable(fn:()=&gt;Unit):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ShutdownHookLifecycleManager.html" class="extype" name="scaldi.ShutdownHookLifecycleManager">ShutdownHookLifecycleManager</a> → <a href="LifecycleManager.html" class="extype" name="scaldi.LifecycleManager">LifecycleManager</a></dd></dl></div>
@@ -228,7 +229,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -245,7 +246,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@bind[T](implicitevidence$1:reflect.runtime.universe.TypeTag[T]):scaldi.BindHelper[T]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a></dd></dl></div>
@@ -262,27 +263,10 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@binding:scaldi.BindHelper[Any]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a></dd></dl></div>
-    </li><li name="scaldi.Module#bindings" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="bindings:List[scaldi.BindingWithLifecycle]"></a>
-      <a id="bindings:List[BindingWithLifecycle]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">lazy val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">bindings</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="BindingWithLifecycle.html" class="extype" name="scaldi.BindingWithLifecycle">BindingWithLifecycle</a>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../index.html#scaldi.Module@bindings:List[scaldi.BindingWithLifecycle]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
-      </a>
-    </span>
-      
     </li><li name="scaldi.Injectable#by" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="by:scaldi.ByWord"></a>
       <a id="by:ByWord"></a>
@@ -296,7 +280,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@by:scaldi.ByWord" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Convenience field to make the injection look more readable when used with default values for the injection.</p><div class="fullcomment"><div class="comment cmt"><p>Convenience field to make the injection look more readable when used with default values for the injection.</p><p>Example:
@@ -315,12 +299,11 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@canBeIdentifiedToConstraints[T](target:T)(implicitevidence$1:scaldi.CanBeIdentifier[T]):scaldi.InjectConstraints[Nothing]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Implicit cast of classes that can be identifiers to an <code>InjectConstraints</code> with the identified as a first element.</p><div class="fullcomment"><div class="comment cmt"><p>Implicit cast of classes that can be identifiers to an <code>InjectConstraints</code> with the identified as a first element.</p><p>Often used when a list of identifiers should be passed (for example for <code>inject(constraint)</code> method).</p><p>This lets us to put the identifier in a first place to make the parameters look readable.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type that qualifies as an identifier</p></dd><dt class="param">target</dt><dd class="cmt"><p>Instance of a class that qualifies as an identifier</p></dd><dt>returns</dt><dd class="cmt"><p>InjectConstraints
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type that qualifies as an identifier</p></dd><dt class="param">target</dt><dd class="cmt"><p>Instance of a class that qualifies as an identifier</p></dd><dt>returns</dt><dd class="cmt"><p>InjectConstraints</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -334,7 +317,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@clone():Object" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -357,7 +340,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@destroy(errorHandler:Throwable=&gt;Boolean):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ShutdownHookLifecycleManager.html" class="extype" name="scaldi.ShutdownHookLifecycleManager">ShutdownHookLifecycleManager</a> → <a href="LifecycleManager.html" class="extype" name="scaldi.LifecycleManager">LifecycleManager</a></dd></dl></div>
@@ -374,7 +357,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -391,7 +374,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -408,7 +391,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@finalize():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -431,10 +414,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@getBinding(identifiers:List[scaldi.Identifier]):Option[scaldi.Binding]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a> → <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
+      <p class="shortcomment cmt">Single binding lookup
+</p><div class="fullcomment"><div class="comment cmt"><p>Single binding lookup
+</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>binding's identifiers</p></dd><dt>returns</dt><dd class="cmt"><p>option with binding (<code>None</code> if not found)</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a> → <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
     </li><li name="scaldi.Module#getBindingInternal" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getBindingInternal(identifiers:List[scaldi.Identifier]):Option[scaldi.BindingWithLifecycle]"></a>
       <a id="getBindingInternal(List[Identifier]):Option[BindingWithLifecycle]"></a>
@@ -448,10 +433,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@getBindingInternal(identifiers:List[scaldi.Identifier]):Option[scaldi.BindingWithLifecycle]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.Module">Module</a> → <a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a></dd></dl></div>
+      <p class="shortcomment cmt">Binding lookup logic
+</p><div class="fullcomment"><div class="comment cmt"><p>Binding lookup logic
+</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>list of identifiers identifying a depencency</p></dd><dt>returns</dt><dd class="cmt"><p>a binding identified by identifiers</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.Module">Module</a> → <a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a></dd></dl></div>
     </li><li name="scaldi.InjectorWithLifecycle#getBindings" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getBindings(identifiers:List[scaldi.Identifier]):List[scaldi.Binding]"></a>
       <a id="getBindings(List[Identifier]):List[Binding]"></a>
@@ -465,10 +452,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@getBindings(identifiers:List[scaldi.Identifier]):List[scaldi.Binding]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a> → <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
+      <p class="shortcomment cmt">List of bindings lookup
+</p><div class="fullcomment"><div class="comment cmt"><p>List of bindings lookup
+</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>bindings identifiers</p></dd><dt>returns</dt><dd class="cmt"><p>list of found bindings</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a> → <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
     </li><li name="scaldi.Module#getBindingsInternal" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getBindingsInternal(identifiers:List[scaldi.Identifier]):List[scaldi.BindingWithLifecycle]"></a>
       <a id="getBindingsInternal(List[Identifier]):List[BindingWithLifecycle]"></a>
@@ -482,10 +471,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@getBindingsInternal(identifiers:List[scaldi.Identifier]):List[scaldi.BindingWithLifecycle]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.Module">Module</a> → <a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a></dd></dl></div>
+      <p class="shortcomment cmt">Bindings lookup logic
+</p><div class="fullcomment"><div class="comment cmt"><p>Bindings lookup logic
+</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>list of identifiers identifying depencencies</p></dd><dt>returns</dt><dd class="cmt"><p>a list of bindings identified by identifiers</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.Module">Module</a> → <a href="InjectorWithLifecycle.html" class="extype" name="scaldi.InjectorWithLifecycle">InjectorWithLifecycle</a></dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -499,7 +490,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -516,7 +507,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@hashCode():Int" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -533,7 +524,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@identified:scaldi.IdentifiedWord[Nothing]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Convenience field to make the injection look more readable when used with identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>Convenience field to make the injection look more readable when used with identifiers.</p><p>Example:
@@ -552,10 +543,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@init(lifecycleManager:scaldi.LifecycleManager):()=&gt;Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.Module">Module</a> → <a href="Initializeable.html" class="extype" name="scaldi.Initializeable">Initializeable</a></dd></dl></div>
+      <p class="shortcomment cmt">Initializes bindings that are not Lazy
+</p><div class="fullcomment"><div class="comment cmt"><p>Initializes bindings that are not Lazy
+</p></div><dl class="paramcmts block"><dt class="param">lifecycleManager</dt><dd class="cmt"><p>entity that will manage the lifecycle of the eager bindings</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.Module">Module</a> → <a href="Initializeable.html" class="extype" name="scaldi.Initializeable">Initializeable</a></dd></dl></div>
     </li><li name="scaldi.WordBinder#initEagerWordBindings" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="initEagerWordBindings(lifecycleManager:scaldi.LifecycleManager):()=&gt;Unit"></a>
       <a id="initEagerWordBindings(LifecycleManager):()⇒Unit"></a>
@@ -569,7 +562,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@initEagerWordBindings(lifecycleManager:scaldi.LifecycleManager):()=&gt;Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a></dd></dl></div>
@@ -586,7 +579,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@initNonLazy():I" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Initializeable.html" class="extype" name="scaldi.Initializeable">Initializeable</a></dd></dl></div>
@@ -603,15 +596,14 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@inject[T](constraints:=&gt;scaldi.InjectConstraints[T])(implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Injects a dependency defined by a constraint.</p><div class="fullcomment"><div class="comment cmt"><p>Injects a dependency defined by a constraint.</p><p>Usually used when there are more than one injections for a defined type <code>T</code></p><p>Example:</p><pre>binding identifiedBy 'host to <span class="lit">"hostName"</span>
 <span class="kw">val</span> host = inject[<span class="std">String</span>]('host)  <span class="cmt">// equals to "hostName"</span>
 <span class="kw">val</span> db = inject (by default defaultDb) <span class="cmt">// notice that type `T` is optional in inferred in this case</span></pre></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="param">constraints</dt><dd class="cmt"><p>constraints helping to define what dependency of the type <code>T</code>
                    to inject (typically an identifier, string or a default value)</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt class="param">tt</dt><dd class="cmt"><p>ensures that meta-information if type <code>T</code> is available at the runtime</p></dd><dt class="param">nn</dt><dd class="cmt"><p>ensures, that type <code>T</code> is not inferred as <code>Nothing</code> by scala compiler,
-          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>instance of injected dependency
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>instance of injected dependency</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Injectable#inject" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="inject[T](implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):T"></a>
       <a id="inject[T](Injector,scala.reflect.api.JavaUniverse.TypeTag[T],NotNothing[T]):T"></a>
@@ -625,14 +617,13 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@inject[T](implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Injects a dependency that was previously defined in a module</p><div class="fullcomment"><div class="comment cmt"><p>Injects a dependency that was previously defined in a module</p><p>Example:
 <code>val database = inject [Database]  // database can now be used as an instance of Database class</code>
 </p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt class="param">tt</dt><dd class="cmt"><p>ensures that meta-information if type T is available at the runtime</p></dd><dt class="param">nn</dt><dd class="cmt"><p>ensures, that type T is not inferred as <code>Nothing</code> by scala compiler,
-          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>instance of injected dependency
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>instance of injected dependency</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Injectable#injectAll" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injectAll(identifiers:scaldi.Identifier*)(implicitinjector:scaldi.Injector):List[Any]"></a>
       <a id="injectAll(Identifier*)(Injector):List[Any]"></a>
@@ -646,12 +637,11 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injectAll(identifiers:scaldi.Identifier*)(implicitinjector:scaldi.Injector):List[Any]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Injects all dependencies that are defined by identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>Injects all dependencies that are defined by identifiers.
-</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>identifiers that were defined in module for requested injections</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt>returns</dt><dd class="cmt"><p>a list of injected instances defined by identifiers
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>identifiers that were defined in module for requested injections</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt>returns</dt><dd class="cmt"><p>a list of injected instances defined by identifiers</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Injectable#injectAllOfType" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injectAllOfType[T](identifiers:scaldi.Identifier*)(implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):List[T]"></a>
       <a id="injectAllOfType[T](Identifier*)(Injector,scala.reflect.api.JavaUniverse.TypeTag[T],NotNothing[T]):List[T]"></a>
@@ -665,13 +655,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injectAllOfType[T](identifiers:scaldi.Identifier*)(implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):List[T]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Inject all dependencies of type <code>T</code> that were defined in a module and that are defined by supplied identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>Inject all dependencies of type <code>T</code> that were defined in a module and that are defined by supplied identifiers.
 </p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="param">identifiers</dt><dd class="cmt"><p>identifiers that were defined in module for requested injections</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt class="param">tt</dt><dd class="cmt"><p>ensures that meta-information if type <code>T</code> is available at the runtime</p></dd><dt class="param">nn</dt><dd class="cmt"><p>ensures, that type <code>T</code> is not inferred as <code>Nothing</code> by scala compiler,
-          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>a list of injected instances satisfying the type <code>T</code> constraint and identifiers
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>a list of injected instances satisfying the type <code>T</code> constraint and identifiers</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Injectable#injectAllOfType" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injectAllOfType[T](implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):List[T]"></a>
       <a id="injectAllOfType[T](Injector,scala.reflect.api.JavaUniverse.TypeTag[T],NotNothing[T]):List[T]"></a>
@@ -685,13 +674,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injectAllOfType[T](implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):List[T]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Inject all dependencies of type <code>T</code> that were defined in a module.</p><div class="fullcomment"><div class="comment cmt"><p>Inject all dependencies of type <code>T</code> that were defined in a module.
 </p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt class="param">tt</dt><dd class="cmt"><p>ensures that meta-information if type <code>T</code> is available at the runtime</p></dd><dt class="param">nn</dt><dd class="cmt"><p>ensures, that type <code>T</code> is not inferred as <code>Nothing</code> by scala compiler,
-          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>a list of injected instances satisfying the type <code>T</code> constraint
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>a list of injected instances satisfying the type <code>T</code> constraint</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Injectable#injectProvider" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injectProvider[T](constraints:=&gt;scaldi.InjectConstraints[T])(implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):()=&gt;T"></a>
       <a id="injectProvider[T](⇒InjectConstraints[T])(Injector,scala.reflect.api.JavaUniverse.TypeTag[T],NotNothing[T]):()⇒T"></a>
@@ -705,14 +693,13 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injectProvider[T](constraints:=&gt;scaldi.InjectConstraints[T])(implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):()=&gt;T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Injects a dependency (defined by a constraint) that was previously defined as a provider in a module.</p><div class="fullcomment"><div class="comment cmt"><p>Injects a dependency (defined by a constraint) that was previously defined as a provider in a module.</p><p>Usually used when there are more than one provider for a defined type <code>T</code>.
 </p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="param">constraints</dt><dd class="cmt"><p>constraints helping to define what dependency of type <code>T</code>
                    to inject (typically an identifier, string or a default value)</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt class="param">tt</dt><dd class="cmt"><p>ensures that meta-information if type <code>T</code> is available at the runtime</p></dd><dt class="param">nn</dt><dd class="cmt"><p>ensures, that type <code>T</code> is not inferred as <code>Nothing</code> by scala compiler,
-          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>a new instance of injected dependency
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>a new instance of injected dependency</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Injectable#injectProvider" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injectProvider[T](implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):()=&gt;T"></a>
       <a id="injectProvider[T](Injector,scala.reflect.api.JavaUniverse.TypeTag[T],NotNothing[T]):()⇒T"></a>
@@ -726,14 +713,13 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injectProvider[T](implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitnn:scaldi.util.constraints.NotNothing[T]):()=&gt;T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Injects a dependency that was previously defined as a provider in a module
 </p><div class="fullcomment"><div class="comment cmt"><p>Injects a dependency that was previously defined as a provider in a module
 </p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt class="param">tt</dt><dd class="cmt"><p>ensures that meta-information if type <code>T</code> is available at the runtime</p></dd><dt class="param">nn</dt><dd class="cmt"><p>ensures, that type <code>T</code> is not inferred as <code>Nothing</code> by scala compiler,
-          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>a new instance of injected dependency
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+          since inject needs to know the actual type at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>a new instance of injected dependency</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Injectable#injectWithConstructorDefault" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injectWithConstructorDefault[T,C](paramName:String)(implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitct:reflect.runtime.universe.TypeTag[C]):T"></a>
       <a id="injectWithConstructorDefault[T,C](String)(Injector,scala.reflect.api.JavaUniverse.TypeTag[T],scala.reflect.api.JavaUniverse.TypeTag[C]):T"></a>
@@ -747,14 +733,13 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injectWithConstructorDefault[T,C](paramName:String)(implicitinjector:scaldi.Injector,implicittt:reflect.runtime.universe.TypeTag[T],implicitct:reflect.runtime.universe.TypeTag[C]):T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Injects a dependency defined by type <code>T</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Injects a dependency defined by type <code>T</code>. If dependency is not found, initializes it with the default
 value from the constructor of type <code>T</code>.</p><p>This implies, that constructor must have one constructor with parameter <code>paramName</code> which has
 a default value. Method is part of <code>injected</code> macro implementation and not intended to be used outside of it.</p><p>Uses reflection.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="tparam">C</dt><dd class="cmt"><p>class of constructor in case dependency cannot be found by <code>T</code> identifier</p></dd><dt class="param">paramName</dt><dd class="cmt"><p>name of the constructor argument with a default value</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt class="param">tt</dt><dd class="cmt"><p>ensures that meta-information if type <code>T</code> is available at the runtime</p></dd><dt class="param">ct</dt><dd class="cmt"><p>ensures that meta-information if type <code>C</code> is available at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>instance of injected dependency. If not found by, initializes one using constructor <code>C</code><code>
-</code></p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="tparam">C</dt><dd class="cmt"><p>class of constructor in case dependency cannot be found by <code>T</code> identifier</p></dd><dt class="param">paramName</dt><dd class="cmt"><p>name of the constructor argument with a default value</p></dd><dt class="param">injector</dt><dd class="cmt"><p>implicit <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, should be defined in the scope. It's used to lookup bindings</p></dd><dt class="param">tt</dt><dd class="cmt"><p>ensures that meta-information if type <code>T</code> is available at the runtime</p></dd><dt class="param">ct</dt><dd class="cmt"><p>ensures that meta-information if type <code>C</code> is available at the runtime</p></dd><dt>returns</dt><dd class="cmt"><p>instance of injected dependency. If not found by, initializes one using constructor <code>C</code><code></code></p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Injectable#injectWithDefault" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injectWithDefault[T](injector:scaldi.Injector,default:=&gt;T)(identifiers:List[scaldi.Identifier]):T"></a>
       <a id="injectWithDefault[T](Injector,⇒T)(List[Identifier]):T"></a>
@@ -768,12 +753,11 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injectWithDefault[T](injector:scaldi.Injector,default:=&gt;T)(identifiers:List[scaldi.Identifier]):T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Setup an injection that returns default value if an injection with supplied identifiers is not found.</p><div class="fullcomment"><div class="comment cmt"><p>Setup an injection that returns default value if an injection with supplied identifiers is not found.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="param">injector</dt><dd class="cmt"><p>current Injector, used to lookup bindings</p></dd><dt class="param">default</dt><dd class="cmt"><p>default value to return in case injection is not found</p></dd><dt class="param">identifiers</dt><dd class="cmt"><p>identifiers that define requested injection</p></dd><dt>returns</dt><dd class="cmt"><p>injection defined by identifiers or default value if injection is not found
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the injected dependency</p></dd><dt class="param">injector</dt><dd class="cmt"><p>current Injector, used to lookup bindings</p></dd><dt class="param">default</dt><dd class="cmt"><p>default value to return in case injection is not found</p></dd><dt class="param">identifiers</dt><dd class="cmt"><p>identifiers that define requested injection</p></dd><dt>returns</dt><dd class="cmt"><p>injection defined by identifiers or default value if injection is not found</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.Wire#injected" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="injected[T](overrides:Tuple2[String,_]*):T"></a>
       <a id="injected[T](Tuple2[String,_]*):T"></a>
@@ -787,7 +771,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injected[T](overrides:Tuple2[String,_]*):T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Wire.html" class="extype" name="scaldi.Wire">Wire</a></dd></dl></div>
@@ -804,7 +788,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injected[T](overrides:Tuple2[Symbol,_]*):T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Wire.html" class="extype" name="scaldi.Wire">Wire</a></dd></dl></div>
@@ -821,7 +805,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injected[T]:T" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Wire.html" class="extype" name="scaldi.Wire">Wire</a></dd></dl></div>
@@ -838,7 +822,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injector:scaldi.Injector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a></dd></dl></div>
@@ -855,7 +839,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injectorFn:()=&gt;scaldi.Injector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a></dd></dl></div>
@@ -872,7 +856,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@injector_=(newParentInjector:scaldi.Injector):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="MutableInjectorUser.html" class="extype" name="scaldi.MutableInjectorUser">MutableInjectorUser</a></dd></dl></div>
@@ -889,7 +873,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@isFrozen:Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Initializeable.html" class="extype" name="scaldi.Initializeable">Initializeable</a> → <a href="Freezable.html" class="extype" name="scaldi.Freezable">Freezable</a></dd></dl></div>
@@ -906,7 +890,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -923,7 +907,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -940,12 +924,11 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@noBindingFound(identifiers:List[scaldi.Identifier]):Nothing" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Helper method for throwing a readable exception when a binding could not be found.</p><div class="fullcomment"><div class="comment cmt"><p>Helper method for throwing a readable exception when a binding could not be found.
-</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>a list of identifiers
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>a list of identifiers</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></dd></dl></div>
     </li><li name="scaldi.WordBinder#notRequired" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notRequired(identifier:scaldi.Identifier):scaldi.Identifier"></a>
       <a id="notRequired(Identifier):Identifier"></a>
@@ -959,7 +942,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@notRequired(identifier:scaldi.Identifier):scaldi.Identifier" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a></dd></dl></div>
@@ -976,7 +959,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@notify():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -993,7 +976,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -1010,7 +993,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@partialInit(lifecycleManager:scaldi.LifecycleManager):Option[()=&gt;Unit]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Initializeable.html" class="extype" name="scaldi.Initializeable">Initializeable</a></dd></dl></div>
@@ -1027,7 +1010,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@required(identifier:scaldi.Identifier):scaldi.Identifier" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a></dd></dl></div>
@@ -1044,7 +1027,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -1061,7 +1044,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@toString():String" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -1078,7 +1061,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@wait():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1101,7 +1084,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1124,7 +1107,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1147,7 +1130,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@when(condition:=&gt;scaldi.Condition)(fn:=&gt;Unit):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a></dd></dl></div>
@@ -1164,7 +1147,7 @@ a default value. Method is part of <code>injected</code> macro implementation an
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.Module@wordBindings:List[scaldi.BindingWithLifecycle]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="WordBinder.html" class="extype" name="scaldi.WordBinder">WordBinder</a></dd></dl></div>

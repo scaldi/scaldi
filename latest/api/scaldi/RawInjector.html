@@ -28,13 +28,13 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img src="../lib/trait_big.png" />
+        <img alt="Trait" src="../lib/trait_big.png" />
         <p id="owner"><a href="package.html" class="extype" name="scaldi">scaldi</a></p>
         <h1>RawInjector</h1><h3><span class="morelinks"><div>Related Doc:
             <a href="package.html" class="extype" name="scaldi">package scaldi</a>
           </div></span></h3><span class="permalink">
       <a href="../index.html#scaldi.RawInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -49,7 +49,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Abstract <code>Injector</code> implementation that may be extended by other injectors that get values from
+specific source (command line, typesafe config, properties, etc.)
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
@@ -80,7 +82,6 @@
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -96,7 +97,7 @@
 
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="scaldi.RawInjector#getRawValue" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="scaldi.RawInjector#getRawValue" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="getRawValue(name:String):Option[String]"></a>
       <a id="getRawValue(String):Option[String]"></a>
       <h4 class="signature">
@@ -109,10 +110,10 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@getRawValue(name:String):Option[String]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Used to retrieve value from other places than modules (config, system, etc.).</p><div class="fullcomment"><div class="comment cmt"><p>Used to retrieve value from other places than modules (config, system, etc.).</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name of the value</p></dd><dt>returns</dt><dd class="cmt"><p>raw value defined by name</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -131,7 +132,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -148,7 +149,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@##():Int" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -165,7 +166,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@++[I&lt;:scaldi.Injector,R&lt;:scaldi.Injector](other:I)(implicitcomp:scaldi.CanCompose[Injector.this.type,I,R]):R" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
@@ -182,7 +183,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@::[I&lt;:scaldi.Injector,R&lt;:scaldi.Injector](other:I)(implicitcomp:scaldi.CanCompose[I,Injector.this.type,R]):R" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
@@ -199,7 +200,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -216,7 +217,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -233,7 +234,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@clone():Object" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -256,10 +257,10 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@discoverBinding(name:String,tpe:reflect.runtime.universe.Type,ids:List[scaldi.Identifier]):Option[scaldi.Binding]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+      <p class="shortcomment cmt">Retrieves value by name, converts it to specified type and associates it with supplied identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>Retrieves value by name, converts it to specified type and associates it with supplied identifiers.</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name of the value to bind</p></dd><dt class="param">tpe</dt><dd class="cmt"><p>type of the value to bind</p></dd><dt class="param">ids</dt><dd class="cmt"><p>identifiers of the resulting binding</p></dd><dt>returns</dt><dd class="cmt"><p>option with resulting binding (<code>None</code> if binding was not found by name)</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li name="scaldi.RawInjector#discoverBinding" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="discoverBinding(ids:List[scaldi.Identifier]):Option[scaldi.Binding]"></a>
       <a id="discoverBinding(List[Identifier]):Option[Binding]"></a>
@@ -273,10 +274,10 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@discoverBinding(ids:List[scaldi.Identifier]):Option[scaldi.Binding]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+      <p class="shortcomment cmt">Retrieves bindings from cache based on supplied identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>Retrieves bindings from cache based on supplied identifiers.</p></div><dl class="paramcmts block"><dt class="param">ids</dt><dd class="cmt"><p>identifiers describing binding</p></dd><dt>returns</dt><dd class="cmt"><p>found binding, <code>None</code> if binding was not found</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -290,7 +291,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -307,7 +308,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -324,7 +325,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@finalize():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -347,10 +348,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@getBinding(identifiers:List[scaldi.Identifier]):Option[scaldi.Binding]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.RawInjector">RawInjector</a> → <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
+      <p class="shortcomment cmt">Single binding lookup
+</p><div class="fullcomment"><div class="comment cmt"><p>Single binding lookup
+</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>binding's identifiers</p></dd><dt>returns</dt><dd class="cmt"><p>option with binding (<code>None</code> if not found)</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.RawInjector">RawInjector</a> → <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
     </li><li name="scaldi.RawInjector#getBindings" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getBindings(identifiers:List[scaldi.Identifier]):List[scaldi.Binding]"></a>
       <a id="getBindings(List[Identifier]):List[Binding]"></a>
@@ -364,10 +367,12 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@getBindings(identifiers:List[scaldi.Identifier]):List[scaldi.Binding]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.RawInjector">RawInjector</a> → <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
+      <p class="shortcomment cmt">List of bindings lookup
+</p><div class="fullcomment"><div class="comment cmt"><p>List of bindings lookup
+</p></div><dl class="paramcmts block"><dt class="param">identifiers</dt><dd class="cmt"><p>bindings identifiers</p></dd><dt>returns</dt><dd class="cmt"><p>list of found bindings</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="scaldi.RawInjector">RawInjector</a> → <a href="Injector.html" class="extype" name="scaldi.Injector">Injector</a></dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -381,7 +386,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -398,7 +403,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@hashCode():Int" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -415,7 +420,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -432,7 +437,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -449,7 +454,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@notify():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -466,7 +471,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -483,7 +488,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -500,7 +505,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@toString():String" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -517,7 +522,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@wait():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -540,7 +545,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -563,7 +568,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.RawInjector@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>

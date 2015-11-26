@@ -28,11 +28,11 @@
         </head>
         <body class="value">
       <div id="definition">
-        <img src="../lib/package_big.png" />
+        <img alt="Package" src="../lib/package_big.png" />
         
         <h1>scaldi</h1><span class="permalink">
       <a href="../index.html#scaldi.package" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -79,7 +79,6 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -106,7 +105,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@AndConditionextendsConditionwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -123,11 +122,11 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindHelper[R]extendsCanBeIdentified[scaldi.BindHelper[R]]withCanBeConditional[scaldi.BindHelper[R]]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="scaldi.Binding" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.Binding" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="BindingextendsIdentifiable"></a>
       <a id="Binding:Binding"></a>
       <h4 class="signature">
@@ -140,10 +139,15 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindingextendsIdentifiable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Binding is defined in a <code>Module</code> as Type -&gt; instance relationship (sometimes
+with additional identifiers).</p><div class="fullcomment"><div class="comment cmt"><p>Binding is defined in a <code>Module</code> as Type -&gt; instance relationship (sometimes
+with additional identifiers).
+I can be injected in classes where implicit <code>Injector</code> is available.
+Binding can be defined (containing a value) or undefined.
+</p></div></div>
     </li><li name="scaldi.BindingException" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="BindingExceptionextendsRuntimeException"></a>
       <a id="BindingException:BindingException"></a>
@@ -157,7 +161,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindingExceptionextendsRuntimeException" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -174,7 +178,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindingLifecycle[-T]extendsProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -191,10 +195,11 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindingWithLifecycleextendsIdentifiable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Bindings with lifecycle may have initialization and destruction handlers
+</p>
     </li><li name="scaldi.BoundHelper" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="BoundHelper[D]extendsCanBeIdentified[scaldi.BoundHelper[D]]withCanBeConditional[scaldi.BoundHelper[D]]withCanHaveLifecycle[scaldi.BoundHelper[D],D]"></a>
       <a id="BoundHelper[D]:BoundHelper[D]"></a>
@@ -208,7 +213,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BoundHelper[D]extendsCanBeIdentified[scaldi.BoundHelper[D]]withCanBeConditional[scaldi.BoundHelper[D]]withCanHaveLifecycle[scaldi.BoundHelper[D],D]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -225,7 +230,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ByWordextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Helper class to make injection with default value more readable.</p>
@@ -242,7 +247,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@CanBeConditional[R]extendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -259,7 +264,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@CanBeIdentified[R]extendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -276,7 +281,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@CanBeIdentifier[T]extendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -299,7 +304,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@CanCompose[-A,-B,+R]extendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -322,7 +327,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@CanHaveLifecycle[H,D]extendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -339,7 +344,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ConditionextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -356,10 +361,10 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@DynamicModuleextendsWordBinderwithInjectorWithLifecycle[scaldi.DynamicModule]withOpenInjectablewithMutableInjectorUserwithShutdownHookLifecycleManager" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Same as module, but with accessible <code>Injectable</code>'s methods.</p>
     </li><li name="scaldi.Freezable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="FreezableextendsAnyRef"></a>
       <a id="Freezable:Freezable"></a>
@@ -373,11 +378,11 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@FreezableextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="scaldi.Identifiable" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.Identifiable" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="IdentifiableextendsAnyRef"></a>
       <a id="Identifiable:Identifiable"></a>
       <h4 class="signature">
@@ -390,10 +395,12 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@IdentifiableextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Entities that extend <code>Identifiable</code> can be identified using Scaldi identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>Entities that extend <code>Identifiable</code> can be identified using Scaldi identifiers.
+They can also contain conditions.
+</p></div></div>
     </li><li name="scaldi.IdentifiedWord" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="IdentifiedWord[+T]extendsAnyRef"></a>
       <a id="IdentifiedWord[+T]:IdentifiedWord[T]"></a>
@@ -407,12 +414,11 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@IdentifiedWord[+T]extendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Helper class to make injection by identifier more readable.</p><div class="fullcomment"><div class="comment cmt"><p>Helper class to make injection by identifier more readable.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the dependency being injected
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the dependency being injected</p></dd></dl></div>
     </li><li name="scaldi.Identifier" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="IdentifierextendsAnyRef"></a>
       <a id="Identifier:Identifier"></a>
@@ -426,7 +432,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@IdentifierextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -443,7 +449,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ImmutableInjectorextendsInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -460,7 +466,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ImmutableInjectorAggregationextendsInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -477,7 +483,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ImmutableWrapperextendsInjectorwithImmutableInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -494,7 +500,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@Initializeable[I]extendsFreezable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -511,12 +517,11 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@InjectConstraints[+T]extendsProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">A wrapper for a default value for the injection and for its identifiers.</p><div class="fullcomment"><div class="comment cmt"><p>A wrapper for a default value for the injection and for its identifiers.</p><p>It is here to make injection constraints look like natural language.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the dependency being injected
-</p></dd><dt class="param">default</dt><dd class="cmt"><p>default value for injected instance. It would be used if biding is not found in the <code>Injector</code>.</p></dd><dt class="param">initialIdentifiers</dt><dd class="cmt"><p>identifiers</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of the dependency being injected</p></dd><dt class="param">default</dt><dd class="cmt"><p>default value for injected instance. It would be used if biding is not found in the <code>Injector</code>.</p></dd><dt class="param">initialIdentifiers</dt><dd class="cmt"><p>identifiers</p></dd></dl></div>
     </li><li name="scaldi.InjectException" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="InjectExceptionextendsRuntimeException"></a>
       <a id="InjectException:InjectException"></a>
@@ -530,7 +535,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@InjectExceptionextendsRuntimeException" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -547,7 +552,7 @@ your application modules in pure Scala without any annotations or XML.</p><p>For
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@InjectableextendsWire" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Provides injection DSL.</p><div class="fullcomment"><div class="comment cmt"><p>Provides injection DSL. You can extend it in your classes in order
@@ -569,7 +574,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@InjectorextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -586,11 +591,11 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@InjectorWithLifecycle[I&lt;:scaldi.InjectorWithLifecycle[I]]extendsInjectorwithInitializeable[I]withMutableInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="scaldi.LazyBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.LazyBinding" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="LazyBindingextendsBindingWithLifecyclewithProductwithSerializable"></a>
       <a id="LazyBinding:LazyBinding"></a>
       <h4 class="signature">
@@ -603,10 +608,10 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@LazyBindingextendsBindingWithLifecyclewithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Binding that is initialized on on first use and never changes afterwards.</p><div class="fullcomment"><div class="comment cmt"><p>Binding that is initialized on on first use and never changes afterwards.</p></div><dl class="paramcmts block"><dt class="param">createFn</dt><dd class="cmt"><p>function that creates and returns value that will be associated with binding</p></dd><dt class="param">identifiers</dt><dd class="cmt"><p>binding's identifiers (empty by default)</p></dd><dt class="param">condition</dt><dd class="cmt"><p>binding's conditions (empty by default)</p></dd><dt class="param">lifecycle</dt><dd class="cmt"><p>binding's lifecycle (empty by default)</p></dd></dl></div>
     </li><li name="scaldi.LifecycleManager" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="LifecycleManagerextendsAnyRef"></a>
       <a id="LifecycleManager:LifecycleManager"></a>
@@ -620,7 +625,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@LifecycleManagerextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -637,7 +642,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@LowPriorityImmutableInjectorCompositionextendsLowPriorityMutableInjectorComposition" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -654,11 +659,11 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@LowPriorityMutableInjectorCompositionextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="scaldi.Module" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.Module" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ModuleextendsWordBinderwithInjectorWithLifecycle[scaldi.Module]withInjectablewithMutableInjectorUserwithShutdownHookLifecycleManager"></a>
       <a id="Module:Module"></a>
       <h4 class="signature">
@@ -671,11 +676,13 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ModuleextendsWordBinderwithInjectorWithLifecycle[scaldi.Module]withInjectablewithMutableInjectorUserwithShutdownHookLifecycleManager" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Standard application module
-</p>
+      <p class="shortcomment cmt">Module is a place where you declare your bindings.</p><div class="fullcomment"><div class="comment cmt"><p>Module is a place where you declare your bindings.
+It's also the most common injector that you can use in most cases.
+It's a mutable injector so it can have a lifecycle and it also provides nice DSL for the bindings.</p><p>Module is an Injectable instance thanks to that you can inject other dependencies in module's bindings.
+</p></div></div>
     </li><li name="scaldi.MutableInjector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="MutableInjectorextendsInjector"></a>
       <a id="MutableInjector:MutableInjector"></a>
@@ -689,7 +696,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@MutableInjectorextendsInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -706,7 +713,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@MutableInjectorAggregationextendsInjectorWithLifecycle[scaldi.MutableInjectorAggregation]withMutableInjectorUserwithShutdownHookLifecycleManager" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -723,11 +730,11 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@MutableInjectorUserextendsMutableInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="scaldi.NonLazyBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.NonLazyBinding" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="NonLazyBindingextendsBindingWithLifecyclewithProductwithSerializable"></a>
       <a id="NonLazyBinding:NonLazyBinding"></a>
       <h4 class="signature">
@@ -740,10 +747,12 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@NonLazyBindingextendsBindingWithLifecyclewithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Binding that is initialized at the Injector initialization phase (normally during an
+application startup) and never changes afterwards.</p><div class="fullcomment"><div class="comment cmt"><p>Binding that is initialized at the Injector initialization phase (normally during an
+application startup) and never changes afterwards.</p></div><dl class="paramcmts block"><dt class="param">createFn</dt><dd class="cmt"><p>function that creates and returns value that will be associated with binding</p></dd><dt class="param">identifiers</dt><dd class="cmt"><p>binding's identifiers (empty by default)</p></dd><dt class="param">condition</dt><dd class="cmt"><p>binding's conditions (empty by default)</p></dd><dt class="param">lifecycle</dt><dd class="cmt"><p>binding's lifecycle (empty by default)</p></dd></dl></div>
     </li><li name="scaldi.NotCondition" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="NotConditionextendsConditionwithProductwithSerializable"></a>
       <a id="NotCondition:NotCondition"></a>
@@ -757,7 +766,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@NotConditionextendsConditionwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -774,7 +783,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@OpenInjectableextendsInjectable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Exactly the same as Injectable trait, but with all methods made public
@@ -792,7 +801,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@OrConditionextendsConditionwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -809,11 +818,11 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@PropertiesInjectorextendsRawInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="scaldi.ProviderBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Used to look for simple bindings in supplied properties (hash table)</p>
+    </li><li name="scaldi.ProviderBinding" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ProviderBindingextendsBindingWithLifecyclewithProductwithSerializable"></a>
       <a id="ProviderBinding:ProviderBinding"></a>
       <h4 class="signature">
@@ -826,11 +835,11 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ProviderBindingextendsBindingWithLifecyclewithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="scaldi.RawBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Binding that is initialized on every injection with createFn function.</p><div class="fullcomment"><div class="comment cmt"><p>Binding that is initialized on every injection with createFn function.</p></div><dl class="paramcmts block"><dt class="param">createFn</dt><dd class="cmt"><p>function that creates and returns value that will be associated with binding</p></dd><dt class="param">identifiers</dt><dd class="cmt"><p>binding's identifiers (empty by default)</p></dd><dt class="param">condition</dt><dd class="cmt"><p>binding's conditions (empty by default)</p></dd><dt class="param">lifecycle</dt><dd class="cmt"><p>binding's lifecycle (empty by default)</p></dd></dl></div>
+    </li><li name="scaldi.RawBinding" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="RawBindingextendsBindingwithProductwithSerializable"></a>
       <a id="RawBinding:RawBinding"></a>
       <h4 class="signature">
@@ -843,10 +852,10 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@RawBindingextendsBindingwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Binding with a raw value, not converted to any specific type (value from system properties, configuration, etc.).</p><div class="fullcomment"><div class="comment cmt"><p>Binding with a raw value, not converted to any specific type (value from system properties, configuration, etc.).</p></div><dl class="paramcmts block"><dt class="param">value</dt><dd class="cmt"><p>value of the binding</p></dd><dt class="param">identifiers</dt><dd class="cmt"><p>identifiers defining the binding</p></dd></dl></div>
     </li><li name="scaldi.RawInjector" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="RawInjectorextendsInjector"></a>
       <a id="RawInjector:RawInjector"></a>
@@ -860,10 +869,12 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@RawInjectorextendsInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Abstract <code>Injector</code> implementation that may be extended by other injectors that get values from
+specific source (command line, typesafe config, properties, etc.)
+</p>
     </li><li name="scaldi.RequiredIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RequiredIdentifierextendsIdentifierwithProductwithSerializable"></a>
       <a id="RequiredIdentifier:RequiredIdentifier"></a>
@@ -877,7 +888,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@RequiredIdentifierextendsIdentifierwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -894,11 +905,11 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ShutdownHookLifecycleManagerextendsLifecycleManager" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
-    </li><li name="scaldi.SimpleBinding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="scaldi.SimpleBinding" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="SimpleBinding[T]extendsBindingwithProductwithSerializable"></a>
       <a id="SimpleBinding[T]:SimpleBinding[T]"></a>
       <h4 class="signature">
@@ -911,10 +922,11 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@SimpleBinding[T]extendsBindingwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Binding that only contains a value.</p><div class="fullcomment"><div class="comment cmt"><p>Binding that only contains a value.
+As it is just a fixed value, no lyfecycle is needed</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>binding's type</p></dd><dt class="param">boundValue</dt><dd class="cmt"><p>binding's value</p></dd><dt class="param">identifiers</dt><dd class="cmt"><p>binding's identifiers (empty by default)</p></dd><dt class="param">condition</dt><dd class="cmt"><p>binding's conditions (empty by default)</p></dd><dt class="param">cacheable</dt><dd class="cmt"><p>if binding should be cacheable (false by default)</p></dd><dt class="param">eager</dt><dd class="cmt"><p>if binding is eager (non lazy) (false by default)</p></dd></dl></div>
     </li><li name="scaldi.SimpleContainerInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SimpleContainerInjectorextendsMutableInjectorUserwithInjectorWithLifecycle[scaldi.SimpleContainerInjector]withShutdownHookLifecycleManager"></a>
       <a id="SimpleContainerInjector:SimpleContainerInjector"></a>
@@ -928,10 +940,10 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@SimpleContainerInjectorextendsMutableInjectorUserwithInjectorWithLifecycle[scaldi.SimpleContainerInjector]withShutdownHookLifecycleManager" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Container that transforms a list of bindings into a valid <code>Injector</code></p>
     </li><li name="scaldi.StringIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StringIdentifierextendsIdentifierwithProductwithSerializable"></a>
       <a id="StringIdentifier:StringIdentifier"></a>
@@ -945,7 +957,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@StringIdentifierextendsIdentifierwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -962,7 +974,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@SysPropConditionextendsConditionwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -979,7 +991,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@TypeTagIdentifierextendsIdentifierwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -996,10 +1008,10 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@TypesafeConfigInjectorextendsRawInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Injector with bindings found in supplied typesafe configuration</p>
     </li><li name="scaldi.Wire" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="WireextendsAnyRef"></a>
       <a id="Wire:Wire"></a>
@@ -1013,7 +1025,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@WireextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1030,7 +1042,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@WireBuilderextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1047,7 +1059,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@WordBinderextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1064,7 +1076,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@WordBindingProvider[T]extendsProductwithSerializable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1081,7 +1093,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindingProviderextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -1101,7 +1113,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ReflectionBinderextendsAnyRef" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
@@ -1117,17 +1129,17 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="StaticModule.html"><span class="name deprecated" title="Deprecated: (Since version 0.5) StaticModule is deprecated and will be removed soon. As an alternative you can use ImmutableWrapper injector to define an immutability boundary in composition or create your own injector that is marked as ImmutableInjector.">StaticModule</span></a><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a> with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></span>
+        <a href="StaticModule.html"><span class="name deprecated" title="Deprecated: (Since version 0.5)">StaticModule</span></a><span class="result"> extends <a href="ReflectionBinder.html" class="extype" name="scaldi.ReflectionBinder">ReflectionBinder</a> with <a href="ImmutableInjector.html" class="extype" name="scaldi.ImmutableInjector">ImmutableInjector</a> with <a href="Injectable.html" class="extype" name="scaldi.Injectable">Injectable</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@StaticModuleextendsReflectionBinderwithImmutableInjectorwithInjectable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@deprecated</span>
               
-        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.5)</i> StaticModule is deprecated and will be removed soon. As an alternative you can use <code>ImmutableWrapper</code> injector to define an immutability boundary in composition or create your own injector that is marked as <code>ImmutableInjector</code>.</p></dd></dl></div>
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 0.5)</i></p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1148,10 +1160,11 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@Args" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Factory for creating injector from command line arguments
+</p>
     </li><li name="scaldi.Binding" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Binding"></a>
       <a id="Binding:Binding"></a>
@@ -1165,7 +1178,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@Binding" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1182,7 +1195,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindingLifecycle" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1199,7 +1212,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@BindingWithLifecycle" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1216,7 +1229,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@CanBeIdentifier" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1233,7 +1246,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@Condition" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1250,7 +1263,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@DynamicModule" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1267,7 +1280,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@Identifier" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1284,7 +1297,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@ImmutableWrapper" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1301,7 +1314,7 @@ takes an implicit parameter of type <code>Injector</code>.</p><p>Example:</p><pr
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@Injectable" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Companion object of Injectable which can be just imported in contrast
@@ -1323,7 +1336,7 @@ it, you can use an injection DSL without extending the trait.</p><p>Example:</p>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@Injector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1340,10 +1353,11 @@ it, you can use an injection DSL without extending the trait.</p><p>Example:</p>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@NilInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Empty injector, used for injector combination or as a filler where injector is required,
+but there are no bindings.</p>
     </li><li name="scaldi.PropertiesInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PropertiesInjector"></a>
       <a id="PropertiesInjector:PropertiesInjector"></a>
@@ -1357,10 +1371,10 @@ it, you can use an injection DSL without extending the trait.</p><p>Example:</p>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@PropertiesInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Factories to handle different type of properties' source.</p>
     </li><li name="scaldi.SystemPropertiesInjector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SystemPropertiesInjector"></a>
       <a id="SystemPropertiesInjector:SystemPropertiesInjector"></a>
@@ -1374,10 +1388,10 @@ it, you can use an injection DSL without extending the trait.</p><p>Example:</p>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@SystemPropertiesInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Used to look up for simple bindings in system properties.</p>
     </li><li name="scaldi.TypeTagIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="TypeTagIdentifier"></a>
       <a id="TypeTagIdentifier:TypeTagIdentifier"></a>
@@ -1391,7 +1405,7 @@ it, you can use an injection DSL without extending the trait.</p><p>Example:</p>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@TypeTagIdentifier" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1408,10 +1422,10 @@ it, you can use an injection DSL without extending the trait.</p><p>Example:</p>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@TypesafeConfigInjector" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Factories to handle different type of Typesafe config's source.</p>
     </li><li name="scaldi.WireBuilder" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="WireBuilder"></a>
       <a id="WireBuilder:WireBuilder"></a>
@@ -1425,7 +1439,7 @@ it, you can use an injection DSL without extending the trait.</p><p>Example:</p>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@WireBuilder" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -1442,7 +1456,7 @@ it, you can use an injection DSL without extending the trait.</p><p>Example:</p>
       </span>
       </h4><span class="permalink">
       <a href="../index.html#scaldi.package@util" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" />
+        <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
