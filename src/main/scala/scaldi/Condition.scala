@@ -12,7 +12,7 @@ trait Condition {
     *
     * This will influence how non-lazy bindings are initialized. Non-dynamic conditions
     * would be checked during the initialization phase of an `Injector` (with empty list of identifiers) and if
-    * condition returns `false`, then non-lazy binding would not be initialized).
+    * condition returns `false`, then non-lazy binding would not be initialized.
     */
   def dynamic: Boolean = true
 }

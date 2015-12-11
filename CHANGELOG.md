@@ -1,32 +1,38 @@
-## v0.5.6 (28.05.2015)
+## v0.5.7 (2015-12-11)
+
+* Introduced non-dynamic conditions. This will influence how non-lazy bindings are initialized. Non-dynamic conditions
+  would be checked during the initialization phase of an `Injector` (with empty list of identifiers) and if
+  condition returns `false`, then non-lazy binding would not be initialized.
+
+## v0.5.6 (2015-05-28)
 
 Extracted JSR 330 implementation in separate project: https://github.com/scaldi/scaldi-jsr330
 
-## v0.5.5 (29.04.2015)
+## v0.5.5 (2015-04-29)
 
 Minor bugfix release
 
-## v0.5.4 (23.02.2015)
+## v0.5.4 (2015-02-23)
 
 * #45 - Caching information on binding
 * #46 - Annotation identifier should be able to also compare annotation values
 * #47 - Workaround for reflection API bug https://issues.scala-lang.org/browse/SI-9177
 
-## v0.5.3 (02.02.2015)
+## v0.5.3 (2015-02-02)
 
 * Improved the unregister of a shutdown hook behavior
 
-## v0.5.2 (02.02.2015)
+## v0.5.2 (2015-02-02)
 
 * #43 - `Int` properties are injected by `TypesafeConfigInjector`
 * #44 - JVM shutdown hook now unregister itself if `destroy` is called manually
 
-## v0.5.1 (01.02.2015)
+## v0.5.1 (2015-02-01)
 
 * `AnnotationBinding` can now also inject already created instances
 * `annotated` binding syntax moved to jsr330 package
 
-## v0.5 (31.01.2015)
+## v0.5 (2015-01-31)
 
 * JSR 330 support. Scaldi now fully implements (except optional static injection) [JSR 330 (Dependency Injection for Java)](https://jcp.org/en/jsr/detail?id=330) spec.
   * New syntax added to bind JSR 330 annotated classes
@@ -55,7 +61,7 @@ Minor bugfix release
 * `ReflectiveBinder` and `StaticModule` are deprecated and will be removed in the next versions
   * `Module` does not support `ReflectiveBinder` anymore - only word bindings are supported
 
-## v0.4 (22.06.2014)
+## v0.4 (2014-06-22)
 
 * Constrictor injection with `injected` macros. Here is an example if it's usage:  `bind [Users] to injected [UserService]`.
 * Only Scala version 2.11 is supported from now on (mostly because of the macros)
@@ -68,11 +74,11 @@ Minor bugfix release
   }
   ```
 
-## v0.3.2 (24.04.2014)
+## v0.3.2 (2014-04-24)
 
 * Minor bugfix in raw property injector
 
-## v0.3.1 (23.04.2014)
+## v0.3.1 (2014-04-23)
 
 * Added support for scala 2.11 (cross-compiling with 2.10 and 2.11)
 * Small clean-up of `Injectable`
@@ -96,7 +102,7 @@ Minor bugfix release
       inject [Database] (by default new Riak)
       ```
 
-## v0.3 (02.03.2014)
+## v0.3 (2014-03-02)
 
 * GroupId is changed to `org.scaldi`. So if you want to include it in the project, you need to use following configuration now:
  ```
