@@ -54,7 +54,7 @@ trait WordBinder {
   }
 
   protected def initEagerWordBindings(lifecycleManager: LifecycleManager): () => Unit =
-    wordBindings |> (b => () => b.filter(_.isEager).foreach(_ get lifecycleManager))
+    wordBindings |> (b => () => b.filter(_.isEager).foreach(_ init lifecycleManager))
 }
 
 trait CanBeIdentified[R] { this: R =>

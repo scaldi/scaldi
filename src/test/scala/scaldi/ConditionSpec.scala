@@ -3,13 +3,13 @@ package scaldi
 import org.scalatest.{Matchers, WordSpec}
 
 class ConditionSpec extends WordSpec with Matchers {
+  val C = Condition
+
   "Condition" should {
     val onlyTest: PartialFunction[List[Identifier], Boolean] = {
       case List(StringIdentifier("test")) => true
       case _ => false
     }
-
-    val C = Condition
 
     "be sutisfied if underlying function returns true" in {
       C(true) satisfies Nil should be (true)
@@ -66,6 +66,57 @@ class ConditionSpec extends WordSpec with Matchers {
       } finally {
         System.clearProperty("test-property")
       }
+    }
+  }
+
+  "non-dynamic conditions" should {
+    "initialize of non-lazy bindings when true" in {
+      val cond = C(true, dynamic = false)
+      var initialized = false
+
+      implicit val inj = new Module {
+        bind [String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+      }
+
+      inj.initNonLazy()
+
+      initialized should be (true)
+    }
+
+    "prevent initialization of non-lazy bindings when false" in {
+      val cond = C(false, dynamic = false)
+      var initialized = false
+
+      implicit val inj = new Module {
+        bind [String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+      }
+
+      inj.initNonLazy()
+
+      initialized should be (false)
+    }
+
+    "compose" in {
+      val dynamic = C(true, dynamic = true)
+      val nonDynamic = C(true, dynamic = false)
+
+      (dynamic and (!dynamic or !nonDynamic)).dynamic should be (true)
+      (nonDynamic and (!nonDynamic or !nonDynamic)).dynamic should be (false)
+    }
+  }
+
+  "dynamic conditions" should {
+    "initialize of non-lazy bindings when false" in {
+      val cond = C(false, dynamic = true)
+      var initialized = false
+
+      implicit val inj = new Module {
+        bind[String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+      }
+
+      inj.initNonLazy()
+
+      initialized should be(true)
     }
   }
 }

@@ -46,8 +46,8 @@ trait Module extends WordBinder
   "use `ImmutableWrapper` injector to define an immutability boundary in composition or create " +
   "your own injector that is marked as `ImmutableInjector`.", "0.5")
 trait StaticModule extends ReflectionBinder
-                      with ImmutableInjector
-                      with Injectable {
+                       with ImmutableInjector
+                       with Injectable {
   /**
    * @inheritdoc
    */
@@ -65,10 +65,10 @@ trait StaticModule extends ReflectionBinder
  * Same as module, but with accessible `Injectable`'s methods.
  */
 class DynamicModule extends WordBinder
-                       with InjectorWithLifecycle[DynamicModule]
-                       with OpenInjectable
-                       with MutableInjectorUser
-                       with ShutdownHookLifecycleManager {
+                        with InjectorWithLifecycle[DynamicModule]
+                        with OpenInjectable
+                        with MutableInjectorUser
+                        with ShutdownHookLifecycleManager {
 
   /**
    * @inheritdoc
@@ -389,5 +389,5 @@ class SimpleContainerInjector(bindings: Injector => List[BindingWithLifecycle]) 
    * @inheritdoc
    */
   protected def init(lifecycleManager: LifecycleManager) =
-    preparedBindings |> (b => () => b.filter(_.isEager).foreach(_ get lifecycleManager))
+    preparedBindings |> (b => () => b.filter(_.isEager).foreach(_ init lifecycleManager))
 }

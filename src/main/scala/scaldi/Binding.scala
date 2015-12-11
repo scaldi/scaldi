@@ -16,14 +16,17 @@ trait Identifiable {
     */
   def condition: Option[() => Condition]
 
+  protected lazy val resolvedCondition = condition map (fn ⇒ fn())
+
   def isDefinedFor(desiredIdentifiers: List[Identifier]) =
     Identifier.sameAs(identifiers, desiredIdentifiers) &&
-      (condition map (fn => fn() satisfies desiredIdentifiers) getOrElse true)
+      resolvedCondition.fold(true)(_ satisfies desiredIdentifiers)
 
   /**
     * Defines if binding is lazy or not
-    * False by default
-    * @return `Boolean` true if not lazy, false otherwise
+    * `false` by default
+    *
+    * @return `true` if not lazy, `false` otherwise
     */
   def isEager: Boolean = false
 
@@ -85,10 +88,22 @@ trait BindingWithLifecycle extends Identifiable {
   /**
     * Retrieves stored binding's value, used during binding lookup during injection.
     * If equals to `None`, binding is considered undefined
+    *
     * @param lifecycleManager `LifecycleManager` that will handle the destruction of the binding at the end of the lifecycle
     * @return `Option` with binding's value (or `None` if the binding is undefined)
     */
   def get(lifecycleManager: LifecycleManager): Option[Any]
+
+  def init(lifecycleManager: LifecycleManager): Unit = {
+    resolvedCondition match {
+      case None ⇒
+        get(lifecycleManager)
+      case Some(c) if c.dynamic || c.satisfies(Nil) ⇒
+        get(lifecycleManager)
+      case _ ⇒
+      // do nothing because eager binding should not be initialized
+    }
+  }
 }
 
 object BindingWithLifecycle {
@@ -110,6 +125,7 @@ object BindingWithLifecycle {
 /**
   * Binding that is initialized at the Injector initialization phase (normally during an
   * application startup) and never changes afterwards.
+  *
   * @param createFn function that creates and returns value that will be associated with binding
   * @param identifiers binding's identifiers (empty by default)
   * @param condition binding's conditions (empty by default)
@@ -151,6 +167,7 @@ case class NonLazyBinding(private val createFn: Option[() => Any],
 
 /**
   * Binding that is initialized on on first use and never changes afterwards.
+  *
   * @param createFn function that creates and returns value that will be associated with binding
   * @param identifiers binding's identifiers (empty by default)
   * @param condition binding's conditions (empty by default)
@@ -187,6 +204,7 @@ case class LazyBinding(private val createFn: Option[() => Any],
 
 /**
   * Binding that is initialized on every injection with createFn function.
+  *
   * @param createFn function that creates and returns value that will be associated with binding
   * @param identifiers binding's identifiers (empty by default)
   * @param condition binding's conditions (empty by default)
@@ -210,7 +228,8 @@ case class ProviderBinding(private val createFn: () => Any,
 
 /**
   * Binding that only contains a value.
-  * As it is just a fixed value, no lyfecycle is needed
+  * As it is just a fixed value, no lifecycle is needed
+  *
   * @param boundValue binding's value
   * @param identifiers binding's identifiers (empty by default)
   * @param condition binding's conditions (empty by default)
@@ -227,7 +246,7 @@ case class SimpleBinding[T](boundValue: Option[() => T],
   /**
     * @inheritdoc
     */
-  lazy val get = boundValue map (fn => fn() )
+  lazy val get = boundValue map (fn => fn())
 
   /**
     * @inheritdoc
