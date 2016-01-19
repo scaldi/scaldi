@@ -22,7 +22,6 @@ object ReflectionHelper {
 
             val names = universe.asInstanceOf[StdNames with Names]
             val name = names.nme.defaultGetterName(names.nme.CONSTRUCTOR, idx + 1).encodedName.toString
-            val mirror = runtimeMirror(this.getClass.getClassLoader)
             val reflection = mirror.reflect(mirror.reflectModule(tpe.typeSymbol.companion.asModule).instance)
 
             reflection.reflectMethod(tpe.companion.member(TermName(name)).asMethod).apply().asInstanceOf[T]
