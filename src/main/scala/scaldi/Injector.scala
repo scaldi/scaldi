@@ -111,7 +111,11 @@ trait LowPriorityMutableInjectorComposition {
 }
 
 /**
-  * A very simple implementation of an injector that just delegates the binding lookup to some other injector.
+  * A very simple implementation of an injector that just delegates the binding lookup
+  * to some other injector. This will protect the lifecycle of the delegated injector from
+  * any changes. It is useful in a case of a scoped binding: if you want to use the injector
+  * in a composition, but don't want the composition's lifecycle to influence it. In that case,
+  * before creating the composition wrap the injector into the `ImmutableWrapper`.
   * @param delegate another Injector to which delegate the binding
   */
 class ImmutableWrapper(delegate: Injector) extends Injector with ImmutableInjector {
@@ -207,7 +211,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLife
   }
 
   /**
-    * Initialize bindings that re not lazy in composed injectors
+    * Initialize bindings that are not lazy in composed injectors
     * @param lifecycleManager entity that will manage the lifecycle of the eager bindings
     */
   protected def init(lifecycleManager: LifecycleManager) = {
