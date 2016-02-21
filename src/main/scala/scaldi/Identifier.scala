@@ -30,9 +30,9 @@ trait Identifier {
 
 object Identifier {
   /**
-    * Implicitly casts a type that can be `Identifier` to an identifier
-    * @param target value to be casted to `Identifier`
-    * @tparam T class that can be casted to an `Identifier`
+    * Implicitly transforms a type that can be `Identifier` to an identifier
+    * @param target value to be transformed to `Identifier`
+    * @tparam T class that can be transformed to an `Identifier`
     * @return resulting `Identifier`
     */
   implicit def toIdentifier[T : CanBeIdentifier](target: T): Identifier = implicitly[CanBeIdentifier[T]].toIdentifier(target)
@@ -58,8 +58,8 @@ object Identifier {
 }
 
 /**
-  * Type class to implicitly cast `T` class to an `Identifier`
-  * @tparam T type that should be casted to an Identifier
+  * Implementation to implicitly transform `T` class to an `Identifier`
+  * @tparam T type that should be transformed to an Identifier
   */
 @implicitNotFound(msg = "${T} can't be treated as Identifier. Please consider defining CanBeIdentifier for it.")
 trait CanBeIdentifier[T] {
@@ -69,7 +69,7 @@ trait CanBeIdentifier[T] {
 object CanBeIdentifier {
 
   /**
-    * Type class implementation to cast a `String` to an `Identifier`.
+    * Implementation to implicitly transform `String` into an `Identifier`.
     * Has priority over other type class implementations
     */
   implicit object StringCanBeIdentifier extends CanBeIdentifier[String] {
@@ -77,35 +77,35 @@ object CanBeIdentifier {
   }
 
   /**
-    * Type class implementation to cast a `Symbol` to an `Identifier`
+    * Implementation to implicitly transform `Symbol` into an `Identifier`
     */
   implicit object SymbolCanBeIdentifier extends CanBeIdentifier[Symbol] {
     def toIdentifier(sym: Symbol) = StringIdentifier(sym.name)
   }
 
   /**
-    * Type class implementation to cast a ??? to an `Identifier`
+    * Implementation to implicitly transform a Class into an `Identifier`
     */
   implicit def ClassCanBeIdentifier[T: TypeTag] = new CanBeIdentifier[Class[T]] {
     def toIdentifier(c: Class[T]) = TypeTagIdentifier.typeId[T]
   }
 
   /**
-    * Type class implementation to cast a ??? to an `Identifier`
+    * Implementation to implicitly transform a Type Parameter into an `Identifier`
     */
   implicit def TypeTagCanBeIdentifier[T: TypeTag] = new CanBeIdentifier[TypeTag[T]] {
     def toIdentifier(typeTag: TypeTag[T]) = TypeTagIdentifier(typeTag.tpe)
   }
 
   /**
-    * Type class implementation to cast a ??? to an `Identifier`
+    * Implementation to implicitly transform a Scala Type into an `Identifier`
     */
   implicit object TypeCanBeIdentifier extends CanBeIdentifier[Type] {
     def toIdentifier(tpe: Type) = TypeTagIdentifier(tpe)
   }
 
   /**
-    * Type class implementation to cast a `Identifier` implementation to an `Identifier`
+    * Implementation to implicitly transform an `Identifier` implementation into an `Identifier`
     */
   implicit def identifierCanBeIdentifier[I <: Identifier] = new CanBeIdentifier[I] {
     def toIdentifier(id: I) = id
@@ -129,9 +129,9 @@ case class TypeTagIdentifier(tpe: Type) extends Identifier {
 
 object TypeTagIdentifier {
   /**
-    * ???
-    * @tparam T ???
-    * @return ???
+    * Generates an `Identifier` from a type parameter within TypeTag
+    * @tparam T `TypeTag` containing type parameter
+    * @return Generated `Identifier`
     */
   def typeId[T: TypeTag] = TypeTagIdentifier(implicitly[TypeTag[T]].tpe)
 }
