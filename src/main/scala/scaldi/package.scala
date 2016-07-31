@@ -4,6 +4,6 @@
  * to make dependency injection in Scala projects consuming power of the Scala language. With Scaldi you can define
  * your application modules in pure Scala without any annotations or XML.
  *
- * For more information see: [[http://olegilyenko.github.com/scaldi/Scaldi.html]]
+ * For more information see: [[http://scaldi.org]]
  */
 package object scaldi {}
