@@ -6,14 +6,23 @@ description := "Scaldi - Scala Dependency Injection Library"
 homepage := Some(url("http://scaldi.org"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-scalaVersion := "2.11.7"
+crossScalaVersions := Seq("2.11.8", "2.12.0")
+scalaVersion := "2.12.0"
+
 scalacOptions ++= Seq("-deprecation", "-feature")
+
+scalacOptions ++= {
+  if (scalaVersion.value startsWith "2.12")
+    Seq.empty
+  else
+    Seq("-target:jvm-1.7")
+}
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-  "com.typesafe" % "config" % "1.2.1" % "optional",
+  "com.typesafe" % "config" % "1.3.1" % "optional",
 
-  "org.scalatest" %% "scalatest" % "2.2.1" % "test"
+  "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
 
 fork := true
