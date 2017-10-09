@@ -166,7 +166,7 @@ trait Injectable extends Wire {
    * @param ct ensures that meta-information if type `C` is available at the runtime
    * @tparam T type of the injected dependency
    * @tparam C class of constructor in case dependency cannot be found by `T` identifier
-   * @return instance of injected dependency. If not found by, initializes one using constructor `C``
+   * @return instance of injected dependency. If not found by, initializes one using constructor `C`
    */
   protected def injectWithConstructorDefault[T, C](paramName: String)(implicit injector: Injector, tt: TypeTag[T], ct: TypeTag[C]): T =
     injectWithDefault[T](injector, ReflectionHelper.getDefaultValueOfParam[T, C](paramName))(List(typeId[T]))
@@ -214,6 +214,16 @@ trait Injectable extends Wire {
  * Exactly the same as Injectable trait, but with all methods made public
  */
 trait OpenInjectable extends Injectable {
+  def injectOpt[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): Option[T] = {
+    val bindings = injectAllOfType[T]
+    if (bindings.length == 1) bindings.headOption else None
+  }
+
+  def injectOpt[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): Option[T] =
+    List(typeId[T]) ++ constraints.identifiers |>
+      (ids =>
+        injector getBinding ids flatMap (_.get) map(_.asInstanceOf[T]) orElse constraints.default.map(_.apply)
+      )
 
   override def inject[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]) =
     super.inject[T](injector, tt, nn)
