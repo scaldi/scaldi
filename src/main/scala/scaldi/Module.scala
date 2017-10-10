@@ -29,7 +29,15 @@ trait Module extends WordBinder
   /**
    * @inheritdoc
    */
-  def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
+  def getBindingInternal(identifiers: List[Identifier]) = {
+    val bindings = getBindingsInternal(identifiers)
+    if (bindings.size > 1)
+      throw new BindingException(
+        s"""Ambiguous match when retrieving binding with following identifiers: ${identifiers.mkString("", ",", "")}.
+            Please supply additional identifiers to disambiguate the binding""")
+
+    bindings.headOption
+  }
 
   /**
    * @inheritdoc
