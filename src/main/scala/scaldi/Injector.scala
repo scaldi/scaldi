@@ -55,6 +55,28 @@ trait MutableInjector extends Injector
   */
 trait ImmutableInjector extends Injector
 
+/**
+ * Stackable trait for ambiguous bindings check
+ */
+trait AmbiguousAwareInjector extends Injector {
+
+  /**
+   * @inheritdoc
+   *
+   * @throws BindingException - if there is more than one binding available for identifier
+   */
+  @throws(classOf[BindingException])
+  abstract override def getBinding(identifiers: List[Identifier]): Option[Binding] = {
+    if (getBindings(identifiers).size > 1) {
+      throw new BindingException(
+        s"""Ambiguous match when retrieving binding with following identifiers: ${identifiers.mkString("", ",", "")}.
+        Please supply additional identifiers to disambiguate the binding""")
+    }
+    super.getBinding(identifiers)
+  }
+}
+
+
 object Injector extends LowPriorityImmutableInjectorComposition {
 
   /**
@@ -322,12 +344,12 @@ trait InjectorWithLifecycle[I <: InjectorWithLifecycle[I]] extends Injector with
   /**
    * @inheritdoc
    */
-  final def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingInternal identifiers map (Binding.apply(this, _)))
+  def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingInternal identifiers map (Binding.apply(this, _)))
 
   /**
    * @inheritdoc
    */
-  final def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingsInternal identifiers map (Binding.apply(this, _)))
+  def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingsInternal identifiers map (Binding.apply(this, _)))
 
   /**
    * Binding lookup logic
