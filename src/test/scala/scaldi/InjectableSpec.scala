@@ -134,6 +134,21 @@ class InjectableSpec extends WordSpec with Matchers {
       injectAll('server).asInstanceOf[List[HttpServer]] should
           (contain(HttpServer("localhost", 80)) and contain(HttpServer("test", 8080)) and have size 2)
     }
+
+    "inject none if a binding is not found or ambiguous" in {
+      injectOpt[Injector] should equal (None)
+      injectOpt[String] should equal (None)
+    }
+
+    "inject some values identified by names" in {
+      injectOpt[String]('httpHost) should equal(Some("marketing.org"))
+      injectOpt[String]('host and 'github) should equal(Some("www.github.com"))
+      injectOpt[Database] should be ('defined)
+    }
+
+    "inject optional default values" in {
+      injectOpt[String]('nonSpecified is by default "default value") should equal(Some("default value"))
+    }
   }
 
   implicit lazy val injector: Injector = mainModule :: marketingModule
