@@ -60,7 +60,7 @@ class WireBuilder {
     if (!defaultSupported && hasDefault)
       Left(s"Argument $name has a default value, but default values are only supported for the first argument list.")
     else
-      Right(AssignOrNamedArg(
+      Right(NamedArg(
         Ident(TermName(name)),
         validOverrides get name getOrElse {
           if (hasDefault) q"injectWithConstructorDefault[$tpe, $wiredType]($name)"

@@ -16,7 +16,7 @@ trait Identifiable {
     */
   def condition: Option[() => Condition]
 
-  protected lazy val resolvedCondition: Option[Condition] = condition map (fn ⇒ fn())
+  protected lazy val resolvedCondition: Option[Condition] = condition map (fn => fn())
 
   def isDefinedFor(desiredIdentifiers: List[Identifier]): Boolean =
     Identifier.sameAs(identifiers, desiredIdentifiers) &&
@@ -96,11 +96,11 @@ trait BindingWithLifecycle extends Identifiable {
 
   def init(lifecycleManager: LifecycleManager): Unit = {
     resolvedCondition match {
-      case None ⇒
+      case None =>
         get(lifecycleManager)
-      case Some(c) if c.dynamic || c.satisfies(Nil) ⇒
+      case Some(c) if c.dynamic || c.satisfies(Nil) =>
         get(lifecycleManager)
-      case _ ⇒
+      case _ =>
       // do nothing because eager binding should not be initialized
     }
   }
