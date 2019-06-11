@@ -6,7 +6,7 @@ description := "Scaldi - Scala Dependency Injection Library"
 homepage := Some(url("http://scaldi.org"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-crossScalaVersions := Seq("2.13.0", "2.12.8", "2.11.8")
+crossScalaVersions := Seq("2.13.0", "2.12.8")
 scalaVersion := crossScalaVersions.value.head
 
 scalacOptions ++= Seq("-deprecation", "-feature")
@@ -20,7 +20,6 @@ scalacOptions ++= {
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-  "org.scala-lang.modules" %% "scala-collection-compat" % "2.0.0",
 
   "com.typesafe" % "config" % "1.3.1" % "optional",
 
