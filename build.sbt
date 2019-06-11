@@ -11,13 +11,6 @@ scalaVersion := crossScalaVersions.value.head
 
 scalacOptions ++= Seq("-deprecation", "-feature")
 
-scalacOptions ++= {
-  if (scalaVersion.value startsWith "2.11")
-    Seq("-target:jvm-1.7")
-  else
-    Seq.empty
-}
-
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
 
