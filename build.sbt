@@ -20,6 +20,7 @@ scalacOptions ++= {
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+  "org.scala-lang.modules" %% "scala-collection-compat" % "2.0.0",
 
   "com.typesafe" % "config" % "1.3.1" % "optional",
 
