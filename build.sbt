@@ -6,8 +6,8 @@ description := "Scaldi - Scala Dependency Injection Library"
 homepage := Some(url("http://scaldi.org"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-crossScalaVersions := Seq("2.11.8", "2.12.0")
-scalaVersion := "2.12.0"
+crossScalaVersions := Seq( "2.12.8","2.11.8")
+scalaVersion := "2.12.8"
 
 scalacOptions ++= Seq("-deprecation", "-feature")
 
@@ -40,10 +40,8 @@ publishTo := Some(
     "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
 
 // Site and docs
-
-site.settings
-site.includeScaladoc()
-ghpages.settings
+enablePlugins(SiteScaladocPlugin)
+enablePlugins(GhpagesPlugin)
 
 // nice *magenta* prompt!
 
