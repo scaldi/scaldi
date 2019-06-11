@@ -64,7 +64,7 @@ class LifecycleSpec extends WordSpec with Matchers {
       val serverProvider = inject[Server] ('serverProvider)
 
       1 to 20 foreach (_ => moduleAggregation.destroy())
-      
+
       serverLazy.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
       serverNonLazy.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
       serverProvider.asInstanceOf[LifecycleServer].destroyedCount should equal (1)
@@ -73,7 +73,7 @@ class LifecycleSpec extends WordSpec with Matchers {
 
   "ShutdownHookLifecycleManager" should {
     "not allow to add destroyable after it was already destroyed" in {
-      JvmTestUtil.shutdownHookCount should be (0)
+      val countOfShutdownHooksBefore = JvmTestUtil.shutdownHookCount
 
       implicit val module = new Module {
         bind [Server] as 'server to new LifecycleServer initWith (_.init()) destroyWith (_.terminate())
@@ -87,12 +87,12 @@ class LifecycleSpec extends WordSpec with Matchers {
 
       module.addDestroyable(() => destroyedCount.incrementAndGet())
 
-      JvmTestUtil.shutdownHookCount should be (1)
+      JvmTestUtil.shutdownHookCount should be (countOfShutdownHooksBefore + 1)
 
       module.destroy()
 
       destroyedCount.get should be (1)
-      JvmTestUtil.shutdownHookCount should be (0)
+      JvmTestUtil.shutdownHookCount should be (countOfShutdownHooksBefore)
 
       an [IllegalStateException] should be thrownBy
           module.addDestroyable(() => destroyedCount.incrementAndGet())
