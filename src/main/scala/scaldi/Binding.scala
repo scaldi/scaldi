@@ -16,9 +16,9 @@ trait Identifiable {
     */
   def condition: Option[() => Condition]
 
-  protected lazy val resolvedCondition = condition map (fn ⇒ fn())
+  protected lazy val resolvedCondition: Option[Condition] = condition map (fn ⇒ fn())
 
-  def isDefinedFor(desiredIdentifiers: List[Identifier]) =
+  def isDefinedFor(desiredIdentifiers: List[Identifier]): Boolean =
     Identifier.sameAs(identifiers, desiredIdentifiers) &&
       resolvedCondition.fold(true)(_ satisfies desiredIdentifiers)
 
@@ -62,16 +62,16 @@ object Binding {
     * @param binding `BindingWithLifecycle` actual binding
     * @return a new binding (without lifecycle) which delegates all method calls to the provided `binding`
     */
-  def apply(lifecycleManager: LifecycleManager, binding: BindingWithLifecycle) = new Binding {
-    def get = binding get lifecycleManager
+  def apply(lifecycleManager: LifecycleManager, binding: BindingWithLifecycle): Binding = new Binding {
+    def get: Option[Any] = binding get lifecycleManager
 
-    def condition = binding.condition
+    def condition: Option[() => Condition] = binding.condition
 
-    def identifiers = binding.identifiers
+    def identifiers: List[Identifier] = binding.identifiers
 
-    override def isEager = binding.isEager
+    override def isEager: Boolean = binding.isEager
 
-    override def isCacheable = binding.isCacheable
+    override def isCacheable: Boolean = binding.isCacheable
   }
 }
 
@@ -107,18 +107,18 @@ trait BindingWithLifecycle extends Identifiable {
 }
 
 object BindingWithLifecycle {
-  def apply(binding: Binding) = new BindingWithLifecycle {
-    val lifecycle = BindingLifecycle.empty
+  def apply(binding: Binding): BindingWithLifecycle = new BindingWithLifecycle {
+    final val lifecycle = BindingLifecycle.empty
 
-    def condition = binding.condition
+    def condition: Option[() => Condition] = binding.condition
 
-    def identifiers = binding.identifiers
+    def identifiers: List[Identifier] = binding.identifiers
 
-    def get(lifecycleManager: LifecycleManager) = binding.get
+    def get(lifecycleManager: LifecycleManager): Option[Any] = binding.get
 
-    override def isEager = binding.isEager
+    override def isEager: Boolean = binding.isEager
 
-    override def isCacheable = binding.isCacheable
+    override def isCacheable: Boolean = binding.isCacheable
   }
 }
 
@@ -131,17 +131,17 @@ object BindingWithLifecycle {
   * @param condition binding's conditions (empty by default)
   * @param lifecycle binding's lifecycle (empty by default)
   */
-case class NonLazyBinding(private val createFn: Option[() => Any],
+final case class NonLazyBinding(private val createFn: Option[() => Any],
                            identifiers: List[Identifier] = Nil,
                            condition: Option[() => Condition] = None,
                            lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
-  lazy val target = createFn map (fn => fn() <| lifecycle.initializeObject)
+  lazy val target: Option[Any] = createFn map (fn => fn() <| lifecycle.initializeObject)
   var destroyableAdded = false
 
   /**
     * @inheritdoc
     */
-  override def get(lifecycleManager: LifecycleManager) = {
+  override def get(lifecycleManager: LifecycleManager): Option[Any] = {
     for {
       d <- lifecycle.destroy
       t <- target
@@ -173,17 +173,17 @@ case class NonLazyBinding(private val createFn: Option[() => Any],
   * @param condition binding's conditions (empty by default)
   * @param lifecycle binding's lifecycle (empty by default)
   */
-case class LazyBinding(private val createFn: Option[() => Any],
+final case class LazyBinding(private val createFn: Option[() => Any],
                         identifiers: List[Identifier] = Nil,
                         condition: Option[() => Condition] = None,
                         lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
-  lazy val target = createFn map (fn => fn() <| lifecycle.initializeObject)
+  lazy val target: Option[Any] = createFn map (fn => fn() <| lifecycle.initializeObject)
   var destroyableAdded = false
 
   /**
     * @inheritdoc
     */
-  override def get(lifecycleManager: LifecycleManager) = {
+  override def get(lifecycleManager: LifecycleManager): Option[Any] = {
     for {
       d <- lifecycle.destroy
       t <- target
@@ -210,7 +210,7 @@ case class LazyBinding(private val createFn: Option[() => Any],
   * @param condition binding's conditions (empty by default)
   * @param lifecycle binding's lifecycle (empty by default)
   */
-case class ProviderBinding(private val createFn: () => Any,
+final case class ProviderBinding(private val createFn: () => Any,
                             identifiers: List[Identifier] = Nil,
                             condition: Option[() => Condition] = None,
                             lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
@@ -219,7 +219,7 @@ case class ProviderBinding(private val createFn: () => Any,
   /**
     * @inheritdoc
     */
-  override def get(lifecycleManager: LifecycleManager) = {
+  override def get(lifecycleManager: LifecycleManager): Some[Any] = {
     val value = target
     lifecycle.destroy foreach (d => lifecycleManager addDestroyable (() => d(value)))
     Some(value)
@@ -237,7 +237,7 @@ case class ProviderBinding(private val createFn: () => Any,
   * @param eager if binding is eager (non lazy) (false by default)
   * @tparam T binding's type
   */
-case class SimpleBinding[T](boundValue: Option[() => T],
+final case class SimpleBinding[T](boundValue: Option[() => T],
                              identifiers: List[Identifier] = Nil,
                              condition: Option[() => Condition] = None,
                              cacheable: Boolean = false,
@@ -246,15 +246,15 @@ case class SimpleBinding[T](boundValue: Option[() => T],
   /**
     * @inheritdoc
     */
-  lazy val get = boundValue map (fn => fn())
+  lazy val get: Option[T] = boundValue map (fn => fn())
 
   /**
     * @inheritdoc
     */
-  override def isCacheable = cacheable && condition.isEmpty
+  override def isCacheable: Boolean = cacheable && condition.isEmpty
 
   /**
     * @inheritdoc
     */
-  override def isEager = eager
+  override def isEager: Boolean = eager
 }

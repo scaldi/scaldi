@@ -29,17 +29,17 @@ trait Module extends WordBinder
   /**
    * @inheritdoc
    */
-  def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
+  def getBindingInternal(identifiers: List[Identifier]): Option[BindingWithLifecycle] = wordBindings find (_ isDefinedFor identifiers)
 
   /**
    * @inheritdoc
    */
-  def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]): List[BindingWithLifecycle] = wordBindings filter (_ isDefinedFor identifiers)
 
   /**
    * @inheritdoc
    */
-  protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
+  protected def init(lifecycleManager: LifecycleManager): () => Unit = initEagerWordBindings(lifecycleManager)
 }
 
 @deprecated("StaticModule is deprecated and will be removed soon. As an alternative you can " +
@@ -51,12 +51,12 @@ trait StaticModule extends ReflectionBinder
   /**
    * @inheritdoc
    */
-  def getBinding(identifiers: List[Identifier]) = reflectiveBindings find (_ isDefinedFor identifiers)
+  def getBinding(identifiers: List[Identifier]): Option[Binding] = reflectiveBindings find (_ isDefinedFor identifiers)
 
   /**
    * @inheritdoc
    */
-  def getBindings(identifiers: List[Identifier]) = reflectiveBindings filter (_ isDefinedFor identifiers)
+  def getBindings(identifiers: List[Identifier]): List[Binding] = reflectiveBindings filter (_ isDefinedFor identifiers)
 
   implicit val injector: Injector = this
 }
@@ -73,17 +73,17 @@ class DynamicModule extends WordBinder
   /**
    * @inheritdoc
    */
-  def getBindingInternal(identifiers: List[Identifier]) = wordBindings find (_ isDefinedFor identifiers)
+  def getBindingInternal(identifiers: List[Identifier]): Option[BindingWithLifecycle] = wordBindings find (_ isDefinedFor identifiers)
 
   /**
    * @inheritdoc
    */
-  def getBindingsInternal(identifiers: List[Identifier]) = wordBindings filter (_ isDefinedFor identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]): List[BindingWithLifecycle] = wordBindings filter (_ isDefinedFor identifiers)
 
   /**
    * @inheritdoc
    */
-  protected def init(lifecycleManager: LifecycleManager) = initEagerWordBindings(lifecycleManager)
+  protected def init(lifecycleManager: LifecycleManager): () => Unit = initEagerWordBindings(lifecycleManager)
 }
 
 object DynamicModule {
@@ -125,12 +125,12 @@ object NilInjector extends ImmutableInjector {
   /**
    * @inheritdoc
    */
-  def getBinding(identifiers: List[Identifier]) = None
+  def getBinding(identifiers: List[Identifier]): None.type = None
 
   /**
    * @inheritdoc
    */
-  def getBindings(identifiers: List[Identifier]) = Nil
+  def getBindings(identifiers: List[Identifier]): Nil.type = Nil
 }
 
 /**
@@ -142,7 +142,7 @@ object SystemPropertiesInjector extends RawInjector {
    * @param name system property's name
    * @return system property defined by `name`
    */
-  def getRawValue(name: String) = props get name
+  def getRawValue(name: String): Option[String] = props get name
 }
 
 /**
@@ -155,7 +155,7 @@ class PropertiesInjector private(properties: Properties) extends RawInjector {
    * @param name property's name
    * @return property defined by `name` as instance of String
    */
-  def getRawValue(name: String) = Option(properties get name).map(_.asInstanceOf[String])
+  def getRawValue(name: String): Option[String] = Option(properties get name).map(_.asInstanceOf[String])
 }
 
 /**
@@ -199,7 +199,7 @@ class TypesafeConfigInjector private(config: Config) extends RawInjector {
   /**
    * @inheritdoc
    */
-  override protected def discoverBinding(name: String, tpe: Type, ids: List[Identifier]) = {
+  override protected def discoverBinding(name: String, tpe: Type, ids: List[Identifier]): Option[RawBinding] = {
     val value = try {
       if (tpe =:= typeOf[Int]) Some(config.getInt(name))
       else if (tpe =:= typeOf[List[Int]]) Some(config.getIntList(name).asScala.toList map (_.intValue))
@@ -285,12 +285,12 @@ trait RawInjector extends Injector {
   /**
    * @inheritdoc
    */
-  def getBinding(identifiers: List[Identifier]) = discoverBinding(identifiers)
+  def getBinding(identifiers: List[Identifier]): Option[Binding] = discoverBinding(identifiers)
 
   /**
    * @inheritdoc
    */
-  def getBindings(identifiers: List[Identifier]) = discoverBinding(identifiers).toList
+  def getBindings(identifiers: List[Identifier]): List[Binding] = discoverBinding(identifiers).toList
 
   /**
    * Retrieves bindings from cache based on supplied identifiers.
@@ -351,11 +351,11 @@ trait RawInjector extends Injector {
  * @param value value of the binding
  * @param identifiers identifiers defining the binding
  */
-case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
+final case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding {
   /**
    * @inheritdoc
    */
-  val condition = None
+  val condition: None.type = None
 
   /**
    * @inheritdoc
@@ -373,21 +373,21 @@ case class RawBinding(value: Any, identifiers: List[Identifier]) extends Binding
  * @param bindings function transforming injector into a list of bindings
  */
 class SimpleContainerInjector(bindings: Injector => List[BindingWithLifecycle]) extends MutableInjectorUser with InjectorWithLifecycle[SimpleContainerInjector] with ShutdownHookLifecycleManager {
-  lazy val preparedBindings = bindings(injector)
+  lazy val preparedBindings: List[BindingWithLifecycle] = bindings(injector)
 
   /**
    * @inheritdoc
    */
-  def getBindingInternal(identifiers: List[Identifier]) = preparedBindings find (_ isDefinedFor identifiers)
+  def getBindingInternal(identifiers: List[Identifier]): Option[BindingWithLifecycle] = preparedBindings find (_ isDefinedFor identifiers)
 
   /**
    * @inheritdoc
    */
-  def getBindingsInternal(identifiers: List[Identifier]) = preparedBindings filter (_ isDefinedFor identifiers)
+  def getBindingsInternal(identifiers: List[Identifier]): List[BindingWithLifecycle] = preparedBindings filter (_ isDefinedFor identifiers)
 
   /**
    * @inheritdoc
    */
-  protected def init(lifecycleManager: LifecycleManager) =
+  protected def init(lifecycleManager: LifecycleManager): () => Unit =
     preparedBindings |> (b => () => b.filter(_.isEager).foreach(_ init lifecycleManager))
 }

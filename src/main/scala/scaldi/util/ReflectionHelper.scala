@@ -2,14 +2,14 @@ package scaldi.util
 
 import java.lang.annotation.Annotation
 
-import language.{postfixOps, implicitConversions}
+import language.{implicitConversions, postfixOps}
 import scala.reflect.runtime.universe
-import scala.reflect.runtime.universe.{TypeTag, Type, runtimeMirror, TermName, MethodSymbol, TermSymbol, Symbol}
+import scala.reflect.runtime.universe.{MethodSymbol, Symbol, TermName, TermSymbol, Type, TypeTag, runtimeMirror}
 import scala.reflect.internal.{Names, StdNames}
-import java.lang.reflect.{Field, Method, Constructor}
+import java.lang.reflect.{Constructor, Field, Method}
 
 object ReflectionHelper {
-  def getDefaultValueOfParam[T, C](paramName: String)(implicit tt: TypeTag[C]) = {
+  def getDefaultValueOfParam[T, C](paramName: String)(implicit tt: TypeTag[C]): T = {
     val tpe = tt.tpe
 
     tpe.members find (_.isConstructor) map (_.asMethod) match {
@@ -31,7 +31,7 @@ object ReflectionHelper {
     }
   }
 
-  def mirror = {
+  def mirror: universe.Mirror = {
     val classLoader =
       if (Thread.currentThread.getContextClassLoader != null)
         Thread.currentThread.getContextClassLoader
@@ -40,13 +40,13 @@ object ReflectionHelper {
     runtimeMirror(classLoader)
   }
 
-  def overrides(method: Symbol) = {
+  def overrides(method: Symbol): List[universe.Symbol] = {
     val origPackage = getPackage(method)
 
     method.overrides.filter(o => o.isPublic || o.isProtected || (!o.isPrivate && getPackage(o) == origPackage))
   }
 
-  def classToType(clazz: Class[_]) =
+  def classToType(clazz: Class[_]): universe.Type =
     mirror.classSymbol(clazz).toType
 
   private def getPackage(s: Symbol): Symbol = if (s.isPackage) s else getPackage(s.owner)
@@ -64,7 +64,7 @@ object ReflectionHelper {
 
   // Workaround for https://issues.scala-lang.org/browse/SI-9177
   // TODO: get rid of this workaround as soon as https://issues.scala-lang.org/browse/SI-9177 is resolved!
-  def isAssignableFrom(a: Type, b: Type) =
+  def isAssignableFrom(a: Type, b: Type): Boolean =
     try {
       b <:< a
     } catch {
@@ -76,7 +76,7 @@ object ReflectionHelper {
    * Dirty little trick to convert java constructor to scala constructor.
    * (the reason for it is that scala reflection does not list private constructors)
    */
-  def constructorSymbol(c: Constructor[_]) = {
+  def constructorSymbol(c: Constructor[_]): universe.MethodSymbol = {
     val mirror = ReflectionHelper.mirror
     val constructorConverter = mirror.classSymbol(mirror.getClass).typeSignature.member(TermName("jconstrAsScala")).asMethod
 
@@ -87,7 +87,7 @@ object ReflectionHelper {
    * Dirty little trick to convert get method argument annotations.
    * (the reason for it is that scala reflection does not give this information)
    */
-  def methodParamsAnnotations(method: MethodSymbol) = {
+  def methodParamsAnnotations(method: MethodSymbol): (List[Annotation], List[List[Annotation]]) = {
     val mirror = ReflectionHelper.mirror
     val methodToJava = mirror.classSymbol(mirror.getClass).typeSignature.member(TermName("methodToJava")).asMethod
     val jmethod = mirror.reflect(mirror: AnyRef).reflectMethod(methodToJava).apply(method).asInstanceOf[Method]
@@ -95,7 +95,7 @@ object ReflectionHelper {
     jmethod.getAnnotations.toList -> jmethod.getParameterAnnotations.toList.map(_.toList)
   }
 
-  def fieldAnnotations(field: TermSymbol) = {
+  def fieldAnnotations(field: TermSymbol): List[Annotation] = {
     val mirror = ReflectionHelper.mirror
     val fieldToJava = mirror.classSymbol(mirror.getClass).typeSignature.member(TermName("fieldToJava")).asMethod
     val jfield = mirror.reflect(mirror: AnyRef).reflectMethod(fieldToJava).apply(field).asInstanceOf[Field]

@@ -148,7 +148,7 @@ trait Injectable extends Wire {
    * @tparam T type of the injected dependency
    * @return injection defined by identifiers or default value if injection is not found
    */
-  protected def injectWithDefault[T](injector: Injector, default: => T)(identifiers: List[Identifier]) =
+  protected def injectWithDefault[T](injector: Injector, default: => T)(identifiers: List[Identifier]): T =
     injector getBinding identifiers flatMap (_.get) map (_.asInstanceOf[T]) getOrElse default
 
   /**
@@ -225,10 +225,10 @@ trait OpenInjectable extends Injectable {
         injector getBinding ids flatMap (_.get) map(_.asInstanceOf[T]) orElse constraints.default.map(_.apply)
       )
 
-  override def inject[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]) =
+  override def inject[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
     super.inject[T](injector, tt, nn)
 
-  override def inject[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]) =
+  override def inject[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
     super.inject[T](constraints)(injector, tt, nn)
 
   override def injectProvider[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): () => T =
@@ -246,13 +246,13 @@ trait OpenInjectable extends Injectable {
   override def injectAll(identifiers: Identifier*)(implicit injector: Injector): List[Any] =
     super.injectAll(identifiers: _*)(injector)
 
-  override def injectWithDefault[T](injector: Injector, default: => T)(identifiers: List[Identifier]) =
+  override def injectWithDefault[T](injector: Injector, default: => T)(identifiers: List[Identifier]): T =
     super.injectWithDefault[T](injector, default)(identifiers)
 
   override def injectWithConstructorDefault[T, C](paramName: String)(implicit injector: Injector, tt: TypeTag[T], ct: TypeTag[C]): T =
     super.injectWithConstructorDefault[T, C](paramName)(injector, tt, ct)
 
-  override def noBindingFound(identifiers: List[Identifier]) = super.noBindingFound(identifiers)
+  override def noBindingFound(identifiers: List[Identifier]): Nothing = super.noBindingFound(identifiers)
 
   override implicit def canBeIdentifiedToConstraints[T: CanBeIdentifier](target: T): InjectConstraints[Nothing] =
     super.canBeIdentifiedToConstraints[T](target)
@@ -305,7 +305,7 @@ class ByWord(initialIdentifiers: List[Identifier] = Nil) {
  * @param initialIdentifiers identifiers
  * @tparam T type of the dependency being injected
  */
-case class InjectConstraints[+T](default: Option[() => T] = None, initialIdentifiers: List[Identifier] = Nil) {
+final case class InjectConstraints[+T](default: Option[() => T] = None, initialIdentifiers: List[Identifier] = Nil) {
   var identifiers: List[Identifier] = initialIdentifiers
 
   /**
@@ -313,7 +313,7 @@ case class InjectConstraints[+T](default: Option[() => T] = None, initialIdentif
    *
    * @param ids one or many other identifiers
    */
-  def and(ids: Identifier*) = {
+  def and(ids: Identifier*): InjectConstraints[T] = {
     identifiers = identifiers ++ ids
     this
   }
@@ -336,7 +336,7 @@ case class InjectConstraints[+T](default: Option[() => T] = None, initialIdentif
    *
    * @param by ByWord that follows the "which"
    */
-  def which(by: ByWord) = and(by)
+  def which(by: ByWord): ByWord = and(by)
 
   /**
    * Alias to "and"
@@ -346,7 +346,7 @@ case class InjectConstraints[+T](default: Option[() => T] = None, initialIdentif
    *
    * @param by `ByWord` that follows the "that"
    */
-  def that(by: ByWord) = and(by)
+  def that(by: ByWord): ByWord = and(by)
 
   /**
    * Alias to "and"
@@ -356,7 +356,7 @@ case class InjectConstraints[+T](default: Option[() => T] = None, initialIdentif
    *
    * @param by `ByWord` that follows the "is"
    */
-  def is(by: ByWord) = and(by)
+  def is(by: ByWord): ByWord = and(by)
 
   /**
    * Helper method to make possible that "identified" follows "and" word.
