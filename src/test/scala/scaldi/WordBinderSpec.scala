@@ -8,7 +8,7 @@ class WordBinderSpec extends WordSpec with Matchers {
     "require to bind something" in {
       val binder = new WordBinder {
 
-        bind [String] identifiedBy 'host
+        bind [String] identifiedBy Symbol("host")
 
         override def injector = ???
       }
@@ -18,12 +18,12 @@ class WordBinderSpec extends WordSpec with Matchers {
 
     "collect all identifiers for bindings" in {
       val binder = new WordBinder {
-        bind [String] identifiedBy 'host and "httpServer" to "localhost"
-        bind [String] as 'host and "httpServer" to "localhost"
-        binding identifiedBy classOf[String] and 'host and "httpServer" to "localhost"
-        bind [String] to "localhost" identifiedBy 'host and "httpServer"
-        bind [String] to "localhost" as 'host and "httpServer"
-        binding to "localhost" identifiedBy classOf[String] and 'host and "httpServer"
+        bind [String] identifiedBy Symbol("host") and "httpServer" to "localhost"
+        bind [String] as Symbol("host") and "httpServer" to "localhost"
+        binding identifiedBy classOf[String] and Symbol("host") and "httpServer" to "localhost"
+        bind [String] to "localhost" identifiedBy Symbol("host") and "httpServer"
+        bind [String] to "localhost" as Symbol("host") and "httpServer"
+        binding to "localhost" identifiedBy classOf[String] and Symbol("host") and "httpServer"
 
         override def injector = ???
       }
@@ -74,12 +74,12 @@ class WordBinderSpec extends WordSpec with Matchers {
     "allow to define normal lazy bindings that would be instantiated only one time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
-        bind [Server] identifiedBy 'server and "httpServer" to {
+        bind [Server] identifiedBy Symbol("server") and "httpServer" to {
           instanceCount  += 1
           new HttpServer("localhost", Random.nextInt())
         }
 
-        bind [Server] identifiedBy 'otherServer to HttpServer("test", 8080)
+        bind [Server] identifiedBy Symbol("otherServer") to HttpServer("test", 8080)
       }.initNonLazy()
 
       instanceCount should be (0)
@@ -91,12 +91,12 @@ class WordBinderSpec extends WordSpec with Matchers {
     "allow to define normal non-lazy bindings that would be instantiated only one time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
-        bind [Server] identifiedBy 'server and "httpServer" toNonLazy {
+        bind [Server] identifiedBy Symbol("server") and "httpServer" toNonLazy {
           instanceCount  += 1
           new HttpServer("localhost", Random.nextInt())
         }
 
-        bind [Server] identifiedBy 'otherServer toNonLazy HttpServer("test", 8080)
+        bind [Server] identifiedBy Symbol("otherServer") toNonLazy HttpServer("test", 8080)
       }.initNonLazy()
 
       instanceCount should be (1)
@@ -108,12 +108,12 @@ class WordBinderSpec extends WordSpec with Matchers {
     "allow to define provider bindings that would be instantiated each time" in {
       var instanceCount = 0
       val binder = new DynamicModule {
-        bind [Server] identifiedBy 'server and "httpServer" toProvider {
+        bind [Server] identifiedBy Symbol("server") and "httpServer" toProvider {
           instanceCount  += 1
           new HttpServer("localhost", Random.nextInt())
         }
 
-        bind [Server] identifiedBy 'otherServer toProvider HttpServer("test", 8080)
+        bind [Server] identifiedBy Symbol("otherServer") toProvider HttpServer("test", 8080)
       }.initNonLazy()
 
       instanceCount should be (0)
@@ -131,67 +131,67 @@ class WordBinderSpec extends WordSpec with Matchers {
         val SpecialMode = Condition(specialMode)
         val DevMode = !ProdMode
 
-        bind [String] as 'host when ProdMode to "www.prod-server.com"
-        bind [String] as 'host when DevMode to "localhost"
+        bind [String] as Symbol("host") when ProdMode to "www.prod-server.com"
+        bind [String] as Symbol("host") when DevMode to "localhost"
 
-        bind [Int] as 'id when ProdMode when SpecialMode to 123
+        bind [Int] as Symbol("id") when ProdMode when SpecialMode to 123
 
-        bind [Int] when ProdMode as 'port to 1234
+        bind [Int] when ProdMode as Symbol("port") to 1234
 
         when (DevMode) {
-          bind [String] as 'userName to "testUser"
-          bind [Long] as 'timeout to 1000L
+          bind [String] as Symbol("userName") to "testUser"
+          bind [Long] as Symbol("timeout") to 1000L
 
-          bind [String] when SpecialMode as 'path to "/index.html"
+          bind [String] when SpecialMode as Symbol("path") to "/index.html"
 
           when (SpecialMode) {
-            bind [String] as 'password to "secret"
+            bind [String] as Symbol("password") to "secret"
           }
         }
       }
 
       binder.wordBindings should have size 9
 
-      binder.getBinding(List('host)).get.get.get should equal ("www.prod-server.com")
-      binder.getBinding(List('port)).get.get.get should equal (1234)
-      binder.getBinding(List('userName)) should be ('empty)
-      binder.getBinding(List('timeout)) should be ('empty)
-      binder.getBinding(List('path)) should be ('empty)
-      binder.getBinding(List('password)) should be ('empty)
-      binder.getBinding(List('id)).get.get.get should equal (123)
+      binder.getBinding(List(Symbol("host"))).get.get.get should equal ("www.prod-server.com")
+      binder.getBinding(List(Symbol("port"))).get.get.get should equal (1234)
+      binder.getBinding(List(Symbol("userName"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("timeout"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("path"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("password"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("id"))).get.get.get should equal (123)
 
       specialMode = false
       prodMode = false
 
-      binder.getBinding(List('host)).get.get.get should equal ("localhost")
-      binder.getBinding(List('port)) should be ('empty)
-      binder.getBinding(List('userName)).get.get.get should equal ("testUser")
-      binder.getBinding(List('timeout)).get.get.get should be (1000L)
-      binder.getBinding(List('path)) should be ('empty)
-      binder.getBinding(List('password)) should be ('empty)
-      binder.getBinding(List('id)) should be ('empty)
+      binder.getBinding(List(Symbol("host"))).get.get.get should equal ("localhost")
+      binder.getBinding(List(Symbol("port"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("userName"))).get.get.get should equal ("testUser")
+      binder.getBinding(List(Symbol("timeout"))).get.get.get should be (1000L)
+      binder.getBinding(List(Symbol("path"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("password"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("id"))) should be (Symbol("empty"))
 
       specialMode = true
 
-      binder.getBinding(List('path)).get.get.get should equal ("/index.html")
-      binder.getBinding(List('password)).get.get.get should be ("secret")
-      binder.getBinding(List('id)) should be ('empty)
+      binder.getBinding(List(Symbol("path"))).get.get.get should equal ("/index.html")
+      binder.getBinding(List(Symbol("password"))).get.get.get should be ("secret")
+      binder.getBinding(List(Symbol("id"))) should be (Symbol("empty"))
     }
 
     "allow to define init and destroy functions" in {
       implicit val module = new DynamicModule {
-        bind [Server] as 'server1 to new LifecycleServer initWith (_.init()) destroyWith (_.terminate())
-        bind [Server] as 'server2 to new LifecycleServer initWith (_.init())
-        bind [Server] as 'server3 to new LifecycleServer destroyWith (_.terminate())
+        bind [Server] as Symbol("server1") to new LifecycleServer initWith (_.init()) destroyWith (_.terminate())
+        bind [Server] as Symbol("server2") to new LifecycleServer initWith (_.init())
+        bind [Server] as Symbol("server3") to new LifecycleServer destroyWith (_.terminate())
       }
 
       import Injectable._
 
       (1 to 3) foreach (i => inject[Server](s"server$i"))
 
-      val server1 = inject[Server]('server1).asInstanceOf[LifecycleServer]
-      val server2 = inject[Server]('server2).asInstanceOf[LifecycleServer]
-      val server3 = inject[Server]('server3).asInstanceOf[LifecycleServer]
+      val server1 = inject[Server](Symbol("server1")).asInstanceOf[LifecycleServer]
+      val server2 = inject[Server](Symbol("server2")).asInstanceOf[LifecycleServer]
+      val server3 = inject[Server](Symbol("server3")).asInstanceOf[LifecycleServer]
 
       server1.initializedCount should equal (1)
       server1.destroyedCount should equal (0)

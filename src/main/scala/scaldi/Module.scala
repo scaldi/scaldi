@@ -114,7 +114,7 @@ object Args {
    * @param args array that will be binded to `'args` identifier
    * @return new `DynamicModule` with a binding defined for command line arguments
    */
-  def apply(args: Array[String]): Injector = DynamicModule(m => m.bind[Array[String]] identifiedBy 'args toNonLazy args)
+  def apply(args: Array[String]): Injector = DynamicModule(m => m.bind[Array[String]] identifiedBy Symbol("args") toNonLazy args)
 }
 
 /**

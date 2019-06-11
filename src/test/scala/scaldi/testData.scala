@@ -19,12 +19,12 @@ case class MysqlDatabase(name: String) extends Database with ConnectionProvider
 case class PostgresqlDatabase(name: String) extends Database with ConnectionProvider
 
 class TcpModule extends Module {
-  binding identifiedBy 'tcpServer to new TcpServer
+  binding identifiedBy Symbol("tcpServer") to new TcpServer
 }
 
 class TcpServer(implicit inj: Injector) extends Server with Injectable  {
-  val port = inject [Int] ('tcpPort is by default 1234)
-  val host = inject [String] ('tcpHost)
+  val port = inject [Int] (Symbol("tcpPort") is by default 1234)
+  val host = inject [String] (Symbol("tcpHost"))
 
   def getConnection = new TcpConnection
 }
@@ -32,7 +32,7 @@ class TcpServer(implicit inj: Injector) extends Server with Injectable  {
 import scaldi.Injectable._
 
 class TcpConnection(implicit inj: Injector) {
-  val welcomeMessage = inject [String] ('welcome is by default "Hi")
+  val welcomeMessage = inject [String] (Symbol("welcome") is by default "Hi")
 }
 
 case class Dep1(name: String)
