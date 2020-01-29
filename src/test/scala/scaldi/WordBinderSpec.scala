@@ -148,35 +148,39 @@ class WordBinderSpec extends AnyWordSpec with Matchers {
           when (SpecialMode) {
             bind [String] as Symbol("password") to "secret"
           }
+
+          bind [Boolean] as Symbol("rememberUserName") to false
         }
       }
 
-      binder.wordBindings should have size 9
+      binder.wordBindings should have size 10
 
       binder.getBinding(List(Symbol("host"))).get.get.get should equal ("www.prod-server.com")
       binder.getBinding(List(Symbol("port"))).get.get.get should equal (1234)
-      binder.getBinding(List(Symbol("userName"))) should be (Symbol("empty"))
-      binder.getBinding(List(Symbol("timeout"))) should be (Symbol("empty"))
-      binder.getBinding(List(Symbol("path"))) should be (Symbol("empty"))
-      binder.getBinding(List(Symbol("password"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("userName"))) should be (empty)
+      binder.getBinding(List(Symbol("timeout"))) should be (empty)
+      binder.getBinding(List(Symbol("path"))) should be (empty)
+      binder.getBinding(List(Symbol("password"))) should be (empty)
       binder.getBinding(List(Symbol("id"))).get.get.get should equal (123)
+      binder.getBinding(List(Symbol("rememberUserName"))) should be (empty)
 
       specialMode = false
       prodMode = false
 
       binder.getBinding(List(Symbol("host"))).get.get.get should equal ("localhost")
-      binder.getBinding(List(Symbol("port"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("port"))) should be (empty)
       binder.getBinding(List(Symbol("userName"))).get.get.get should equal ("testUser")
       binder.getBinding(List(Symbol("timeout"))).get.get.get should be (1000L)
-      binder.getBinding(List(Symbol("path"))) should be (Symbol("empty"))
-      binder.getBinding(List(Symbol("password"))) should be (Symbol("empty"))
-      binder.getBinding(List(Symbol("id"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("path"))) should be (empty)
+      binder.getBinding(List(Symbol("password"))) should be (empty)
+      binder.getBinding(List(Symbol("id"))) should be (empty)
+      binder.getBinding(List(Symbol("rememberUserName"))).get.get.get should equal (false)
 
       specialMode = true
 
       binder.getBinding(List(Symbol("path"))).get.get.get should equal ("/index.html")
       binder.getBinding(List(Symbol("password"))).get.get.get should be ("secret")
-      binder.getBinding(List(Symbol("id"))) should be (Symbol("empty"))
+      binder.getBinding(List(Symbol("id"))) should be (empty)
     }
 
     "allow to define init and destroy functions" in {
