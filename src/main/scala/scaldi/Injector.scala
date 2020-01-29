@@ -205,7 +205,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLife
     * Mutates current injector replacing it with the one in the parameters
     * @param newParentInjector the replacement for current injector
     */
-  override def injector_=(newParentInjector: Injector) {
+  override def injector_=(newParentInjector: Injector): Unit = {
     super.injector_=(newParentInjector)
     initInjector(newParentInjector)
   }
@@ -228,7 +228,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLife
     * passed in the parameters.
     * @param newParentInjector the injector which will be parent injector for composed injectors
     */
-  private def initInjector(newParentInjector: Injector) {
+  private def initInjector(newParentInjector: Injector): Unit = {
     chain foreach {
       case childInjector: MutableInjectorUser => childInjector.injector = newParentInjector
       case _ => // skip
@@ -263,7 +263,7 @@ trait MutableInjectorUser extends MutableInjector { self: Injector with Freezabl
     * Works only if current injector is not frozen
     * @param newParentInjector the replacement for current injector
     */
-  def injector_=(newParentInjector: Injector) {
+  def injector_=(newParentInjector: Injector): Unit = {
     if (isFrozen) throw new InjectException("Injector already frozen, so you can't mutate it anymore!")
 
     _injector = newParentInjector

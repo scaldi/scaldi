@@ -6,8 +6,8 @@ import java.util.Properties
 import com.typesafe.config._
 import scaldi.util.Util._
 
-import scala.collection.JavaConverters._
 import scala.concurrent.duration.Duration
+import scala.jdk.CollectionConverters._
 import scala.reflect.runtime.universe.{Type, typeOf}
 import scala.sys._
 import scala.util.control.NonFatal
@@ -114,7 +114,8 @@ object Args {
    * @param args array that will be binded to `'args` identifier
    * @return new `DynamicModule` with a binding defined for command line arguments
    */
-  def apply(args: Array[String]): Injector = DynamicModule(m => m.bind[Array[String]] identifiedBy 'args toNonLazy args)
+  def apply(args: Array[String]): Injector =
+    DynamicModule(m => m.bind[Array[String]] identifiedBy Symbol("args") toNonLazy args)
 }
 
 /**
