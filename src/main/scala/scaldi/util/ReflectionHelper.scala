@@ -8,6 +8,8 @@ import scala.reflect.runtime.universe.{MethodSymbol, Mirror, Symbol, TermName, T
 import scala.reflect.internal.{Names, StdNames}
 import java.lang.reflect.{Constructor, Field, Method}
 
+import scala.annotation.tailrec
+
 object ReflectionHelper {
   def getDefaultValueOfParam[T, C](paramName: String)(implicit tt: TypeTag[C]): T = {
     val tpe = tt.tpe
@@ -49,6 +51,7 @@ object ReflectionHelper {
   def classToType(clazz: Class[_]): Type =
     mirror.classSymbol(clazz).toType
 
+  @tailrec
   private def getPackage(s: Symbol): Symbol = if (s.isPackage) s else getPackage(s.owner)
 
   def hasAnnotation[T <: Annotation : TypeTag](a: Annotation): Boolean =

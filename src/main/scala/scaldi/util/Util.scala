@@ -17,13 +17,9 @@ object Util {
 
   implicit def toCacheUtils[K, V](cache: Cache[K, V]): CacheUtils[K, V] = new CacheUtils(cache)
 
-  class CacheUtils[K, V](cache: Cache[K, V]) {
+  class CacheUtils[K, V](private val cache: Cache[K, V]) extends AnyVal {
     def caching(key: K)(fn: => V): V = cache.synchronized {
-      cache get key getOrElse {
-        val result = fn
-        cache += key -> result
-        result
-      }
+      cache.getOrElseUpdate(key, fn)
     }
   }
 

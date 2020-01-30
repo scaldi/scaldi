@@ -232,7 +232,7 @@ class TypesafeConfigInjector private(config: Config) extends RawInjector {
       else if (tpe =:= typeOf[List[ConfigObject]]) Some(config.getObjectList(name).asScala.toList)
       else None
     } catch {
-      case NonFatal(e) => None
+      case NonFatal(_) => None
     }
 
     value map (RawBinding(_, ids))
@@ -343,7 +343,7 @@ trait RawInjector extends Injector {
       else if (tpe =:= typeOf[String]) Some(value)
       else None
     } catch {
-      case NonFatal(e) => None
+      case NonFatal(_) => None
     }
 }
 

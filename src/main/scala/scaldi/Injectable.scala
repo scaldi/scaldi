@@ -284,7 +284,7 @@ object Injectable extends OpenInjectable
  * @tparam T type of the dependency being injected
  */
 class IdentifiedWord[+T](default: Option[() => T] = None, initialIdentifiers: List[Identifier] = Nil) {
-  def by[I: CanBeIdentifier](target: I*): InjectConstraints[T] = new InjectConstraints(default, initialIdentifiers ++ (target map implicitly[CanBeIdentifier[I]].toIdentifier))
+  def by[I: CanBeIdentifier](target: I*): InjectConstraints[T] = InjectConstraints(default, initialIdentifiers ++ (target map implicitly[CanBeIdentifier[I]].toIdentifier))
 }
 
 /**

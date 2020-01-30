@@ -65,7 +65,7 @@ trait ShutdownHookLifecycleManager extends LifecycleManager {
       try {
         hookThread foreach Runtime.getRuntime.removeShutdownHook
       } catch {
-        case NonFatal(e) => // do nothing
+        case NonFatal(_) => // do nothing
       }
 
     toDestroy = Nil
