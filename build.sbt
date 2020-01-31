@@ -1,9 +1,9 @@
-name := "scaldi"
-organization := "org.scaldi"
+name := "dipendi"
+organization := "com.protenus"
 version := "0.5.9-SNAPSHOT"
 
-description := "Scaldi - Scala Dependency Injection Library"
-homepage := Some(url("http://scaldi.org"))
+description := "Dipendi - Scala Dependency Injection Library"
+homepage := Some(url("https://github.com/protenus/dipendi"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.1")
@@ -19,7 +19,7 @@ libraryDependencies ++= Seq(
 )
 
 fork := true
-git.remoteRepo := "git@github.com:scaldi/scaldi.git"
+git.remoteRepo := "git@github.com:protenus/dipendi.git"
 
 // Publishing
 
@@ -46,16 +46,16 @@ shellPrompt in ThisBuild := { state =>
 // Additional meta-info
 
 startYear := Some(2011)
-organizationHomepage := Some(url("https://github.com/scaldi"))
+organizationHomepage := Some(url("https://github.com/protenus"))
 scmInfo := Some(ScmInfo(
-  browseUrl = url("https://github.com/scaldi/scaldi"),
-  connection = "scm:git:git@github.com:scaldi/scaldi.git"
+  browseUrl = url("https://github.com/protenus/dipendi"),
+  connection = "scm:git:git@github.com:protenus/dipendi.git"
 ))
 pomExtra := <xml:group>
   <developers>
     <developer>
-      <id>OlegIlyenko</id>
-      <name>Oleg Ilyenko</name>
+      <id>protenus</id>
+      <name>Protenus</name>
     </developer>
   </developers>
 </xml:group>
