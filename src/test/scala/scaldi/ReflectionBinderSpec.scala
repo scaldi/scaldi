@@ -12,7 +12,7 @@ class ReflectionBinderSpec extends WordSpec with Matchers {
         lazy val server = new HttpServer("localhost", 80)
       }
 
-      binder.getBinding(List("server", classOf[HttpServer])) should be('defined)
+      binder.getBinding(List("server", classOf[HttpServer])) should be(Symbol("defined"))
     }
 
     "infer correct type and string identifier taken from member name" in {
@@ -22,7 +22,7 @@ class ReflectionBinderSpec extends WordSpec with Matchers {
       }
 
       binder.getBinding(List("myHttpServer", classOf[Server])).get.get should equal (Some(HttpServer("localhost", 80)))
-      binder.getBinding(List("myHttpServer", classOf[HttpServer])) should be ('empty)
+      binder.getBinding(List("myHttpServer", classOf[HttpServer])) should be (Symbol("empty"))
 
       binder.getBinding(List("otherServer", classOf[Server])).get.get should equal (Some(HttpServer("test", 8080)))
       binder.getBinding(List("otherServer", classOf[HttpServer])).get.get should equal (Some(HttpServer("test", 8080)))
@@ -33,8 +33,8 @@ class ReflectionBinderSpec extends WordSpec with Matchers {
         lazy val someBinding = SpecialBindingProvider(() => HttpServer("test", 8080))
       }
 
-      binder.getBinding(List("someBinding")) should be ('empty)
-      binder.getBinding(List(classOf[BindingProvider])) should be ('empty)
+      binder.getBinding(List("someBinding")) should be (Symbol("empty"))
+      binder.getBinding(List(classOf[BindingProvider])) should be (Symbol("empty"))
       binder.getBinding(List(classOf[Server])).get.get should equal (Some(HttpServer("test", 8080)))
       binder.getBinding(List("special")).get.get should equal (Some(HttpServer("test", 8080)))
     }

@@ -11,7 +11,7 @@ class IdentifierSpec extends WordSpec with Matchers {
       }
 
       "be converted from symbol" in {
-        getId('sym) should equal (StringIdentifier("sym"))
+        getId(Symbol("sym")) should equal (StringIdentifier("sym"))
       }
 
       "be converted from class" in {
@@ -25,8 +25,8 @@ class IdentifierSpec extends WordSpec with Matchers {
       }
 
       "should match for the same identifier types" in {
-        getId('publisher) sameAs getId("publisher") should be (true)
-        getId('user) sameAs getId("publisher") should be (false)
+        getId(Symbol("publisher")) sameAs getId("publisher") should be (true)
+        getId(Symbol("user")) sameAs getId("publisher") should be (false)
 
         getId(classOf[String]) sameAs getId(classOf[String]) should be (true)
         getId(classOf[DateFormat]) sameAs getId(classOf[String]) should be (false)

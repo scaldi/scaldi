@@ -75,7 +75,7 @@ class ConditionSpec extends WordSpec with Matchers {
       var initialized = false
 
       implicit val inj = new Module {
-        bind [String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+        bind [String] when cond toNonLazy "foo" initWith (_ => initialized = true)
       }
 
       inj.initNonLazy()
@@ -88,7 +88,7 @@ class ConditionSpec extends WordSpec with Matchers {
       var initialized = false
 
       implicit val inj = new Module {
-        bind [String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+        bind [String] when cond toNonLazy "foo" initWith (_ => initialized = true)
       }
 
       inj.initNonLazy()
@@ -111,7 +111,7 @@ class ConditionSpec extends WordSpec with Matchers {
       var initialized = false
 
       implicit val inj = new Module {
-        bind[String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+        bind[String] when cond toNonLazy "foo" initWith (_ => initialized = true)
       }
 
       inj.initNonLazy()

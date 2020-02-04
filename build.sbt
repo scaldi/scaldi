@@ -6,23 +6,16 @@ description := "Scaldi - Scala Dependency Injection Library"
 homepage := Some(url("http://scaldi.org"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-crossScalaVersions := Seq("2.11.8", "2.12.0")
-scalaVersion := "2.12.0"
+crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.1")
+scalaVersion := "2.13.1"
 
 scalacOptions ++= Seq("-deprecation", "-feature")
 
-scalacOptions ++= {
-  if (scalaVersion.value startsWith "2.12")
-    Seq.empty
-  else
-    Seq("-target:jvm-1.7")
-}
-
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-  "com.typesafe" % "config" % "1.3.1" % "optional",
-
-  "org.scalatest" %% "scalatest" % "3.0.0" % "test"
+  "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.3",
+  "com.typesafe" % "config" % "1.4.0" % Optional,
+  "org.scalatest" %% "scalatest" % "3.0.8" % Test
 )
 
 fork := true
@@ -41,9 +34,8 @@ publishTo := Some(
 
 // Site and docs
 
-site.settings
-site.includeScaladoc()
-ghpages.settings
+enablePlugins(SiteScaladocPlugin)
+enablePlugins(GhpagesPlugin)
 
 // nice *magenta* prompt!
 
