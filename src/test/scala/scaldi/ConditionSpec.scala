@@ -1,8 +1,9 @@
 package scaldi
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class ConditionSpec extends WordSpec with Matchers {
+class ConditionSpec extends AnyWordSpec with Matchers {
   val C = Condition
 
   "Condition" should {

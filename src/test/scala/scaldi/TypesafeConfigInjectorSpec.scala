@@ -1,17 +1,18 @@
 package scaldi
 
-import org.scalatest.{Matchers, WordSpec}
 import Injectable._
 import java.io.File
 import scala.concurrent.duration.Duration
 import java.util.concurrent.TimeUnit
 import com.typesafe.config.{ConfigObject, ConfigList, ConfigValue, Config}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 /**
  *
  * @author Oleg Ilyenko
  */
-class TypesafeConfigInjectorSpec extends WordSpec with Matchers {
+class TypesafeConfigInjectorSpec extends AnyWordSpec with Matchers {
   "TypesafeConfigInjector" should {
     implicit val inj = TypesafeConfigInjector()
 

@@ -2,10 +2,11 @@ package scaldi
 
 import java.util.concurrent.atomic.AtomicInteger
 
-import org.scalatest.{Matchers, WordSpec}
 import scaldi.util.JvmTestUtil
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class LifecycleSpec extends WordSpec with Matchers {
+class LifecycleSpec extends AnyWordSpec with Matchers {
 
   "BindingLifecycle" should {
     "allow to define init function which should be called one time for lazy and non-lazy bindings" in {

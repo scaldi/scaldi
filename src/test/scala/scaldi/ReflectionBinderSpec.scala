@@ -1,11 +1,12 @@
 package scaldi
-
-import org.scalatest.{Matchers, WordSpec}
+
 import scala.util.Random
 import java.lang.reflect.Method
 import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class ReflectionBinderSpec extends WordSpec with Matchers {
+class ReflectionBinderSpec extends AnyWordSpec with Matchers {
   "ReflectionBinder" should {
     "discover bindings using reflection" in {
       val binder = new StaticModule {
