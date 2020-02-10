@@ -1,6 +1,6 @@
 name := "dipendi"
 organization := "com.protenus"
-version := "0.5.9-SNAPSHOT"
+version := "0.6.0-SNAPSHOT"
 
 description := "Dipendi - Scala Dependency Injection Library"
 homepage := Some(url("https://github.com/protenus/dipendi"))

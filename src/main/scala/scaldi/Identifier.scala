@@ -116,7 +116,7 @@ object CanBeIdentifier {
   * Identifier created from any Scala type
   * @param tpe instance that will be defined as in `Identifier`
   */
-case class TypeTagIdentifier(tpe: Type) extends Identifier {
+final class TypeTagIdentifier private(val tpe: Type) extends Identifier {
   /**
     * @inheritdoc
     */
@@ -125,6 +125,13 @@ case class TypeTagIdentifier(tpe: Type) extends Identifier {
       case TypeTagIdentifier(otherTpe) if ReflectionHelper.isAssignableFrom(otherTpe, tpe) => true
       case _ => false
     }
+
+  override def equals(obj: Any): Boolean = obj match {
+    case that: TypeTagIdentifier => this.tpe == that.tpe
+    case _ => false
+  }
+  override def hashCode(): Int = tpe.hashCode()
+  override def toString: String = s"TypeTagIdentifier($tpe)"
 }
 
 object TypeTagIdentifier {
@@ -133,7 +140,12 @@ object TypeTagIdentifier {
     * @tparam T `TypeTag` containing type parameter
     * @return Generated `Identifier`
     */
-  def typeId[T: TypeTag] = TypeTagIdentifier(implicitly[TypeTag[T]].tpe)
+  def typeId[T: TypeTag]: TypeTagIdentifier = apply(implicitly[TypeTag[T]].tpe)
+
+  def apply(tpe: Type): TypeTagIdentifier =
+    new TypeTagIdentifier(tpe.dealias)
+
+  def unapply(that: TypeTagIdentifier): Some[Type] = Some(that.tpe)
 }
 
 /**
