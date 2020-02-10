@@ -1,9 +1,10 @@
 package scaldi
-
-import org.scalatest.{Matchers, WordSpec}
+
 import java.text.{DateFormat, SimpleDateFormat}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class IdentifierSpec extends WordSpec with Matchers {
+class IdentifierSpec extends AnyWordSpec with Matchers {
   "Identifier" when {
     "defaults are used" should {
       "be converted from string" in {

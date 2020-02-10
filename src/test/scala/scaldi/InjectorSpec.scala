@@ -1,11 +1,12 @@
 package scaldi
 
 import language.postfixOps
-
-import org.scalatest.{Matchers, WordSpec}
+
 import java.util.Properties
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class InjectorSpec extends WordSpec with Matchers {
+class InjectorSpec extends AnyWordSpec with Matchers {
   "Injector composition" should {
     "produce real injector when composed with NilInjector or produce NilInjector when both of them are NilInjectors" in {
       val realModule = new Test2Module

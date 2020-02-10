@@ -1,9 +1,10 @@
 package scaldi
-
-import org.scalatest.{Matchers, WordSpec}
+
 import java.text.DateFormat
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class InjectableSpec extends WordSpec with Matchers {
+class InjectableSpec extends AnyWordSpec with Matchers {
 
   "Injectable" should {
 

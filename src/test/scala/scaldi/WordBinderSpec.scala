@@ -1,9 +1,10 @@
 package scaldi
-
-import org.scalatest.{Matchers, WordSpec}
+
 import scala.util.Random
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class WordBinderSpec extends WordSpec with Matchers {
+class WordBinderSpec extends AnyWordSpec with Matchers {
   "WordBinder" should {
     "require to bind something" in {
       val binder = new WordBinder {

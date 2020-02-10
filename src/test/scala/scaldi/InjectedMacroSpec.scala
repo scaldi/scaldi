@@ -1,10 +1,11 @@
 package scaldi
-
-import org.scalatest.{Matchers, WordSpec}
+
 import Injectable.inject
 import java.util.Date
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class InjectedMacroSpec extends WordSpec with Matchers {
+class InjectedMacroSpec extends AnyWordSpec with Matchers {
   "`injected` macro" should {
     "support basic injection" in {
       implicit val inj = new Module {
