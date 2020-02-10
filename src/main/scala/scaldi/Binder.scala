@@ -30,10 +30,11 @@ trait WordBinder {
   def binding = createBinding[Any](None, contextCondition)
   def bind[T : TypeTag] = createBinding[T](Some(typeTag[T]), contextCondition)
 
-  def when(condition: => Condition)(fn: => Unit) = {
-    contextCondition = contextCondition map (c => () => condition and c()) orElse Some(() => condition)
+  def when(condition: => Condition)(fn: => Unit): Unit = {
+    val orig = contextCondition
+    contextCondition = orig map (c => () => condition and c()) orElse Some(() => condition)
     fn
-    contextCondition = None
+    contextCondition = orig
   }
 
   def required(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = true)
