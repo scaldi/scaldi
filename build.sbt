@@ -1,6 +1,5 @@
 name := "dipendi"
 organization := "com.protenus"
-version := "0.6.0-SNAPSHOT"
 
 description := "Dipendi - Scala Dependency Injection Library"
 homepage := Some(url("https://github.com/protenus/dipendi"))
@@ -23,14 +22,8 @@ git.remoteRepo := "git@github.com:protenus/dipendi.git"
 
 // Publishing
 
-publishMavenStyle := true
 publishArtifact in Test := false
 pomIncludeRepository := (_ => false)
-publishTo := Some(
-  if (version.value.trim.endsWith("SNAPSHOT"))
-    "snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-  else
-    "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
 
 // Site and docs
 
@@ -51,11 +44,6 @@ scmInfo := Some(ScmInfo(
   browseUrl = url("https://github.com/protenus/dipendi"),
   connection = "scm:git:git@github.com:protenus/dipendi.git"
 ))
-pomExtra := <xml:group>
-  <developers>
-    <developer>
-      <id>protenus</id>
-      <name>Protenus</name>
-    </developer>
-  </developers>
-</xml:group>
+developers := List(
+  Developer("AprilAtProtenus", "April Hyacinth", "april@protenus.com", url("https://github.com/AprilAtProtenus"))
+)
