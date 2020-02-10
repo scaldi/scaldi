@@ -19,9 +19,10 @@ before_install:
 stages:
   - name: test
   - name: release
-    if: ((branch = master AND type = push) OR (tag IS present)) AND NOT fork AND (env(ADOPTOPENJDK) = 8)
+    if: ((branch = master AND type = push) OR (tag IS present)) AND NOT fork
 
 jobs:
   include:
     - stage: release
+      env: ADOPTOPENJDK=8
       script: sbt ci-release
