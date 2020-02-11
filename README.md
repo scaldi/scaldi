@@ -1,8 +1,8 @@
 Dipendi
 ========
 
-[![Build Status](https://travis-ci.org/protenus/dipendi.png?branch=master)](https://travis-ci.org/protenus/dipendi)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.12)
+[![Build Status](https://travis-ci.org/protenus/dipendi.svg?branch=master)](https://travis-ci.org/protenus/dipendi)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.protenus/dipendi_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.protenus/dipendi_2.13)
 
 Dipendi provides a simple and elegant way to do dependency injection in Scala.
 By using the expressive power of the Scala language, it defines an intuitive and
@@ -16,9 +16,8 @@ Dipendi is a fork of [Scaldi](https://github.com/scaldi/scaldi), created to cont
 the library's development in lieu of a new maintainer who can access the Scaldi
 repository (see [scaldi/scaldi#81](https://github.com/scaldi/scaldi/issues/81)).
 
-Some aspects of Scaldi project, including its documentation, are still being migrated.
-Until the fork and migration are completed, you may need to rely on the original
-project's documentation.
+The Scaldi documentation is still being migrated. Until that is complete,
+you may need to rely on the original project's documentation.
 
 You can find an archive of the original project's homepage
 [here](https://web.archive.org/web/20190616212058/http://scaldi.org/), or jump directly
@@ -28,18 +27,13 @@ being an archived website, some of the links on it may not work properly.
 
 ## Adding Dipendi in Your Build
 
-Dipendi has not yet been released following its creation. Until its release, you can
-depend on Scaldi instead.
-
 SBT Configuration:
 
 ```sbtshell
-libraryDependencies += "org.scaldi" %% "scaldi" % "0.5.8"
+libraryDependencies += "com.protenus" %% "dipendi" % "0.6.0"
 ```
 
-Once Dipendi is released, it will support Scala 2.12 and 2.13. The release will
-either be a drop-in replacement for Scaldi, or include a shim to make it one - most
-likely the former.
+Dipendi supports Scala 2.11, 2.12 and 2.13, and is a drop-in replacement for Scaldi.
 
 ## License
 
