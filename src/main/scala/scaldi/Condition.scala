@@ -3,9 +3,9 @@ package scaldi
 trait Condition {
   def satisfies(identifiers: List[Identifier]): Boolean
 
-  def unary_! = NotCondition(this)
-  def and(otherCond: Condition) = AndCondition(List(this, otherCond))
-  def or(otherCond: Condition) = OrCondition(List(this, otherCond))
+  def unary_! : Condition = NotCondition(this)
+  def and(otherCond: Condition): Condition = AndCondition(List(this, otherCond))
+  def or(otherCond: Condition): Condition = OrCondition(List(this, otherCond))
 
   /**
     * Defines whether this condition can change while `Injector` is still alive.
@@ -18,11 +18,11 @@ trait Condition {
 }
 
 object Condition {
-  def apply(fn: => Boolean) = new Condition {
+  def apply(fn: => Boolean): Condition = new Condition {
     def satisfies(identifiers: List[Identifier]) = fn
   }
 
-  def apply(fn: => Boolean, dynamic: Boolean) = {
+  def apply(fn: => Boolean, dynamic: Boolean): Condition = {
     val dyn = dynamic
 
     new Condition {
@@ -31,11 +31,11 @@ object Condition {
     }
   }
 
-  def apply(fn: (List[Identifier]) => Boolean) = new Condition {
+  def apply(fn: (List[Identifier]) => Boolean): Condition = new Condition {
     def satisfies(identifiers: List[Identifier]) = fn(identifiers)
   }
 
-  def apply(fn: (List[Identifier]) => Boolean, dynamic: Boolean) = {
+  def apply(fn: (List[Identifier]) => Boolean, dynamic: Boolean): Condition = {
     val dyn = dynamic
 
     new Condition {
@@ -46,28 +46,28 @@ object Condition {
 }
 
 case class OrCondition (conditions: List[Condition]) extends Condition {
-  def satisfies(identifiers: List[Identifier]) =
+  def satisfies(identifiers: List[Identifier]): Boolean =
     conditions exists (_ satisfies identifiers)
 
-  override val dynamic = conditions.exists(_.dynamic)
+  override val dynamic: Boolean = conditions.exists(_.dynamic)
 }
 
 case class AndCondition (conditions: List[Condition]) extends Condition {
-  def satisfies(identifiers: List[Identifier]) =
+  def satisfies(identifiers: List[Identifier]): Boolean =
     conditions forall (_ satisfies identifiers)
 
-  override val dynamic = conditions.exists(_.dynamic)
+  override val dynamic: Boolean = conditions.exists(_.dynamic)
 }
 
 case class NotCondition (condition: Condition) extends Condition {
-  def satisfies(identifiers: List[Identifier]) =
+  def satisfies(identifiers: List[Identifier]): Boolean =
     !(condition satisfies identifiers)
 
-  override val dynamic = condition.dynamic
+  override val dynamic: Boolean = condition.dynamic
 }
 
 case class SysPropCondition(name: String, value: Option[String] = None, override val dynamic: Boolean = false) extends Condition {
-  def satisfies(identifiers: List[Identifier]) =
+  def satisfies(identifiers: List[Identifier]): Boolean =
     (value, System.getProperty(name)) match {
       case (Some(v), r) if v == r => true
       case (None, r) if r != null => true

@@ -23,7 +23,7 @@ class WireBuilder {
     }
   }
 
-  def extractPropertyName(c: blackbox.Context)(tree: c.Tree) = {
+  def extractPropertyName(c: blackbox.Context)(tree: c.Tree): String = {
     import c.universe._
 
     tree match {
@@ -71,10 +71,10 @@ class WireBuilder {
       ))
   }
 
-  def wireParamList(c: blackbox.Context)(paramList: List[c.Symbol], wiredType: c.Type, defaultSupported: Boolean, validOverrides: Map[String, c.Tree]) =
+  def wireParamList(c: blackbox.Context)(paramList: List[c.Symbol], wiredType: c.Type, defaultSupported: Boolean, validOverrides: Map[String, c.Tree]): List[Either[String, c.Tree]] =
     paramList map (param => wireParam(c)(param, wiredType, defaultSupported, validOverrides))
 
-  def wireType[T: c.WeakTypeTag](c: blackbox.Context)(validOverrides: Map[String, c.Tree]) = {
+  def wireType[T: c.WeakTypeTag](c: blackbox.Context)(validOverrides: Map[String, c.Tree]): c.Expr[T] = {
     import c.universe._
 
     val tpe = implicitly[c.WeakTypeTag[T]].tpe

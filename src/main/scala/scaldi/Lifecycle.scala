@@ -16,11 +16,11 @@ case class BindingLifecycle[-T](
 }
 
 object BindingLifecycle {
-  def empty[T] = BindingLifecycle[T]()
+  def empty[T]: BindingLifecycle[T] = BindingLifecycle[T]()
 }
 
 trait LifecycleManager {
-  val IgnoringErrorHandler =
+  val IgnoringErrorHandler: Throwable => Boolean =
     (e: Throwable) => {e.printStackTrace(); true}
 
   def addDestroyable(fn: () => Unit): Unit
@@ -33,21 +33,21 @@ trait ShutdownHookLifecycleManager extends LifecycleManager {
   private val destroyed = new AtomicBoolean(false)
   private var hookThread: Option[Thread] = None
 
-  def addDestroyable(fn: () => Unit) = this.synchronized {
+  def addDestroyable(fn: () => Unit): Unit = this.synchronized {
     if (destroyed.get()) throw new IllegalStateException("Can't add more destroyable callbacks because the Injector is already destroyed.")
     if (toDestroy.isEmpty) addShutdownHook()
 
     toDestroy = toDestroy :+ fn
   }
 
-  private def addShutdownHook() = {
+  private def addShutdownHook(): Unit = {
     hookThread = Some(sys.addShutdownHook(doDestroyAll(IgnoringErrorHandler)))
   }
 
-  def destroy(errorHandler: Throwable => Boolean = IgnoringErrorHandler) =
+  def destroy(errorHandler: Throwable => Boolean = IgnoringErrorHandler): Unit =
     doDestroyAll(errorHandler, manual = true)
 
-  private def doDestroyAll(errorHandler: Throwable => Boolean, manual: Boolean = false) = this.synchronized {
+  private def doDestroyAll(errorHandler: Throwable => Boolean, manual: Boolean = false): Unit = this.synchronized {
 
     breakable {
       toDestroy.reverse.foreach { d =>
@@ -65,7 +65,7 @@ trait ShutdownHookLifecycleManager extends LifecycleManager {
       try {
         hookThread foreach Runtime.getRuntime.removeShutdownHook
       } catch {
-        case NonFatal(e) => // do nothing
+        case NonFatal(_) => // do nothing
       }
 
     toDestroy = Nil
