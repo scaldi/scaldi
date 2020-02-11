@@ -12,7 +12,7 @@ scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-  "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.3",
+  "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.4",
   "com.typesafe" % "config" % "1.4.0" % Optional,
   "org.scalatest" %% "scalatest" % "3.1.0" % Test
 )
