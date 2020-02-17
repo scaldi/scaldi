@@ -16,6 +16,8 @@ env:
 before_install:
   - git fetch --tags
 
+script: sbt ++$TRAVIS_SCALA_VERSION mimaReportBinaryIssues test
+
 stages:
   - name: test
   - name: release
