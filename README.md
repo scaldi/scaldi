@@ -1,23 +1,34 @@
-[Scaldi](http://scaldi.org) provides simple and elegant way to do dependency injection in Scala. By using expressive power of the Scala language
-      it defines intuitive and idiomatic DSL for binding and injecting dependencies. It is very extensible library, so you can easily extend or customise
-      almost any aspect of it. Some of the more unique Scaldi features are advanced module composition and conditional bindings which definitely will
-      help you build all kinds of applications - from small command-line tools to big non-trivial web applications. Not to mention Scaldi also nicely integrates with Akka and Play.
+Scaldi
+========
 
-You can find project's home page here:
+[![Build Status](https://travis-ci.org/scaldi/scaldi.svg?branch=master)](https://travis-ci.org/scaldi/scaldi)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.13)
 
-[http://scaldi.org](http://scaldi.org)
+Scaldi provides a simple and elegant way to do dependency injection in Scala.
+By using the expressive power of the Scala language, it defines an intuitive and
+idiomatic DSL for binding and injecting dependencies. It is a highly extensible
+library; you can easily customise almost any aspect of it. Some of its more unique
+features are advanced module composition and conditional bindings, which can
+help you build all kinds of applications - from small command-line tools to
+large web applications. Scaldi also integrates nicely with Akka and Play.
 
-Or jump directly to the documentation:
+The Scaldi documentation DNS record ownership is in flux.
+Until that is resolved, you may need to rely on the original project's documentation.
+You can find an archive of the original project's homepage
+[here](https://web.archive.org/web/20190616212058/http://scaldi.org/), or jump directly
+to the documentation
+[here](https://web.archive.org/web/20190618005634/http://scaldi.org/learn). Due to it
+being an archived website, some of the links on it may not work properly.
 
-[Scaldi documentation](http://scaldi.org/learn/)
-
-[![Build Status](https://travis-ci.org/scaldi/scaldi.png?branch=master)](https://travis-ci.org/scaldi/scaldi) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.11)
-
-## Adding Scaldi in Your Build
+## Adding Scaldi to Your Build
 
 SBT Configuration:
 
-    libraryDependencies += "org.scaldi" %% "scaldi" % "0.5.8"
+```sbtshell
+libraryDependencies += "org.scaldi" %% "scaldi" % "0.6.0"
+```
+
+Scaldi supports Scala 2.11, 2.12 and 2.13.
 
 ## License
 

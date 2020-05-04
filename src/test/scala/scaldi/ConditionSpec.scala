@@ -1,8 +1,9 @@
 package scaldi
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class ConditionSpec extends WordSpec with Matchers {
+class ConditionSpec extends AnyWordSpec with Matchers {
   val C = Condition
 
   "Condition" should {
@@ -75,7 +76,7 @@ class ConditionSpec extends WordSpec with Matchers {
       var initialized = false
 
       implicit val inj = new Module {
-        bind [String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+        bind [String] when cond toNonLazy "foo" initWith (_ => initialized = true)
       }
 
       inj.initNonLazy()
@@ -88,7 +89,7 @@ class ConditionSpec extends WordSpec with Matchers {
       var initialized = false
 
       implicit val inj = new Module {
-        bind [String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+        bind [String] when cond toNonLazy "foo" initWith (_ => initialized = true)
       }
 
       inj.initNonLazy()
@@ -111,7 +112,7 @@ class ConditionSpec extends WordSpec with Matchers {
       var initialized = false
 
       implicit val inj = new Module {
-        bind[String] when cond toNonLazy "foo" initWith (_ ⇒ initialized = true)
+        bind[String] when cond toNonLazy "foo" initWith (_ => initialized = true)
       }
 
       inj.initNonLazy()

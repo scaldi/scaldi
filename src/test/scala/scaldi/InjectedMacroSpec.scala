@@ -1,10 +1,11 @@
 package scaldi
-
-import org.scalatest.{Matchers, WordSpec}
+
 import Injectable.inject
 import java.util.Date
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class InjectedMacroSpec extends WordSpec with Matchers {
+class InjectedMacroSpec extends AnyWordSpec with Matchers {
   "`injected` macro" should {
     "support basic injection" in {
       implicit val inj = new Module {
@@ -42,7 +43,7 @@ class InjectedMacroSpec extends WordSpec with Matchers {
 
     "support overrides" in {
       implicit val inj = new Module {
-        bind [DepWithDefaults] to injected [DepWithDefaults] ('d1 -> Dep1("Override"), 'd3 -> Dep2("Another override"))
+        bind [DepWithDefaults] to injected [DepWithDefaults] (Symbol("d1") -> Dep1("Override"), Symbol("d3") -> Dep2("Another override"))
 
         bind [Server] to new HttpServer("localhost", 80)
         binding to Dep1("Defined in module")
@@ -60,10 +61,10 @@ class InjectedMacroSpec extends WordSpec with Matchers {
 }
 
 class ImplicitArgumentsModule extends Module {
-  bind to injected [ImplicitArguments] ('dep1 -> inject [Dep1] (identified by 'foo))
+  bind to injected [ImplicitArguments] (Symbol("dep1") -> inject [Dep1] (identified by Symbol("foo")))
 
-  bind [Dep1] identifiedBy 'foo to Dep1("foo")
-  bind [Dep1] identifiedBy 'bar to Dep1("bar")
+  bind [Dep1] identifiedBy Symbol("foo") to Dep1("foo")
+  bind [Dep1] identifiedBy Symbol("bar") to Dep1("bar")
 
   binding to Dep2("foo")
   binding to Dep3("foo")
@@ -71,9 +72,9 @@ class ImplicitArgumentsModule extends Module {
 
 case class ImplicitArguments(dep1: Dep1, dep2: Dep2, dep3: Dep3)(implicit inj: Injector)
 
-class DepSimple(a: String, s: Server) extends Debug('a -> a, 's -> s)
-class DepWithDefaults(d1: Dep1 = Dep1("Default Value"), d2: Server, d3: Dep2 = Dep2("123")) extends Debug('d1 -> d1, 'd2 -> d2, 'd3 -> d3)
-class DepMultiArgList(a: String, s: Server)(l: Long)(l1: Long, c: List[Int]) extends Debug('a -> a, 's -> s, 'l -> l, 'l1 -> l1, 'c -> c)
+class DepSimple(a: String, s: Server) extends Debug(Symbol("a") -> a, Symbol("s") -> s)
+class DepWithDefaults(d1: Dep1 = Dep1("Default Value"), d2: Server, d3: Dep2 = Dep2("123")) extends Debug(Symbol("d1") -> d1, Symbol("d2") -> d2, Symbol("d3") -> d3)
+class DepMultiArgList(a: String, s: Server)(l: Long)(l1: Long, c: List[Int]) extends Debug(Symbol("a") -> a, Symbol("s") -> s, Symbol("l") -> l, Symbol("l1") -> l1, Symbol("c") -> c)
 
 class Debug(val props: (Symbol, Any)*) {
   // hashCode is not overridden because I will use only equals in the test

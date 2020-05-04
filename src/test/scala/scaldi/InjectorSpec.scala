@@ -1,11 +1,12 @@
 package scaldi
 
 import language.postfixOps
-
-import org.scalatest.{Matchers, WordSpec}
+
 import java.util.Properties
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class InjectorSpec extends WordSpec with Matchers {
+class InjectorSpec extends AnyWordSpec with Matchers {
   "Injector composition" should {
     "produce real injector when composed with NilInjector or produce NilInjector when both of them are NilInjectors" in {
       val realModule = new Test2Module
@@ -53,7 +54,7 @@ class InjectorSpec extends WordSpec with Matchers {
     "provide implicit injector and be Injectable" in {
       implicit val module = new StaticModule {
         lazy val server = new TcpServer
-        lazy val otherServer = HttpServer(inject [String] ("httpHost"), inject [Int] ('httpPort))
+        lazy val otherServer = HttpServer(inject [String] ("httpHost"), inject [Int] (Symbol("httpPort")))
 
         val tcpHost = "tcp-test"
         val tcpPort = 1234
@@ -76,13 +77,13 @@ class InjectorSpec extends WordSpec with Matchers {
     "provide implicit injector and be Injectable" in {
       implicit val module = new DynamicModule {
         binding to new TcpServer
-        binding to HttpServer(inject [String] ("httpHost"), inject [Int] ('httpPort))
+        binding to HttpServer(inject [String] ("httpHost"), inject [Int] (Symbol("httpPort")))
 
-        bind [String] as 'tcpHost to "tcp-test"
-        bind [Int] as 'tcpPort to 1234
+        bind [String] as Symbol("tcpHost") to "tcp-test"
+        bind [Int] as Symbol("tcpPort") to 1234
 
-        binding identifiedBy 'httpHost to "localhost"
-        binding identifiedBy 'httpPort to 4321
+        binding identifiedBy Symbol("httpHost") to "localhost"
+        binding identifiedBy Symbol("httpPort") to 4321
       }
 
       val server = Injectable.inject [TcpServer]
@@ -145,23 +146,23 @@ class InjectorSpec extends WordSpec with Matchers {
 
       inject[Server] should equal (HttpServer("test-prop", 54321))
 
-      inject[Integer]('port) should equal (Integer.valueOf(54321))
+      inject[Integer](Symbol("port")) should equal (Integer.valueOf(54321))
     }
   }
 
   class AppModule extends Module {
-    bind [Server] to HttpServer(inject [String] ('host), inject [Int] ('port))
+    bind [Server] to HttpServer(inject [String] (Symbol("host")), inject [Int] (Symbol("port")))
 
-    binding identifiedBy 'host to "localhost"
-    binding identifiedBy 'port to 80
+    binding identifiedBy Symbol("host") to "localhost"
+    binding identifiedBy Symbol("port") to 80
   }
 
   class Test1Module extends Module {
-    binding identifiedBy 'host to "test"
+    binding identifiedBy Symbol("host") to "test"
   }
 
   class Test2Module extends Module {
-    binding identifiedBy 'host to "test2"
-    binding identifiedBy 'port to 8080
+    binding identifiedBy Symbol("host") to "test2"
+    binding identifiedBy Symbol("port") to 8080
   }
 }

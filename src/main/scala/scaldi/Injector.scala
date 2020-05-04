@@ -62,14 +62,14 @@ object Injector extends LowPriorityImmutableInjectorComposition {
     * an empty injector and an another empty injector
     */
   implicit object nilWithNilComposition extends CanCompose[NilInjector.type, NilInjector.type, NilInjector.type] {
-    def compose(cmp1: NilInjector.type, cmp2: NilInjector.type) = NilInjector
+    def compose(cmp1: NilInjector.type, cmp2: NilInjector.type): NilInjector.type = NilInjector
   }
 
   /**
     * Provides an implementation for implicit `CanCompose` for a composition between
     * an empty injector with a non-empty injector
     */
-  implicit def nilWithOtherInjectorComposition[I <: Injector] = new CanCompose[NilInjector.type, I, I] {
+  implicit def nilWithOtherInjectorComposition[I <: Injector]: CanCompose[NilInjector.type, I, I] = new CanCompose[NilInjector.type, I, I] {
     def compose(cmp1: NilInjector.type, cmp2: I) = cmp2
   }
 
@@ -77,7 +77,7 @@ object Injector extends LowPriorityImmutableInjectorComposition {
     * Provides an implementation for implicit `CanCompose` for a composition between
     * an non-empty injector and an empty injector
     */
-  implicit def otherInjectorWithNilComposition[I <: Injector] = new CanCompose[I, NilInjector.type, I] {
+  implicit def otherInjectorWithNilComposition[I <: Injector]: CanCompose[I, NilInjector.type, I] = new CanCompose[I, NilInjector.type, I] {
     def compose(cmp1: I, cmp2: NilInjector.type) = cmp1
   }
 }
@@ -90,7 +90,7 @@ trait LowPriorityImmutableInjectorComposition extends LowPriorityMutableInjector
     * @tparam I2 immutable injector
     * @return composition between two immutable injectors
     */
-  implicit def immutableComposition[I1 <: ImmutableInjector, I2 <: ImmutableInjector] =
+  implicit def immutableComposition[I1 <: ImmutableInjector, I2 <: ImmutableInjector]: CanCompose[I1, I2, ImmutableInjectorAggregation] =
     new CanCompose[I1, I2, ImmutableInjectorAggregation] {
       def compose(cmp1: I1, cmp2: I2) = new ImmutableInjectorAggregation(List(cmp1, cmp2))
     }
@@ -104,7 +104,7 @@ trait LowPriorityMutableInjectorComposition {
     * @tparam I2 mutable injector
     * @return composition between two mutable injectors
     */
-  implicit def mutableInjectorComposition[I1 <: Injector, I2 <: Injector] =
+  implicit def mutableInjectorComposition[I1 <: Injector, I2 <: Injector]: CanCompose[I1, I2, MutableInjectorAggregation] =
     new CanCompose[I1, I2, MutableInjectorAggregation] {
       def compose(cmp1: I1, cmp2: I2) = new MutableInjectorAggregation(List(cmp1, cmp2))
     }
@@ -162,12 +162,12 @@ class ImmutableInjectorAggregation(chain: List[ImmutableInjector]) extends Injec
   /**
     * @inheritdoc
     */
-  def getBinding(identifiers: List[Identifier]) = chain.view.map(_ getBinding identifiers).collectFirst{case Some(b) => b}
+  def getBinding(identifiers: List[Identifier]): Option[Binding] = chain.view.map(_ getBinding identifiers).collectFirst{case Some(b) => b}
 
   /**
     * @inheritdoc
     */
-  def getBindings(identifiers: List[Identifier]) = chain.flatMap(_ getBindings identifiers)
+  def getBindings(identifiers: List[Identifier]): List[Binding] = chain.flatMap(_ getBindings identifiers)
 }
 
 /**
@@ -184,7 +184,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLife
     * @param identifiers list of identifiers identifying a dependency
     * @return a binding identified by identifiers
     */
-  def getBindingInternal(identifiers: List[Identifier]) =
+  def getBindingInternal(identifiers: List[Identifier]): Option[BindingWithLifecycle] =
     chain.view.map {
       case child: InjectorWithLifecycle[_] => child getBindingInternal identifiers
       case child => child getBinding identifiers map BindingWithLifecycle.apply
@@ -195,7 +195,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLife
     * @param identifiers list of identifiers identifying dependencies
     * @return a list of bindings identified by identifiers
     */
-  def getBindingsInternal(identifiers: List[Identifier]) =
+  def getBindingsInternal(identifiers: List[Identifier]): List[BindingWithLifecycle] =
     chain.flatMap {
       case child: InjectorWithLifecycle[_] => child getBindingsInternal identifiers
       case child => child getBindings identifiers map BindingWithLifecycle.apply
@@ -205,7 +205,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLife
     * Mutates current injector replacing it with the one in the parameters
     * @param newParentInjector the replacement for current injector
     */
-  override def injector_=(newParentInjector: Injector) {
+  override def injector_=(newParentInjector: Injector): Unit = {
     super.injector_=(newParentInjector)
     initInjector(newParentInjector)
   }
@@ -214,7 +214,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLife
     * Initialize bindings that are not lazy in composed injectors
     * @param lifecycleManager entity that will manage the lifecycle of the eager bindings
     */
-  protected def init(lifecycleManager: LifecycleManager) = {
+  protected def init(lifecycleManager: LifecycleManager): () => Unit = {
     val childInits = chain.flatMap {
       case childInjector: InjectorWithLifecycle[_] => Some(childInjector.partialInit(lifecycleManager))
       case _ => None
@@ -228,7 +228,7 @@ class MutableInjectorAggregation(chain: List[Injector]) extends InjectorWithLife
     * passed in the parameters.
     * @param newParentInjector the injector which will be parent injector for composed injectors
     */
-  private def initInjector(newParentInjector: Injector) {
+  private def initInjector(newParentInjector: Injector): Unit = {
     chain foreach {
       case childInjector: MutableInjectorUser => childInjector.injector = newParentInjector
       case _ => // skip
@@ -254,7 +254,7 @@ trait Freezable {
 trait MutableInjectorUser extends MutableInjector { self: Injector with Freezable =>
   private var _injector: Injector = this
 
-  implicit def injector = _injector
+  implicit def injector: Injector = _injector
 
   implicit val injectorFn: () => Injector = () => injector
 
@@ -263,7 +263,7 @@ trait MutableInjectorUser extends MutableInjector { self: Injector with Freezabl
     * Works only if current injector is not frozen
     * @param newParentInjector the replacement for current injector
     */
-  def injector_=(newParentInjector: Injector) {
+  def injector_=(newParentInjector: Injector): Unit = {
     if (isFrozen) throw new InjectException("Injector already frozen, so you can't mutate it anymore!")
 
     _injector = newParentInjector
@@ -303,7 +303,7 @@ trait Initializeable[I] extends Freezable { this: I with LifecycleManager =>
     } else None
   }
 
-  protected def isFrozen = initialized
+  protected def isFrozen: Boolean = initialized
 
   /**
    * Initializes bindings that are not Lazy
@@ -322,12 +322,12 @@ trait InjectorWithLifecycle[I <: InjectorWithLifecycle[I]] extends Injector with
   /**
    * @inheritdoc
    */
-  final def getBinding(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingInternal identifiers map (Binding.apply(this, _)))
+  final def getBinding(identifiers: List[Identifier]): Option[Binding] = initNonLazy() |> (_ getBindingInternal identifiers map (Binding.apply(this, _)))
 
   /**
    * @inheritdoc
    */
-  final def getBindings(identifiers: List[Identifier]) = initNonLazy() |> (_ getBindingsInternal identifiers map (Binding.apply(this, _)))
+  final def getBindings(identifiers: List[Identifier]): List[Binding] = initNonLazy() |> (_ getBindingsInternal identifiers map (Binding.apply(this, _)))
 
   /**
    * Binding lookup logic

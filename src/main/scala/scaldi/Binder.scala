@@ -27,13 +27,14 @@ trait WordBinder {
     injectorBinding :: bindings.map(_ getBinding).reverse
   }
 
-  def binding = createBinding[Any](None, contextCondition)
-  def bind[T : TypeTag] = createBinding[T](Some(typeTag[T]), contextCondition)
+  def binding: BindHelper[Any] = createBinding[Any](None, contextCondition)
+  def bind[T : TypeTag]: BindHelper[T] = createBinding[T](Some(typeTag[T]), contextCondition)
 
-  def when(condition: => Condition)(fn: => Unit) = {
-    contextCondition = contextCondition map (c => () => condition and c()) orElse Some(() => condition)
+  def when(condition: => Condition)(fn: => Unit): Unit = {
+    val orig = contextCondition
+    contextCondition = orig map (c => () => condition and c()) orElse Some(() => condition)
     fn
-    contextCondition = None
+    contextCondition = orig
   }
 
   def required(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = true)
@@ -73,21 +74,21 @@ trait CanBeIdentified[R] { this: R =>
 trait CanBeConditional[R] { this: R =>
   var condition: Option[() => Condition] = None
 
-  def when(cond: => Condition) = {
+  def when(cond: => Condition): this.type = {
     condition = condition map (c => () => cond and c()) orElse Some(() => cond)
     this
   }
 }
 
 trait CanHaveLifecycle[H, D] { this: H =>
-  var lifecycle = BindingLifecycle.empty[D]
+  var lifecycle: BindingLifecycle[D] = BindingLifecycle.empty[D]
 
-  def initWith(initFn: (D) => Unit) = {
+  def initWith(initFn: (D) => Unit): this.type = {
     lifecycle = lifecycle.copy(initialize = Some(initFn))
     this
   }
 
-  def destroyWith(destroyFn: (D) => Unit) = {
+  def destroyWith(destroyFn: (D) => Unit): this.type = {
     lifecycle = lifecycle.copy(destroy = Some(destroyFn))
     this
   }
@@ -99,27 +100,27 @@ class BindHelper[R](onBound: (BindHelper[R], BoundHelper[_]) => Unit)
     extends CanBeIdentified[BindHelper[R]] with CanBeConditional[BindHelper[R]] {
   var createFn: Option[Option[() => Any]] = None
 
-  def to(none: None.type) = bindNone[R](LazyBinding(None, _, _, _))
-  def to[T <: R : TypeTag](provider: WordBindingProvider[T]) = bind(provider.bindingFn)
-  def to[T <: R : TypeTag](fn: => T) = bind(LazyBinding(Some(() => fn), _, _, _))
+  def to(none: None.type): BoundHelper[R] = bindNone[R](LazyBinding(None, _, _, _))
+  def to[T <: R : TypeTag](provider: WordBindingProvider[T]): BoundHelper[T] = bind(provider.bindingFn)
+  def to[T <: R : TypeTag](fn: => T): BoundHelper[T] = bind(LazyBinding(Some(() => fn), _, _, _))
   @deprecated("`in` variant is deprecated in favor of `to` syntax", "0.5")
-  def in[T <: R : TypeTag](fn: => T) = to(fn)
+  def in[T <: R : TypeTag](fn: => T): BoundHelper[T] = to(fn)
 
-  def toNonLazy[T <: R : TypeTag](fn: => T) = bind(NonLazyBinding(Some(() => fn), _, _, _))
+  def toNonLazy[T <: R : TypeTag](fn: => T): BoundHelper[T] = bind(NonLazyBinding(Some(() => fn), _, _, _))
   @deprecated("`in` variant is deprecated in favor of `to` syntax", "0.5")
-  def inNonLazy[T <: R : TypeTag](fn: => T) = toNonLazy(fn)
+  def inNonLazy[T <: R : TypeTag](fn: => T): BoundHelper[T] = toNonLazy(fn)
 
-  def toProvider[T <: R : TypeTag](fn: => T) = bind(ProviderBinding(() => fn, _, _, _))
+  def toProvider[T <: R : TypeTag](fn: => T): BoundHelper[T] = bind(ProviderBinding(() => fn, _, _, _))
   @deprecated("`in` variant is deprecated in favor of `to` syntax", "0.5")
-  def inProvider[T <: R : TypeTag](fn: => T) = toProvider(fn)
+  def inProvider[T <: R : TypeTag](fn: => T): BoundHelper[T] = toProvider(fn)
 
-  private def bind[T : TypeTag](bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle) = {
+  private def bind[T : TypeTag](bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle): BoundHelper[T] = {
     val bound = new BoundHelper[T](bindingFn, identifiers, condition, Some(typeTag[T].tpe))
     onBound(this, bound)
     bound
   }
 
-  private def bindNone[D](bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle) = {
+  private def bindNone[D](bindingFn: (List[Identifier], Option[() => Condition], BindingLifecycle[Any]) => BindingWithLifecycle): BoundHelper[D] = {
     val bound = new BoundHelper[D](bindingFn, identifiers, condition, None)
     onBound(this, bound)
     bound
@@ -132,7 +133,7 @@ class BoundHelper[D](
    initialCondition: Option[() => Condition],
    bindingType: Option[Type]
 ) extends CanBeIdentified[BoundHelper[D]] with CanBeConditional[BoundHelper[D]] with CanHaveLifecycle[BoundHelper[D], D] {
-  def getBinding = bindingFn (
+  def getBinding: BindingWithLifecycle = bindingFn (
     (initialIdentifiers ++ identifiers, bindingType) match {
       case (ids, _) if ids.exists(_.isInstanceOf[TypeTagIdentifier]) => ids
       case (ids, Some(t)) => ids :+ TypeTagIdentifier(t)
@@ -170,8 +171,8 @@ trait ReflectionBinder {
   }
 
   case class ReflectiveBinding(fn: () => Option[Any], identifiers: List[Identifier]) extends Binding {
-    val condition = None
-    override def get = fn()
+    val condition: Option[() => Condition] = None
+    override def get: Option[Any] = fn()
   }
 }
 

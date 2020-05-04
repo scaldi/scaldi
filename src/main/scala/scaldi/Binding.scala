@@ -16,9 +16,9 @@ trait Identifiable {
     */
   def condition: Option[() => Condition]
 
-  protected lazy val resolvedCondition = condition map (fn ⇒ fn())
+  protected lazy val resolvedCondition: Option[Condition] = condition map (fn => fn())
 
-  def isDefinedFor(desiredIdentifiers: List[Identifier]) =
+  def isDefinedFor(desiredIdentifiers: List[Identifier]): Boolean =
     Identifier.sameAs(identifiers, desiredIdentifiers) &&
       resolvedCondition.fold(true)(_ satisfies desiredIdentifiers)
 
@@ -62,7 +62,7 @@ object Binding {
     * @param binding `BindingWithLifecycle` actual binding
     * @return a new binding (without lifecycle) which delegates all method calls to the provided `binding`
     */
-  def apply(lifecycleManager: LifecycleManager, binding: BindingWithLifecycle) = new Binding {
+  def apply(lifecycleManager: LifecycleManager, binding: BindingWithLifecycle): Binding = new Binding {
     def get = binding get lifecycleManager
 
     def condition = binding.condition
@@ -96,18 +96,18 @@ trait BindingWithLifecycle extends Identifiable {
 
   def init(lifecycleManager: LifecycleManager): Unit = {
     resolvedCondition match {
-      case None ⇒
+      case None =>
         get(lifecycleManager)
-      case Some(c) if c.dynamic || c.satisfies(Nil) ⇒
+      case Some(c) if c.dynamic || c.satisfies(Nil) =>
         get(lifecycleManager)
-      case _ ⇒
+      case _ =>
       // do nothing because eager binding should not be initialized
     }
   }
 }
 
 object BindingWithLifecycle {
-  def apply(binding: Binding) = new BindingWithLifecycle {
+  def apply(binding: Binding): BindingWithLifecycle = new BindingWithLifecycle {
     val lifecycle = BindingLifecycle.empty
 
     def condition = binding.condition
@@ -135,13 +135,13 @@ case class NonLazyBinding(private val createFn: Option[() => Any],
                            identifiers: List[Identifier] = Nil,
                            condition: Option[() => Condition] = None,
                            lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
-  lazy val target = createFn map (fn => fn() <| lifecycle.initializeObject)
+  lazy val target: Option[Any] = createFn map (fn => fn() <| lifecycle.initializeObject)
   var destroyableAdded = false
 
   /**
     * @inheritdoc
     */
-  override def get(lifecycleManager: LifecycleManager) = {
+  override def get(lifecycleManager: LifecycleManager): Option[Any] = {
     for {
       d <- lifecycle.destroy
       t <- target
@@ -157,12 +157,12 @@ case class NonLazyBinding(private val createFn: Option[() => Any],
   /**
     * @inheritdoc
     */
-  override def isEager = true
+  override def isEager: Boolean = true
 
   /**
     * @inheritdoc
     */
-  override def isCacheable = true
+  override def isCacheable: Boolean = true
 }
 
 /**
@@ -177,13 +177,13 @@ case class LazyBinding(private val createFn: Option[() => Any],
                         identifiers: List[Identifier] = Nil,
                         condition: Option[() => Condition] = None,
                         lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
-  lazy val target = createFn map (fn => fn() <| lifecycle.initializeObject)
+  lazy val target: Option[Any] = createFn map (fn => fn() <| lifecycle.initializeObject)
   var destroyableAdded = false
 
   /**
     * @inheritdoc
     */
-  override def get(lifecycleManager: LifecycleManager) = {
+  override def get(lifecycleManager: LifecycleManager): Option[Any] = {
     for {
       d <- lifecycle.destroy
       t <- target
@@ -199,7 +199,7 @@ case class LazyBinding(private val createFn: Option[() => Any],
   /**
     * @inheritdoc
     */
-  override def isCacheable = true
+  override def isCacheable: Boolean = true
 }
 
 /**
@@ -214,12 +214,12 @@ case class ProviderBinding(private val createFn: () => Any,
                             identifiers: List[Identifier] = Nil,
                             condition: Option[() => Condition] = None,
                             lifecycle: BindingLifecycle[Any] = BindingLifecycle.empty) extends BindingWithLifecycle {
-  def target = createFn() <| lifecycle.initializeObject
+  def target: Any = createFn() <| lifecycle.initializeObject
 
   /**
     * @inheritdoc
     */
-  override def get(lifecycleManager: LifecycleManager) = {
+  override def get(lifecycleManager: LifecycleManager): Option[Any] = {
     val value = target
     lifecycle.destroy foreach (d => lifecycleManager addDestroyable (() => d(value)))
     Some(value)
@@ -246,15 +246,15 @@ case class SimpleBinding[T](boundValue: Option[() => T],
   /**
     * @inheritdoc
     */
-  lazy val get = boundValue map (fn => fn())
+  lazy val get: Option[Any] = boundValue map (fn => fn())
 
   /**
     * @inheritdoc
     */
-  override def isCacheable = cacheable && condition.isEmpty
+  override def isCacheable: Boolean = cacheable && condition.isEmpty
 
   /**
     * @inheritdoc
     */
-  override def isEager = eager
+  override def isEager: Boolean = eager
 }

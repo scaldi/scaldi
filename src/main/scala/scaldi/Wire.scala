@@ -1,7 +1,9 @@
 package scaldi
 
+import scaldi.internal.WireCrossHelper._
+
 import scala.language.experimental.macros
-import scala.reflect.macros.blackbox.Context
+import scala.reflect.macros.blackbox
 
 trait Wire {
   def injected[T]: T = macro WireBuilder.wireNoArgImpl[T]
@@ -12,7 +14,7 @@ trait Wire {
 }
 
 class WireBuilder {
-  def build[T: c.WeakTypeTag](c: Context)(overrides: Seq[c.Tree]): c.Expr[T] = {
+  def build[T: c.WeakTypeTag](c: blackbox.Context)(overrides: Seq[c.Tree]): c.Expr[T] = {
     val validatedOverrides = overrides.map(o => extractProperty(c)(o))
 
     validatedOverrides find (_.isLeft) match {
@@ -21,7 +23,7 @@ class WireBuilder {
     }
   }
 
-  def extractPropertyName(c: Context)(tree: c.Tree) = {
+  def extractPropertyName(c: blackbox.Context)(tree: c.Tree): String = {
     import c.universe._
 
     tree match {
@@ -33,7 +35,7 @@ class WireBuilder {
     }
   }
 
-  def extractProperty(c: Context)(tree: c.Tree): Either[String, (String, c.Tree)] = {
+  def extractProperty(c: blackbox.Context)(tree: c.Tree): Either[String, (String, c.Tree)] = {
     import c.universe._
 
     tree match {
@@ -50,7 +52,7 @@ class WireBuilder {
     }
   }
 
-  def wireParam(c: Context)(param: c.Symbol, wiredType: c.Type, defaultSupported: Boolean, validOverrides: Map[String, c.Tree]): Either[String, c.Tree] = {
+  def wireParam(c: blackbox.Context)(param: c.Symbol, wiredType: c.Type, defaultSupported: Boolean, validOverrides: Map[String, c.Tree]): Either[String, c.Tree] = {
     import c.universe._
 
     val name = param.name.decodedName.toString
@@ -60,19 +62,19 @@ class WireBuilder {
     if (!defaultSupported && hasDefault)
       Left(s"Argument $name has a default value, but default values are only supported for the first argument list.")
     else
-      Right(AssignOrNamedArg(
+      Right(CrossNamedArg(c)(
         Ident(TermName(name)),
-        validOverrides get name getOrElse {
+        validOverrides.getOrElse(name, {
           if (hasDefault) q"injectWithConstructorDefault[$tpe, $wiredType]($name)"
           else q"inject[$tpe]"
-        }
+        })
       ))
   }
 
-  def wireParamList(c: Context)(paramList: List[c.Symbol], wiredType: c.Type, defaultSupported: Boolean, validOverrides: Map[String, c.Tree]) =
+  def wireParamList(c: blackbox.Context)(paramList: List[c.Symbol], wiredType: c.Type, defaultSupported: Boolean, validOverrides: Map[String, c.Tree]): List[Either[String, c.Tree]] =
     paramList map (param => wireParam(c)(param, wiredType, defaultSupported, validOverrides))
 
-  def wireType[T: c.WeakTypeTag](c: Context)(validOverrides: Map[String, c.Tree]) = {
+  def wireType[T: c.WeakTypeTag](c: blackbox.Context)(validOverrides: Map[String, c.Tree]): c.Expr[T] = {
     import c.universe._
 
     val tpe = implicitly[c.WeakTypeTag[T]].tpe
@@ -107,7 +109,7 @@ class WireBuilder {
     }
   }
 
-  def error[T](c: Context, message: String): c.Expr[T] = {
+  def error[T](c: blackbox.Context, message: String): c.Expr[T] = {
     import c.universe._
 
     c.error(c.enclosingPosition, message)
@@ -116,9 +118,9 @@ class WireBuilder {
 }
 
 object WireBuilder {
-  def wireNoArgImpl[T: c.WeakTypeTag](c: Context): c.Expr[T] =
+  def wireNoArgImpl[T: c.WeakTypeTag](c: blackbox.Context): c.Expr[T] =
     wireImpl[T](c)()
 
-  def wireImpl[T: c.WeakTypeTag](c: Context)(overrides: c.Tree*): c.Expr[T] =
+  def wireImpl[T: c.WeakTypeTag](c: blackbox.Context)(overrides: c.Tree*): c.Expr[T] =
     new WireBuilder().build[T](c)(overrides)
 }

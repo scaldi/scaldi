@@ -9,7 +9,7 @@ trait NotExists extends Existence
 trait IsTypeClassExists[TypeClass, Answer]
 
 object IsTypeClassExists extends LowPriorityIsTypeClassExists {
-  implicit def typeClassExistsEv[TypeClass, Answer](implicit a: TypeClass) =
+  implicit def typeClassExistsEv[TypeClass, Answer](implicit a: TypeClass): IsTypeClassExists[TypeClass, Exists] =
     evidence.asInstanceOf[IsTypeClassExists[TypeClass, Exists]]
 }
 
@@ -17,7 +17,7 @@ trait LowPriorityIsTypeClassExists {
   protected val evidence: IsTypeClassExists[Any, Any] =
     new Object with IsTypeClassExists[Any, Any]
 
-  implicit def typeClassNotExistsEv[TypeClass, Answer] =
+  implicit def typeClassNotExistsEv[TypeClass, Answer]: IsTypeClassExists[TypeClass, NotExists] =
     evidence.asInstanceOf[IsTypeClassExists[TypeClass, NotExists]]
 }
 
@@ -27,7 +27,7 @@ trait Not[T]
 object Not {
   private val evidence: Not[Any] = new Object with Not[Any]
 
-  implicit def notEv[T, Answer](implicit a: IsTypeClassExists[T, Answer], ne: Answer =:= NotExists) =
+  implicit def notEv[T, Answer](implicit a: IsTypeClassExists[T, Answer], ne: Answer =:= NotExists): Not[T] =
     evidence.asInstanceOf[Not[T]]
 }
 
@@ -37,7 +37,7 @@ trait And[A, B]
 object And {
   private val evidence: And[Any, Any] = new Object with And[Any, Any]
 
-  implicit def bothExistEv[A, B](implicit a: A, b: B) =
+  implicit def bothExistEv[A, B](implicit a: A, b: B): And[A, B] =
     evidence.asInstanceOf[And[A, B]]
 }
 
@@ -47,11 +47,11 @@ trait Or[A, B] {
 }
 
 object Or {
-  implicit def aExistsEv[A, B](implicit a: A) = new Or[A, B] {
+  implicit def aExistsEv[A, B](implicit a: A): Or[A, B] = new Or[A, B] {
     def get = Left(a)
   }
 
-  implicit def bExistsEv[A, B](implicit b: B) = new Or[A, B] {
+  implicit def bExistsEv[A, B](implicit b: B): Or[A, B] = new Or[A, B] {
     def get = Right(b)
   }
 }

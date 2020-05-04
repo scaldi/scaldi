@@ -3,8 +3,7 @@ package scaldi
 import scaldi.util.ReflectionHelper
 
 import language.{existentials, implicitConversions}
-
-import scala.reflect.runtime.universe.{TypeTag, Type}
+import scala.reflect.runtime.universe.{Type, TypeTag}
 import annotation.implicitNotFound
 
 /**
@@ -46,7 +45,7 @@ object Identifier {
     * @return true if actual list contains at least all the identifiers in the desired
     *         list and the required actual identifiers are in desired list, false otherwise
     */
-  def sameAs(actual: List[Identifier], desired: List[Identifier]) = {
+  def sameAs(actual: List[Identifier], desired: List[Identifier]): Boolean = {
     val matching = desired.map(d => actual filter (_ sameAs d))
 
     !matching.contains(Nil) && {
@@ -73,27 +72,27 @@ object CanBeIdentifier {
     * Has priority over other type class implementations
     */
   implicit object StringCanBeIdentifier extends CanBeIdentifier[String] {
-    def toIdentifier(str: String) = StringIdentifier(str)
+    def toIdentifier(str: String): Identifier = StringIdentifier(str)
   }
 
   /**
     * Implementation to implicitly transform `Symbol` into an `Identifier`
     */
   implicit object SymbolCanBeIdentifier extends CanBeIdentifier[Symbol] {
-    def toIdentifier(sym: Symbol) = StringIdentifier(sym.name)
+    def toIdentifier(sym: Symbol): Identifier = StringIdentifier(sym.name)
   }
 
   /**
     * Implementation to implicitly transform a Class into an `Identifier`
     */
-  implicit def ClassCanBeIdentifier[T: TypeTag] = new CanBeIdentifier[Class[T]] {
+  implicit def ClassCanBeIdentifier[T: TypeTag]: CanBeIdentifier[Class[T]] = new CanBeIdentifier[Class[T]] {
     def toIdentifier(c: Class[T]) = TypeTagIdentifier.typeId[T]
   }
 
   /**
     * Implementation to implicitly transform a Type Parameter into an `Identifier`
     */
-  implicit def TypeTagCanBeIdentifier[T: TypeTag] = new CanBeIdentifier[TypeTag[T]] {
+  implicit def TypeTagCanBeIdentifier[T: TypeTag]: CanBeIdentifier[TypeTag[T]] = new CanBeIdentifier[TypeTag[T]] {
     def toIdentifier(typeTag: TypeTag[T]) = TypeTagIdentifier(typeTag.tpe)
   }
 
@@ -101,14 +100,14 @@ object CanBeIdentifier {
     * Implementation to implicitly transform a Scala Type into an `Identifier`
     */
   implicit object TypeCanBeIdentifier extends CanBeIdentifier[Type] {
-    def toIdentifier(tpe: Type) = TypeTagIdentifier(tpe)
+    def toIdentifier(tpe: Type): Identifier = TypeTagIdentifier(tpe)
   }
 
   /**
     * Implementation to implicitly transform an `Identifier` implementation into an `Identifier`
     */
-  implicit def identifierCanBeIdentifier[I <: Identifier] = new CanBeIdentifier[I] {
-    def toIdentifier(id: I) = id
+  implicit def identifierCanBeIdentifier[I <: Identifier]: CanBeIdentifier[I] = new CanBeIdentifier[I] {
+    def toIdentifier(id: I): Identifier = id
   }
 }
 
@@ -116,15 +115,22 @@ object CanBeIdentifier {
   * Identifier created from any Scala type
   * @param tpe instance that will be defined as in `Identifier`
   */
-case class TypeTagIdentifier(tpe: Type) extends Identifier {
+final class TypeTagIdentifier private(val tpe: Type) extends Identifier {
   /**
     * @inheritdoc
     */
-  def sameAs(other: Identifier) =
+  def sameAs(other: Identifier): Boolean =
     other match {
       case TypeTagIdentifier(otherTpe) if ReflectionHelper.isAssignableFrom(otherTpe, tpe) => true
       case _ => false
     }
+
+  override def equals(obj: Any): Boolean = obj match {
+    case that: TypeTagIdentifier => this.tpe == that.tpe
+    case _ => false
+  }
+  override def hashCode(): Int = tpe.hashCode()
+  override def toString: String = s"TypeTagIdentifier($tpe)"
 }
 
 object TypeTagIdentifier {
@@ -133,7 +139,12 @@ object TypeTagIdentifier {
     * @tparam T `TypeTag` containing type parameter
     * @return Generated `Identifier`
     */
-  def typeId[T: TypeTag] = TypeTagIdentifier(implicitly[TypeTag[T]].tpe)
+  def typeId[T: TypeTag]: TypeTagIdentifier = apply(implicitly[TypeTag[T]].tpe)
+
+  def apply(tpe: Type): TypeTagIdentifier =
+    new TypeTagIdentifier(tpe.dealias)
+
+  def unapply(that: TypeTagIdentifier): Some[Type] = Some(that.tpe)
 }
 
 /**
@@ -144,7 +155,7 @@ case class StringIdentifier(str: String) extends Identifier {
   /**
     * @inheritdoc
     */
-  def sameAs(other: Identifier) = other match {
+  def sameAs(other: Identifier): Boolean = other match {
     case StringIdentifier(`str`) => true
     case _ => false
   }
@@ -159,7 +170,7 @@ case class RequiredIdentifier(delegate: Identifier, isRequired: Boolean) extends
   /**
     * @inheritdoc
     */
-  def sameAs(other: Identifier) = other match {
+  def sameAs(other: Identifier): Boolean = other match {
     case r: RequiredIdentifier => delegate sameAs r.delegate
     case _ => delegate sameAs other
   }
@@ -167,5 +178,5 @@ case class RequiredIdentifier(delegate: Identifier, isRequired: Boolean) extends
   /**
     * @inheritdoc
     */
-  override def required = isRequired
+  override def required: Boolean = isRequired
 }
