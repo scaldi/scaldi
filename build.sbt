@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
   "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.6",
   "com.typesafe" % "config" % "1.4.0" % Optional,
-  "org.scalatest" %% "scalatest" % "3.1.1" % Test
+  "org.scalatest" %% "scalatest" % "3.1.2" % Test
 )
 
 fork := true
