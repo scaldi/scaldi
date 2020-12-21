@@ -222,7 +222,7 @@ trait OpenInjectable extends Injectable {
   def injectOpt[T](constraints: => InjectConstraints[T])(implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): Option[T] =
     List(typeId[T]) ++ constraints.identifiers |>
       (ids =>
-        injector getBinding ids flatMap (_.get) map(_.asInstanceOf[T]) orElse constraints.default.map(_.apply)
+        injector getBinding ids flatMap (_.get) map(_.asInstanceOf[T]) orElse constraints.default.map(_.apply())
       )
 
   override def inject[T](implicit injector: Injector, tt: TypeTag[T], nn: NotNothing[T]): T =
