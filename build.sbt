@@ -6,7 +6,7 @@ homepage := Some(url("https://github.com/scaldi/scaldi"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 scalaVersion := "2.13.4"
-crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.5")
+crossScalaVersions := Seq("2.11.12", "2.12.13", "2.13.5")
 
 mimaPreviousArtifacts := Set("0.6.0").map(organization.value %% name.value % _)
 
