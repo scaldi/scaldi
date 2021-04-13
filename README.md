@@ -1,7 +1,7 @@
 Scaldi
 ========
 
-[![Build Status](https://travis-ci.org/scaldi/scaldi.svg?branch=master)](https://travis-ci.org/scaldi/scaldi)
+![Continuous Integration](https://github.com/scaldi/scaldi/workflows/Continuous%20Integration/badge.svg)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.scaldi/scaldi_2.13)
 
 Scaldi provides a simple and elegant way to do dependency injection in Scala.
