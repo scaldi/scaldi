@@ -5,11 +5,11 @@ description := "Scaldi - Scala Dependency Injection Library"
 homepage := Some(url("https://github.com/scaldi/scaldi"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-scalaVersion := "2.13.4"
-crossScalaVersions := Seq("2.11.12", "2.12.13", "2.13.6")
+lazy val scala213 = "2.13.6"
 
+scalaVersion := scala213
+crossScalaVersions := Seq("2.11.12", "2.12.14", scala213)
 mimaPreviousArtifacts := Set("0.6.0").map(organization.value %% name.value % _)
-
 scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
