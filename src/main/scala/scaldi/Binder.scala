@@ -164,6 +164,7 @@ class BoundHelper[D](
 trait ReflectionBinder {
   lazy val reflectiveBindings: List[Binding] = {
     import scala.reflect.runtime.universe._
+    import ReflectionHelper._
 
     val mirror     = ReflectionHelper.mirror
     val reflection = mirror reflect this
@@ -180,7 +181,7 @@ trait ReflectionBinder {
       .map(_.asMethod)
       .filterNot(_.returnType =:= typeOf[Nothing])
       .map { m =>
-        if (m.returnType <:< typeOf[BindingProvider])
+        if (m.returnType safe_<:< typeOf[BindingProvider])
           reflection
             .reflectMethod(m)
             .apply()
