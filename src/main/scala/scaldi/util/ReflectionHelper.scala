@@ -1,14 +1,12 @@
 package scaldi.util
 
 import java.lang.annotation.Annotation
-
-import language.{implicitConversions, postfixOps}
-import scala.reflect.runtime.universe
-import scala.reflect.runtime.universe.{runtimeMirror, MethodSymbol, Mirror, Symbol, TermName, TermSymbol, Type, TypeTag}
-import scala.reflect.internal.{Names, StdNames}
 import java.lang.reflect.{Constructor, Field, Method}
-
 import scala.annotation.tailrec
+import scala.language.{implicitConversions, postfixOps}
+import scala.reflect.internal.{Names, StdNames}
+import scala.reflect.runtime.universe.{runtimeMirror, MethodSymbol, Mirror, Symbol, TermName, TermSymbol, Type, TypeTag}
+import scala.reflect.runtime.{universe, JavaUniverse}
 
 object ReflectionHelper {
   def getDefaultValueOfParam[T, C](paramName: String)(implicit tt: TypeTag[C]): T = {
@@ -66,10 +64,18 @@ object ReflectionHelper {
 
   // Dirty tricks to compensate for scala reflection API missing feature or bugs
 
+  private def undo[T](block: => T): T =
+    scala.reflect.runtime.universe match {
+      case ju: JavaUniverse => ju.undoLog.undo(block)
+      case _                => block
+    }
+
   // Workaround for https://issues.scala-lang.org/browse/SI-9177
   // TODO: get rid of this workaround as soon as https://issues.scala-lang.org/browse/SI-9177 is resolved!
+  // <:< memory leak explained in https://github.com/scala/bug/issues/8302
+  /** Check assignability with additional undoLog memory leak check and avoid 'Illegal cyclic reference'. */
   def isAssignableFrom(a: Type, b: Type): Boolean =
-    try b <:< a
+    try undo(b <:< a)
     catch {
       case e: Throwable if e.getMessage != null && e.getMessage.contains("illegal cyclic reference") =>
         false
@@ -103,5 +109,11 @@ object ReflectionHelper {
     val jfield      = mirror.reflect(mirror: AnyRef).reflectMethod(fieldToJava).apply(field).asInstanceOf[Field]
 
     jfield.getAnnotations.toList
+  }
+
+  implicit class SafelyAssignable(val t: Type) extends AnyVal {
+
+    /** Alias for [[isAssignableFrom()]] */
+    def safe_<:<(that: Type): Boolean = isAssignableFrom(that, t)
   }
 }
