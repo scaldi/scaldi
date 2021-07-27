@@ -1,8 +1,8 @@
 package scaldi
-
+
 import scala.util.Random
 import java.lang.reflect.Method
-import scala.reflect.runtime.universe.{TypeTag, Type, typeTag}
+import scala.reflect.runtime.universe.{typeTag, Type, TypeTag}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -19,14 +19,14 @@ class ReflectionBinderSpec extends AnyWordSpec with Matchers {
     "infer correct type and string identifier taken from member name" in {
       val binder = new StaticModule {
         def myHttpServer: Server = new HttpServer("localhost", 80)
-        def otherServer = new HttpServer("test", 8080)
+        def otherServer          = new HttpServer("test", 8080)
       }
 
-      binder.getBinding(List("myHttpServer", classOf[Server])).get.get should equal (Some(HttpServer("localhost", 80)))
-      binder.getBinding(List("myHttpServer", classOf[HttpServer])) should be (Symbol("empty"))
+      binder.getBinding(List("myHttpServer", classOf[Server])).get.get should equal(Some(HttpServer("localhost", 80)))
+      binder.getBinding(List("myHttpServer", classOf[HttpServer])) should be(Symbol("empty"))
 
-      binder.getBinding(List("otherServer", classOf[Server])).get.get should equal (Some(HttpServer("test", 8080)))
-      binder.getBinding(List("otherServer", classOf[HttpServer])).get.get should equal (Some(HttpServer("test", 8080)))
+      binder.getBinding(List("otherServer", classOf[Server])).get.get should equal(Some(HttpServer("test", 8080)))
+      binder.getBinding(List("otherServer", classOf[HttpServer])).get.get should equal(Some(HttpServer("test", 8080)))
     }
 
     "support BindingProvider as return type of class members and use it to retrieve actual binding" in {
@@ -34,10 +34,10 @@ class ReflectionBinderSpec extends AnyWordSpec with Matchers {
         lazy val someBinding = SpecialBindingProvider(() => HttpServer("test", 8080))
       }
 
-      binder.getBinding(List("someBinding")) should be (Symbol("empty"))
-      binder.getBinding(List(classOf[BindingProvider])) should be (Symbol("empty"))
-      binder.getBinding(List(classOf[Server])).get.get should equal (Some(HttpServer("test", 8080)))
-      binder.getBinding(List("special")).get.get should equal (Some(HttpServer("test", 8080)))
+      binder.getBinding(List("someBinding")) should be(Symbol("empty"))
+      binder.getBinding(List(classOf[BindingProvider])) should be(Symbol("empty"))
+      binder.getBinding(List(classOf[Server])).get.get should equal(Some(HttpServer("test", 8080)))
+      binder.getBinding(List("special")).get.get should equal(Some(HttpServer("test", 8080)))
     }
 
     "discover lazy vals that have semantics of lazy bindings" in {
@@ -51,10 +51,10 @@ class ReflectionBinderSpec extends AnyWordSpec with Matchers {
         lazy val otherServer = HttpServer("test", 8080)
       }
 
-      instanceCount should be (0)
+      instanceCount should be(0)
       (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
-      instanceCount should be (1)
-      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
+      instanceCount should be(1)
+      binder.getBinding(List("otherServer")).get.get should equal(Some(HttpServer("test", 8080)))
     }
 
     "discover normal vals that have semantics of non-lazy bindings and instntiated immediately" in {
@@ -68,10 +68,10 @@ class ReflectionBinderSpec extends AnyWordSpec with Matchers {
         val otherServer = HttpServer("test", 8080)
       }
 
-      instanceCount should be (1)
+      instanceCount should be(1)
       (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 1
-      instanceCount should be (1)
-      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
+      instanceCount should be(1)
+      binder.getBinding(List("otherServer")).get.get should equal(Some(HttpServer("test", 8080)))
     }
 
     "discover defs that have semantics of provider bindings" in {
@@ -85,14 +85,14 @@ class ReflectionBinderSpec extends AnyWordSpec with Matchers {
         def otherServer = HttpServer("test", 8080)
       }
 
-      instanceCount should be (0)
+      instanceCount should be(0)
       (1 to 10).map(x => binder.getBinding(List("server")).get.get).distinct should have size 10
-      instanceCount should be (10)
-      binder.getBinding(List("otherServer")).get.get should equal (Some(HttpServer("test", 8080)))
+      instanceCount should be(10)
+      binder.getBinding(List("otherServer")).get.get should equal(Some(HttpServer("test", 8080)))
     }
   }
 }
 
 case class SpecialBindingProvider[T: TypeTag](fn: () => T) extends BindingProvider {
-  def getBinding(name: String, tpe: Type) = SimpleBinding(Some(fn), List(typeTag[T], "special"))
+  def getBinding(name: String, tpe: Type): SimpleBinding[Any] = SimpleBinding(Some(fn), List(typeTag[T], "special"))
 }

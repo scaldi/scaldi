@@ -13,10 +13,10 @@ mimaPreviousArtifacts := Set("0.6.0").map(organization.value %% name.value % _)
 scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+  "org.scala-lang"          % "scala-reflect"           % scalaVersion.value,
   "org.scala-lang.modules" %% "scala-collection-compat" % "2.5.0",
-  "com.typesafe" % "config" % "1.4.1" % Optional,
-  "org.scalatest" %% "scalatest" % "3.2.9" % Test
+  "com.typesafe"            % "config"                  % "1.4.1" % Optional,
+  "org.scalatest"          %% "scalatest"               % "3.2.9" % Test
 )
 
 fork := true
@@ -29,13 +29,14 @@ Test / publishArtifact := false
 ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
 ThisBuild / githubWorkflowScalaVersions := crossScalaVersions.value
 ThisBuild / githubWorkflowJavaVersions ++= Seq("adopt@1.11")
-ThisBuild / githubWorkflowPublishTargetBranches :=  Seq(RefPredicate.StartsWith(Ref.Tag("v")))
+ThisBuild / githubWorkflowPublishTargetBranches := Seq(RefPredicate.StartsWith(Ref.Tag("v")))
+ThisBuild / githubWorkflowBuildPreamble := Seq(WorkflowStep.Sbt(List("scalafmtCheckAll")))
 ThisBuild / githubWorkflowPublish := Seq(
   WorkflowStep.Sbt(
     List("ci-release"),
     env = Map(
-      "PGP_PASSPHRASE" -> "${{ secrets.PGP_PASSPHRASE }}",
-      "PGP_SECRET" -> "${{ secrets.PGP_SECRET }}",
+      "PGP_PASSPHRASE"    -> "${{ secrets.PGP_PASSPHRASE }}",
+      "PGP_SECRET"        -> "${{ secrets.PGP_SECRET }}",
       "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
       "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}"
     )
@@ -57,11 +58,24 @@ ThisBuild / shellPrompt := { state =>
 
 startYear := Some(2011)
 organizationHomepage := Some(url("https://github.com/scaldi"))
-scmInfo := Some(ScmInfo(
-  browseUrl = url("https://github.com/scaldi/scaldi"),
-  connection = "scm:git:git@github.com:scaldi/scaldi.git"
-))
+scmInfo := Some(
+  ScmInfo(
+    browseUrl = url("https://github.com/scaldi/scaldi"),
+    connection = "scm:git:git@github.com:scaldi/scaldi.git"
+  )
+)
 developers := List(
   Developer("AprilAtProtenus", "April Hyacinth", "april@protenus.com", url("https://github.com/AprilAtProtenus")),
   Developer("dave-handy", "Dave Handy", "wdhandy@gmail.com", url("https://github.com/dave-handy"))
 )
+
+// Scalafmt aliases
+scalafmtCheckAll := {
+  (Compile / scalafmtSbtCheck).value
+  scalafmtCheckAll.value
+}
+
+scalafmtAll := {
+  (Compile / scalafmtSbt).value
+  scalafmtAll.value
+}
