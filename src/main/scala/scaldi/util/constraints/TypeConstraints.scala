@@ -3,7 +3,7 @@ package scaldi.util.constraints
 import scala.annotation.implicitNotFound
 
 sealed trait Existence
-trait Exists extends Existence
+trait Exists    extends Existence
 trait NotExists extends Existence
 
 trait IsTypeClassExists[TypeClass, Answer]

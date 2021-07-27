@@ -19,7 +19,7 @@ class WireBuilder {
 
     validatedOverrides find (_.isLeft) match {
       case Some(Left(errorMsg)) => error(c, errorMsg)
-      case _ => wireType(c)(Map(validatedOverrides collect {case Right(v) => v}: _*))
+      case _                    => wireType(c)(Map(validatedOverrides collect { case Right(v) => v }: _*))
     }
   }
 
@@ -48,30 +48,45 @@ class WireBuilder {
         Right(extractPropertyName(c)(lhs) -> expr)
 
       case t =>
-        Left(s"Unsupported syntax for the overrides: `${c.universe.showCode(t)}`. Supported syntax is either tuple `('name, inject[X])` or arrow `'name -> inject [X]`.")
+        Left(
+          s"Unsupported syntax for the overrides: `${c.universe.showCode(t)}`. Supported syntax is either tuple `('name, inject[X])` or arrow `'name -> inject [X]`."
+        )
     }
   }
 
-  def wireParam(c: blackbox.Context)(param: c.Symbol, wiredType: c.Type, defaultSupported: Boolean, validOverrides: Map[String, c.Tree]): Either[String, c.Tree] = {
+  def wireParam(c: blackbox.Context)(
+      param: c.Symbol,
+      wiredType: c.Type,
+      defaultSupported: Boolean,
+      validOverrides: Map[String, c.Tree]
+  ): Either[String, c.Tree] = {
     import c.universe._
 
-    val name = param.name.decodedName.toString
-    val tpe = param.typeSignature
+    val name       = param.name.decodedName.toString
+    val tpe        = param.typeSignature
     val hasDefault = param.asTerm.isParamWithDefault
 
     if (!defaultSupported && hasDefault)
       Left(s"Argument $name has a default value, but default values are only supported for the first argument list.")
     else
-      Right(CrossNamedArg(c)(
-        Ident(TermName(name)),
-        validOverrides.getOrElse(name, {
-          if (hasDefault) q"injectWithConstructorDefault[$tpe, $wiredType]($name)"
-          else q"inject[$tpe]"
-        })
-      ))
+      Right(
+        CrossNamedArg(c)(
+          Ident(TermName(name)),
+          validOverrides.getOrElse(
+            name,
+            if (hasDefault) q"injectWithConstructorDefault[$tpe, $wiredType]($name)"
+            else q"inject[$tpe]"
+          )
+        )
+      )
   }
 
-  def wireParamList(c: blackbox.Context)(paramList: List[c.Symbol], wiredType: c.Type, defaultSupported: Boolean, validOverrides: Map[String, c.Tree]): List[Either[String, c.Tree]] =
+  def wireParamList(c: blackbox.Context)(
+      paramList: List[c.Symbol],
+      wiredType: c.Type,
+      defaultSupported: Boolean,
+      validOverrides: Map[String, c.Tree]
+  ): List[Either[String, c.Tree]] =
     paramList map (param => wireParam(c)(param, wiredType, defaultSupported, validOverrides))
 
   def wireType[T: c.WeakTypeTag](c: blackbox.Context)(validOverrides: Map[String, c.Tree]): c.Expr[T] = {
@@ -83,23 +98,26 @@ class WireBuilder {
       case None =>
         error(c, s"Type $tpe has no constructor.")
       case Some(constructor) =>
-        val availableNames = constructor.paramLists.flatten map (p => p.name.decodedName.toString)
-        val overriddenNames = validOverrides.keySet
+        val availableNames   = constructor.paramLists.flatten map (p => p.name.decodedName.toString)
+        val overriddenNames  = validOverrides.keySet
         val nonExistingNames = overriddenNames filterNot availableNames.contains
 
         if (nonExistingNames.nonEmpty) {
-          error(c, s"$tpe constructor does not have arguments: ${nonExistingNames mkString ", "}. Available arguments are: ${availableNames mkString ", "}")
+          error(
+            c,
+            s"$tpe constructor does not have arguments: ${nonExistingNames mkString ", "}. Available arguments are: ${availableNames mkString ", "}"
+          )
         } else {
-          val paramLists = constructor.paramLists.zipWithIndex map {
-            case (list, idx) => wireParamList(c)(list, tpe, idx == 0, validOverrides)
+          val paramLists = constructor.paramLists.zipWithIndex map { case (list, idx) =>
+            wireParamList(c)(list, tpe, idx == 0, validOverrides)
           }
 
           paramLists.flatten find (_.isLeft) match {
             case Some(Left(errorMsg)) =>
               error(c, errorMsg)
             case _ =>
-              val wiredType = paramLists.foldLeft (Select(New(Ident(tpe.typeSymbol)), termNames.CONSTRUCTOR): c.Tree) {
-                case (acc, l) => Apply(acc, l collect {case Right(v) => v})
+              val wiredType = paramLists.foldLeft(Select(New(Ident(tpe.typeSymbol)), termNames.CONSTRUCTOR): c.Tree) {
+                case (acc, l) => Apply(acc, l collect { case Right(v) => v })
               }
 
 //              c.info(c.enclosingPosition, "Wired: " + c.universe.show(wiredType), false)
