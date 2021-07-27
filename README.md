@@ -25,7 +25,7 @@ being an archived website, some of the links on it may not work properly.
 SBT Configuration:
 
 ```sbtshell
-libraryDependencies += "org.scaldi" %% "scaldi" % "0.6.0"
+libraryDependencies += "org.scaldi" %% "scaldi" % x.y.z
 ```
 
 Scaldi supports Scala 2.11, 2.12 and 2.13.
