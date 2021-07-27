@@ -1,7 +1,7 @@
 package scaldi
 
 import language.postfixOps
-
+
 import java.util.Properties
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -11,28 +11,30 @@ class InjectorSpec extends AnyWordSpec with Matchers {
     "produce real injector when composed with NilInjector or produce NilInjector when both of them are NilInjectors" in {
       val realModule = new Test2Module
 
-      NilInjector :: NilInjector should be theSameInstanceAs (NilInjector)
-      realModule :: NilInjector should be theSameInstanceAs (realModule)
-      NilInjector :: realModule should be theSameInstanceAs (realModule)
+      NilInjector :: NilInjector should be theSameInstanceAs NilInjector
+      realModule :: NilInjector should be theSameInstanceAs realModule
+      NilInjector :: realModule should be theSameInstanceAs realModule
     }
 
     "produce mutable aggregation if at least one of the injectors is mutable" in {
-      val mutable = new Test2Module
+      val mutable   = new Test2Module
       val immutable = ImmutableWrapper(DynamicModule(_ => ()))
 
-      (mutable ++ mutable).getClass should equal (classOf[MutableInjectorAggregation])
-      (mutable ++ immutable).getClass should equal (classOf[MutableInjectorAggregation])
-      (immutable ++ mutable).getClass should equal (classOf[MutableInjectorAggregation])
+      (mutable ++ mutable).getClass should equal(classOf[MutableInjectorAggregation])
+      (mutable ++ immutable).getClass should equal(classOf[MutableInjectorAggregation])
+      (immutable ++ mutable).getClass should equal(classOf[MutableInjectorAggregation])
 
-      ((if (true) immutable else NilInjector) :: immutable).getClass should equal (classOf[ImmutableInjectorAggregation])
-      ((if (false) immutable else NilInjector) :: immutable).getClass should equal (classOf[ImmutableInjectorAggregation])
-      ((if (false) mutable else NilInjector) :: immutable).getClass should equal (classOf[MutableInjectorAggregation])
+      ((if (true) immutable else NilInjector) :: immutable).getClass should equal(classOf[ImmutableInjectorAggregation])
+      ((if (false) immutable else NilInjector) :: immutable).getClass should equal(
+        classOf[ImmutableInjectorAggregation]
+      )
+      ((if (false) mutable else NilInjector) :: immutable).getClass should equal(classOf[MutableInjectorAggregation])
     }
 
     "produce Immutable aggreagation if both injectors are not mutable" in {
       val immutable = ImmutableWrapper(DynamicModule(_ => ()))
 
-      (immutable ++ immutable).getClass should equal (classOf[ImmutableInjectorAggregation])
+      (immutable ++ immutable).getClass should equal(classOf[ImmutableInjectorAggregation])
     }
 
     "compose injectors so, that injectors that come first should override bindings of later injectors" in {
@@ -40,12 +42,12 @@ class InjectorSpec extends AnyWordSpec with Matchers {
 
       {
         implicit val injector = new Test2Module ++ new Test1Module ++ new AppModule
-        inject [Server] should equal (HttpServer("test2", 8080))
+        inject[Server] should equal(HttpServer("test2", 8080))
       }
 
       {
         implicit val injector = new Test2Module :: new Test1Module :: new AppModule
-        inject [Server] should equal (HttpServer("test2", 8080))
+        inject[Server] should equal(HttpServer("test2", 8080))
       }
     }
   }
@@ -53,8 +55,8 @@ class InjectorSpec extends AnyWordSpec with Matchers {
   "StaticModule" should {
     "provide implicit injector and be Injectable" in {
       implicit val module = new StaticModule {
-        lazy val server = new TcpServer
-        lazy val otherServer = HttpServer(inject [String] ("httpHost"), inject [Int] (Symbol("httpPort")))
+        lazy val server      = new TcpServer
+        lazy val otherServer = HttpServer(inject[String]("httpHost"), inject[Int](Symbol("httpPort")))
 
         val tcpHost = "tcp-test"
         val tcpPort = 1234
@@ -63,13 +65,13 @@ class InjectorSpec extends AnyWordSpec with Matchers {
         val httpPort = 4321
       }
 
-      val server = Injectable.inject [TcpServer]
+      val server = Injectable.inject[TcpServer]
 
-      server.host should equal ("tcp-test")
-      server.port should equal (1234)
-      server.getConnection.welcomeMessage should equal ("Hi")
+      server.host should equal("tcp-test")
+      server.port should equal(1234)
+      server.getConnection.welcomeMessage should equal("Hi")
 
-      Injectable.inject [HttpServer] should equal (HttpServer("localhost", 4321))
+      Injectable.inject[HttpServer] should equal(HttpServer("localhost", 4321))
     }
   }
 
@@ -77,22 +79,22 @@ class InjectorSpec extends AnyWordSpec with Matchers {
     "provide implicit injector and be Injectable" in {
       implicit val module = new DynamicModule {
         binding to new TcpServer
-        binding to HttpServer(inject [String] ("httpHost"), inject [Int] (Symbol("httpPort")))
+        binding to HttpServer(inject[String]("httpHost"), inject[Int](Symbol("httpPort")))
 
-        bind [String] as Symbol("tcpHost") to "tcp-test"
-        bind [Int] as Symbol("tcpPort") to 1234
+        bind[String] as Symbol("tcpHost") to "tcp-test"
+        bind[Int] as Symbol("tcpPort") to 1234
 
         binding identifiedBy Symbol("httpHost") to "localhost"
         binding identifiedBy Symbol("httpPort") to 4321
       }
 
-      val server = Injectable.inject [TcpServer]
+      val server = Injectable.inject[TcpServer]
 
-      server.host should equal ("tcp-test")
-      server.port should equal (1234)
-      server.getConnection.welcomeMessage should equal ("Hi")
+      server.host should equal("tcp-test")
+      server.port should equal(1234)
+      server.getConnection.welcomeMessage should equal("Hi")
 
-      Injectable.inject [HttpServer] should equal (HttpServer("localhost", 4321))
+      Injectable.inject[HttpServer] should equal(HttpServer("localhost", 4321))
     }
   }
 
@@ -126,7 +128,7 @@ class InjectorSpec extends AnyWordSpec with Matchers {
         System.setProperty("host", "test-sys")
         System.setProperty("port", "12345")
 
-        inject[Server] should equal (HttpServer("test-sys", 12345))
+        inject[Server] should equal(HttpServer("test-sys", 12345))
       } finally {
         System.setProperty("host", "")
         System.setProperty("port", "")
@@ -136,7 +138,7 @@ class InjectorSpec extends AnyWordSpec with Matchers {
 
   "PropertiesInjector" should {
     "look for simple bindings in system properties and convert them to required type" in {
-      val props = new  Properties()
+      val props = new Properties()
 
       props.setProperty("host", "test-prop")
       props.setProperty("port", "54321")
@@ -144,14 +146,14 @@ class InjectorSpec extends AnyWordSpec with Matchers {
       implicit val injector = PropertiesInjector(props) :: new AppModule
       import Injectable._
 
-      inject[Server] should equal (HttpServer("test-prop", 54321))
+      inject[Server] should equal(HttpServer("test-prop", 54321))
 
-      inject[Integer](Symbol("port")) should equal (Integer.valueOf(54321))
+      inject[Integer](Symbol("port")) should equal(Integer.valueOf(54321))
     }
   }
 
   class AppModule extends Module {
-    bind [Server] to HttpServer(inject [String] (Symbol("host")), inject [Int] (Symbol("port")))
+    bind[Server] to HttpServer(inject[String](Symbol("host")), inject[Int](Symbol("port")))
 
     binding identifiedBy Symbol("host") to "localhost"
     binding identifiedBy Symbol("port") to 80
