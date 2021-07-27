@@ -1,14 +1,14 @@
-name := "scaldi"
+name         := "scaldi"
 organization := "org.scaldi"
 
 description := "Scaldi - Scala Dependency Injection Library"
-homepage := Some(url("https://github.com/scaldi/scaldi"))
-licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
+homepage    := Some(url("https://github.com/scaldi/scaldi"))
+licenses    := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 lazy val scala213 = "2.13.6"
 
-scalaVersion := scala213
-crossScalaVersions := Seq("2.11.12", "2.12.14", scala213)
+scalaVersion          := scala213
+crossScalaVersions    := Seq("2.11.12", "2.12.14", scala213)
 mimaPreviousArtifacts := Set("0.6.0").map(organization.value %% name.value % _)
 scalacOptions ++= Seq("-deprecation", "-feature")
 
@@ -19,18 +19,18 @@ libraryDependencies ++= Seq(
   "org.scalatest"          %% "scalatest"               % "3.2.9" % Test
 )
 
-fork := true
+fork           := true
 git.remoteRepo := "git@github.com:scaldi/scaldi.git"
 
 // Publishing
 
-pomIncludeRepository := (_ => false)
+pomIncludeRepository   := (_ => false)
 Test / publishArtifact := false
 ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
 ThisBuild / githubWorkflowScalaVersions := crossScalaVersions.value
 ThisBuild / githubWorkflowJavaVersions ++= Seq("adopt@1.11")
 ThisBuild / githubWorkflowPublishTargetBranches := Seq(RefPredicate.StartsWith(Ref.Tag("v")))
-ThisBuild / githubWorkflowBuildPreamble := Seq(WorkflowStep.Sbt(List("scalafmtCheckAll")))
+ThisBuild / githubWorkflowBuildPreamble         := Seq(WorkflowStep.Sbt(List("scalafmtCheckAll")))
 ThisBuild / githubWorkflowPublish := Seq(
   WorkflowStep.Sbt(
     List("ci-release"),
@@ -56,7 +56,7 @@ ThisBuild / shellPrompt := { state =>
 
 // Additional meta-info
 
-startYear := Some(2011)
+startYear            := Some(2011)
 organizationHomepage := Some(url("https://github.com/scaldi"))
 scmInfo := Some(
   ScmInfo(
