@@ -25,13 +25,13 @@ object Util {
 
   def timed[R](metricsName: String)(fn: => R): R = {
     val startTime = System.currentTimeMillis
-    val res = fn
-    val endTime = System.currentTimeMillis()
+    val res       = fn
+    val endTime   = System.currentTimeMillis()
 
     println(metricsName + ": " + (endTime - startTime) + " ms")
 
     res
   }
 
-  def ntimed[R](times:Int, metricsName: String)(fn: => R): R = (1 to times).map(x => timed(metricsName)(fn)).last
+  def ntimed[R](times: Int, metricsName: String)(fn: => R): R = (1 to times).map(x => timed(metricsName)(fn)).last
 }
