@@ -27,8 +27,8 @@ git.remoteRepo := "git@github.com:scaldi/scaldi.git"
 pomIncludeRepository   := (_ => false)
 Test / publishArtifact := false
 ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
-ThisBuild / githubWorkflowScalaVersions := crossScalaVersions.value
-ThisBuild / githubWorkflowJavaVersions ++= Seq("adopt@1.11")
+ThisBuild / githubWorkflowScalaVersions         := crossScalaVersions.value
+ThisBuild / githubWorkflowJavaVersions          := Seq("8", "11").map(JavaSpec(JavaSpec.Distribution.Adopt, _))
 ThisBuild / githubWorkflowPublishTargetBranches := Seq(RefPredicate.StartsWith(Ref.Tag("v")))
 ThisBuild / githubWorkflowBuildPreamble         := Seq(WorkflowStep.Sbt(List("scalafmtCheckAll")))
 ThisBuild / githubWorkflowPublish := Seq(
