@@ -28,7 +28,7 @@ pomIncludeRepository   := (_ => false)
 Test / publishArtifact := false
 ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
 ThisBuild / githubWorkflowScalaVersions := crossScalaVersions.value
-ThisBuild / githubWorkflowJavaVersions ++= Seq("adopt@1.11")
+ThisBuild / githubWorkflowJavaVersions += JavaSpec(JavaSpec.Distribution.Adopt, "1.11")
 ThisBuild / githubWorkflowPublishTargetBranches := Seq(RefPredicate.StartsWith(Ref.Tag("v")))
 ThisBuild / githubWorkflowBuildPreamble         := Seq(WorkflowStep.Sbt(List("scalafmtCheckAll")))
 ThisBuild / githubWorkflowPublish := Seq(
