@@ -8,7 +8,7 @@ licenses    := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.o
 lazy val scala213 = "2.13.8"
 
 scalaVersion          := scala213
-crossScalaVersions    := Seq("2.11.12", "2.12.15", scala213)
+crossScalaVersions    := Seq("2.11.12", "2.12.16", scala213)
 mimaPreviousArtifacts := Set("0.6.0").map(organization.value %% name.value % _)
 scalacOptions ++= Seq("-deprecation", "-feature")
 
