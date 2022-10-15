@@ -5,7 +5,7 @@ description := "Scaldi - Scala Dependency Injection Library"
 homepage    := Some(url("https://github.com/scaldi/scaldi"))
 licenses    := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-lazy val scala213 = "2.13.8"
+lazy val scala213 = "2.13.10"
 
 scalaVersion          := scala213
 crossScalaVersions    := Seq("2.11.12", "2.12.15", scala213)
