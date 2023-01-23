@@ -45,10 +45,10 @@ trait WordBinder {
   def notRequired(identifier: Identifier): Identifier = RequiredIdentifier(identifier, isRequired = false)
 
   private def createBinding[T](mainType: Option[TypeTag[_]], condition: Option[() => Condition]) = {
-    val helper = new BindHelper[T]({ (bind, bound) =>
+    val helper = new BindHelper[T] { (bind, bound) =>
       bindingsInProgress = bindingsInProgress filterNot (bind ==)
       bindings = bindings :+ bound
-    })
+    }
 
     bindingsInProgress = bindingsInProgress :+ helper
 
